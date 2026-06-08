@@ -1,0 +1,34 @@
+{
+  "packageVersion": "1.0.0",
+  "packageType": "form_json",
+  "createdAt": 1780602754023,
+  "appVersion": "0.1.0",
+  "containsSensitiveData": true,
+  "redactionStatus": "none",
+  "reviewSummary": {
+    "confirmed": 10,
+    "needsReview": 1,
+    "missing": 0,
+    "conflict": 1,
+    "invalid": 0,
+    "exportReady": false
+  },
+  "files": [
+    {
+      "path": "form.json",
+      "type": "application/json",
+      "sha256": "example-not-real",
+      "sizeBytes": 4096
+    },
+    {
+      "path": "manifest.json",
+      "type": "application/json",
+      "sha256": "example-not-real",
+      "sizeBytes": 1024
+    }
+  ],
+  "warnings": [
+    "This export contains unresolved critical fields.",
+    "Statuses and validation reasons are included."
+  ]
+}

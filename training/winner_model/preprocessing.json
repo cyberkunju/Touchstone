@@ -1,0 +1,21 @@
+{
+  "inputName": "images",
+  "imgsz": 640,
+  "letterbox": true,
+  "padValue": 114,
+  "channelOrder": "RGB",
+  "layout": "NCHW",
+  "normalize": {
+    "scale": 0.00392156862745098,
+    "mean": [
+      0,
+      0,
+      0
+    ],
+    "std": [
+      1,
+      1,
+      1
+    ]
+  }
+}

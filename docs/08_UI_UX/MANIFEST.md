@@ -1,0 +1,12 @@
+# 08_UI_UX Documentation Manifest
+
+- `docs/08_UI_UX/ACCESSIBILITY.md`
+- `docs/08_UI_UX/CONFIDENCE_COLORS.md`
+- `docs/08_UI_UX/CORRECTION_UI.md`
+- `docs/08_UI_UX/DOCUMENT_VIEWER.md`
+- `docs/08_UI_UX/ERROR_MESSAGES.md`
+- `docs/08_UI_UX/EVIDENCE_VIEWER.md`
+- `docs/08_UI_UX/FORM_RENDERER.md`
+- `docs/08_UI_UX/MAIN_WORKSPACE.md`
+- `docs/08_UI_UX/TEMPLATE_SAVE_UI.md`
+- `docs/08_UI_UX/UX_PRINCIPLES.md`

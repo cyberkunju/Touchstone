@@ -1,0 +1,78 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Large local AI model artifacts (fetch via `npm run setup:models`)
+public/models/
+
+# onnxruntime-web wasm runtime (copied via `npm run setup:ort`)
+public/ort/
+
+# Test artifacts
+test_screenshots/
+
+# Logs & OS files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# --- training (Python) ---
+training/.venv/
+training/datasets/
+training/training_runs/
+training/runs/
+training/**/__pycache__/
+training/**/*.pyc
+training/exports/
+# large real-background bank (777MB COCO; re-fetch via fetch_datasets.py)
+training/assets/backgrounds/
+# parked clutter + run logs (history; not source)
+training/_archive/
+training/logs/
+# vendored base weights / model snapshots (large binaries)
+training/yolo11n.pt
+training/winner_model/*.pt
+training/winner_model/*.onnx
+training/models/**/*.pt
+training/models/**/*.onnx
+
+# --- sensitive / private data (NEVER commit) ---
+# real ID/passport image dumps — privacy red-line + the project's own
+# "no real IDs" governance. Keep these strictly local.
+passport_images/
+# pilot/control weights downloaded from Modal for local eval
+pilot_export/
+control_export/
+exports_winner/
+exports_all/
+
+# --- credentials / secrets (defensive belt-and-braces) ---
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+.modal.toml
+**/credentials*
+**/*secret*
+**/*token*.json
+
+# --- stray large binaries anywhere ---
+*.onnx
+*.pt
+*.zip
+*.tar
+*.tar.gz
+
+# real benchmark DATA (8.4GB MIDV-500 etc.) — reproducible via
+# training/benchmarks/normalize_*.py; keep the CODE, never commit the data.
+training/benchmarks/real/

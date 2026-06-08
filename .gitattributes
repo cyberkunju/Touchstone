@@ -1,0 +1,15 @@
+# Normalize line endings: store text as LF in the repo, check out native.
+* text=auto eol=lf
+
+# Explicitly treat known binary assets as binary (never diff/convert).
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.pdf binary
+*.onnx binary
+*.pt binary
+*.zip binary
+*.woff binary
+*.woff2 binary
+*.ico binary

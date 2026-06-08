@@ -1,0 +1,288 @@
+{
+  "winner": "baseline",
+  "winnerModelId": "yolov11n-docdet-v0-baseline",
+  "winnerSelection": {
+    "winner": "baseline",
+    "reason": "960 mAP gain -0.359 below margin 0.02 \u2014 keep 640",
+    "baselineHardMap": 0.8937752023495392,
+    "smallHardMap": 0.5345161366454925,
+    "smallLatencyMsCpu": 58.47,
+    "latencyBudgetMs": 200.0,
+    "mapMargin": 0.02
+  },
+  "classVersion": "docdet-v0",
+  "environment": {
+    "python": "3.12.10",
+    "packages": {
+      "torch": "2.5.1+cu121",
+      "torchvision": "0.20.1+cu121",
+      "ultralytics": "8.4.60",
+      "onnx": "1.17.0",
+      "onnxslim": "0.1.48",
+      "onnxruntime": "1.20.1",
+      "opencv-python-headless": "4.10.0.84",
+      "Pillow": "10.4.0",
+      "numpy": "1.26.4",
+      "qrcode": "7.4.2",
+      "python-barcode": "0.15.1",
+      "PyYAML": "6.0.2"
+    },
+    "vendoredWeightsSha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1"
+  },
+  "datasets": {
+    "docdet_v0": {
+      "out": "docdet_v0",
+      "requestedCount": 15000,
+      "seed": 1000,
+      "imageCount": 15000,
+      "labelCount": 15000,
+      "splits": {
+        "train": 10515,
+        "val": 2271,
+        "test": 2214
+      },
+      "forceSplit": null,
+      "augment": 0.75,
+      "intensity": 0.7,
+      "classVersion": "docdet-v0"
+    },
+    "docdet_v0_hard": {
+      "out": "docdet_v0_hard",
+      "requestedCount": 1500,
+      "seed": 1000,
+      "imageCount": 1500,
+      "labelCount": 1500,
+      "splits": {
+        "train": 0,
+        "val": 0,
+        "test": 1500
+      },
+      "forceSplit": "test",
+      "augment": 1.0,
+      "intensity": 1.0,
+      "classVersion": "docdet-v0"
+    }
+  },
+  "train": {
+    "baseline": {
+      "mode": "baseline",
+      "gpu": "A10G",
+      "resumed": true,
+      "minutes": 42.7,
+      "map50": 0.9885842417930247,
+      "map50_95": 0.9167588425898359,
+      "weights": "/data/runs/docdet_baseline/weights/best.pt"
+    },
+    "small": {
+      "mode": "small",
+      "gpu": "A10G",
+      "resumed": true,
+      "minutes": 61.2,
+      "map50": 0.7741606262316911,
+      "map50_95": 0.6277414935749542,
+      "weights": "/data/runs/docdet_small/weights/best.pt"
+    }
+  },
+  "eval": {
+    "baseline/clean": {
+      "run": "baseline",
+      "split": "test",
+      "conf": 0.25,
+      "iou": 0.5,
+      "map50": 0.9875884696816409,
+      "map50_95": 0.9242249267193324,
+      "allCriticalGatesPass": true,
+      "gates": {
+        "mrz_zone": {
+          "recall": 0.993,
+          "gate": 0.9,
+          "pass": true
+        },
+        "qr_code": {
+          "recall": 1.0,
+          "gate": 0.9,
+          "pass": true
+        },
+        "barcode": {
+          "recall": 1.0,
+          "gate": 0.88,
+          "pass": true
+        },
+        "photo": {
+          "recall": 1.0,
+          "gate": 0.88,
+          "pass": true
+        },
+        "signature": {
+          "recall": 0.9774,
+          "gate": 0.8,
+          "pass": true
+        },
+        "table": {
+          "recall": 0.9992,
+          "gate": 0.85,
+          "pass": true
+        },
+        "checkbox": {
+          "recall": 0.9286,
+          "gate": 0.8,
+          "pass": true
+        }
+      }
+    },
+    "baseline/hard": {
+      "run": "baseline",
+      "split": "test",
+      "conf": 0.25,
+      "iou": 0.5,
+      "map50": 0.981616192541527,
+      "map50_95": 0.8937752023495392,
+      "allCriticalGatesPass": true,
+      "gates": {
+        "mrz_zone": {
+          "recall": 0.9956,
+          "gate": 0.9,
+          "pass": true
+        },
+        "qr_code": {
+          "recall": 0.9951,
+          "gate": 0.9,
+          "pass": true
+        },
+        "barcode": {
+          "recall": 1.0,
+          "gate": 0.88,
+          "pass": true
+        },
+        "photo": {
+          "recall": 1.0,
+          "gate": 0.88,
+          "pass": true
+        },
+        "signature": {
+          "recall": 0.9791,
+          "gate": 0.8,
+          "pass": true
+        },
+        "table": {
+          "recall": 1.0,
+          "gate": 0.85,
+          "pass": true
+        },
+        "checkbox": {
+          "recall": 0.8946,
+          "gate": 0.8,
+          "pass": true
+        }
+      }
+    },
+    "small/clean": {
+      "run": "small",
+      "split": "test",
+      "conf": 0.25,
+      "iou": 0.5,
+      "map50": 0.7829257019560613,
+      "map50_95": 0.6408699911896361,
+      "allCriticalGatesPass": false,
+      "gates": {
+        "mrz_zone": {
+          "recall": 0.7701,
+          "gate": 0.9,
+          "pass": false
+        },
+        "qr_code": {
+          "recall": 0.969,
+          "gate": 0.9,
+          "pass": true
+        },
+        "barcode": {
+          "recall": 0.8642,
+          "gate": 0.88,
+          "pass": false
+        },
+        "photo": {
+          "recall": 0.9497,
+          "gate": 0.88,
+          "pass": true
+        },
+        "signature": {
+          "recall": 0.3122,
+          "gate": 0.8,
+          "pass": false
+        },
+        "table": {
+          "recall": 0.8481,
+          "gate": 0.85,
+          "pass": false
+        },
+        "checkbox": {
+          "recall": 0.8661,
+          "gate": 0.8,
+          "pass": true
+        }
+      }
+    },
+    "small/hard": {
+      "run": "small",
+      "split": "test",
+      "conf": 0.25,
+      "iou": 0.5,
+      "map50": 0.6831753256588361,
+      "map50_95": 0.5345161366454925,
+      "allCriticalGatesPass": false,
+      "gates": {
+        "mrz_zone": {
+          "recall": 0.6258,
+          "gate": 0.9,
+          "pass": false
+        },
+        "qr_code": {
+          "recall": 0.941,
+          "gate": 0.9,
+          "pass": true
+        },
+        "barcode": {
+          "recall": 0.7355,
+          "gate": 0.88,
+          "pass": false
+        },
+        "photo": {
+          "recall": 0.8959,
+          "gate": 0.88,
+          "pass": true
+        },
+        "signature": {
+          "recall": 0.2937,
+          "gate": 0.8,
+          "pass": false
+        },
+        "table": {
+          "recall": 0.6934,
+          "gate": 0.85,
+          "pass": false
+        },
+        "checkbox": {
+          "recall": 0.6592,
+          "gate": 0.8,
+          "pass": false
+        }
+      }
+    }
+  },
+  "exports": {
+    "baseline": {
+      "model_id": "yolov11n-docdet-v0-baseline",
+      "dir": "/data/exports/yolov11n-docdet-v0-baseline",
+      "sha256": "dc6a8ddd33b6408d8d3f503c4d921407c550c72a77eacc8b35abb8a9e520377e",
+      "imgsz": 640,
+      "latency_ms_cpu": 27.46
+    },
+    "small": {
+      "model_id": "yolov11n-docdet-v0-small",
+      "dir": "/data/exports/yolov11n-docdet-v0-small",
+      "sha256": "40f835bd2b7411e6c4f1003aa204fd1ff05aa719f5fad938eb9cd03533616a3c",
+      "imgsz": 960,
+      "latency_ms_cpu": 58.47
+    }
+  }
+}

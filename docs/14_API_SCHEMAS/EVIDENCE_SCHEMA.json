@@ -1,0 +1,368 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edge-docgraph-engine.local/schemas/EVIDENCE_SCHEMA.json",
+  "title": "EvidenceRecord",
+  "description": "Machine-readable schema for a single evidence record. Evidence is immutable provenance created by models, parsers, validators, templates, or user corrections.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schemaVersion",
+    "documentId",
+    "source",
+    "kind",
+    "createdAt",
+    "confidence",
+    "targetRefs",
+    "payload",
+    "sensitivity"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "#/$defs/Id"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "const": "evidence-v1"
+    },
+    "documentId": {
+      "$ref": "#/$defs/Id"
+    },
+    "pageId": {
+      "$ref": "#/$defs/Id"
+    },
+    "source": {
+      "$ref": "#/$defs/EvidenceSource"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "file_upload",
+        "pdf_text",
+        "pdf_image",
+        "page_normalization",
+        "quality_analysis",
+        "object_detection",
+        "ocr_text",
+        "segmentation_mask",
+        "barcode_decode",
+        "mrz_parse",
+        "table_structure",
+        "template_match",
+        "template_projection",
+        "validation",
+        "user_correction",
+        "export",
+        "import"
+      ]
+    },
+    "createdAt": {
+      "$ref": "#/$defs/TimestampMs"
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "modelId": {
+          "type": "string"
+        },
+        "modelVersion": {
+          "type": "string"
+        },
+        "runtime": {
+          "type": "string"
+        },
+        "executionProvider": {
+          "type": "string"
+        },
+        "preprocessorVersion": {
+          "type": "string"
+        },
+        "postprocessorVersion": {
+          "type": "string"
+        }
+      }
+    },
+    "confidence": {
+      "$ref": "#/$defs/Confidence"
+    },
+    "targetRefs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "targetType",
+          "targetId"
+        ],
+        "properties": {
+          "targetType": {
+            "type": "string",
+            "enum": [
+              "node",
+              "edge",
+              "hypothesis",
+              "field",
+              "table",
+              "template",
+              "document",
+              "page",
+              "artifact"
+            ]
+          },
+          "targetId": {
+            "$ref": "#/$defs/Id"
+          }
+        }
+      }
+    },
+    "pageRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pageId": {
+          "$ref": "#/$defs/Id"
+        },
+        "boxNorm": {
+          "$ref": "#/$defs/NormalizedBox"
+        },
+        "boxPx": {
+          "$ref": "#/$defs/PixelBox"
+        },
+        "polygonNorm": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Point"
+          }
+        },
+        "artifactId": {
+          "$ref": "#/$defs/Id"
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "description": "Evidence-specific structured payload. Must not be treated as trusted without validation.",
+      "additionalProperties": true
+    },
+    "sensitivity": {
+      "$ref": "#/$defs/Sensitivity"
+    },
+    "redaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "redactionStatus": {
+          "type": "string",
+          "enum": [
+            "none",
+            "redacted",
+            "synthetic",
+            "not_exportable"
+          ]
+        },
+        "containsPii": {
+          "type": "boolean"
+        },
+        "containsDocumentImage": {
+          "type": "boolean"
+        },
+        "containsExtractedText": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_:\\-\\.]+$"
+    },
+    "TimestampMs": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix epoch timestamp in milliseconds."
+    },
+    "NormalizedBox": {
+      "type": "array",
+      "description": "Normalized [x1, y1, x2, y2] coordinates in page space.",
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      ],
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "PixelBox": {
+      "type": "array",
+      "description": "Pixel [x1, y1, x2, y2] coordinates.",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "Point": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "Confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "FieldStatus": {
+      "type": "string",
+      "enum": [
+        "confirmed",
+        "needs_review",
+        "missing",
+        "conflict",
+        "invalid",
+        "unsupported",
+        "rejected"
+      ]
+    },
+    "ValueType": {
+      "type": "string",
+      "enum": [
+        "text",
+        "name",
+        "date",
+        "amount",
+        "id_number",
+        "address",
+        "phone",
+        "email",
+        "country",
+        "photo",
+        "signature",
+        "stamp",
+        "seal",
+        "logo",
+        "emblem",
+        "flag",
+        "symbol",
+        "qr",
+        "barcode",
+        "mrz",
+        "table",
+        "checkbox",
+        "unknown"
+      ]
+    },
+    "EvidenceSource": {
+      "type": "string",
+      "enum": [
+        "upload",
+        "pdf_parser",
+        "image_normalizer",
+        "detector",
+        "ocr",
+        "segmenter",
+        "barcode_parser",
+        "mrz_parser",
+        "table_engine",
+        "template_engine",
+        "verifier",
+        "user_correction",
+        "import",
+        "system"
+      ]
+    },
+    "Sensitivity": {
+      "type": "string",
+      "enum": [
+        "public",
+        "internal",
+        "private",
+        "sensitive",
+        "highly_sensitive"
+      ]
+    },
+    "GraphNodeType": {
+      "type": "string",
+      "enum": [
+        "page",
+        "text_word",
+        "text_line",
+        "text_block",
+        "field",
+        "visual_asset",
+        "table",
+        "table_cell",
+        "checkbox",
+        "barcode",
+        "qr",
+        "mrz",
+        "signature",
+        "stamp",
+        "seal",
+        "logo",
+        "photo",
+        "document_boundary",
+        "template_anchor",
+        "quality_region",
+        "unknown_region"
+      ]
+    },
+    "GraphEdgeType": {
+      "type": "string",
+      "enum": [
+        "contains",
+        "near",
+        "label_of",
+        "value_of",
+        "same_row",
+        "same_column",
+        "inside_table",
+        "validated_by",
+        "conflicts_with",
+        "derived_from",
+        "template_projected_from",
+        "corrected_by",
+        "overlaps",
+        "reading_order_next"
+      ]
+    }
+  }
+}

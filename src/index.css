@@ -1,0 +1,232 @@
+/* CSS Variables for Premium Timeless Minimalistic Design */
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', var(--font-sans);
+
+  /* Light Theme Tokens */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #f1f3f5;
+  
+  --text-primary: #1a1d20;
+  --text-secondary: #5a626a;
+  --text-tertiary: #8b959e;
+  
+  --accent-primary: #121314; /* Timeless absolute black */
+  --accent-secondary: #495057;
+  --accent-blue: #2563eb;
+  
+  --border-color: #e9ecef;
+  --border-focus: #121314;
+
+  /* Status Tokens (Subtle, professional hues, not raw primary slop) */
+  --status-confirmed: #10b981;
+  --status-confirmed-bg: #ecfdf5;
+  --status-review: #f59e0b;
+  --status-review-bg: #fffbeb;
+  --status-conflict: #ef4444;
+  --status-conflict-bg: #fef2f2;
+  --status-missing: #6b7280;
+  --status-missing-bg: #f3f4f6;
+
+  --transition-smooth: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Theme Tokens (Sleek slate-blacks, no flat grey slop) */
+    --bg-primary: #0a0b0d;
+    --bg-secondary: #121418;
+    --bg-tertiary: #191c22;
+    
+    --text-primary: #f8f9fa;
+    --text-secondary: #adb5bd;
+    --text-tertiary: #6c757d;
+    
+    --accent-primary: #ffffff;
+    --accent-secondary: #dee2e6;
+    --accent-blue: #3b82f6;
+    
+    --border-color: #212529;
+    --border-focus: #ffffff;
+
+    --status-confirmed: #34d399;
+    --status-confirmed-bg: #064e3b;
+    --status-review: #fbbf24;
+    --status-review-bg: #78350f;
+    --status-conflict: #f87171;
+    --status-conflict-bg: #7f1d1d;
+    --status-missing: #9ca3af;
+    --status-missing-bg: #374151;
+  }
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden; /* App Layout handles scroll */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Base Form Controls */
+input, select, textarea, button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* --- Responsive application shell --- */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.app-main {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+  gap: 16px;
+  padding: 16px;
+  min-height: 0; /* allow flex children to shrink so inner panels can scroll */
+  overflow: hidden;
+}
+
+.app-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Left: document viewer / upload area gets the lion's share of width. */
+.app-panel--viewer {
+  flex: 3 1 0;
+}
+
+/* Right: a vertical sidebar stacking the form editor over the evidence
+   inspector. Both children scroll independently; neither clips the other. */
+.app-sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 2 1 0;
+  gap: 16px;
+  min-width: 360px;
+  min-height: 0;
+}
+
+.app-panel--form {
+  flex: 3 1 0;
+}
+
+.app-panel--evidence {
+  flex: 2 1 0;
+}
+
+/* Inner scroll regions: fill their panel and scroll their own overflow. */
+.panel-fill {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  gap: 12px;
+}
+
+.panel-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* On narrower or shorter viewports, stack everything into a single scrolling
+   column so nothing is clipped or unreachable. */
+@media (max-width: 1100px), (max-height: 620px) {
+  body {
+    overflow: auto;
+  }
+  .app-shell {
+    height: auto;
+    min-height: 100vh;
+  }
+  .app-main {
+    flex-direction: column;
+    overflow: visible;
+  }
+  .app-panel,
+  .app-sidebar {
+    flex: none !important;
+    width: 100%;
+    min-width: 0;
+  }
+  .app-panel--viewer {
+    height: 70vh;
+  }
+  .app-sidebar {
+    height: auto;
+  }
+  .app-panel--form,
+  .app-panel--evidence {
+    height: auto;
+    overflow: visible;
+  }
+  /* When stacked, inner scroll regions grow with content (page scrolls). */
+  .panel-fill {
+    height: auto;
+  }
+  .panel-scroll {
+    overflow-y: visible;
+  }
+  .app-panel--form .panel-scroll {
+    max-height: 80vh;
+  }
+}
+
+/* Lightweight processing spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
