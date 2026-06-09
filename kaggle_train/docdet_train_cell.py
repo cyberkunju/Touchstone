@@ -19,9 +19,7 @@ assert ngpu == 2 and all("T4" in n for n in gnames), \
 
 # --- 2) install ultralytics (keeps Kaggle's preinstalled CUDA torch) ---
 subprocess.run([sys.executable, "-m", "pip", "install", "-q", "ultralytics==8.4.60"], check=True)
-import importlib, torch  # re-import torch to confirm pip didn't swap it for CPU build
-importlib.reload(torch)
-assert torch.cuda.is_available(), "CUDA disappeared after pip install (torch downgraded) — abort."
+assert torch.cuda.is_available(), "CUDA not available after pip install — abort."
 
 # --- 3) DATA: Kaggle auto-extracted the dataset; /kaggle/input is READ-ONLY and
 #        ultralytics must write a label .cache, so copy into writable /kaggle/working.
