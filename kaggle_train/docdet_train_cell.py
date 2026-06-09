@@ -107,7 +107,8 @@ m.train(
     data="/kaggle/working/docdet.yaml",
     epochs=60, imgsz=640, batch=32, device=[0,1],   # batch=32 global -> 16/GPU; nbs=64 grad-accum -> effective 64 (= pilot)
     workers=2, patience=20, cos_lr=True, seed=0, deterministic=True,
-    cache="ram",                            # decode 6.4GB into RAM (29GB avail) -> kills FUSE per-batch reads
+    cache="disk",                           # was 'ram': DDP doubles cache footprint -> Kaggle 31GB OOM-kills.
+                                            # 'disk' decodes once to /kaggle/working (.npy), still ~80% of ram speedup, no RAM pressure.
     # ---- recipe identical to the 0.82 pilot (modal_train.py) ----
     mosaic=0.0, close_mosaic=10,            # mosaic OFF (pilot-proven for real recall)
     multi_scale=0.5,                        # explicit 0.5: imgsz [320,960] (was True->1.0 [32,1280], wasteful peak)
