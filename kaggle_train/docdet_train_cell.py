@@ -50,6 +50,21 @@ yml += "".join(f"  {i}: {n}\n" for i, n in enumerate(names))
 open("/kaggle/working/docdet.yaml", "w").write(yml)
 print(yml)
 
+# --- 4.5) W&B live monitoring (BEST-EFFORT: a W&B failure must NEVER block training) ---
+#   Env + ultralytics setting are inherited by the train.py subprocess, so it auto-logs.
+try:
+    os.environ["WANDB_API_KEY"] = "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"
+    os.environ["WANDB_PROJECT"] = "docdet"
+    os.environ["WANDB_NAME"] = "docdet_v1_t4x2"
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "wandb"], check=True)
+    import wandb
+    wandb.login(key=os.environ["WANDB_API_KEY"])
+    from ultralytics import settings as _uls
+    _uls.update({"wandb": True})
+    print("W&B enabled -> https://wandb.ai/megaxis/docdet")
+except Exception as e:
+    print("W&B setup failed (continuing WITHOUT monitoring):", e)
+
 # --- 5) train.py — EXACT recipe that scored 0.82 on MIDV-500 (pilot control) ---
 #        run as a subprocess so ultralytics DDP spawns cleanly across both T4s.
 train_py = r'''
