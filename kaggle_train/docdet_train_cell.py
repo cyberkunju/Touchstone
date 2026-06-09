@@ -37,10 +37,12 @@ assert ngpu == 2 and all("T4" in n for n in gnames), \
 subprocess.run([sys.executable, "-m", "pip", "install", "-q", "ultralytics==8.4.60"], check=True)
 assert torch.cuda.is_available(), "CUDA not available after pip install — abort."
 
-# --- 3) DATA: symlink images + COPY labels into writable /kaggle/working
-#        (ultralytics writes label .cache next to labels; the input mount is
-#        read-only, so a copy of the small label files unblocks caching while
-#        symlinks for images avoid copying 6.4GB through Kaggle's slow FUSE).
+# --- 3) DATA: symlink BOTH images AND labels into /kaggle/working (no copies).
+#        We tried copying labels for a writable .cache, but Kaggle's FUSE mount
+#        makes 60k tiny-file copies extremely slow (stalled in practice). The
+#        label .cache miss only emits a harmless warning ("Cache not saved") and
+#        ultralytics scans labels in-memory each session. That's a one-time ~30s
+#        scan, far faster than the FUSE copy.
 print("/kaggle/input has:", os.listdir("/kaggle/input") if os.path.isdir("/kaggle/input") else "NOTHING")
 SRC = None
 for root, dirs, files in os.walk("/kaggle/input"):
@@ -58,9 +60,9 @@ for s in ("train", "val", "test"):
     si, di = f"{SRC}/images/{s}", f"{DATA}/images/{s}"
     sl, dl = f"{SRC}/labels/{s}", f"{DATA}/labels/{s}"
     if os.path.isdir(si) and not os.path.lexists(di):
-        os.symlink(si, di)        # images -> symlink (no copy)
-    if os.path.isdir(sl) and not os.path.exists(dl):
-        shutil.copytree(sl, dl)   # labels -> COPY (small, must be writable for .cache)
+        os.symlink(si, di)        # images symlink (no copy)
+    if os.path.isdir(sl) and not os.path.lexists(dl):
+        os.symlink(sl, dl)        # labels symlink (no copy; .cache warning is harmless)
 for s in ("train", "val", "test"):
     ip, lp = f"{DATA}/images/{s}", f"{DATA}/labels/{s}"
     print(s, "images", len(os.listdir(ip)) if os.path.isdir(ip) else "MISSING",
