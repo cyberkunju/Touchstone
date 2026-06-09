@@ -27,10 +27,12 @@ assert torch.cuda.is_available(), "CUDA not available after pip install — abor
 print("/kaggle/input has:", os.listdir("/kaggle/input") if os.path.isdir("/kaggle/input") else "NOTHING")
 DATA = "/kaggle/working/data"
 SRC = None
-for cand in glob.glob("/kaggle/input/*") + glob.glob("/kaggle/input/*/*"):
-    if os.path.isdir(os.path.join(cand, "images", "train")):
-        SRC = cand
+for root, dirs, files in os.walk("/kaggle/input"):
+    if os.path.isdir(os.path.join(root, "images", "train")) and \
+       os.path.isdir(os.path.join(root, "labels", "train")):
+        SRC = root
         break
+print("detected SRC:", SRC)
 zips = glob.glob("/kaggle/input/**/*.zip", recursive=True)
 if SRC:
     print("found dataset at:", SRC)
