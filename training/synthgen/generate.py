@@ -151,6 +151,10 @@ def _generate_one(index: int) -> tuple[str, str] | None:
     man = lbl.sample_manifest(sample, sample_id, boxes)
     man["split"] = split
     man["negative"] = bool(sample.allow_empty and not boxes)
+    # Provenance: record whether this sample was composited onto a real scene
+    # (Engine A) vs left full-frame. Lets QA measure the EXACT compose rate
+    # instead of inferring it from page-box area (which augmentation also shrinks).
+    man["composited"] = bool(composited)
     with open(os.path.join(root, "manifests", sample_id + ".json"), "w", encoding="utf-8") as fh:
         json.dump(man, fh, indent=2)
     return split, category
