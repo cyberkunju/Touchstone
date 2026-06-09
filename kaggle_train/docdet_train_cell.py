@@ -21,17 +21,28 @@ assert ngpu == 2 and all("T4" in n for n in gnames), \
 subprocess.run([sys.executable, "-m", "pip", "install", "-q", "ultralytics==8.4.60"], check=True)
 assert torch.cuda.is_available(), "CUDA not available after pip install — abort."
 
-# --- 3) DATA: Kaggle auto-extracted the dataset; /kaggle/input is READ-ONLY and
-#        ultralytics must write a label .cache, so copy into writable /kaggle/working.
-SRC = "/kaggle/input/docdet-v1"
+# --- 3) DATA: auto-find the attached dataset under /kaggle/input (robust to slug).
+#        /kaggle/input is READ-ONLY and ultralytics writes a label .cache, so copy
+#        into writable /kaggle/working.
+print("/kaggle/input has:", os.listdir("/kaggle/input") if os.path.isdir("/kaggle/input") else "NOTHING")
 DATA = "/kaggle/working/data"
-zips = glob.glob(SRC + "/**/*.zip", recursive=True)
-if zips:                                   # fallback if a future upload isn't auto-extracted
+SRC = None
+for cand in glob.glob("/kaggle/input/*") + glob.glob("/kaggle/input/*/*"):
+    if os.path.isdir(os.path.join(cand, "images", "train")):
+        SRC = cand
+        break
+zips = glob.glob("/kaggle/input/**/*.zip", recursive=True)
+if SRC:
+    print("found dataset at:", SRC)
+    if not os.path.isdir(os.path.join(DATA, "images")):
+        shutil.copytree(SRC, DATA, dirs_exist_ok=True)
+elif zips:
     import zipfile
+    print("extracting zip:", zips[0])
     with zipfile.ZipFile(zips[0]) as z:
         z.extractall(DATA)
-elif not os.path.isdir(os.path.join(DATA, "images")):
-    shutil.copytree(SRC, DATA, dirs_exist_ok=True)   # images + labels + (stale) yaml
+else:
+    raise FileNotFoundError("docdet-v1 not attached. Right panel -> Add Input -> docdet-v1, then re-run.")
 # purge any stale ultralytics *.cache copied from the c7i (forces a clean rebuild)
 for c in glob.glob(DATA + "/**/*.cache", recursive=True):
     os.remove(c)
