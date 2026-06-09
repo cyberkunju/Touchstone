@@ -1,11 +1,14 @@
 # ============================================================================
-#  docdet — YOLOv11n training on Kaggle GPU T4 x2   (VERIFIED cell)
+#  docdet — YOLOv11n training on Kaggle GPU T4 x2   (VALIDATED — real run reached
+#  training: data detect OK, 2x T4 DDP OK, AMP OK, image access OK)
 #  BEFORE RUNNING (right panel):
-#    1. Add Input -> add  cyberkunju/docdet-v1   (Kaggle auto-extracted the zip)
+#    1. Add Input -> add  cyberkunju/docdet-v1
 #    2. Settings  -> Accelerator = "GPU T4 x2"   (NOT P100 — P100 crashes torch)
 #    3. Settings  -> Internet = ON
 #  THEN: Save Version -> "Save & Run All (Commit)"  (batch on T4x2, ~3-5h,
 #  survives disconnect). The asserts below abort in ~10s if anything is wrong.
+#  Live metrics: https://wandb.ai/megaxis  (ultralytics auto-names the project).
+#  Output weights: /kaggle/working/runs/docdet_v1_t4x2/weights/best.pt
 # ============================================================================
 import os, sys, glob, shutil, subprocess
 
@@ -58,7 +61,7 @@ try:
     wandb.login(key=os.environ["WANDB_API_KEY"])
     from ultralytics import settings as _uls
     _uls.update({"wandb": True})
-    print("W&B enabled -> https://wandb.ai/megaxis/docdet")
+    print("W&B enabled -> run will appear under https://wandb.ai/megaxis")
 except Exception as e:
     print("W&B setup failed (continuing WITHOUT monitoring):", e)
 
