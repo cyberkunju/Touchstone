@@ -72,7 +72,7 @@ from ultralytics import YOLO
 m = YOLO("yolo11n.pt")                      # COCO-pretrained warm start
 m.train(
     data="/kaggle/working/docdet.yaml",
-    epochs=60, imgsz=640, batch=64, device=[0,1],   # batch is GLOBAL -> 32/GPU = pilot's 64
+    epochs=60, imgsz=640, batch=32, device=[0,1],   # 16/GPU; nbs=64 accumulates -> effective batch 64 (= pilot), fits 16GB T4
     workers=4, patience=20, cos_lr=True, seed=0, deterministic=True,
     # ---- recipe identical to the 0.82 pilot (modal_train.py) ----
     mosaic=0.0, close_mosaic=10,            # mosaic OFF (pilot-proven for real recall)
@@ -86,7 +86,8 @@ m.train(
 '''
 open("/kaggle/working/train.py", "w").write(train_py)
 
-# --- 6) train ---  (if DDP ever errors, change device=[0,1] -> device=0 above)
+# 6) train  (PYTORCH_CUDA_ALLOC_CONF reduces fragmentation OOM on 16GB T4)
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 subprocess.run([sys.executable, "/kaggle/working/train.py"], check=True)
 
 # --- 7) confirm output ---
