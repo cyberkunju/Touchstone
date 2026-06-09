@@ -21,33 +21,19 @@ assert ngpu == 2 and all("T4" in n for n in gnames), \
 subprocess.run([sys.executable, "-m", "pip", "install", "-q", "ultralytics==8.4.60"], check=True)
 assert torch.cuda.is_available(), "CUDA not available after pip install — abort."
 
-# --- 3) DATA: auto-find the attached dataset under /kaggle/input (robust to slug).
-#        /kaggle/input is READ-ONLY and ultralytics writes a label .cache, so copy
-#        into writable /kaggle/working.
+# --- 3) DATA: train directly from the read-only mount (standard Kaggle pattern).
+#        No 6.4GB copy (that stalls on Kaggle's input FUSE). ultralytics reads
+#        images/labels read-only and writes only run outputs to /kaggle/working;
+#        if it can't write the label .cache it warns and continues (fine).
 print("/kaggle/input has:", os.listdir("/kaggle/input") if os.path.isdir("/kaggle/input") else "NOTHING")
-DATA = "/kaggle/working/data"
-SRC = None
+DATA = None
 for root, dirs, files in os.walk("/kaggle/input"):
     if os.path.isdir(os.path.join(root, "images", "train")) and \
        os.path.isdir(os.path.join(root, "labels", "train")):
-        SRC = root
+        DATA = root
         break
-print("detected SRC:", SRC)
-zips = glob.glob("/kaggle/input/**/*.zip", recursive=True)
-if SRC:
-    print("found dataset at:", SRC)
-    if not os.path.isdir(os.path.join(DATA, "images")):
-        shutil.copytree(SRC, DATA, dirs_exist_ok=True)
-elif zips:
-    import zipfile
-    print("extracting zip:", zips[0])
-    with zipfile.ZipFile(zips[0]) as z:
-        z.extractall(DATA)
-else:
-    raise FileNotFoundError("docdet-v1 not attached. Right panel -> Add Input -> docdet-v1, then re-run.")
-# purge any stale ultralytics *.cache copied from the c7i (forces a clean rebuild)
-for c in glob.glob(DATA + "/**/*.cache", recursive=True):
-    os.remove(c)
+assert DATA, "docdet-v1 not attached. Right panel -> Add Input -> docdet-v1, then re-run."
+print("DATA:", DATA)
 for s in ("train", "val", "test"):
     ip, lp = f"{DATA}/images/{s}", f"{DATA}/labels/{s}"
     print(s, "images", len(os.listdir(ip)) if os.path.isdir(ip) else "MISSING",
