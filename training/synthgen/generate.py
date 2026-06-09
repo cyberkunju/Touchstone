@@ -71,6 +71,17 @@ _BANK: dict = {}  # per-worker cache: {"bank": BackgroundBank | None}
 
 def _init_worker(cfg: dict) -> None:
     """Pool initializer: stash the run config in each worker process."""
+    # Pin OpenCV (and BLAS) to a SINGLE thread per worker. Each of the N worker
+    # processes otherwise lets OpenCV/OpenBLAS spawn one thread PER CORE, so N
+    # procs x C cores = N*C threads thrash a C-core box (load average explodes
+    # to >500 on 32 cores, ~3x slower from context-switching). One compute
+    # thread per process => clean 1:1 mapping of workers to cores = full,
+    # efficient utilisation.
+    try:
+        import cv2
+        cv2.setNumThreads(1)
+    except Exception:  # noqa: BLE001 - never let a tuning call break generation
+        pass
     _CFG.clear()
     _CFG.update(cfg)
     # Build the background bank ONCE per worker (scans the dir once), not per
