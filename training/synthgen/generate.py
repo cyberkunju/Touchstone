@@ -166,8 +166,14 @@ def main(argv: list[str] | None = None) -> int:
                    help="Engine A: composite documents onto real backgrounds (Phase 2)")
     p.add_argument("--bg-dir", default="assets/backgrounds",
                    help="real-background bank dir (scanned recursively) for --compose")
-    p.add_argument("--compose-prob", type=float, default=1.0,
-                   help="fraction of samples composited onto a real background")
+    p.add_argument("--compose-prob", type=float, default=0.20,
+                   help="fraction of samples composited onto a real background. "
+                        "DEFAULT 0.20 (surgical): the Phase-2 pilot showed heavy "
+                        "compositing (0.9) HURT real document_page recall (0.685 vs "
+                        "0.822 full-frame control) because frame-filling docs dominate "
+                        "the real distribution; a small composited minority adds "
+                        "partial/scene robustness (the worst real slice) WITHOUT "
+                        "shifting the bulk away from full-frame. Raise only with evidence.")
     p.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 2) - 1),
                    help="parallel worker processes (default: CPU count - 1)")
     p.add_argument("--quiet", action="store_true")
