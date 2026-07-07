@@ -1,0 +1,4004 @@
+[
+  {
+    "file": "id00_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id00_conflict.png",
+    "class": "conflict",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "conflictOn": [
+        "passport_number"
+      ],
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id01_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id02_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id03_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id04_conflict.png",
+    "class": "conflict",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "mrzLines": [
+        "P<UTOALFARSI<<LAYLA<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "KSXVAVYN<2UTO9004252X2604206<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "KSXVAVYN",
+      "country_code": "UTO",
+      "date_of_birth": "1990-04-25",
+      "sex": "X",
+      "date_of_expiry": "2026-04-20",
+      "surname": "ALFARSI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "conflictOn": [
+        "passport_number"
+      ],
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id05_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "mrzLines": [
+        "P<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<<<<<<<<<",
+        "ZVVZLJD6<5XAA6311054F3305278<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "ZVVZLJD6",
+      "country_code": "XAA",
+      "date_of_birth": "1963-11-05",
+      "sex": "F",
+      "date_of_expiry": "2033-05-27",
+      "surname": "SZCZEPANSKA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id06_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "mrzLines": [
+        "P<XBBLI<<WEI<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H7868GPR<6XBB6305257M2609289<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "H7868GPR",
+      "country_code": "XBB",
+      "date_of_birth": "1963-05-25",
+      "sex": "M",
+      "date_of_expiry": "2026-09-28",
+      "surname": "LI"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id07_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "mrzLines": [
+        "P<XCCFERNANDEZ<GARCIA<<JOSE<LUIS<<<<<<<<<<<<",
+        "JDRFBAWA23XCC5402274F3208254<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "JDRFBAWA2",
+      "country_code": "XCC",
+      "date_of_birth": "1954-02-27",
+      "sex": "F",
+      "date_of_expiry": "2032-08-25",
+      "surname": "FERNANDEZ GARCIA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id08_conflict.png",
+    "class": "conflict",
+    "degradation": "clean",
+    "identity": 8,
+    "truth": {
+      "mrzLines": [
+        "P<UTOMUELLER<<HANS<PETER<<<<<<<<<<<<<<<<<<<<",
+        "0T5SWEN6N0UTO8210070M2610265<<<<<<<<<<<<<<06"
+      ],
+      "passport_number": "0T5SWEN6N",
+      "country_code": "UTO",
+      "date_of_birth": "1982-10-07",
+      "sex": "M",
+      "date_of_expiry": "2026-10-26",
+      "surname": "MUELLER"
+    },
+    "expect": {
+      "mrzValid": true,
+      "conflictOn": [
+        "passport_number"
+      ],
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id09_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 9,
+    "truth": {
+      "mrzLines": [
+        "P<XAAANAND<<PRIYA<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+        "XPR0KXNAK7XAA9603219F2802219<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "XPR0KXNAK",
+      "country_code": "XAA",
+      "date_of_birth": "1996-03-21",
+      "sex": "F",
+      "date_of_expiry": "2028-02-21",
+      "surname": "ANAND"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id10_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 10,
+    "truth": {
+      "mrzLines": [
+        "P<XBBVAN<DER<BERG<<WILLEM<<<<<<<<<<<<<<<<<<<",
+        "36MHLC8U<1XBB8005148M2608189<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "36MHLC8U",
+      "country_code": "XBB",
+      "date_of_birth": "1980-05-14",
+      "sex": "M",
+      "date_of_expiry": "2026-08-18",
+      "surname": "VAN DER BERG"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id11_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 11,
+    "truth": {
+      "mrzLines": [
+        "P<XCCKOWALCZYK<<ZOFIA<<<<<<<<<<<<<<<<<<<<<<<",
+        "Z63KPJAA55XCC7306206X2710109<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "Z63KPJAA5",
+      "country_code": "XCC",
+      "date_of_birth": "1973-06-20",
+      "sex": "X",
+      "date_of_expiry": "2027-10-10",
+      "surname": "KOWALCZYK"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id12_conflict.png",
+    "class": "conflict",
+    "degradation": "clean",
+    "identity": 12,
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "VSZ5NKE4<0UTO6107222F2901031<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "VSZ5NKE4",
+      "country_code": "UTO",
+      "date_of_birth": "1961-07-22",
+      "sex": "F",
+      "date_of_expiry": "2029-01-03",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "conflictOn": [
+        "passport_number"
+      ],
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id13_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 13,
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "GZ1E6PW0<3XAA8309204M2808222<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "GZ1E6PW0",
+      "country_code": "XAA",
+      "date_of_birth": "1983-09-20",
+      "sex": "M",
+      "date_of_expiry": "2028-08-22",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id14_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 14,
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "357X8MVY<9XBB8201102F3212150<<<<<<<<<<<<<<02"
+      ],
+      "passport_number": "357X8MVY",
+      "country_code": "XBB",
+      "date_of_birth": "1982-01-10",
+      "sex": "F",
+      "date_of_expiry": "2032-12-15",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_clean.png",
+    "class": "clean",
+    "degradation": "clean",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_jpeg40.jpg",
+    "class": "degraded",
+    "degradation": "jpeg40",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_blur1.png",
+    "class": "degraded",
+    "degradation": "blur1",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_blur2.jpg",
+    "class": "degraded",
+    "degradation": "blur2",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_rot3.png",
+    "class": "degraded",
+    "degradation": "rot3",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_rot-7.jpg",
+    "class": "degraded",
+    "degradation": "rot-7",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_persp.png",
+    "class": "degraded",
+    "degradation": "persp",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_noise.png",
+    "class": "degraded",
+    "degradation": "noise",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_glare.png",
+    "class": "degraded",
+    "degradation": "glare",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_small720.jpg",
+    "class": "degraded",
+    "degradation": "small720",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id15_worst.jpg",
+    "class": "degraded",
+    "degradation": "worst",
+    "identity": 15,
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "8N3JZLJ1<3XCC5803033M2708218<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "8N3JZLJ1",
+      "country_code": "XCC",
+      "date_of_birth": "1958-03-03",
+      "sex": "M",
+      "date_of_expiry": "2027-08-21",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "../real_fakes/images/3.jpg",
+    "class": "adversarial",
+    "degradation": "n/a",
+    "identity": -1,
+    "truth": null,
+    "expect": {
+      "mrzValid": false
+    }
+  },
+  {
+    "file": "../real_fakes/images/6.jpg",
+    "class": "adversarial",
+    "degradation": "n/a",
+    "identity": -1,
+    "truth": null,
+    "expect": {
+      "mrzValid": false
+    }
+  },
+  {
+    "file": "../real_fakes/images/7.jpg",
+    "class": "adversarial",
+    "degradation": "n/a",
+    "identity": -1,
+    "truth": null,
+    "expect": {
+      "mrzValid": false
+    }
+  }
+]

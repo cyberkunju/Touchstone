@@ -1,0 +1,15 @@
+![img-0.jpeg](img-0.jpeg)
+
+# FØRERKORT NORGE
+
+1. NILSEN
+2. ERIK MARTIN
+3. 14.07.1991 - OSLO
+4a. 09.05.2016 4c. STATENS VEGVESEN
+4b. 09.05.2026 4d. 140791 12345
+5. 91 07 14 12345 6
+7. Erik M. Nilsen
+
+9.
+
+B BE

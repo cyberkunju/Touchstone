@@ -36,6 +36,7 @@ const parserApi = {
       height: result.height,
       quality: result.quality,
       transforms: result.transforms,
+      skewDeg: result.skewDeg,
     };
   },
 

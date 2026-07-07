@@ -1,0 +1,88 @@
+ROYAUME DE BELVISTE
+DIRECTION DE L'IMMIGRATION
+15 JUIL. 2022
+ARRIVÉE
+AÉROPORT DE BELVISTA
+BELVISTE
+
+RÉPUBLIQUE DE NOVARIA
+23 AOÛT 2022
+ENTRÉE
+AÉROPORT INTL.
+DE NOVARIA
+
+SULTANAT DE KAZIM
+12 SEP. 2022
+SORTIE
+AÉROPORT INTL.
+DE KAZIM
+
+UNION DE SOLANDIA
+05 JUIN 2022
+ENTRÉE
+PORT DE SOLANDIA
+
+FÉDÉRATION DE MONTELOR
+10 AOÛT 2022
+SORTIE
+BUREAU DE FRONTIÈRE
+DE MONTELOR
+
+RÉPUBLIQUE DE LUXARIA
+18 OCT. 2022
+ENTRÉE
+AÉROPORT INTL.
+DE LUXARIA
+
+RÉPUBLIQUE
+DE VARNIA
+03 NOV. 2022
+SORTIE
+AÉROPORT INTL.
+DE VARNIA
+
+PASSEPORT
+PASSPORT
+
+![img-0.jpeg](img-0.jpeg)
+
+# RÉPUBLIQUE FRANÇAISE
+
+Type/Type
+P
+Code du pays/Country code
+FRA
+
+Passeport n°/Passport no.
+22AA00000
+
+Nom/Surname (1)
+DUPONT
+
+Prénoms/Given names (2)
+LUCAS, PIERRE
+
+Nationalité/Nationality (3)
+FRANÇAISE
+
+Date de naissance/Date of birth (4)
+14 07 1988
+
+Sexe/Sex (5)
+M
+Lieu de naissance/Place of birth (6)
+LYON
+
+Date de délivrance/Date of issue (7)
+02 03 2022
+
+Autorité/Authority (8)
+MAIRIE DE LYON
+
+Taille/Height (12)
+1,78 m
+
+Date d'expiration/Date of expiry (9)
+01 03 2032
+
+Signature du titulaire/Holder's signature (10)

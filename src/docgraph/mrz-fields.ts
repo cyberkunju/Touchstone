@@ -527,7 +527,13 @@ export function mrzToFields(mrz: MrzParseResult): MrzDerivedField[] {
     const specific = spec.specificKey !== null
       ? checksumFor(checks, spec.specificKey)
       : null;
-    const checksumPassed = spec.specificKey !== null ? specific : composite;
+    // CHECKSUM HONESTY (live-caught silent error): fields WITHOUT a dedicated
+    // check digit (names, nationality, sex, issuing state) are NOT covered by
+    // the composite check either — ICAO's composite spans only the
+    // checksummed data fields. Claiming `composite` for them promoted a
+    // misread country code ("XCO") as checksum-proven. Uncovered fields carry
+    // `null` (unknown), never `true`.
+    const checksumPassed = specific;
     return {
       canonicalLabel: spec.canonicalLabel,
       label: spec.label,

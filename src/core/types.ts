@@ -205,6 +205,14 @@ export type FieldHypothesis = {
   required?: boolean;
   userEdited?: boolean;
   rejected?: boolean;
+  /**
+   * When set, this hypothesis can never reach `confirmed` status — the
+   * verifier downgrades it to `needs_review` with this string as the reason.
+   * Used for values whose source cannot PROVE them (N1): MRZ fields without
+   * checksum coverage, legacy (non-beam) MRZ decodes, and fields carrying a
+   * checksum-invisible ambiguity. User edits override the cap.
+   */
+  reviewCap?: string;
   templateFieldId?: string;
 
   reasons: string[];

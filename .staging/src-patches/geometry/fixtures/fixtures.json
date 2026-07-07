@@ -1,0 +1,38 @@
+[
+ {
+  "file": "pair0a.rgba",
+  "w": 200,
+  "h": 141,
+  "src": "id00_clean.png"
+ },
+ {
+  "file": "pair0b.rgba",
+  "w": 200,
+  "h": 141,
+  "src": "id00_blur1.png"
+ },
+ {
+  "file": "pair1a.rgba",
+  "w": 200,
+  "h": 141,
+  "src": "id01_clean.png"
+ },
+ {
+  "file": "pair1b.rgba",
+  "w": 200,
+  "h": 141,
+  "src": "id01_jpeg40.jpg"
+ },
+ {
+  "file": "pair2a.rgba",
+  "w": 200,
+  "h": 141,
+  "src": "id02_clean.png"
+ },
+ {
+  "file": "pair2b.rgba",
+  "w": 200,
+  "h": 141,
+  "src": "id02_blur1.png"
+ }
+]

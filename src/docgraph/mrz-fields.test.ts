@@ -90,11 +90,21 @@ describe('mrzToFields - valid TD3 passport', () => {
     expect(byLabel(fields, 'date_of_expiry')?.value).toBe('2032-04-13');
   });
 
-  it('marks every field checksum-passed and mrz-sourced', () => {
+  it('marks ONLY dedicated-check-digit fields checksum-passed; uncovered fields carry null', () => {
+    // CHECKSUM HONESTY: ICAO gives document number, DOB and expiry their own
+    // check digits. Names, nationality, sex, type and issuing state have NO
+    // digit covering them (the composite spans only the checksummed data
+    // fields) — claiming otherwise promoted a misread country code as
+    // "checksum-proven" (live-caught silent error).
     expect(fields.length).toBeGreaterThan(0);
+    const covered = new Set(['passport_number', 'date_of_birth', 'date_of_expiry']);
     for (const f of fields) {
-      expect(f.checksumPassed).toBeTruthy();
       expect(f.source).toBe('mrz');
+      if (covered.has(f.canonicalLabel)) {
+        expect(f.checksumPassed, f.canonicalLabel).toBe(true);
+      } else {
+        expect(f.checksumPassed, f.canonicalLabel).toBeNull();
+      }
     }
   });
 

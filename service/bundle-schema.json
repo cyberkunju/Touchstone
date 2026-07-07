@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "docutract://evidence-bundle/v1",
+  "title": "EvidenceBundle v1",
+  "description": "The single seam between senses and brain (Documentation/06). Additive-only within v1: fields may be added as optional, never renamed/retyped/removed. Both sides validate against THIS schema; service/ and src/perception/ copies are diffed in CI.",
+  "type": "object",
+  "required": ["bundleVersion", "source", "timings", "pages"],
+  "properties": {
+    "bundleVersion": { "const": 1 },
+    "source": {
+      "type": "object",
+      "required": ["kind", "sha256", "pages"],
+      "properties": {
+        "kind": {
+          "enum": ["image", "pdf_digital", "pdf_scanned", "pdf_hybrid", "xlsx", "docx", "csv"]
+        },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "pages": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "timings": {
+      "type": "object",
+      "additionalProperties": { "type": "number", "minimum": 0 }
+    },
+    "stageErrors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stage", "code", "detail"],
+        "properties": {
+          "stage": { "type": "string" },
+          "code": { "type": "string" },
+          "detail": { "type": "string" }
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/PageEvidence" }
+    }
+  },
+  "$defs": {
+    "Box": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "type": "number", "minimum": -0.05, "maximum": 1.05 },
+      "description": "[x, y, w, h] normalized 0..1 against the processed page raster (small tolerance for rectification overshoot)."
+    },
+    "Point": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "type": "number" }
+    },
+    "OcrLine": {
+      "type": "object",
+      "required": ["poly", "top1", "conf", "rot", "lattice"],
+      "properties": {
+        "poly": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "$ref": "#/$defs/Point" }
+        },
+        "top1": { "type": "string" },
+        "conf": { "type": "number", "minimum": 0, "maximum": 1 },
+        "rot": { "enum": [0, 90, 180, 270] },
+        "lattice": {
+          "type": "array",
+          "minItems": 1,
+          "description": "REQUIRED — per CTC step: top-k [char, prob] pairs, probability descending, blank token as ''. The pre-argmax distribution the brain's beam decoders consume.",
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "array",
+              "prefixItems": [
+                { "type": "string" },
+                { "type": "number", "minimum": 0, "maximum": 1 }
+              ],
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        }
+      }
+    },
+    "PageEvidence": {
+      "type": "object",
+      "required": ["index", "geometry", "ocr", "layout", "codes", "faces", "tables"],
+      "properties": {
+        "index": { "type": "integer", "minimum": 0 },
+        "geometry": {
+          "type": "object",
+          "required": ["wPx", "hPx", "deskewDeg", "quality"],
+          "properties": {
+            "wPx": { "type": "integer", "minimum": 1 },
+            "hPx": { "type": "integer", "minimum": 1 },
+            "deskewDeg": { "type": "number" },
+            "dewarp": {
+              "type": "object",
+              "required": ["applied", "method"],
+              "properties": {
+                "applied": { "type": "boolean" },
+                "method": { "enum": ["classical", "uvdoc"] }
+              }
+            },
+            "quality": {
+              "type": "object",
+              "required": ["blur", "glare", "contrast"],
+              "properties": {
+                "blur": { "type": "number", "minimum": 0, "maximum": 1 },
+                "glare": { "type": "number", "minimum": 0, "maximum": 1 },
+                "contrast": { "type": "number", "minimum": 0, "maximum": 1 }
+              }
+            }
+          }
+        },
+        "ocr": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/OcrLine" }
+        },
+        "layout": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["cls", "box", "conf"],
+            "properties": {
+              "cls": { "type": "string" },
+              "box": { "$ref": "#/$defs/Box" },
+              "conf": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        },
+        "codes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["format", "payload", "box"],
+            "properties": {
+              "format": { "type": "string" },
+              "payload": { "type": "string" },
+              "box": { "$ref": "#/$defs/Box" },
+              "ecLevel": { "type": "string" }
+            }
+          }
+        },
+        "faces": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["box", "landmarks5", "conf"],
+            "properties": {
+              "box": { "$ref": "#/$defs/Box" },
+              "landmarks5": {
+                "type": "array",
+                "minItems": 5,
+                "maxItems": 5,
+                "items": { "$ref": "#/$defs/Point" }
+              },
+              "conf": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        },
+        "tables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["box", "method", "cells"],
+            "properties": {
+              "box": { "$ref": "#/$defs/Box" },
+              "method": { "enum": ["rulings", "slanet", "lore", "cluster"] },
+              "cells": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["r", "c", "rs", "cs", "box"],
+                  "properties": {
+                    "r": { "type": "integer", "minimum": 0 },
+                    "c": { "type": "integer", "minimum": 0 },
+                    "rs": { "type": "integer", "minimum": 1 },
+                    "cs": { "type": "integer", "minimum": 1 },
+                    "box": { "$ref": "#/$defs/Box" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "native": {
+          "type": "object",
+          "properties": {
+            "cells": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["r", "c", "value"],
+                "properties": {
+                  "r": { "type": "integer", "minimum": 0 },
+                  "c": { "type": "integer", "minimum": 0 },
+                  "value": { "type": "string" },
+                  "formula": { "type": "string" },
+                  "numFmt": { "type": "string" },
+                  "merged": {
+                    "type": "array",
+                    "minItems": 4,
+                    "maxItems": 4,
+                    "items": { "type": "integer", "minimum": 0 }
+                  }
+                }
+              }
+            },
+            "textRuns": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["text", "box"],
+                "properties": {
+                  "text": { "type": "string" },
+                  "box": { "$ref": "#/$defs/Box" },
+                  "font": { "type": "string" },
+                  "sizePt": { "type": "number" },
+                  "bold": { "type": "boolean" }
+                }
+              }
+            },
+            "textLayerUntrusted": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

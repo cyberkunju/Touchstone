@@ -1,0 +1,506 @@
+[
+  {
+    "file": "card_id00_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "email": "anna@cobaltridgeconsulting.example",
+      "phone": "+1-555-0100"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id00_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "email": "anna@cobaltridgeconsulting.example",
+      "phone": "+1-555-0100"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id00_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "email": "anna@cobaltridgeconsulting.example",
+      "phone": "+1-555-0100"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id01_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "email": "kenji@fernlinestudios.example",
+      "phone": "+1-555-0101"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id01_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "email": "kenji@fernlinestudios.example",
+      "phone": "+1-555-0101"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id01_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "email": "kenji@fernlinestudios.example",
+      "phone": "+1-555-0101"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id02_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "email": "chinwe@atlasmeadowfoods.example",
+      "phone": "+1-555-0102"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id02_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "email": "chinwe@atlasmeadowfoods.example",
+      "phone": "+1-555-0102"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id02_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "email": "chinwe@atlasmeadowfoods.example",
+      "phone": "+1-555-0102"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id03_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "email": "siobhan@skybridgetelecom.example",
+      "phone": "+1-555-0103"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id03_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "email": "siobhan@skybridgetelecom.example",
+      "phone": "+1-555-0103"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id03_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "email": "siobhan@skybridgetelecom.example",
+      "phone": "+1-555-0103"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id04_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "email": "layla@cobaltridgeconsulting.example",
+      "phone": "+1-555-0104"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id04_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "email": "layla@cobaltridgeconsulting.example",
+      "phone": "+1-555-0104"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id04_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "email": "layla@cobaltridgeconsulting.example",
+      "phone": "+1-555-0104"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id05_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "email": "malgorzata@fernlinestudios.example",
+      "phone": "+1-555-0105"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id05_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "email": "malgorzata@fernlinestudios.example",
+      "phone": "+1-555-0105"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id05_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "email": "malgorzata@fernlinestudios.example",
+      "phone": "+1-555-0105"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id06_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "email": "wei@atlasmeadowfoods.example",
+      "phone": "+1-555-0106"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id06_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "email": "wei@atlasmeadowfoods.example",
+      "phone": "+1-555-0106"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id06_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "email": "wei@atlasmeadowfoods.example",
+      "phone": "+1-555-0106"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id07_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "email": "jose@skybridgetelecom.example",
+      "phone": "+1-555-0107"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id07_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "email": "jose@skybridgetelecom.example",
+      "phone": "+1-555-0107"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id07_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "email": "jose@skybridgetelecom.example",
+      "phone": "+1-555-0107"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id08_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 8,
+    "truth": {
+      "full_name": "HANS MUELLER",
+      "email": "hans@cobaltridgeconsulting.example",
+      "phone": "+1-555-0108"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id08_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 8,
+    "truth": {
+      "full_name": "HANS MUELLER",
+      "email": "hans@cobaltridgeconsulting.example",
+      "phone": "+1-555-0108"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id08_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 8,
+    "truth": {
+      "full_name": "HANS MUELLER",
+      "email": "hans@cobaltridgeconsulting.example",
+      "phone": "+1-555-0108"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id09_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 9,
+    "truth": {
+      "full_name": "PRIYA ANAND",
+      "email": "priya@fernlinestudios.example",
+      "phone": "+1-555-0109"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id09_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 9,
+    "truth": {
+      "full_name": "PRIYA ANAND",
+      "email": "priya@fernlinestudios.example",
+      "phone": "+1-555-0109"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id09_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 9,
+    "truth": {
+      "full_name": "PRIYA ANAND",
+      "email": "priya@fernlinestudios.example",
+      "phone": "+1-555-0109"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id10_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 10,
+    "truth": {
+      "full_name": "WILLEM VAN DER BERG",
+      "email": "willem@atlasmeadowfoods.example",
+      "phone": "+1-555-0110"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id10_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 10,
+    "truth": {
+      "full_name": "WILLEM VAN DER BERG",
+      "email": "willem@atlasmeadowfoods.example",
+      "phone": "+1-555-0110"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id10_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 10,
+    "truth": {
+      "full_name": "WILLEM VAN DER BERG",
+      "email": "willem@atlasmeadowfoods.example",
+      "phone": "+1-555-0110"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id11_clean.png",
+    "class": "business_card",
+    "degradation": "clean",
+    "identity": 11,
+    "truth": {
+      "full_name": "ZOFIA KOWALCZYK",
+      "email": "zofia@skybridgetelecom.example",
+      "phone": "+1-555-0111"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id11_blur1.png",
+    "class": "business_card_degraded",
+    "degradation": "blur1",
+    "identity": 11,
+    "truth": {
+      "full_name": "ZOFIA KOWALCZYK",
+      "email": "zofia@skybridgetelecom.example",
+      "phone": "+1-555-0111"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "card_id11_worst.jpg",
+    "class": "business_card_degraded",
+    "degradation": "worst",
+    "identity": 11,
+    "truth": {
+      "full_name": "ZOFIA KOWALCZYK",
+      "email": "zofia@skybridgetelecom.example",
+      "phone": "+1-555-0111"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  }
+]

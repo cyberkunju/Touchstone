@@ -1,0 +1,1016 @@
+[
+  {
+    "file": "passports__id00_clean__desk.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_desk",
+    "sourceFamily": "passports",
+    "sourceFile": "id00_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id00_clean__fabric.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_fabric",
+    "sourceFamily": "passports",
+    "sourceFile": "id00_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id00_clean__lowlight.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "passports",
+    "sourceFile": "id00_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+        "4Z6ARKD104UTO8203243F3007022<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "4Z6ARKD10",
+      "country_code": "UTO",
+      "date_of_birth": "1982-03-24",
+      "sex": "F",
+      "date_of_expiry": "2030-07-02",
+      "surname": "ERIKSSON"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id01_clean__desk.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_desk",
+    "sourceFamily": "passports",
+    "sourceFile": "id01_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id01_clean__fabric.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_fabric",
+    "sourceFamily": "passports",
+    "sourceFile": "id01_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id01_clean__lowlight.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "passports",
+    "sourceFile": "id01_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<<<<<<<<<",
+        "JDLY9W5Z<0XAA6702030M3107243<<<<<<<<<<<<<<08"
+      ],
+      "passport_number": "JDLY9W5Z",
+      "country_code": "XAA",
+      "date_of_birth": "1967-02-03",
+      "sex": "M",
+      "date_of_expiry": "2031-07-24",
+      "surname": "NAKAMURA"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id02_clean__desk.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_desk",
+    "sourceFamily": "passports",
+    "sourceFile": "id02_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id02_clean__fabric.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_fabric",
+    "sourceFamily": "passports",
+    "sourceFile": "id02_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id02_clean__lowlight.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "passports",
+    "sourceFile": "id02_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<XBBOKONKWO<<CHINWE<ADAEZE<<<<<<<<<<<<<<<<<",
+        "UPPTWMG6<1XBB5410123F2610092<<<<<<<<<<<<<<04"
+      ],
+      "passport_number": "UPPTWMG6",
+      "country_code": "XBB",
+      "date_of_birth": "1954-10-12",
+      "sex": "F",
+      "date_of_expiry": "2026-10-09",
+      "surname": "OKONKWO"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id03_clean__desk.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_desk",
+    "sourceFamily": "passports",
+    "sourceFile": "id03_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id03_clean__fabric.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_fabric",
+    "sourceFamily": "passports",
+    "sourceFile": "id03_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "passports__id03_clean__lowlight.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "passports",
+    "sourceFile": "id03_clean.png",
+    "truth": {
+      "mrzLines": [
+        "P<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<<<<<<<<<",
+        "H78U5R99<0XCC5604274M2902289<<<<<<<<<<<<<<00"
+      ],
+      "passport_number": "H78U5R99",
+      "country_code": "XCC",
+      "date_of_birth": "1956-04-27",
+      "sex": "M",
+      "date_of_expiry": "2029-02-28",
+      "surname": "OBRIEN"
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td1_id00_clean__desk.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_desk",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td1_id00_clean.png",
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "country_code": "UTO",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "mrzLines": [
+        "I<UTOE46VYDDTE0<<<<<<<<<<<<<<<",
+        "9207020F2903150UTO<<<<<<<<<<<4",
+        "ERIKSSON<<ANNA<MARIA<<<<<<<<<<"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td1_id00_clean__fabric.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_fabric",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td1_id00_clean.png",
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "country_code": "UTO",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "mrzLines": [
+        "I<UTOE46VYDDTE0<<<<<<<<<<<<<<<",
+        "9207020F2903150UTO<<<<<<<<<<<4",
+        "ERIKSSON<<ANNA<MARIA<<<<<<<<<<"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td1_id00_clean__lowlight.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td1_id00_clean.png",
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "country_code": "UTO",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "mrzLines": [
+        "I<UTOE46VYDDTE0<<<<<<<<<<<<<<<",
+        "9207020F2903150UTO<<<<<<<<<<<4",
+        "ERIKSSON<<ANNA<MARIA<<<<<<<<<<"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td2_id01_clean__desk.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_desk",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td2_id01_clean.png",
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "country_code": "XAA",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "mrzLines": [
+        "I<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<",
+        "9GX9X13AJ7XAA5708220M2907103<<<<<<<0"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td2_id01_clean__fabric.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_fabric",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td2_id01_clean.png",
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "country_code": "XAA",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "mrzLines": [
+        "I<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<",
+        "9GX9X13AJ7XAA5708220M2907103<<<<<<<0"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td2_id01_clean__lowlight.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td2_id01_clean.png",
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "country_code": "XAA",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "mrzLines": [
+        "I<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<",
+        "9GX9X13AJ7XAA5708220M2907103<<<<<<<0"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td1_id02_clean__desk.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_desk",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td1_id02_clean.png",
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "country_code": "XBB",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "mrzLines": [
+        "I<XBBHEHXAYEKT0<<<<<<<<<<<<<<<",
+        "5002054F2904216XBB<<<<<<<<<<<0",
+        "OKONKWO<<CHINWE<ADAEZE<<<<<<<<"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td1_id02_clean__fabric.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_fabric",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td1_id02_clean.png",
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "country_code": "XBB",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "mrzLines": [
+        "I<XBBHEHXAYEKT0<<<<<<<<<<<<<<<",
+        "5002054F2904216XBB<<<<<<<<<<<0",
+        "OKONKWO<<CHINWE<ADAEZE<<<<<<<<"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td1_id02_clean__lowlight.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td1_id02_clean.png",
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "country_code": "XBB",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "mrzLines": [
+        "I<XBBHEHXAYEKT0<<<<<<<<<<<<<<<",
+        "5002054F2904216XBB<<<<<<<<<<<0",
+        "OKONKWO<<CHINWE<ADAEZE<<<<<<<<"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td2_id03_clean__desk.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_desk",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td2_id03_clean.png",
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "country_code": "XCC",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "mrzLines": [
+        "I<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<",
+        "7TFL7JV2Y5XCC5311172M2907181<<<<<<<8"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td2_id03_clean__fabric.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_fabric",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td2_id03_clean.png",
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "country_code": "XCC",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "mrzLines": [
+        "I<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<",
+        "7TFL7JV2Y5XCC5311172M2907181<<<<<<<8"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "id_cards__td2_id03_clean__lowlight.jpg",
+    "class": "composite_clean",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "id_cards",
+    "sourceFile": "td2_id03_clean.png",
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "country_code": "XCC",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "mrzLines": [
+        "I<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<",
+        "7TFL7JV2Y5XCC5311172M2907181<<<<<<<8"
+      ]
+    },
+    "expect": {
+      "mrzValid": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id00_clean__desk.jpg",
+    "class": "composite_license",
+    "degradation": "scene_desk",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id00_clean.png",
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id00_clean__fabric.jpg",
+    "class": "composite_license",
+    "degradation": "scene_fabric",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id00_clean.png",
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id00_clean__lowlight.jpg",
+    "class": "composite_license",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id00_clean.png",
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id01_clean__desk.jpg",
+    "class": "composite_license",
+    "degradation": "scene_desk",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id01_clean.png",
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id01_clean__fabric.jpg",
+    "class": "composite_license",
+    "degradation": "scene_fabric",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id01_clean.png",
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id01_clean__lowlight.jpg",
+    "class": "composite_license",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id01_clean.png",
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id02_clean__desk.jpg",
+    "class": "composite_license",
+    "degradation": "scene_desk",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id02_clean.png",
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id02_clean__fabric.jpg",
+    "class": "composite_license",
+    "degradation": "scene_fabric",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id02_clean.png",
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id02_clean__lowlight.jpg",
+    "class": "composite_license",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id02_clean.png",
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id03_clean__desk.jpg",
+    "class": "composite_license",
+    "degradation": "scene_desk",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id03_clean.png",
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id03_clean__fabric.jpg",
+    "class": "composite_license",
+    "degradation": "scene_fabric",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id03_clean.png",
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "licenses__lic_id03_clean__lowlight.jpg",
+    "class": "composite_license",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "licenses",
+    "sourceFile": "lic_id03_clean.png",
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv00_clean__desk.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_desk",
+    "sourceFamily": "docs",
+    "sourceFile": "inv00_clean.png",
+    "truth": {
+      "invoice_number": "INV-2026-2205",
+      "invoice_date": "2026-11-24",
+      "vendor": "NORTHWIND SUPPLIES LTD",
+      "total": "880.26",
+      "subtotal": "815.06",
+      "tax": "65.20"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv00_clean__fabric.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_fabric",
+    "sourceFamily": "docs",
+    "sourceFile": "inv00_clean.png",
+    "truth": {
+      "invoice_number": "INV-2026-2205",
+      "invoice_date": "2026-11-24",
+      "vendor": "NORTHWIND SUPPLIES LTD",
+      "total": "880.26",
+      "subtotal": "815.06",
+      "tax": "65.20"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv00_clean__lowlight.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "docs",
+    "sourceFile": "inv00_clean.png",
+    "truth": {
+      "invoice_number": "INV-2026-2205",
+      "invoice_date": "2026-11-24",
+      "vendor": "NORTHWIND SUPPLIES LTD",
+      "total": "880.26",
+      "subtotal": "815.06",
+      "tax": "65.20"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv01_clean__desk.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_desk",
+    "sourceFamily": "docs",
+    "sourceFile": "inv01_clean.png",
+    "truth": {
+      "invoice_number": "INV-2025-9748",
+      "invoice_date": "2026-08-06",
+      "vendor": "ACME INDUSTRIAL CO",
+      "total": "2604.92",
+      "subtotal": "2411.96",
+      "tax": "192.96"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv01_clean__fabric.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_fabric",
+    "sourceFamily": "docs",
+    "sourceFile": "inv01_clean.png",
+    "truth": {
+      "invoice_number": "INV-2025-9748",
+      "invoice_date": "2026-08-06",
+      "vendor": "ACME INDUSTRIAL CO",
+      "total": "2604.92",
+      "subtotal": "2411.96",
+      "tax": "192.96"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv01_clean__lowlight.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "docs",
+    "sourceFile": "inv01_clean.png",
+    "truth": {
+      "invoice_number": "INV-2025-9748",
+      "invoice_date": "2026-08-06",
+      "vendor": "ACME INDUSTRIAL CO",
+      "total": "2604.92",
+      "subtotal": "2411.96",
+      "tax": "192.96"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv02_clean__desk.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_desk",
+    "sourceFamily": "docs",
+    "sourceFile": "inv02_clean.png",
+    "truth": {
+      "invoice_number": "INV-2024-3042",
+      "invoice_date": "2026-03-05",
+      "vendor": "BLUE HARBOR FOODS",
+      "total": "492.67",
+      "subtotal": "456.18",
+      "tax": "36.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv02_clean__fabric.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_fabric",
+    "sourceFamily": "docs",
+    "sourceFile": "inv02_clean.png",
+    "truth": {
+      "invoice_number": "INV-2024-3042",
+      "invoice_date": "2026-03-05",
+      "vendor": "BLUE HARBOR FOODS",
+      "total": "492.67",
+      "subtotal": "456.18",
+      "tax": "36.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv02_clean__lowlight.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "docs",
+    "sourceFile": "inv02_clean.png",
+    "truth": {
+      "invoice_number": "INV-2024-3042",
+      "invoice_date": "2026-03-05",
+      "vendor": "BLUE HARBOR FOODS",
+      "total": "492.67",
+      "subtotal": "456.18",
+      "tax": "36.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv03_clean__desk.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_desk",
+    "sourceFamily": "docs",
+    "sourceFile": "inv03_clean.png",
+    "truth": {
+      "invoice_number": "INV-2026-9375",
+      "invoice_date": "2026-03-15",
+      "vendor": "ORION TECH SERVICES",
+      "total": "2033.75",
+      "subtotal": "1883.10",
+      "tax": "150.65"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv03_clean__fabric.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_fabric",
+    "sourceFamily": "docs",
+    "sourceFile": "inv03_clean.png",
+    "truth": {
+      "invoice_number": "INV-2026-9375",
+      "invoice_date": "2026-03-15",
+      "vendor": "ORION TECH SERVICES",
+      "total": "2033.75",
+      "subtotal": "1883.10",
+      "tax": "150.65"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "docs__inv03_clean__lowlight.jpg",
+    "class": "composite_invoice",
+    "degradation": "scene_lowlight",
+    "sourceFamily": "docs",
+    "sourceFile": "inv03_clean.png",
+    "truth": {
+      "invoice_number": "INV-2026-9375",
+      "invoice_date": "2026-03-15",
+      "vendor": "ORION TECH SERVICES",
+      "total": "2033.75",
+      "subtotal": "1883.10",
+      "tax": "150.65"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  }
+]

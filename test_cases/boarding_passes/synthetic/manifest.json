@@ -1,0 +1,802 @@
+[
+  {
+    "file": "bp_id00_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "passenger": "ANNA ERIKSSON",
+      "flight": "NB991",
+      "seat": "23D",
+      "barcodePayload": "M1ERIKSSON/ANNA       EMU9DMJ QQAQQJNB 0991 182Y023D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id00_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "passenger": "ANNA ERIKSSON",
+      "flight": "NB991",
+      "seat": "23D",
+      "barcodePayload": "M1ERIKSSON/ANNA       EMU9DMJ QQAQQJNB 0991 182Y023D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id00_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "passenger": "ANNA ERIKSSON",
+      "flight": "NB991",
+      "seat": "23D",
+      "barcodePayload": "M1ERIKSSON/ANNA       EMU9DMJ QQAQQJNB 0991 182Y023D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id00_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 0,
+    "truth": {
+      "passenger": "ANNA ERIKSSON",
+      "flight": "NB991",
+      "seat": "23D",
+      "barcodePayload": "M1ERIKSSON/ANNA       EMU9DMJ QQAQQJNB 0991 182Y023D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id00_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "passenger": "ANNA ERIKSSON",
+      "flight": "NB991",
+      "seat": "23D",
+      "barcodePayload": "M1ERIKSSON/ANNA       EMU9DMJ QQAQQJNB 0991 182Y023D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id01_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "passenger": "KENJI NAKAMURA",
+      "flight": "PX967",
+      "seat": "3C",
+      "barcodePayload": "M1NAKAMURA/KENJI      ES3NZYN QQBQQKPX 0967 064Y003C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id01_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "passenger": "KENJI NAKAMURA",
+      "flight": "PX967",
+      "seat": "3C",
+      "barcodePayload": "M1NAKAMURA/KENJI      ES3NZYN QQBQQKPX 0967 064Y003C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id01_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "passenger": "KENJI NAKAMURA",
+      "flight": "PX967",
+      "seat": "3C",
+      "barcodePayload": "M1NAKAMURA/KENJI      ES3NZYN QQBQQKPX 0967 064Y003C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id01_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 1,
+    "truth": {
+      "passenger": "KENJI NAKAMURA",
+      "flight": "PX967",
+      "seat": "3C",
+      "barcodePayload": "M1NAKAMURA/KENJI      ES3NZYN QQBQQKPX 0967 064Y003C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id01_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "passenger": "KENJI NAKAMURA",
+      "flight": "PX967",
+      "seat": "3C",
+      "barcodePayload": "M1NAKAMURA/KENJI      ES3NZYN QQBQQKPX 0967 064Y003C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id02_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "passenger": "CHINWE OKONKWO",
+      "flight": "MJ932",
+      "seat": "28A",
+      "barcodePayload": "M1OKONKWO/CHINWE      EWF77VY QQCQQLMJ 0932 084Y028A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id02_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "passenger": "CHINWE OKONKWO",
+      "flight": "MJ932",
+      "seat": "28A",
+      "barcodePayload": "M1OKONKWO/CHINWE      EWF77VY QQCQQLMJ 0932 084Y028A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id02_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "passenger": "CHINWE OKONKWO",
+      "flight": "MJ932",
+      "seat": "28A",
+      "barcodePayload": "M1OKONKWO/CHINWE      EWF77VY QQCQQLMJ 0932 084Y028A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id02_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 2,
+    "truth": {
+      "passenger": "CHINWE OKONKWO",
+      "flight": "MJ932",
+      "seat": "28A",
+      "barcodePayload": "M1OKONKWO/CHINWE      EWF77VY QQCQQLMJ 0932 084Y028A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id02_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "passenger": "CHINWE OKONKWO",
+      "flight": "MJ932",
+      "seat": "28A",
+      "barcodePayload": "M1OKONKWO/CHINWE      EWF77VY QQCQQLMJ 0932 084Y028A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id03_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "passenger": "SIOBHAN OBRIEN",
+      "flight": "AW524",
+      "seat": "3A",
+      "barcodePayload": "M1OBRIEN/SIOBHAN      EWBB7SV QQDQQMAW 0524 335Y003A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id03_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "passenger": "SIOBHAN OBRIEN",
+      "flight": "AW524",
+      "seat": "3A",
+      "barcodePayload": "M1OBRIEN/SIOBHAN      EWBB7SV QQDQQMAW 0524 335Y003A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id03_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "passenger": "SIOBHAN OBRIEN",
+      "flight": "AW524",
+      "seat": "3A",
+      "barcodePayload": "M1OBRIEN/SIOBHAN      EWBB7SV QQDQQMAW 0524 335Y003A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id03_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 3,
+    "truth": {
+      "passenger": "SIOBHAN OBRIEN",
+      "flight": "AW524",
+      "seat": "3A",
+      "barcodePayload": "M1OBRIEN/SIOBHAN      EWBB7SV QQDQQMAW 0524 335Y003A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id03_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "passenger": "SIOBHAN OBRIEN",
+      "flight": "AW524",
+      "seat": "3A",
+      "barcodePayload": "M1OBRIEN/SIOBHAN      EWBB7SV QQDQQMAW 0524 335Y003A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id04_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "passenger": "LAYLA ALFARSI",
+      "flight": "NB629",
+      "seat": "15A",
+      "barcodePayload": "M1ALFARSI/LAYLA       E5VBB6P QQEQQNNB 0629 113Y015A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id04_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "passenger": "LAYLA ALFARSI",
+      "flight": "NB629",
+      "seat": "15A",
+      "barcodePayload": "M1ALFARSI/LAYLA       E5VBB6P QQEQQNNB 0629 113Y015A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id04_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "passenger": "LAYLA ALFARSI",
+      "flight": "NB629",
+      "seat": "15A",
+      "barcodePayload": "M1ALFARSI/LAYLA       E5VBB6P QQEQQNNB 0629 113Y015A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id04_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 4,
+    "truth": {
+      "passenger": "LAYLA ALFARSI",
+      "flight": "NB629",
+      "seat": "15A",
+      "barcodePayload": "M1ALFARSI/LAYLA       E5VBB6P QQEQQNNB 0629 113Y015A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id04_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "passenger": "LAYLA ALFARSI",
+      "flight": "NB629",
+      "seat": "15A",
+      "barcodePayload": "M1ALFARSI/LAYLA       E5VBB6P QQEQQNNB 0629 113Y015A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id05_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "passenger": "MALGORZATA SZCZEPANSKA",
+      "flight": "PX195",
+      "seat": "7F",
+      "barcodePayload": "M1SZCZEPANSKA/MALGORZAEC95629 QQFQQPPX 0195 269Y007F0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id05_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "passenger": "MALGORZATA SZCZEPANSKA",
+      "flight": "PX195",
+      "seat": "7F",
+      "barcodePayload": "M1SZCZEPANSKA/MALGORZAEC95629 QQFQQPPX 0195 269Y007F0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id05_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "passenger": "MALGORZATA SZCZEPANSKA",
+      "flight": "PX195",
+      "seat": "7F",
+      "barcodePayload": "M1SZCZEPANSKA/MALGORZAEC95629 QQFQQPPX 0195 269Y007F0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id05_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 5,
+    "truth": {
+      "passenger": "MALGORZATA SZCZEPANSKA",
+      "flight": "PX195",
+      "seat": "7F",
+      "barcodePayload": "M1SZCZEPANSKA/MALGORZAEC95629 QQFQQPPX 0195 269Y007F0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id05_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "passenger": "MALGORZATA SZCZEPANSKA",
+      "flight": "PX195",
+      "seat": "7F",
+      "barcodePayload": "M1SZCZEPANSKA/MALGORZAEC95629 QQFQQPPX 0195 269Y007F0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id06_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "passenger": "WEI LI",
+      "flight": "MJ252",
+      "seat": "34C",
+      "barcodePayload": "M1LI/WEI              E9SC3L7 QQGQQRMJ 0252 137Y034C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id06_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "passenger": "WEI LI",
+      "flight": "MJ252",
+      "seat": "34C",
+      "barcodePayload": "M1LI/WEI              E9SC3L7 QQGQQRMJ 0252 137Y034C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id06_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "passenger": "WEI LI",
+      "flight": "MJ252",
+      "seat": "34C",
+      "barcodePayload": "M1LI/WEI              E9SC3L7 QQGQQRMJ 0252 137Y034C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id06_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 6,
+    "truth": {
+      "passenger": "WEI LI",
+      "flight": "MJ252",
+      "seat": "34C",
+      "barcodePayload": "M1LI/WEI              E9SC3L7 QQGQQRMJ 0252 137Y034C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id06_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "passenger": "WEI LI",
+      "flight": "MJ252",
+      "seat": "34C",
+      "barcodePayload": "M1LI/WEI              E9SC3L7 QQGQQRMJ 0252 137Y034C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id07_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "passenger": "JOSE FERNANDEZ",
+      "flight": "AW569",
+      "seat": "1A",
+      "barcodePayload": "M1FERNANDEZ/JOSE      E97B5PF QQHQQSAW 0569 111Y001A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id07_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "passenger": "JOSE FERNANDEZ",
+      "flight": "AW569",
+      "seat": "1A",
+      "barcodePayload": "M1FERNANDEZ/JOSE      E97B5PF QQHQQSAW 0569 111Y001A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id07_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "passenger": "JOSE FERNANDEZ",
+      "flight": "AW569",
+      "seat": "1A",
+      "barcodePayload": "M1FERNANDEZ/JOSE      E97B5PF QQHQQSAW 0569 111Y001A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id07_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 7,
+    "truth": {
+      "passenger": "JOSE FERNANDEZ",
+      "flight": "AW569",
+      "seat": "1A",
+      "barcodePayload": "M1FERNANDEZ/JOSE      E97B5PF QQHQQSAW 0569 111Y001A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id07_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "passenger": "JOSE FERNANDEZ",
+      "flight": "AW569",
+      "seat": "1A",
+      "barcodePayload": "M1FERNANDEZ/JOSE      E97B5PF QQHQQSAW 0569 111Y001A0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id08_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 8,
+    "truth": {
+      "passenger": "HANS MUELLER",
+      "flight": "NB968",
+      "seat": "15D",
+      "barcodePayload": "M1MUELLER/HANS        EPX9D2K QQAQQJNB 0968 344Y015D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id08_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 8,
+    "truth": {
+      "passenger": "HANS MUELLER",
+      "flight": "NB968",
+      "seat": "15D",
+      "barcodePayload": "M1MUELLER/HANS        EPX9D2K QQAQQJNB 0968 344Y015D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id08_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 8,
+    "truth": {
+      "passenger": "HANS MUELLER",
+      "flight": "NB968",
+      "seat": "15D",
+      "barcodePayload": "M1MUELLER/HANS        EPX9D2K QQAQQJNB 0968 344Y015D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id08_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 8,
+    "truth": {
+      "passenger": "HANS MUELLER",
+      "flight": "NB968",
+      "seat": "15D",
+      "barcodePayload": "M1MUELLER/HANS        EPX9D2K QQAQQJNB 0968 344Y015D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id08_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 8,
+    "truth": {
+      "passenger": "HANS MUELLER",
+      "flight": "NB968",
+      "seat": "15D",
+      "barcodePayload": "M1MUELLER/HANS        EPX9D2K QQAQQJNB 0968 344Y015D0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id09_clean.png",
+    "class": "boarding_pass",
+    "degradation": "clean",
+    "identity": 9,
+    "truth": {
+      "passenger": "PRIYA ANAND",
+      "flight": "PX269",
+      "seat": "20C",
+      "barcodePayload": "M1ANAND/PRIYA         ER7P1SN QQBQQKPX 0269 130Y020C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id09_jpeg40.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "jpeg40",
+    "identity": 9,
+    "truth": {
+      "passenger": "PRIYA ANAND",
+      "flight": "PX269",
+      "seat": "20C",
+      "barcodePayload": "M1ANAND/PRIYA         ER7P1SN QQBQQKPX 0269 130Y020C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id09_blur1.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "blur1",
+    "identity": 9,
+    "truth": {
+      "passenger": "PRIYA ANAND",
+      "flight": "PX269",
+      "seat": "20C",
+      "barcodePayload": "M1ANAND/PRIYA         ER7P1SN QQBQQKPX 0269 130Y020C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id09_rot3.png",
+    "class": "boarding_pass_degraded",
+    "degradation": "rot3",
+    "identity": 9,
+    "truth": {
+      "passenger": "PRIYA ANAND",
+      "flight": "PX269",
+      "seat": "20C",
+      "barcodePayload": "M1ANAND/PRIYA         ER7P1SN QQBQQKPX 0269 130Y020C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bp_id09_worst.jpg",
+    "class": "boarding_pass_degraded",
+    "degradation": "worst",
+    "identity": 9,
+    "truth": {
+      "passenger": "PRIYA ANAND",
+      "flight": "PX269",
+      "seat": "20C",
+      "barcodePayload": "M1ANAND/PRIYA         ER7P1SN QQBQQKPX 0269 130Y020C0051 100"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  }
+]

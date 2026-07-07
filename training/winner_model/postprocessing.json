@@ -1,8 +1,0 @@
-{
-  "outputLayout": "[4 + numClasses, numAnchors]",
-  "numClasses": 12,
-  "boxFormat": "cxcywh_model_pixels",
-  "nms": "class-aware, in JS (src/ai-runtime/yolo.ts)",
-  "defaultConfThreshold": 0.25,
-  "defaultIouThreshold": 0.5
-}

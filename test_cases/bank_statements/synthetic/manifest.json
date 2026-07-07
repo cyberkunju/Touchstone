@@ -1,0 +1,852 @@
+[
+  {
+    "file": "bank_id00_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "account_number": "8199615063",
+      "opening_balance": "2499.52",
+      "closing_balance": "2566.02",
+      "total_credits": "1975.34",
+      "total_debits": "1908.84",
+      "account_holder": "Ariana Holt"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id00_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "account_number": "8199615063",
+      "opening_balance": "2499.52",
+      "closing_balance": "2566.02",
+      "total_credits": "1975.34",
+      "total_debits": "1908.84",
+      "account_holder": "Ariana Holt"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id00_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "account_number": "8199615063",
+      "opening_balance": "2499.52",
+      "closing_balance": "2566.02",
+      "total_credits": "1975.34",
+      "total_debits": "1908.84",
+      "account_holder": "Ariana Holt"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id00_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 0,
+    "truth": {
+      "account_number": "8199615063",
+      "opening_balance": "2499.52",
+      "closing_balance": "2566.02",
+      "total_credits": "1975.34",
+      "total_debits": "1908.84",
+      "account_holder": "Ariana Holt"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id00_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "account_number": "8199615063",
+      "opening_balance": "2499.52",
+      "closing_balance": "2566.02",
+      "total_credits": "1975.34",
+      "total_debits": "1908.84",
+      "account_holder": "Ariana Holt"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id01_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "account_number": "6467336784",
+      "opening_balance": "5932.95",
+      "closing_balance": "8249.07",
+      "total_credits": "3773.42",
+      "total_debits": "1457.30",
+      "account_holder": "Dev Rajan"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id01_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "account_number": "6467336784",
+      "opening_balance": "5932.95",
+      "closing_balance": "8249.07",
+      "total_credits": "3773.42",
+      "total_debits": "1457.30",
+      "account_holder": "Dev Rajan"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id01_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "account_number": "6467336784",
+      "opening_balance": "5932.95",
+      "closing_balance": "8249.07",
+      "total_credits": "3773.42",
+      "total_debits": "1457.30",
+      "account_holder": "Dev Rajan"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id01_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 1,
+    "truth": {
+      "account_number": "6467336784",
+      "opening_balance": "5932.95",
+      "closing_balance": "8249.07",
+      "total_credits": "3773.42",
+      "total_debits": "1457.30",
+      "account_holder": "Dev Rajan"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id01_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "account_number": "6467336784",
+      "opening_balance": "5932.95",
+      "closing_balance": "8249.07",
+      "total_credits": "3773.42",
+      "total_debits": "1457.30",
+      "account_holder": "Dev Rajan"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id02_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "account_number": "2535436715",
+      "opening_balance": "5887.15",
+      "closing_balance": "5113.03",
+      "total_credits": "1670.80",
+      "total_debits": "2444.92",
+      "account_holder": "Sofia Dimitrov"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id02_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "account_number": "2535436715",
+      "opening_balance": "5887.15",
+      "closing_balance": "5113.03",
+      "total_credits": "1670.80",
+      "total_debits": "2444.92",
+      "account_holder": "Sofia Dimitrov"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id02_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "account_number": "2535436715",
+      "opening_balance": "5887.15",
+      "closing_balance": "5113.03",
+      "total_credits": "1670.80",
+      "total_debits": "2444.92",
+      "account_holder": "Sofia Dimitrov"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id02_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 2,
+    "truth": {
+      "account_number": "2535436715",
+      "opening_balance": "5887.15",
+      "closing_balance": "5113.03",
+      "total_credits": "1670.80",
+      "total_debits": "2444.92",
+      "account_holder": "Sofia Dimitrov"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id02_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "account_number": "2535436715",
+      "opening_balance": "5887.15",
+      "closing_balance": "5113.03",
+      "total_credits": "1670.80",
+      "total_debits": "2444.92",
+      "account_holder": "Sofia Dimitrov"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id03_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "account_number": "6995993239",
+      "opening_balance": "3707.56",
+      "closing_balance": "4075.42",
+      "total_credits": "1982.21",
+      "total_debits": "1614.35",
+      "account_holder": "Taro Endo"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id03_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "account_number": "6995993239",
+      "opening_balance": "3707.56",
+      "closing_balance": "4075.42",
+      "total_credits": "1982.21",
+      "total_debits": "1614.35",
+      "account_holder": "Taro Endo"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id03_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "account_number": "6995993239",
+      "opening_balance": "3707.56",
+      "closing_balance": "4075.42",
+      "total_credits": "1982.21",
+      "total_debits": "1614.35",
+      "account_holder": "Taro Endo"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id03_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 3,
+    "truth": {
+      "account_number": "6995993239",
+      "opening_balance": "3707.56",
+      "closing_balance": "4075.42",
+      "total_credits": "1982.21",
+      "total_debits": "1614.35",
+      "account_holder": "Taro Endo"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id03_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "account_number": "6995993239",
+      "opening_balance": "3707.56",
+      "closing_balance": "4075.42",
+      "total_credits": "1982.21",
+      "total_debits": "1614.35",
+      "account_holder": "Taro Endo"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id04_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "account_number": "1333869869",
+      "opening_balance": "1490.89",
+      "closing_balance": "2592.31",
+      "total_credits": "2873.44",
+      "total_debits": "1772.02",
+      "account_holder": "Mina Ortega"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id04_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "account_number": "1333869869",
+      "opening_balance": "1490.89",
+      "closing_balance": "2592.31",
+      "total_credits": "2873.44",
+      "total_debits": "1772.02",
+      "account_holder": "Mina Ortega"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id04_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "account_number": "1333869869",
+      "opening_balance": "1490.89",
+      "closing_balance": "2592.31",
+      "total_credits": "2873.44",
+      "total_debits": "1772.02",
+      "account_holder": "Mina Ortega"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id04_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 4,
+    "truth": {
+      "account_number": "1333869869",
+      "opening_balance": "1490.89",
+      "closing_balance": "2592.31",
+      "total_credits": "2873.44",
+      "total_debits": "1772.02",
+      "account_holder": "Mina Ortega"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id04_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "account_number": "1333869869",
+      "opening_balance": "1490.89",
+      "closing_balance": "2592.31",
+      "total_credits": "2873.44",
+      "total_debits": "1772.02",
+      "account_holder": "Mina Ortega"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id05_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "account_number": "9777251090",
+      "opening_balance": "4744.12",
+      "closing_balance": "4830.17",
+      "total_credits": "1953.62",
+      "total_debits": "1867.57",
+      "account_holder": "Luca Ferraro"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id05_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "account_number": "9777251090",
+      "opening_balance": "4744.12",
+      "closing_balance": "4830.17",
+      "total_credits": "1953.62",
+      "total_debits": "1867.57",
+      "account_holder": "Luca Ferraro"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id05_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "account_number": "9777251090",
+      "opening_balance": "4744.12",
+      "closing_balance": "4830.17",
+      "total_credits": "1953.62",
+      "total_debits": "1867.57",
+      "account_holder": "Luca Ferraro"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id05_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 5,
+    "truth": {
+      "account_number": "9777251090",
+      "opening_balance": "4744.12",
+      "closing_balance": "4830.17",
+      "total_credits": "1953.62",
+      "total_debits": "1867.57",
+      "account_holder": "Luca Ferraro"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id05_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "account_number": "9777251090",
+      "opening_balance": "4744.12",
+      "closing_balance": "4830.17",
+      "total_credits": "1953.62",
+      "total_debits": "1867.57",
+      "account_holder": "Luca Ferraro"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id06_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "account_number": "5025395452",
+      "opening_balance": "3603.68",
+      "closing_balance": "228.17",
+      "total_credits": "817.96",
+      "total_debits": "4193.47",
+      "account_holder": "Nia Okafor"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id06_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "account_number": "5025395452",
+      "opening_balance": "3603.68",
+      "closing_balance": "228.17",
+      "total_credits": "817.96",
+      "total_debits": "4193.47",
+      "account_holder": "Nia Okafor"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id06_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "account_number": "5025395452",
+      "opening_balance": "3603.68",
+      "closing_balance": "228.17",
+      "total_credits": "817.96",
+      "total_debits": "4193.47",
+      "account_holder": "Nia Okafor"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id06_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 6,
+    "truth": {
+      "account_number": "5025395452",
+      "opening_balance": "3603.68",
+      "closing_balance": "228.17",
+      "total_credits": "817.96",
+      "total_debits": "4193.47",
+      "account_holder": "Nia Okafor"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id06_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "account_number": "5025395452",
+      "opening_balance": "3603.68",
+      "closing_balance": "228.17",
+      "total_credits": "817.96",
+      "total_debits": "4193.47",
+      "account_holder": "Nia Okafor"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id07_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "account_number": "2463715035",
+      "opening_balance": "6435.59",
+      "closing_balance": "6180.10",
+      "total_credits": "1159.37",
+      "total_debits": "1414.86",
+      "account_holder": "Jonas Berg"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id07_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "account_number": "2463715035",
+      "opening_balance": "6435.59",
+      "closing_balance": "6180.10",
+      "total_credits": "1159.37",
+      "total_debits": "1414.86",
+      "account_holder": "Jonas Berg"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id07_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "account_number": "2463715035",
+      "opening_balance": "6435.59",
+      "closing_balance": "6180.10",
+      "total_credits": "1159.37",
+      "total_debits": "1414.86",
+      "account_holder": "Jonas Berg"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id07_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 7,
+    "truth": {
+      "account_number": "2463715035",
+      "opening_balance": "6435.59",
+      "closing_balance": "6180.10",
+      "total_credits": "1159.37",
+      "total_debits": "1414.86",
+      "account_holder": "Jonas Berg"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id07_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "account_number": "2463715035",
+      "opening_balance": "6435.59",
+      "closing_balance": "6180.10",
+      "total_credits": "1159.37",
+      "total_debits": "1414.86",
+      "account_holder": "Jonas Berg"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id08_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 8,
+    "truth": {
+      "account_number": "7951294606",
+      "opening_balance": "3732.75",
+      "closing_balance": "2235.33",
+      "total_credits": "1055.11",
+      "total_debits": "2552.53",
+      "account_holder": "Priya Sen"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id08_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 8,
+    "truth": {
+      "account_number": "7951294606",
+      "opening_balance": "3732.75",
+      "closing_balance": "2235.33",
+      "total_credits": "1055.11",
+      "total_debits": "2552.53",
+      "account_holder": "Priya Sen"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id08_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 8,
+    "truth": {
+      "account_number": "7951294606",
+      "opening_balance": "3732.75",
+      "closing_balance": "2235.33",
+      "total_credits": "1055.11",
+      "total_debits": "2552.53",
+      "account_holder": "Priya Sen"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id08_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 8,
+    "truth": {
+      "account_number": "7951294606",
+      "opening_balance": "3732.75",
+      "closing_balance": "2235.33",
+      "total_credits": "1055.11",
+      "total_debits": "2552.53",
+      "account_holder": "Priya Sen"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id08_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 8,
+    "truth": {
+      "account_number": "7951294606",
+      "opening_balance": "3732.75",
+      "closing_balance": "2235.33",
+      "total_credits": "1055.11",
+      "total_debits": "2552.53",
+      "account_holder": "Priya Sen"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id09_clean.png",
+    "class": "bank_statement",
+    "degradation": "clean",
+    "identity": 9,
+    "truth": {
+      "account_number": "7229592463",
+      "opening_balance": "1595.81",
+      "closing_balance": "708.49",
+      "total_credits": "1916.07",
+      "total_debits": "2803.39",
+      "account_holder": "Mateo Ibarra"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id09_jpeg40.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "jpeg40",
+    "identity": 9,
+    "truth": {
+      "account_number": "7229592463",
+      "opening_balance": "1595.81",
+      "closing_balance": "708.49",
+      "total_credits": "1916.07",
+      "total_debits": "2803.39",
+      "account_holder": "Mateo Ibarra"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id09_blur1.png",
+    "class": "bank_statement_degraded",
+    "degradation": "blur1",
+    "identity": 9,
+    "truth": {
+      "account_number": "7229592463",
+      "opening_balance": "1595.81",
+      "closing_balance": "708.49",
+      "total_credits": "1916.07",
+      "total_debits": "2803.39",
+      "account_holder": "Mateo Ibarra"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id09_rot3.png",
+    "class": "bank_statement_degraded",
+    "degradation": "rot3",
+    "identity": 9,
+    "truth": {
+      "account_number": "7229592463",
+      "opening_balance": "1595.81",
+      "closing_balance": "708.49",
+      "total_credits": "1916.07",
+      "total_debits": "2803.39",
+      "account_holder": "Mateo Ibarra"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "bank_id09_worst.jpg",
+    "class": "bank_statement_degraded",
+    "degradation": "worst",
+    "identity": 9,
+    "truth": {
+      "account_number": "7229592463",
+      "opening_balance": "1595.81",
+      "closing_balance": "708.49",
+      "total_credits": "1916.07",
+      "total_debits": "2803.39",
+      "account_holder": "Mateo Ibarra"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  }
+]

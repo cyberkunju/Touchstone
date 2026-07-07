@@ -5,6 +5,9 @@ import {
   decodeCTCGreedy,
   normalizeDetectorTensor,
   postProcessDBNet,
+  postProcessDBNetQuads,
+  planDetBands,
+  dedupeBoxes,
   OcrRecResult,
 } from './ocr';
 import { Box } from '../core/geometry';
@@ -323,5 +326,137 @@ describe('postProcessDBNet', () => {
     // Lower boxThreshold so the 0.4 block now passes.
     const boxes = postProcessDBNet(map, MAP, MAP, { boxThreshold: 0.3 });
     expect(boxes.length).toBe(1);
+  });
+});
+
+describe('postProcessDBNetQuads (rotated line detection)', () => {
+  const W = 64;
+  const H = 64;
+  const makeBig = () => new Float32Array(W * H);
+  const set = (map: Float32Array, x: number, y: number, p = 0.95) => {
+    if (x >= 0 && x < W && y >= 0 && y < H) map[y * W + x] = p;
+  };
+
+  /** Paint a slanted thick line from (x0,y0) along direction (dx,dy). */
+  const paintSlanted = (
+    map: Float32Array,
+    x0: number,
+    y0: number,
+    len: number,
+    thick: number,
+    angleDeg: number,
+  ) => {
+    const a = (angleDeg * Math.PI) / 180;
+    const ux = Math.cos(a);
+    const uy = Math.sin(a);
+    for (let l = 0; l < len; l++) {
+      for (let t = -Math.floor(thick / 2); t <= Math.floor(thick / 2); t++) {
+        set(map, Math.round(x0 + l * ux - t * uy), Math.round(y0 + l * uy + t * ux));
+      }
+    }
+  };
+
+  it('axis-aligned component ≈ the bbox path (quad degenerates to the box)', () => {
+    const map = makeBig();
+    for (let y = 20; y < 26; y++) for (let x = 8; x < 40; x++) set(map, x, y);
+    const quads = postProcessDBNetQuads(map, W, H);
+    expect(quads.length).toBe(1);
+    const q = quads[0];
+    // TL→TR edge horizontal (angle ~0): |Δy| across the top edge tiny.
+    const [tl, tr] = q.quadNorm;
+    expect(Math.abs(tr[1] - tl[1])).toBeLessThan(0.02);
+    // boxNorm encloses the painted region.
+    expect(q.boxNorm[0]).toBeLessThanOrEqual(8 / W);
+    expect(q.boxNorm[2]).toBeGreaterThanOrEqual(40 / W);
+  });
+
+  it('recovers the rotation angle of a slanted line (±2°)', () => {
+    const map = makeBig();
+    paintSlanted(map, 6, 12, 48, 5, 15);
+    const quads = postProcessDBNetQuads(map, W, H);
+    expect(quads.length).toBe(1);
+    const [tl, tr] = quads[0].quadNorm;
+    const angle =
+      (Math.atan2((tr[1] - tl[1]) * H, (tr[0] - tl[0]) * W) * 180) / Math.PI;
+    expect(Math.abs(angle - 15)).toBeLessThan(2);
+  });
+
+  it('orders corners TL,TR,BR,BL with the long axis as width', () => {
+    const map = makeBig();
+    paintSlanted(map, 6, 30, 40, 5, -10);
+    const [q] = postProcessDBNetQuads(map, W, H);
+    const [tl, tr, br, bl] = q.quadNorm;
+    // Width (TL→TR) must exceed height (TL→BL): text axis is the long side.
+    const wLen = Math.hypot((tr[0] - tl[0]) * W, (tr[1] - tl[1]) * H);
+    const hLen = Math.hypot((bl[0] - tl[0]) * W, (bl[1] - tl[1]) * H);
+    expect(wLen).toBeGreaterThan(hLen);
+    // Reading order: TR right of TL; BL below TL; BR completes parallelogram.
+    expect(tr[0]).toBeGreaterThan(tl[0]);
+    expect(bl[1]).toBeGreaterThan(tl[1]);
+    expect(br[0]).toBeCloseTo(tr[0] + bl[0] - tl[0], 5);
+    expect(br[1]).toBeCloseTo(tr[1] + bl[1] - tl[1], 5);
+  });
+
+  it('applies the same filtering laws as the bbox path', () => {
+    const map = makeBig();
+    // low prob → dropped
+    for (let y = 4; y < 12; y++) for (let x = 4; x < 20; x++) set(map, x, y, 0.4);
+    expect(postProcessDBNetQuads(map, W, H).length).toBe(0);
+  });
+});
+
+describe('planDetBands (tall-page banding law)', () => {
+  it('wide and square pages stay single-pass (the certified path)', () => {
+    expect(planDetBands(1400, 980, 1.25, 0.12)).toEqual([{ sy: 0, sh: 980 }]);
+    expect(planDetBands(1000, 1000, 1.25, 0.12)).toEqual([{ sy: 0, sh: 1000 }]);
+    expect(planDetBands(1400, 1700, 1.25, 0.12)).toEqual([{ sy: 0, sh: 1700 }]); // 1.21 < 1.25
+  });
+
+  it('tall pages split into overlapping full-width square bands covering everything', () => {
+    const bands = planDetBands(1400, 2200, 1.25, 0.12);
+    expect(bands.length).toBeGreaterThanOrEqual(2);
+    // Full coverage: first starts at 0, last reaches the bottom.
+    expect(bands[0].sy).toBe(0);
+    const last = bands[bands.length - 1];
+    expect(last.sy + last.sh).toBe(2200);
+    // Adjacent bands overlap by ≥ the overlap fraction of a band.
+    for (let i = 1; i < bands.length; i++) {
+      const overlap = bands[i - 1].sy + bands[i - 1].sh - bands[i].sy;
+      expect(overlap).toBeGreaterThanOrEqual(Math.floor(1400 * 0.12) - 1);
+    }
+    // Bands are square-ish: height bounded by page width.
+    for (const b of bands) expect(b.sh).toBeLessThanOrEqual(1400);
+  });
+
+  it('degenerate dimensions stay single-pass', () => {
+    expect(planDetBands(0, 100, 1.25, 0.12)).toEqual([{ sy: 0, sh: 100 }]);
+  });
+});
+
+describe('dedupeBoxes (band-overlap reconciliation)', () => {
+  it('collapses high-IoU duplicates to the larger box', () => {
+    const a: Box = [0.1, 0.10, 0.5, 0.16]; // fuller detection
+    const b: Box = [0.1, 0.105, 0.5, 0.158]; // partial re-detect in overlap
+    const out = dedupeBoxes([b, a]);
+    expect(out).toHaveLength(1);
+    expect(out[0]).toEqual(a);
+  });
+
+  it('keeps genuinely distinct boxes and restores reading order', () => {
+    const rows: Box[] = [
+      [0.1, 0.30, 0.5, 0.34],
+      [0.1, 0.10, 0.5, 0.14],
+      [0.55, 0.10, 0.9, 0.14],
+    ];
+    const out = dedupeBoxes(rows);
+    expect(out).toHaveLength(3);
+    expect(out[0][1]).toBeLessThanOrEqual(out[1][1]);
+    expect(out[1][0]).toBeLessThanOrEqual(out[2][0] + 1);
+  });
+
+  it('near-touching lines on adjacent rows are NOT merged (IoU below threshold)', () => {
+    const l1: Box = [0.1, 0.100, 0.5, 0.130];
+    const l2: Box = [0.1, 0.132, 0.5, 0.162]; // next text row, no real overlap
+    expect(dedupeBoxes([l1, l2])).toHaveLength(2);
   });
 });

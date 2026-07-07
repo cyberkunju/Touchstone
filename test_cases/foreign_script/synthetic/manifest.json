@@ -1,0 +1,470 @@
+[
+  {
+    "file": "fs_id00_clean.png",
+    "class": "foreign_arabic",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "document_no": "FS2783199"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id00_jpeg40.jpg",
+    "class": "foreign_arabic_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "document_no": "FS2783199"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id00_blur1.png",
+    "class": "foreign_arabic_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "document_no": "FS2783199"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id00_worst.jpg",
+    "class": "foreign_arabic_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "document_no": "FS2783199"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id01_clean.png",
+    "class": "foreign_cjk",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "document_no": "FS1299630"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id01_jpeg40.jpg",
+    "class": "foreign_cjk_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "document_no": "FS1299630"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id01_blur1.png",
+    "class": "foreign_cjk_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "document_no": "FS1299630"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id01_worst.jpg",
+    "class": "foreign_cjk_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "document_no": "FS1299630"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id02_clean.png",
+    "class": "foreign_cyrillic",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "document_no": "FS1979151"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id02_jpeg40.jpg",
+    "class": "foreign_cyrillic_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "document_no": "FS1979151"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id02_blur1.png",
+    "class": "foreign_cyrillic_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "document_no": "FS1979151"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id02_worst.jpg",
+    "class": "foreign_cyrillic_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "document_no": "FS1979151"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id03_clean.png",
+    "class": "foreign_arabic",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "document_no": "FS5909052"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id03_jpeg40.jpg",
+    "class": "foreign_arabic_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "document_no": "FS5909052"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id03_blur1.png",
+    "class": "foreign_arabic_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "document_no": "FS5909052"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id03_worst.jpg",
+    "class": "foreign_arabic_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "document_no": "FS5909052"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id04_clean.png",
+    "class": "foreign_cjk",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "document_no": "FS4179142"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id04_jpeg40.jpg",
+    "class": "foreign_cjk_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "document_no": "FS4179142"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id04_blur1.png",
+    "class": "foreign_cjk_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "document_no": "FS4179142"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id04_worst.jpg",
+    "class": "foreign_cjk_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "document_no": "FS4179142"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id05_clean.png",
+    "class": "foreign_cyrillic",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "document_no": "FS1300443"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id05_jpeg40.jpg",
+    "class": "foreign_cyrillic_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "document_no": "FS1300443"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id05_blur1.png",
+    "class": "foreign_cyrillic_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "document_no": "FS1300443"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id05_worst.jpg",
+    "class": "foreign_cyrillic_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "document_no": "FS1300443"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id06_clean.png",
+    "class": "foreign_arabic",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "document_no": "FS1206790"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id06_jpeg40.jpg",
+    "class": "foreign_arabic_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "document_no": "FS1206790"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id06_blur1.png",
+    "class": "foreign_arabic_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "document_no": "FS1206790"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id06_worst.jpg",
+    "class": "foreign_arabic_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "document_no": "FS1206790"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id07_clean.png",
+    "class": "foreign_cjk",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "document_no": "FS4493763"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id07_jpeg40.jpg",
+    "class": "foreign_cjk_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "document_no": "FS4493763"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id07_blur1.png",
+    "class": "foreign_cjk_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "document_no": "FS4493763"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id07_worst.jpg",
+    "class": "foreign_cjk_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "document_no": "FS4493763"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id08_clean.png",
+    "class": "foreign_cyrillic",
+    "degradation": "clean",
+    "identity": 8,
+    "truth": {
+      "full_name": "HANS MUELLER",
+      "document_no": "FS8743996"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id08_jpeg40.jpg",
+    "class": "foreign_cyrillic_degraded",
+    "degradation": "jpeg40",
+    "identity": 8,
+    "truth": {
+      "full_name": "HANS MUELLER",
+      "document_no": "FS8743996"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id08_blur1.png",
+    "class": "foreign_cyrillic_degraded",
+    "degradation": "blur1",
+    "identity": 8,
+    "truth": {
+      "full_name": "HANS MUELLER",
+      "document_no": "FS8743996"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "fs_id08_worst.jpg",
+    "class": "foreign_cyrillic_degraded",
+    "degradation": "worst",
+    "identity": 8,
+    "truth": {
+      "full_name": "HANS MUELLER",
+      "document_no": "FS8743996"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  }
+]

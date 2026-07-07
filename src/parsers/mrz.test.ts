@@ -365,3 +365,93 @@ describe('parseMrz - autoCorrect', () => {
     expect(result.status).toBe('valid');
   });
 });
+
+// ---------------------------------------------------------------------------
+// MRV visas (ICAO 9303-7) — corpus-shaped, checksums computed at runtime
+// ---------------------------------------------------------------------------
+describe('MRV visas (ICAO 9303-7)', () => {
+  const ck = (s: string) => String(computeCheckDigit(s));
+  const padTo = (s: string, n: number) => (s + '<'.repeat(n)).slice(0, n);
+
+  function buildMrvB(
+    docNo: string,
+    country: string,
+    dob: string,
+    exp: string,
+    sex: string,
+    name: string,
+  ): string[] {
+    const l1 = `V<${country}${padTo(name, 31)}`;
+    const l2 = `${docNo}${ck(docNo)}${country}${dob}${ck(dob)}${sex}${exp}${ck(exp)}${'<'.repeat(8)}`;
+    return [l1, l2];
+  }
+
+  function buildMrvA(
+    docNo: string,
+    country: string,
+    dob: string,
+    exp: string,
+    sex: string,
+    name: string,
+  ): string[] {
+    const l1 = `V<${country}${padTo(name, 39)}`;
+    const l2 = `${docNo}${ck(docNo)}${country}${dob}${ck(dob)}${sex}${exp}${ck(exp)}${'<'.repeat(16)}`;
+    return [l1, l2];
+  }
+
+  it('detects and fully parses a valid MRV-B (2x36, three checks, no composite)', () => {
+    const lines = buildMrvB('VA1204981', 'UTO', '850712', '301231', 'F', 'GARCIA<<ANA<LUCIA');
+    expect(lines[0]).toHaveLength(36);
+    expect(lines[1]).toHaveLength(36);
+    const res = parseMrz(lines.join('\n'));
+    expect(res.format).toBe('MRV_B');
+    expect(res.status).toBe('valid');
+    expect(res.checkDigits).toHaveLength(3);
+    expect(res.checkDigits.every((c) => c.passed)).toBe(true);
+    expect(res.fields.documentType).toBe('V');
+    expect(res.fields.issuingCountry).toBe('UTO');
+    expect(res.fields.documentNumber).toBe('VA1204981');
+    expect(res.fields.surname).toBe('GARCIA');
+    expect(res.fields.givenNames).toBe('ANA LUCIA');
+    expect(res.fields.sex).toBe('F');
+    expect(res.fields.dateOfBirth).toBe('1985-07-12');
+    expect(res.fields.expiryDate).toBe('2030-12-31');
+  });
+
+  it('detects and fully parses a valid MRV-A (2x44)', () => {
+    const lines = buildMrvA('L8988901C', 'XAA', '740812', '291201', 'M', 'NAKAMURA<<KENJI');
+    expect(lines[0]).toHaveLength(44);
+    expect(lines[1]).toHaveLength(44);
+    const res = parseMrz(lines.join('\n'));
+    expect(res.format).toBe('MRV_A');
+    expect(res.status).toBe('valid');
+    expect(res.checkDigits).toHaveLength(3);
+    expect(res.fields.surname).toBe('NAKAMURA');
+    expect(res.fields.expiryDate).toBe('2029-12-01');
+  });
+
+  it('rejects an MRV-B with a corrupted document number (checksum law)', () => {
+    const lines = buildMrvB('VA1204981', 'UTO', '850712', '301231', 'F', 'GARCIA<<ANA');
+    const flipped = [lines[0], lines[1].replace('VA1204981', 'VA1204991')];
+    expect(parseMrz(flipped.join('\n')).status).toBe('invalid');
+  });
+
+  it('never claims MRV for P-prefixed 2-line zones (passports stay TD3)', () => {
+    const docNo = 'L898902C3';
+    const l1 = `P<UTOERIKSSON<<ANNA<MARIA${'<'.repeat(19)}`;
+    const body = `${docNo}${ck(docNo)}UTO740812${ck('740812')}F120415${ck('120415')}${'<'.repeat(14)}`;
+    const composite = body.slice(0, 10) + body.slice(13, 20) + body.slice(21, 43);
+    const l2 = `${body.slice(0, 43)}${ck(composite)}`;
+    const res = parseMrz(`${l1}\n${l2}`);
+    expect(res.format).toBe('TD3');
+  });
+
+  it('MRV optional-data tail carries no check and cannot invalidate', () => {
+    const lines = buildMrvB('VA1204981', 'UTO', '850712', '301231', 'F', 'GARCIA<<ANA');
+    // Plant arbitrary optional data in the unchecked tail [28..36).
+    const l2 = lines[1].slice(0, 28) + 'ZZ99XY<<';
+    const res = parseMrz(`${lines[0]}\n${l2}`);
+    expect(res.status).toBe('valid');
+    expect(res.fields.optionalData).toBe('ZZ99XY');
+  });
+});

@@ -1,7 +1,0 @@
-# 00_MASTER Documentation Manifest
-
-- `BUILD_FROM_ZERO_GUIDE.md`
-- `DECISION_LOG.md`
-- `GLOSSARY.md`
-- `MASTER_ARCHITECTURE.md`
-- `MASTER_PRD.md`

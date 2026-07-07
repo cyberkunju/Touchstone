@@ -1,0 +1,180 @@
+[
+  {
+    "file": "invoice_digital_00.pdf",
+    "class": "native_pdf_invoice",
+    "route": "digital",
+    "truth": {
+      "invoice_number": "INV-D-2026100",
+      "subtotal": "2600.00",
+      "tax": "260.00",
+      "total": "2860.00"
+    },
+    "expect": {
+      "exactText": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "invoice_digital_01.pdf",
+    "class": "native_pdf_invoice",
+    "route": "digital",
+    "truth": {
+      "invoice_number": "INV-D-2026101",
+      "subtotal": "5340.00",
+      "tax": "534.00",
+      "total": "5874.00"
+    },
+    "expect": {
+      "exactText": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "invoice_digital_02.pdf",
+    "class": "native_pdf_invoice",
+    "route": "digital",
+    "truth": {
+      "invoice_number": "INV-D-2026102",
+      "subtotal": "6248.00",
+      "tax": "624.80",
+      "total": "6872.80"
+    },
+    "expect": {
+      "exactText": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "invoice_digital_03.pdf",
+    "class": "native_pdf_invoice",
+    "route": "digital",
+    "truth": {
+      "invoice_number": "INV-D-2026103",
+      "subtotal": "2762.00",
+      "tax": "276.20",
+      "total": "3038.20"
+    },
+    "expect": {
+      "exactText": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "invoice_digital_04.pdf",
+    "class": "native_pdf_invoice",
+    "route": "digital",
+    "truth": {
+      "invoice_number": "INV-D-2026104",
+      "subtotal": "5610.00",
+      "tax": "561.00",
+      "total": "6171.00"
+    },
+    "expect": {
+      "exactText": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "invoice_digital_05.pdf",
+    "class": "native_pdf_invoice",
+    "route": "digital",
+    "truth": {
+      "invoice_number": "INV-D-2026105",
+      "subtotal": "6545.00",
+      "tax": "654.50",
+      "total": "7199.50"
+    },
+    "expect": {
+      "exactText": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ledger_00.xlsx",
+    "class": "native_xlsx_ledger",
+    "route": "digital",
+    "truth": {
+      "opening_balance": "2500.00",
+      "closing_balance": "3614.41"
+    },
+    "expect": {
+      "exactCells": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ledger_01.xlsx",
+    "class": "native_xlsx_ledger",
+    "route": "digital",
+    "truth": {
+      "opening_balance": "2623.45",
+      "closing_balance": "3732.52"
+    },
+    "expect": {
+      "exactCells": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ledger_02.xlsx",
+    "class": "native_xlsx_ledger",
+    "route": "digital",
+    "truth": {
+      "opening_balance": "2746.90",
+      "closing_balance": "3850.63"
+    },
+    "expect": {
+      "exactCells": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ledger_03.xlsx",
+    "class": "native_xlsx_ledger",
+    "route": "digital",
+    "truth": {
+      "opening_balance": "2870.35",
+      "closing_balance": "3968.74"
+    },
+    "expect": {
+      "exactCells": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "payroll_00.csv",
+    "class": "native_csv_payroll",
+    "route": "digital",
+    "truth": {
+      "rows": 6
+    },
+    "expect": {
+      "exactCells": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "payroll_01.csv",
+    "class": "native_csv_payroll",
+    "route": "digital",
+    "truth": {
+      "rows": 6
+    },
+    "expect": {
+      "exactCells": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "payroll_02.csv",
+    "class": "native_csv_payroll",
+    "route": "digital",
+    "truth": {
+      "rows": 6
+    },
+    "expect": {
+      "exactCells": true,
+      "noSilentErrors": true
+    }
+  }
+]

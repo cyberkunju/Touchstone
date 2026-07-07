@@ -4,17 +4,23 @@ import { DocGraphBuilder } from './docgraph/builder';
 import { VerifierService } from './verifier/verifier';
 import { TemplateEngine } from './template-engine/template';
 import { saveDocGraph, saveTemplate, getAllTemplates, deleteTemplate } from './storage/db';
-import { DocGraph, FieldHypothesis, ValidationResult, TemplateGraph, GraphNode } from './core/types';
+import { DocGraph, FieldHypothesis, FieldValueType, ValidationResult, TemplateGraph, GraphNode } from './core/types';
 import { Box } from './core/geometry';
 import { ensureFileCached, isFileCached, loadCharDictionary } from './ai-runtime/model-loader';
-import { CORE_OCR_MODELS, OCR_DET_MODEL, OCR_REC_MODEL, PPOCR_DICT } from './ai-runtime/model-registry';
+import { CORE_OCR_MODELS, FACE_MODEL, OCR_DET_MODEL, OCR_REC_MODEL, PPOCR_DICT } from './ai-runtime/model-registry';
 import { parseMrz } from './parsers/mrz';
+import { parseAamva } from './parsers/aamva';
+import { decodeMrzFromLattices } from './beam/mrz-beam';
+import { MRZ_ANY } from './beam/beam-search';
+import type { Lattice } from './beam/lattice';
+import { extractSignatureInk, rgbaToGray } from './docgraph/signature-ink';
 import {
   normalizeFieldValue,
   boxOverlapFraction,
 } from './docgraph/hypotheses';
 import { OcrItem } from './docgraph/ocr-item';
 import { detectMrzZone, mrzLineScore, isMrzLine } from './docgraph/mrz-zone';
+import { computePortraitFrame } from './docgraph/portrait-frame';
 import { classifyDocument } from './docgraph/document-classify';
 import { extractFields } from './docgraph/field-extraction';
 import { mrzToFields } from './docgraph/mrz-fields';
@@ -28,6 +34,11 @@ import EvidenceInspector from './components/EvidenceInspector';
 import ModelLoaderOverlay, { ModelProgress } from './components/ModelLoaderOverlay';
 
 import { FileText, Save, RefreshCw, Layers, Sparkles, CheckSquare, Trash2 } from 'lucide-react';
+
+/** The MRZ legal alphabet as a flat string — crosses the Comlink boundary to
+ *  request posterior projection in the worker (see extractProjectedLattice).
+ *  Derived from the beam module's own charset so the two can never drift. */
+const MRZ_PROJECT_ALPHABET = [...MRZ_ANY].join('');
 
 export default function App() {
   // App States
@@ -74,7 +85,7 @@ export default function App() {
     try {
       // 1. Create ImageBitmap from raw file
       setStatusText('Decoding document image...');
-      const bitmap = await createImageBitmap(file);
+      let bitmap = await createImageBitmap(file);
 
       // Create Object URL for canvas background rendering
       const objectUrl = URL.createObjectURL(file);
@@ -84,6 +95,35 @@ export default function App() {
       setStatusText('Normalizing page & analyzing image quality...');
       const parserWorker = getParserWorker();
       const prepResult = await parserWorker.preprocessPage(bitmap, 0);
+
+      // 2.1 Deskew (P1.8a): rotate the WORKING bitmap so the whole pipeline
+      // (detection, recognition, MRZ band, template anchors) sees level text.
+      // The viewer image is regenerated too — overlays must match what was
+      // actually processed. Estimation is conservative (0 when unsure), so a
+      // straight page never rotates.
+      if (Math.abs(prepResult.skewDeg) >= 1.5) {
+        const rad = (-prepResult.skewDeg * Math.PI) / 180;
+        const cos = Math.abs(Math.cos(rad));
+        const sin = Math.abs(Math.sin(rad));
+        const rw = Math.round(bitmap.width * cos + bitmap.height * sin);
+        const rh = Math.round(bitmap.width * sin + bitmap.height * cos);
+        const rc = new OffscreenCanvas(rw, rh);
+        const rctx = rc.getContext('2d');
+        if (rctx) {
+          rctx.fillStyle = '#ffffff';
+          rctx.fillRect(0, 0, rw, rh);
+          rctx.translate(rw / 2, rh / 2);
+          rctx.rotate(rad);
+          rctx.drawImage(bitmap, -bitmap.width / 2, -bitmap.height / 2);
+          bitmap.close();
+          bitmap = rc.transferToImageBitmap();
+          const viewCanvas = new OffscreenCanvas(rw, rh);
+          viewCanvas.getContext('2d')!.drawImage(bitmap, 0, 0);
+          const blob = await viewCanvas.convertToBlob({ type: 'image/png' });
+          setImageSrc(URL.createObjectURL(blob));
+          console.log(`[DIAG] deskew applied: ${prepResult.skewDeg}°`);
+        }
+      }
       
       // Compute score
       const qualityScore = Math.round(
@@ -127,6 +167,18 @@ export default function App() {
           setDownloadProgress((prev) => ({ ...prev, [PPOCR_DICT.key]: p }));
         });
         await inferenceWorker.setRecognitionVocab(vocab);
+        // YuNet face detector (P1.7): tiny (0.2 MB) and OPTIONAL — a fetch/
+        // load failure only disables portrait framing, never the pipeline.
+        try {
+          if (!(await inferenceWorker.isModelLoaded(FACE_MODEL.key))) {
+            const fb = await ensureFileCached(FACE_MODEL.fileName, FACE_MODEL.url, () => {});
+            await inferenceWorker.loadModel(FACE_MODEL.key, fb, FACE_MODEL.executionProvider, {
+              inputSize: FACE_MODEL.inputSize,
+            });
+          }
+        } catch (faceErr) {
+          console.warn('[App] YuNet unavailable — portrait framing disabled:', faceErr);
+        }
       } finally {
         if (needsSetup) setIsDownloading(false);
       }
@@ -138,7 +190,7 @@ export default function App() {
 
       // Run real PP-OCRv5 recognition on each detected line crop.
       setStatusText(`Recognizing characters on ${detBoxes.length} text lines (PP-OCRv5)...`);
-      const recognizedNodes: { text: string; confidence: number; boxNorm: Box }[] = [];
+      const recognizedNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[] = [];
 
       for (let i = 0; i < detBoxes.length; i++) {
         const box = detBoxes[i];
@@ -178,6 +230,7 @@ export default function App() {
               text: recResult.text,
               confidence: recResult.confidence,
               boxNorm: box,
+              lattice: recResult.lattice,
             });
           }
         } catch (recErr) {
@@ -215,21 +268,31 @@ export default function App() {
         'page-normalized-image'
       );
 
-      // Update metadata execution provider
+      // Update metadata execution provider — the ACTUAL one the recognizer
+      // landed on, not the requested one (a WebGPU request can fall back).
+      const actualEp = (await inferenceWorker.getEp(OCR_REC_MODEL.key)) ?? 'wasm';
       builder.updateMetadata({
         runtime: {
           appVersion: '1.0.0',
-          executionProvider: 'webgpu'
+          executionProvider: actualEp
         }
       });
 
       // Build actual OCR nodes into graph
       const graphNodes: GraphNode[] = [];
       const nodeMap = new Map<string, string>(); // maps box coordinate string to node ID
+      const nodeIdToLattice = new Map<string, Lattice>(); // beam-decoder fallback source
+      // Hypotheses that must never auto-confirm (N1): hypId → reason, plus
+      // display labels capped document-wide (checksum-invisible ambiguities
+      // taint EVERY source of that field — two OCR reads of the same
+      // destroyed glyph are correlated, not independent evidence).
+      const hypReviewCaps = new Map<string, string>();
+      const labelReviewCaps = new Map<string, string>();
 
       recognizedNodes.forEach((rn, idx) => {
         const nodeId = builder.addNode('text_line', pageId, rn.boxNorm, rn.text, rn.confidence);
         nodeMap.set(rn.boxNorm.join(','), nodeId);
+        nodeIdToLattice.set(nodeId, rn.lattice);
         graphNodes.push({
           id: nodeId,
           type: 'text_line',
@@ -257,19 +320,86 @@ export default function App() {
         boxNorm: rn.boxNorm,
         nodeId: nodeMap.get(rn.boxNorm.join(',')) || `node-${idx}`,
         confidence: rn.confidence,
+        lattice: rn.lattice,
       }));
       let mrzZone = detectMrzZone(ocrItems);
       console.log(`[DIAG] ocrItems=${ocrItems.length} mrzZoneDetected=${!!mrzZone}`);
+      // Per-line lattices for the checksum-guided beam decoder (I2). Hi-res
+      // re-OCR replaces these with sharper ones when it succeeds.
+      let mrzLineLattices: Lattice[] | null = mrzZone
+        ? (mrzZone.itemIds
+            .map((id) => nodeIdToLattice.get(id))
+            .filter((l): l is Lattice => !!l))
+        : null;
+      // The bottom-band fallback already reads at high resolution — re-running
+      // the hi-res pass over it would be wasted inference.
+      let mrzFromBandFallback = false;
+
+      // Bottom-band fallback (foveation-lite): MRZ zone detection above relies
+      // on the downscaled FULL-PAGE OCR reading MRZ-ish lines — on small or
+      // tightly-set MRZs DBNet merges/butchers them and the zone is missed
+      // entirely. Passports carry the MRZ in the bottom band by construction,
+      // so when no zone was found probe that band at high resolution before
+      // giving up. A failed probe changes nothing (evidence-only).
+      if (!mrzZone) {
+        try {
+          const bandTop = 0.74;
+          const sw = bitmap.width;
+          const sh = Math.round(bitmap.height * (1 - bandTop));
+          const sy = Math.round(bitmap.height * bandTop);
+          const targetW = Math.min(2200, Math.max(sw, 1600));
+          const scale = targetW / sw;
+          const bc = new OffscreenCanvas(Math.round(sw * scale), Math.round(sh * scale));
+          const bctx = bc.getContext('2d');
+          if (bctx) {
+            bctx.imageSmoothingQuality = 'high';
+            bctx.drawImage(bitmap, 0, sy, sw, sh, 0, 0, bc.width, bc.height);
+            const bandBitmap = await createImageBitmap(bc);
+            const probe = await inferenceWorker.ocrRegionLines(
+              OCR_DET_MODEL.key, OCR_REC_MODEL.key, bandBitmap,
+              { projectAlphabet: MRZ_PROJECT_ALPHABET, unifyLineWidths: true },
+            );
+            bandBitmap.close();
+            const mrzish = probe
+              .map((l) => ({ ...l, clean: (l.projectedText ?? l.text).toUpperCase().replace(/\s+/g, '') }))
+              .filter((l) => isMrzLine(l.clean))
+              // One physical line can detect as two stacked components under
+              // blur (each rectifies to the full text). Identical MRZ lines
+              // are impossible on a real document — dedupe is provably safe.
+              .filter((l, i, a) => a.findIndex((x) => x.clean === l.clean) === i);
+            console.log(
+              `[DIAG] MRZ band probe: ${probe.length} lines, ${mrzish.length} MRZ-ish → ${JSON.stringify(probe.map((l) => ({ t: l.text.slice(0, 48), c: +l.confidence.toFixed(2), y: +l.boxNorm[1].toFixed(2), h: +(l.boxNorm[3] - l.boxNorm[1]).toFixed(2) })))}`,
+            );
+            if (mrzish.length >= 2) {
+              mrzZone = {
+                lines: mrzish.map((l) => l.clean),
+                itemIds: [],
+                boxNorm: [0.02, bandTop, 0.98, 1.0],
+              };
+              mrzLineLattices = mrzish.map((l) => l.projectedLattice ?? l.lattice);
+              mrzFromBandFallback = true;
+              console.log(`[DIAG] MRZ bottom-band fallback found ${mrzish.length} lines`);
+            }
+          }
+        } catch (e) {
+          console.warn('[DIAG] MRZ bottom-band fallback failed:', e);
+        }
+      }
 
       // High-resolution MRZ re-OCR. The full-page pass downscales to <=960px,
       // so the small MRZ band at the bottom reads poorly. Re-read it directly
       // from the ORIGINAL image at high resolution for accurate doc number /
       // name / dates, then the check-digit-validated parse can trust it.
-      if (mrzZone) {
+      if (mrzZone && !mrzFromBandFallback) {
         try {
           const [bx1, by1, bx2, by2] = mrzZone.boxNorm;
           const padX = (bx2 - bx1) * 0.02;
-          const padY = (by2 - by1) * 0.25;
+          // Generous vertical margin: on small originals the detected zone is
+          // often ONE of the MRZ lines — a tight crop then cuts its sibling
+          // off and a 1-line re-read replaces a 2-line zone (live-caught).
+          // MRZ lines are adjacent and equal-height, so 1.6× the zone height
+          // above and below always covers the full block.
+          const padY = Math.max((by2 - by1) * 1.6, 0.02);
           const rx1 = Math.max(0, bx1 - padX);
           const ry1 = Math.max(0, by1 - padY);
           const rx2 = Math.min(1, bx2 + padX);
@@ -295,18 +425,33 @@ export default function App() {
               // full-page MRZ lines.
               const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), 25000));
               const lines = await Promise.race([
-                inferenceWorker.ocrRegionLines(OCR_DET_MODEL.key, OCR_REC_MODEL.key, bandBitmap),
+                inferenceWorker.ocrRegionLines(
+                  OCR_DET_MODEL.key, OCR_REC_MODEL.key, bandBitmap,
+                  { projectAlphabet: MRZ_PROJECT_ALPHABET, unifyLineWidths: true },
+                ),
                 timeout,
               ]);
               bandBitmap.close();
               if (lines) {
                 console.log(`[DIAG] ocrRegionLines returned ${lines.length} lines`);
-                const hiResLines = lines
-                  .map((l) => l.text.toUpperCase().replace(/\s+/g, ''))
-                  .filter((t) => t.length >= 10);
-                console.log(`[DIAG] MRZ hi-res lines: ${JSON.stringify(hiResLines)}`);
-                if (hiResLines.length >= 1) {
-                  mrzZone = { ...mrzZone, lines: hiResLines };
+                // The widened crop can catch VIZ text above the MRZ — keep
+                // only MRZ-shaped lines. Never DOWNGRADE the zone: replacing
+                // 2 detected lines with a 1-line re-read starves the beam.
+                const hiRes = lines
+                  .map((l) => ({
+                    text: (l.projectedText ?? l.text).toUpperCase().replace(/\s+/g, ''),
+                    lattice: l.projectedLattice ?? l.lattice,
+                  }))
+                  .filter((l) => l.text.length >= 10 && isMrzLine(l.text))
+                  // Blur can split one physical line into two stacked quads
+                  // that BOTH read the full text (live-caught: duplicated
+                  // line 1 made a 2-line TD3 look like 3-line TD1 → refusal).
+                  // Two identical MRZ lines cannot exist on a real document.
+                  .filter((l, i, a) => a.findIndex((x) => x.text === l.text) === i);
+                console.log(`[DIAG] MRZ hi-res lines: ${JSON.stringify(hiRes.map((l) => l.text))}`);
+                if (hiRes.length >= Math.min(2, mrzZone.lines.length)) {
+                  mrzZone = { ...mrzZone, lines: hiRes.map((l) => l.text) };
+                  mrzLineLattices = hiRes.map((l) => l.lattice);
                 }
               } else {
                 console.warn('[DIAG] MRZ hi-res re-OCR timed out; keeping full-page lines.');
@@ -397,7 +542,8 @@ export default function App() {
       if (templateMatch) {
         setStatusText(`Template matched: '${templateMatch.template.name}'! Projecting ROIs...`);
         const tpl = templateMatch.template;
-        
+        const refillStart = performance.now();
+
         // Find anchors on the current page to run alignment homography
         const pageNodes = recognizedNodes.map(rn => ({
           type: 'text_line',
@@ -405,9 +551,16 @@ export default function App() {
           boxNorm: rn.boxNorm
         }));
 
+        // JIT-lite (I8): alignment estimated ONCE through the frozen ladder
+        // (homography → affine → similarity), then every ROI projects through
+        // the same transform. A failed alignment falls back to template boxes
+        // and is recorded — the template_consistency attestation thresholds
+        // on the ladder rung.
+        const alignment = TemplateEngine.computeAlignment(pageNodes, tpl);
+
         tpl.fields.forEach(field => {
           // Project bounding box using actual aligned anchors
-          const projectedBox = TemplateEngine.alignAndProject(pageNodes, tpl, field);
+          const projectedBox = TemplateEngine.alignAndProject(pageNodes, tpl, field, alignment);
           
           // Match text lines within projected box
           const overlappingLines = recognizedNodes.filter(rn => {
@@ -451,6 +604,9 @@ export default function App() {
           projectedRoiIds: [],
           alignmentTransformIds: []
         });
+        console.log(
+          `[DIAG] template refill: ${tpl.fields.length} fields via ${alignment.kind} in ${(performance.now() - refillStart).toFixed(0)}ms`,
+        );
 
       } else {
         setStatusText(`Extracting ${docType} fields...`);
@@ -459,13 +615,96 @@ export default function App() {
         // so each layer adds only NEW information and nothing is double-counted.
         const usedNodeIds = new Set<string>();
         const addedCanonical = new Set<string>();
+        // MRZ-derived fields that lack proof — added AFTER visual extraction
+        // so an unproven MRZ read never blocks a clean visual one.
+        const mrzGapFill: ReturnType<typeof mrzToFields> = [];
 
-        // 1. MRZ is the AUTHORITATIVE source for passports/IDs: machine-readable
-        //    and checksum-protected, so it is immune to visual smudges/blur. We
-        //    parse it with check-digit-guided OCR self-correction, then derive
-        //    checksum-verified fields that OVERRIDE noisy visual OCR.
+        // 1. MRZ decode. Order (I2): checksum-guided BEAM SEARCH over the raw
+        //    CTC lattices first — check digits drive the read, so ambiguous
+        //    glyphs (0/O, 8/B…) resolve to the only provable string. The
+        //    legacy parse-then-autocorrect path remains as fallback, BUT
+        //    (live-caught silent errors): only the beam constitutes PROOF.
+        //    Legacy 'valid' can be minted — a U→0 misread passes every check
+        //    digit (mod-10 blind spot), and autoCorrect mutates lines until
+        //    checks pass. Legacy-sourced fields are therefore review-capped.
         if (mrzZone) {
-          const parsedMRZ = parseMrz(mrzZone.lines.join('\n'), { autoCorrect: true });
+          let parsedMRZ = null as ReturnType<typeof parseMrz> | null;
+          let beamResult =
+            mrzLineLattices && mrzLineLattices.length >= 2
+              ? decodeMrzFromLattices(mrzLineLattices, {
+                  trace: (m) => console.log(`[DIAG] mrz-beam: ${m}`),
+                })
+              : null;
+
+          // FOVEATED RETRY: a beam refusal on a detected zone usually means
+          // CTC glyph merges — blur collapsed adjacent chars into shared
+          // activations and the truth left the lattice entirely. More pixels
+          // per glyph re-separates them: re-read the band at ~2× magnification
+          // (once; time-boxed; evidence-only — a failed retry changes nothing).
+          if (!beamResult && mrzLineLattices && mrzLineLattices.length >= 2) {
+            try {
+              const [bx1, by1, bx2, by2] = mrzZone.boxNorm;
+              const padY = Math.max((by2 - by1) * 1.6, 0.02);
+              const sx = Math.round(Math.max(0, bx1 - 0.02) * bitmap.width);
+              const sy = Math.round(Math.max(0, by1 - padY) * bitmap.height);
+              const sw = Math.round((Math.min(1, bx2 + 0.02) - Math.max(0, bx1 - 0.02)) * bitmap.width);
+              const sh = Math.round((Math.min(1, by2 + padY) - Math.max(0, by1 - padY)) * bitmap.height);
+              if (sw > 0 && sh > 0) {
+                const scale = Math.min(3600, Math.max(sw * 2, 3000)) / sw;
+                const fc = new OffscreenCanvas(Math.round(sw * scale), Math.round(sh * scale));
+                const fctx = fc.getContext('2d');
+                if (fctx) {
+                  // Nearest-neighbor upscale: smooth interpolation preserves
+                  // the very blur we are fighting; hard pixel edges give the
+                  // recognizer's convolutions gradient energy to separate
+                  // merged glyphs (the per-crop unsharp mask then bites).
+                  fctx.imageSmoothingEnabled = false;
+                  fctx.drawImage(bitmap, sx, sy, sw, sh, 0, 0, fc.width, fc.height);
+                  const fbm = await createImageBitmap(fc);
+                  const timeout = new Promise<null>((res) => setTimeout(() => res(null), 25000));
+                  const lines = await Promise.race([
+                    inferenceWorker.ocrRegionLines(
+                      OCR_DET_MODEL.key, OCR_REC_MODEL.key, fbm,
+                      { projectAlphabet: MRZ_PROJECT_ALPHABET, unifyLineWidths: true },
+                    ),
+                    timeout,
+                  ]);
+                  fbm.close();
+                  if (lines) {
+                    const fov = lines
+                      .map((l) => ({
+                        text: (l.projectedText ?? l.text).toUpperCase().replace(/\s+/g, ''),
+                        lattice: l.projectedLattice ?? l.lattice,
+                      }))
+                      .filter((l) => l.text.length >= 10 && isMrzLine(l.text))
+                      .filter((l, i, a) => a.findIndex((x) => x.text === l.text) === i);
+                    if (fov.length >= 2) {
+                      beamResult = decodeMrzFromLattices(fov.map((l) => l.lattice), {
+                        trace: (m) => console.log(`[DIAG] mrz-beam(fov): ${m}`),
+                      });
+                      if (beamResult) {
+                        mrzZone = { ...mrzZone, lines: fov.map((l) => l.text) };
+                        console.log(`[DIAG] foveated retry SUCCEEDED at ${fc.width}px band width`);
+                      }
+                    }
+                  }
+                }
+              }
+            } catch (fovErr) {
+              console.warn('[DIAG] foveated retry failed:', fovErr);
+            }
+          }
+          if (beamResult) {
+            parsedMRZ = beamResult.parse;
+            console.log(
+              `[DIAG] MRZ beam decode: ${beamResult.format} logProb=${beamResult.pathProb.toFixed(2)} lines=${JSON.stringify(beamResult.lines)}`,
+            );
+          } else {
+            parsedMRZ = parseMrz(mrzZone.lines.join('\n'), { autoCorrect: true });
+            console.log(
+              `[DIAG] MRZ beam decode unavailable/refused (lattices=${mrzLineLattices?.length ?? 0}) — legacy parser path`,
+            );
+          }
           console.log(`[DIAG] MRZ zone=${mrzZone.lines.length}L format=${parsedMRZ.format} status=${parsedMRZ.status} checks=${parsedMRZ.checkDigits.map((c) => c.field + ':' + (c.passed ? 'Y' : 'N')).join(',')} lines=${JSON.stringify(mrzZone.lines)}`);
           // Always exclude the MRZ line items from visual/generic extraction so
           // the raw MRZ string never leaks into a visible field.
@@ -479,8 +718,56 @@ export default function App() {
             const hMRZ = builder.addHypothesis('MRZ Payload', parsedMRZ, 'mrz', mrzZone.boxNorm, pageId);
             mrzZone.itemIds.forEach((id) => builder.linkHypothesisNodes(hMRZ, { valueNodeId: id }));
 
+            // Checksum blind-spot guard (I2): fields whose winning path holds
+            // a same-value-class near-tie or a low-posterior class-ambiguous
+            // char ({0,A,K,U,<} are mutually invisible to ICAO check digits)
+            // passed every check WITHOUT being proven by it. Those fields are
+            // review-capped across ALL sources (N1: no proof, no override).
+            const ambiguousCanonicals = new Set<string>();
+            if (beamResult) {
+              for (const amb of beamResult.ambiguities) {
+                if (amb.field === 'documentNumber') ambiguousCanonicals.add('passport_number');
+                if (amb.field === 'dateOfBirth') ambiguousCanonicals.add('date_of_birth');
+                if (amb.field === 'expiryDate') ambiguousCanonicals.add('date_of_expiry');
+                // optionalData has no canonical promotion today; listed for logs.
+              }
+              if (beamResult.ambiguities.length > 0) {
+                console.warn(
+                  `[DIAG] MRZ invisible-class ambiguities — withholding authoritative promotion:`,
+                  beamResult.ambiguities
+                    .map((a) => `${a.field}@${a.position} ${a.chosen}~${a.alternative} r=${a.probRatio.toFixed(2)} (${a.kind})`)
+                    .join(', '),
+                );
+              }
+            }
+            const AMBIGUOUS_LABELS: Record<string, string> = {
+              passport_number: 'Passport Number',
+              date_of_birth: 'Date of Birth',
+              date_of_expiry: 'Date of Expiry',
+            };
+            for (const canonical of ambiguousCanonicals) {
+              labelReviewCaps.set(
+                AMBIGUOUS_LABELS[canonical],
+                'MRZ position carries a checksum-invisible ambiguity — value cannot be proven automatically.',
+              );
+            }
+
+            // PROOF-GRADED promotion: a field is authoritative ONLY when the
+            // checksum-guided beam decoded it, its dedicated check digit
+            // passed, and no invisible-class ambiguity taints it. Everything
+            // else (legacy-path reads, positions no check digit covers —
+            // names, nationality, sex, issuing state) is deferred: visual
+            // extraction gets first claim, and the MRZ read only gap-fills
+            // with a review cap.
             for (const mf of mrzToFields(parsedMRZ)) {
-              if (mf.checksumPassed !== true) continue;
+              const proven =
+                beamResult !== null &&
+                mf.checksumPassed === true &&
+                !ambiguousCanonicals.has(mf.canonicalLabel);
+              if (!proven) {
+                mrzGapFill.push(mf);
+                continue;
+              }
               addedCanonical.add(mf.canonicalLabel);
               const mrzNodeId = builder.addNode('field', pageId, mrzZone.boxNorm, mf.value, mf.confidence);
               const h = builder.addHypothesis(mf.label, mf.value, mf.valueType, mrzZone.boxNorm, pageId);
@@ -489,8 +776,43 @@ export default function App() {
           }
         }
 
-        // 2. Known typed fields via the type-aware extractor (MRZ already won
-        //    for any field it provided; MRZ line items are excluded).
+        // 1b. AAMVA license barcode (Tier-1 anchor): a PDF417 decode is
+        //     Reed-Solomon proven — bit-exact or nothing — and the DL standard
+        //     duplicates the printed data inside it. Parsed fields are
+        //     therefore AUTHORITATIVE, claimed before visual extraction the
+        //     same way a beam-proven MRZ is (N5: same primitive, new family).
+        for (const code of decodedCodes) {
+          if (!/pdf417/i.test(code.format)) continue;
+          const aamva = parseAamva(code.text);
+          if (!aamva.isAamva) continue;
+          const f = aamva.fields;
+          const promote: { canonical: string; label: string; value: string | undefined; type: FieldValueType }[] = [
+            { canonical: 'passport_number', label: 'License Number', value: f.documentNumber, type: 'id_number' },
+            { canonical: 'surname', label: 'Surname', value: f.surname, type: 'name' },
+            { canonical: 'given_names', label: 'Given Names', value: f.givenNames, type: 'name' },
+            { canonical: 'date_of_birth', label: 'Date of Birth', value: f.dateOfBirth, type: 'date' },
+            { canonical: 'date_of_expiry', label: 'Date of Expiry', value: f.expiryDate, type: 'date' },
+            { canonical: 'sex', label: 'Sex', value: f.sex, type: 'text' },
+            { canonical: 'address', label: 'Address', value: f.address, type: 'text' },
+            { canonical: 'city', label: 'City', value: f.city, type: 'text' },
+            { canonical: 'state', label: 'State', value: f.state, type: 'text' },
+          ];
+          let promoted = 0;
+          for (const p of promote) {
+            if (!p.value || addedCanonical.has(p.canonical)) continue;
+            addedCanonical.add(p.canonical);
+            const nodeId = builder.addNode('field', pageId, code.boxNorm, p.value, 1.0);
+            const h = builder.addHypothesis(p.label, p.value, p.type, code.boxNorm, pageId);
+            builder.linkHypothesisNodes(h, { valueNodeId: nodeId });
+            promoted++;
+          }
+          console.log(
+            `[DIAG] AAMVA barcode: issuer=${aamva.issuerId} v${aamva.aamvaVersion} — ${promoted} fields promoted (RS-proven)`,
+          );
+        }
+
+        // 2. Known typed fields via the type-aware extractor (beam-proven MRZ
+        //    fields already won; MRZ line items are excluded).
         const knownFields = extractFields(
           ocrItems.filter((it) => !usedNodeIds.has(it.nodeId)),
           docType,
@@ -506,8 +828,93 @@ export default function App() {
             valueNodeId: f.valueItem.nodeId,
             labelNodeId: f.labelItem ? f.labelItem.nodeId : undefined,
           });
+          // N1: an IDENTIFIER read from pixels alone has no attestor — no
+          // checksum, no cross-source agreement, nothing that can prove it.
+          // CTC drops doubled digits on clean scans (live-caught: INV-2024-
+          // 7745 confirmed as "INV-2024-745"). Identifiers auto-confirm only
+          // through an attested path (beam-proven MRZ, template pattern,
+          // future cross-channel consensus) — never from a single OCR read.
+          // NAMES on non-identity documents share the law (live-caught:
+          // truncated "Sofia" confirmed as the account holder "Sofia
+          // Dimitrov") — identity docs keep confirming names because the MRZ
+          // cross-check polices them; commerce docs have no name attestor.
+          if (
+            f.valueType === 'id_number' ||
+            (f.valueType === 'name' && !isIdentityDoc)
+          ) {
+            hypReviewCaps.set(
+              h,
+              f.valueType === 'id_number'
+                ? 'Identifier read from pixels alone — no checksum or cross-source proof; review required.'
+                : 'Name read from pixels alone on a non-identity document — no attestor; review required.',
+            );
+          }
           usedNodeIds.add(f.valueItem.nodeId);
           if (f.labelItem) usedNodeIds.add(f.labelItem.nodeId);
+        }
+
+        // 2a-closure. Arithmetic attestation for closure families (N1): these
+        //   documents PUBLISH their own math. Amounts auto-confirm only when
+        //   the closure equation verifies to the cent over the extracted
+        //   values — a CTC-dropped digit breaks closure by construction
+        //   (live-caught: "1,055.1" confirmed for credits of 1055.11). Broken
+        //   or unevaluable closure review-caps every amount in the family;
+        //   correct values still count as extraction hits downstream.
+        {
+          const cents = (v: unknown): number | null => {
+            if (typeof v !== 'string') return null;
+            const n = parseFloat(v.replace(/[^\d.-]/g, ''));
+            return Number.isFinite(n) ? Math.round(n * 100) : null;
+          };
+          const byCanonical = new Map(knownFields.map((f) => [f.canonicalLabel, f]));
+          const closureFamilies: { terms: string[]; holds: (t: (number | null)[]) => boolean }[] =
+            docType === 'bank_statement'
+              ? [{
+                  terms: ['opening_balance', 'total_credits', 'total_debits', 'closing_balance'],
+                  holds: ([o, c, d, cl]) =>
+                    o !== null && c !== null && d !== null && cl !== null && o + c - d === cl,
+                }]
+              : docType === 'payslip'
+                ? [{
+                    terms: ['gross_pay', 'total_deductions', 'net_pay'],
+                    holds: ([g, d, n]) => g !== null && d !== null && n !== null && g - d === n,
+                  }]
+                : [];
+          for (const fam of closureFamilies) {
+            const values = fam.terms.map((t) => cents(byCanonical.get(t)?.value));
+            if (fam.holds(values)) {
+              console.log(`[DIAG] closure attested (${fam.terms.join('+')}) — amounts confirmable`);
+              continue;
+            }
+            for (const term of fam.terms) {
+              const f = byCanonical.get(term);
+              if (!f) continue;
+              labelReviewCaps.set(
+                f.label,
+                "Amount not attested: the document's closure equation does not verify over the extracted values — review required.",
+              );
+            }
+            console.log(
+              `[DIAG] closure NOT attested (${fam.terms.map((t, i) => `${t}=${values[i]}`).join(', ')}) — amounts review-capped`,
+            );
+          }
+        }
+
+        // 2b. MRZ gap-fill: unproven MRZ reads surface fields the visual pass
+        //     missed — better than silence, but never auto-confirmed (N1).
+        for (const mf of mrzGapFill) {
+          if (addedCanonical.has(mf.canonicalLabel)) continue;
+          if (mrzZone === null) break;
+          addedCanonical.add(mf.canonicalLabel);
+          const mrzNodeId = builder.addNode('field', pageId, mrzZone.boxNorm, mf.value, Math.min(mf.confidence, 0.8));
+          const h = builder.addHypothesis(mf.label, mf.value, mf.valueType, mrzZone.boxNorm, pageId);
+          builder.linkHypothesisNodes(h, { valueNodeId: mrzNodeId });
+          hypReviewCaps.set(
+            h,
+            mf.checksumPassed === true
+              ? 'MRZ value read without checksum-guided beam proof — review required.'
+              : 'MRZ position not covered by any check digit — review required.',
+          );
         }
 
         // 3. UNIVERSAL layer — ONLY for unclassified documents. For known doc
@@ -572,24 +979,149 @@ export default function App() {
             }
           }
           const photo = detectPhotoRegion(luma, gridW, gridH, textMask);
-          if (photo) {
-            // Pad the crop slightly so the full portrait is visible.
+
+          // P1.7: face-driven portrait framing. The face detector gives
+          // eyes-level geometry and a standardized 3:4 frame — strictly
+          // better evidence than the luma heuristic, which stays as the
+          // no-face fallback (documents without portraits, or YuNet absent).
+          let portraitBox: Box | null = null;
+          let portraitConfidence = 0.6;
+          let portraitLabel = 'Photo';
+          try {
+            if (await inferenceWorker.isModelLoaded(FACE_MODEL.key)) {
+              const faces = await inferenceWorker.detectFaces(FACE_MODEL.key, bitmap, 0.7, 0.3);
+              // Largest face wins; ambiguity (2+ near-equal faces) → keep the
+              // heuristic box and let review decide (N1 applies to pixels).
+              faces.sort(
+                (a, b) =>
+                  (b.boxNorm[2] - b.boxNorm[0]) * (b.boxNorm[3] - b.boxNorm[1]) -
+                  (a.boxNorm[2] - a.boxNorm[0]) * (a.boxNorm[3] - a.boxNorm[1]),
+              );
+              if (faces.length >= 1) {
+                const frame = computePortraitFrame(
+                  faces[0],
+                  bitmap.width,
+                  bitmap.height,
+                  photo ? photo.boxNorm : undefined,
+                );
+                portraitBox = [
+                  frame.centerX - frame.width / 2,
+                  frame.centerY - frame.height / 2,
+                  frame.centerX + frame.width / 2,
+                  frame.centerY + frame.height / 2,
+                ];
+                portraitConfidence = faces[0].score;
+                portraitLabel = 'Portrait Photo';
+                console.log(
+                  `[DIAG] portrait: face score=${faces[0].score.toFixed(2)} roll=${frame.rotationDeg.toFixed(1)}° faces=${faces.length}`,
+                );
+              }
+            }
+          } catch (faceErr) {
+            console.warn('[App] Face detection failed — heuristic photo box only:', faceErr);
+          }
+
+          if (!portraitBox && photo) {
+            // Pad the heuristic crop slightly so the full portrait is visible.
             const [px1, py1, px2, py2] = photo.boxNorm;
             const padX = (px2 - px1) * 0.08;
             const padY = (py2 - py1) * 0.08;
-            const photoBox: Box = [
+            portraitBox = [
               Math.max(0, px1 - padX),
               Math.max(0, py1 - padY),
               Math.min(1, px2 + padX),
               Math.min(1, py2 + padY),
             ];
-            const photoNodeId = builder.addNode('visual_asset', pageId, photoBox, 'PHOTO', 0.6);
-            const hPhoto = builder.addHypothesis('Photo', '', 'visual_asset', photoBox, pageId);
+          }
+
+          if (portraitBox) {
+            const photoNodeId = builder.addNode('visual_asset', pageId, portraitBox, 'PHOTO', portraitConfidence);
+            const hPhoto = builder.addHypothesis(portraitLabel, '', 'visual_asset', portraitBox, pageId);
             builder.linkHypothesisNodes(hPhoto, { assetNodeId: photoNodeId });
           }
         }
       } catch (photoErr) {
         console.error('[App] Photo detection failed:', photoErr);
+      }
+
+      // P1.7: signature ink extraction (Documentation/10 §2). Lexical HINT
+      // (never a doc-type rule, N5): an OCR line containing a signature
+      // keyword anchors the search region — the text-free zone beside/below
+      // the keyword. Ink isolation is deterministic (Sauvola + stroke-width
+      // variability); presence + clean crop only, never identity.
+      try {
+        const sigKeyword = ocrItems.find((it) => /\bsign(ature|ed)?\b/i.test(it.text));
+        if (sigKeyword) {
+          const [kx1, ky1, kx2, ky2] = sigKeyword.boxNorm;
+          const kh = ky2 - ky1;
+          // Region: to the right of and below the keyword (typical layouts),
+          // clamped to the page.
+          const region: Box = [
+            Math.max(0, kx1 - 0.02),
+            Math.max(0, ky1 - kh * 2.5),
+            Math.min(1, kx2 + 0.28),
+            Math.min(1, ky2 + kh * 2.5),
+          ];
+          const sx = Math.round(region[0] * bitmap.width);
+          const sy = Math.round(region[1] * bitmap.height);
+          const sw = Math.round((region[2] - region[0]) * bitmap.width);
+          const sh = Math.round((region[3] - region[1]) * bitmap.height);
+          if (sw >= 24 && sh >= 12) {
+            const sc = new OffscreenCanvas(sw, sh);
+            const sctx = sc.getContext('2d');
+            if (sctx) {
+              sctx.drawImage(bitmap, sx, sy, sw, sh, 0, 0, sw, sh);
+              // Spec: "text-free zones" — mask every OCR'd text line that
+              // intersects the region (incl. the keyword itself) so printed
+              // captions can never masquerade as ink. Calligraphic scripts
+              // that OCR missed remain a known residual — the hypothesis is
+              // review-capped for exactly that reason.
+              sctx.fillStyle = '#fff';
+              for (const it of ocrItems) {
+                const [tx1, ty1, tx2, ty2] = it.boxNorm;
+                const ix1 = Math.max(region[0], tx1);
+                const iy1 = Math.max(region[1], ty1);
+                const ix2 = Math.min(region[2], tx2);
+                const iy2 = Math.min(region[3], ty2);
+                if (ix2 <= ix1 || iy2 <= iy1) continue;
+                const pad = 2;
+                sctx.fillRect(
+                  ix1 * bitmap.width - sx - pad,
+                  iy1 * bitmap.height - sy - pad,
+                  (ix2 - ix1) * bitmap.width + 2 * pad,
+                  (iy2 - iy1) * bitmap.height + 2 * pad,
+                );
+              }
+              const sdata = sctx.getImageData(0, 0, sw, sh);
+              const gray = rgbaToGray(sdata.data, sw, sh);
+              const ink = extractSignatureInk(gray, sw, sh);
+              if (ink.bbox && ink.inkPixels >= 60) {
+                const [ix1, iy1, ix2, iy2] = ink.bbox;
+                const sigBox: Box = [
+                  region[0] + (ix1 / sw) * (region[2] - region[0]),
+                  region[1] + (iy1 / sh) * (region[3] - region[1]),
+                  region[0] + (ix2 / sw) * (region[2] - region[0]),
+                  region[1] + (iy2 / sh) * (region[3] - region[1]),
+                ];
+                const sigNodeId = builder.addNode('visual_asset', pageId, sigBox, 'SIGNATURE', 0.7);
+                const hSig = builder.addHypothesis('Signature', '', 'visual_asset', sigBox, pageId);
+                builder.linkHypothesisNodes(hSig, { assetNodeId: sigNodeId });
+                // Pixels are fields too (N1): ink presence is evidence, but a
+                // stroke-width discriminator can be fooled by calligraphic
+                // print — a human confirms the crop, never the machine.
+                hypReviewCaps.set(
+                  hSig,
+                  'Signature ink detected by stroke analysis — visual confirmation required.',
+                );
+                console.log(
+                  `[DIAG] signature ink: ${ink.inkPixels}px strokeCV=${ink.strokeWidthCV.toFixed(2)} near "${sigKeyword.text.slice(0, 24)}"`,
+                );
+              }
+            }
+          }
+        }
+      } catch (sigErr) {
+        console.warn('[App] Signature extraction failed:', sigErr);
       }
 
       // 5. Run Verifier Engine to resolve statuses
@@ -598,7 +1130,15 @@ export default function App() {
       
       // Inject page quality properties into final graph page node
       graph.pages[0].quality = prepResult.quality;
-      
+
+      // Apply review caps (N1): unproven-source hypotheses and fields tainted
+      // by checksum-invisible ambiguities never auto-confirm.
+      for (const h of graph.hypotheses) {
+        const byId = hypReviewCaps.get(h.id);
+        const byLabel = labelReviewCaps.get(h.label);
+        if (byId || byLabel) h.reviewCap = byId ?? byLabel;
+      }
+
       const verifiedGraph = VerifierService.verify(graph);
 
       // Save raw graph to IndexedDB
@@ -606,6 +1146,24 @@ export default function App() {
       setActiveGraph(verifiedGraph);
       
       console.log('[App] DocGraph successfully verified and cached:', verifiedGraph);
+      // Machine-readable line for the bench gate runner (bench/gate.mjs):
+      // compact field summary scored against the corpus ground-truth manifest.
+      console.log(
+        '[GATE] ' +
+          JSON.stringify({
+            fields: verifiedGraph.hypotheses
+              .filter((h) => h.valueType !== 'mrz')
+              .map((h) => ({
+                label: h.label,
+                value: typeof h.value === 'string' ? h.value : null,
+                type: h.valueType,
+                status: h.status,
+                // Visual assets are judged by GEOMETRY (goldens harness).
+                ...(h.valueType === 'visual_asset' && h.boxNorm ? { box: h.boxNorm } : {}),
+              })),
+            mrzValid: verifiedGraph.hypotheses.some((h) => h.valueType === 'mrz'),
+          }),
+      );
     } catch (e) {
       console.error('Processing failed:', e);
       alert('Failed to process document image. See console for details.');

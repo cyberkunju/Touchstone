@@ -25,7 +25,7 @@ export interface OnnxModelSpec {
   /** Absolute download URL. */
   url: string;
   /** Role of the model in the pipeline. */
-  kind: 'detection' | 'recognition' | 'layout' | 'orientation';
+  kind: 'detection' | 'recognition' | 'layout' | 'orientation' | 'face';
   /**
    * Preferred execution provider. `'auto'` tries WebGPU then falls back to
    * WASM. PP-OCRv5 server models use ops ORT-web's WebGPU backend does not yet
@@ -108,6 +108,23 @@ export const PPOCR_DICT: CharDictSpec = {
  */
 export const LAYOUT_MODEL: OnnxModelSpec | null = null;
 
+/**
+ * YuNet face detector (OpenCV Zoo, MIT, ~0.23 MB). Detection + 5 landmarks
+ * ONLY — drives the standardized portrait crop (P1.7); face recognition is a
+ * permanent non-goal. The shipped 2023mar artifact is the STATIC 640×640
+ * export (input verified `[1,3,640,640]` via onnx graph inspection — the
+ * live session threw on 320; the dynamic 2026may re-export is not on the
+ * HF mirror, verified 404). Decode is fully parameterized by this size.
+ */
+export const FACE_MODEL: OnnxModelSpec = {
+  key: 'yunet_face',
+  fileName: 'face_detection_yunet_2023mar.onnx',
+  url: `${MODEL_BASE}/face_detection_yunet_2023mar.onnx`,
+  kind: 'face',
+  executionProvider: 'wasm', // tiny model; a WebGPU session compile costs more than it saves
+  inputSize: 640,
+};
+
 /** All ONNX models required for the core OCR pipeline. */
 export const CORE_OCR_MODELS: OnnxModelSpec[] = [OCR_DET_MODEL, OCR_REC_MODEL];
 
@@ -116,16 +133,31 @@ export const CORE_OCR_MODELS: OnnxModelSpec[] = [OCR_DET_MODEL, OCR_REC_MODEL];
 /** Recognition input height in pixels (PP-OCRv5). */
 export const REC_INPUT_HEIGHT = 48;
 /**
- * Maximum recognition input width in pixels before clamping. Set wide enough
- * that very wide lines — especially the full-width MRZ (44 monospaced chars) —
- * keep enough horizontal resolution to be read instead of being squished into
- * an unreadable strip. PP-OCRv5 recognition accepts dynamic width.
+ * Maximum recognition input width in pixels before clamping. PP-OCRv5
+ * recognition has a dynamic width axis; clamping below the crop's NATURAL
+ * aspect width squeezes glyphs into shared receptive fields and CTC merges
+ * them (live-caught: the hi-res MRZ band crop is ~1860px natural width at
+ * imgH=48 — the old 1280 cap compressed it 30%, greedy reads dropped to 43
+ * chars and the checksum beam rightly refused every degraded rung). 2560
+ * keeps the full-width MRZ at natural aspect while still bounding the very
+ * rare pathological mega-line.
  */
-export const REC_MAX_WIDTH = 1280;
+export const REC_MAX_WIDTH = 2560;
 /** Detection long-side limit; the image is resized to fit, snapped to /32. */
 export const DET_LIMIT_SIDE = 960;
 /** Detection size must be a multiple of this (DBNet stride requirement). */
 export const DET_SIZE_MULTIPLE = 32;
+/** Aspect ratio (h/w) above which full-page detection switches to BANDED
+ *  mode (live-caught: tall A4 statements downscaled to 960 shrink 13px
+ *  captions to ~7px — below DBNet's floor — and extraction reads NOTHING). */
+export const DET_BAND_ASPECT = 1.25;
+/** Per-band detection long-side limit. Bands are square-ish slices of a tall
+ *  page; a higher per-band budget (1408 = 44×32) preserves caption glyph
+ *  size while bounding per-pass DBNet compute. */
+export const DET_BAND_SIDE = 1408;
+/** Vertical overlap fraction between adjacent bands — any text line cut by
+ *  a band boundary is fully contained in at least one neighbouring band. */
+export const DET_BAND_OVERLAP = 0.12;
 
 /**
  * Default square input side for the YOLOv11n layout detector, used when an

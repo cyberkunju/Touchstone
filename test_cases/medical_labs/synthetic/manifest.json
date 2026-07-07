@@ -1,0 +1,578 @@
+[
+  {
+    "file": "lab_id00_clean.png",
+    "class": "medical_lab",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "medical_record_no": "MRN-259393",
+      "full_name": "ANNA ERIKSSON",
+      "hemoglobin": "13.7",
+      "glucose_fasting_": "83.4",
+      "creatinine": "1.1",
+      "alt": "69.4",
+      "tsh": "2.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id00_jpeg40.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "medical_record_no": "MRN-259393",
+      "full_name": "ANNA ERIKSSON",
+      "hemoglobin": "13.7",
+      "glucose_fasting_": "83.4",
+      "creatinine": "1.1",
+      "alt": "69.4",
+      "tsh": "2.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id00_blur1.png",
+    "class": "medical_lab_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "medical_record_no": "MRN-259393",
+      "full_name": "ANNA ERIKSSON",
+      "hemoglobin": "13.7",
+      "glucose_fasting_": "83.4",
+      "creatinine": "1.1",
+      "alt": "69.4",
+      "tsh": "2.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id00_worst.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "medical_record_no": "MRN-259393",
+      "full_name": "ANNA ERIKSSON",
+      "hemoglobin": "13.7",
+      "glucose_fasting_": "83.4",
+      "creatinine": "1.1",
+      "alt": "69.4",
+      "tsh": "2.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id01_clean.png",
+    "class": "medical_lab",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "medical_record_no": "MRN-806023",
+      "full_name": "KENJI NAKAMURA",
+      "hemoglobin": "14.5",
+      "glucose_fasting_": "75.0",
+      "creatinine": "1.5",
+      "alt": "9.4",
+      "tsh": "4.0"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id01_jpeg40.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "medical_record_no": "MRN-806023",
+      "full_name": "KENJI NAKAMURA",
+      "hemoglobin": "14.5",
+      "glucose_fasting_": "75.0",
+      "creatinine": "1.5",
+      "alt": "9.4",
+      "tsh": "4.0"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id01_blur1.png",
+    "class": "medical_lab_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "medical_record_no": "MRN-806023",
+      "full_name": "KENJI NAKAMURA",
+      "hemoglobin": "14.5",
+      "glucose_fasting_": "75.0",
+      "creatinine": "1.5",
+      "alt": "9.4",
+      "tsh": "4.0"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id01_worst.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "medical_record_no": "MRN-806023",
+      "full_name": "KENJI NAKAMURA",
+      "hemoglobin": "14.5",
+      "glucose_fasting_": "75.0",
+      "creatinine": "1.5",
+      "alt": "9.4",
+      "tsh": "4.0"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id02_clean.png",
+    "class": "medical_lab",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "medical_record_no": "MRN-134986",
+      "full_name": "CHINWE OKONKWO",
+      "hemoglobin": "16.8",
+      "glucose_fasting_": "83.7",
+      "creatinine": "0.8",
+      "alt": "58.9",
+      "tsh": "0.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id02_jpeg40.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "medical_record_no": "MRN-134986",
+      "full_name": "CHINWE OKONKWO",
+      "hemoglobin": "16.8",
+      "glucose_fasting_": "83.7",
+      "creatinine": "0.8",
+      "alt": "58.9",
+      "tsh": "0.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id02_blur1.png",
+    "class": "medical_lab_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "medical_record_no": "MRN-134986",
+      "full_name": "CHINWE OKONKWO",
+      "hemoglobin": "16.8",
+      "glucose_fasting_": "83.7",
+      "creatinine": "0.8",
+      "alt": "58.9",
+      "tsh": "0.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id02_worst.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "medical_record_no": "MRN-134986",
+      "full_name": "CHINWE OKONKWO",
+      "hemoglobin": "16.8",
+      "glucose_fasting_": "83.7",
+      "creatinine": "0.8",
+      "alt": "58.9",
+      "tsh": "0.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id03_clean.png",
+    "class": "medical_lab",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "medical_record_no": "MRN-460144",
+      "full_name": "SIOBHAN OBRIEN",
+      "hemoglobin": "13.2",
+      "glucose_fasting_": "89.4",
+      "creatinine": "1.1",
+      "alt": "22.4",
+      "tsh": "2.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id03_jpeg40.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "medical_record_no": "MRN-460144",
+      "full_name": "SIOBHAN OBRIEN",
+      "hemoglobin": "13.2",
+      "glucose_fasting_": "89.4",
+      "creatinine": "1.1",
+      "alt": "22.4",
+      "tsh": "2.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id03_blur1.png",
+    "class": "medical_lab_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "medical_record_no": "MRN-460144",
+      "full_name": "SIOBHAN OBRIEN",
+      "hemoglobin": "13.2",
+      "glucose_fasting_": "89.4",
+      "creatinine": "1.1",
+      "alt": "22.4",
+      "tsh": "2.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id03_worst.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "medical_record_no": "MRN-460144",
+      "full_name": "SIOBHAN OBRIEN",
+      "hemoglobin": "13.2",
+      "glucose_fasting_": "89.4",
+      "creatinine": "1.1",
+      "alt": "22.4",
+      "tsh": "2.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id04_clean.png",
+    "class": "medical_lab",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "medical_record_no": "MRN-797081",
+      "full_name": "LAYLA ALFARSI",
+      "hemoglobin": "18.4",
+      "glucose_fasting_": "90.7",
+      "creatinine": "1.0",
+      "alt": "76.4",
+      "tsh": "1.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id04_jpeg40.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "medical_record_no": "MRN-797081",
+      "full_name": "LAYLA ALFARSI",
+      "hemoglobin": "18.4",
+      "glucose_fasting_": "90.7",
+      "creatinine": "1.0",
+      "alt": "76.4",
+      "tsh": "1.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id04_blur1.png",
+    "class": "medical_lab_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "medical_record_no": "MRN-797081",
+      "full_name": "LAYLA ALFARSI",
+      "hemoglobin": "18.4",
+      "glucose_fasting_": "90.7",
+      "creatinine": "1.0",
+      "alt": "76.4",
+      "tsh": "1.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id04_worst.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "medical_record_no": "MRN-797081",
+      "full_name": "LAYLA ALFARSI",
+      "hemoglobin": "18.4",
+      "glucose_fasting_": "90.7",
+      "creatinine": "1.0",
+      "alt": "76.4",
+      "tsh": "1.8"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id05_clean.png",
+    "class": "medical_lab",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "medical_record_no": "MRN-101521",
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "hemoglobin": "17.0",
+      "glucose_fasting_": "71.5",
+      "creatinine": "1.3",
+      "alt": "62.8",
+      "tsh": "1.2"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id05_jpeg40.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "medical_record_no": "MRN-101521",
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "hemoglobin": "17.0",
+      "glucose_fasting_": "71.5",
+      "creatinine": "1.3",
+      "alt": "62.8",
+      "tsh": "1.2"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id05_blur1.png",
+    "class": "medical_lab_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "medical_record_no": "MRN-101521",
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "hemoglobin": "17.0",
+      "glucose_fasting_": "71.5",
+      "creatinine": "1.3",
+      "alt": "62.8",
+      "tsh": "1.2"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id05_worst.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "medical_record_no": "MRN-101521",
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "hemoglobin": "17.0",
+      "glucose_fasting_": "71.5",
+      "creatinine": "1.3",
+      "alt": "62.8",
+      "tsh": "1.2"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id06_clean.png",
+    "class": "medical_lab",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "medical_record_no": "MRN-714864",
+      "full_name": "WEI LI",
+      "hemoglobin": "21.9",
+      "glucose_fasting_": "83.6",
+      "creatinine": "1.0",
+      "alt": "49.2",
+      "tsh": "2.2"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id06_jpeg40.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "medical_record_no": "MRN-714864",
+      "full_name": "WEI LI",
+      "hemoglobin": "21.9",
+      "glucose_fasting_": "83.6",
+      "creatinine": "1.0",
+      "alt": "49.2",
+      "tsh": "2.2"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id06_blur1.png",
+    "class": "medical_lab_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "medical_record_no": "MRN-714864",
+      "full_name": "WEI LI",
+      "hemoglobin": "21.9",
+      "glucose_fasting_": "83.6",
+      "creatinine": "1.0",
+      "alt": "49.2",
+      "tsh": "2.2"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id06_worst.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "medical_record_no": "MRN-714864",
+      "full_name": "WEI LI",
+      "hemoglobin": "21.9",
+      "glucose_fasting_": "83.6",
+      "creatinine": "1.0",
+      "alt": "49.2",
+      "tsh": "2.2"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id07_clean.png",
+    "class": "medical_lab",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "medical_record_no": "MRN-184331",
+      "full_name": "JOSE FERNANDEZ",
+      "hemoglobin": "13.2",
+      "glucose_fasting_": "80.2",
+      "creatinine": "1.3",
+      "alt": "38.0",
+      "tsh": "3.0"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id07_jpeg40.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "medical_record_no": "MRN-184331",
+      "full_name": "JOSE FERNANDEZ",
+      "hemoglobin": "13.2",
+      "glucose_fasting_": "80.2",
+      "creatinine": "1.3",
+      "alt": "38.0",
+      "tsh": "3.0"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id07_blur1.png",
+    "class": "medical_lab_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "medical_record_no": "MRN-184331",
+      "full_name": "JOSE FERNANDEZ",
+      "hemoglobin": "13.2",
+      "glucose_fasting_": "80.2",
+      "creatinine": "1.3",
+      "alt": "38.0",
+      "tsh": "3.0"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lab_id07_worst.jpg",
+    "class": "medical_lab_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "medical_record_no": "MRN-184331",
+      "full_name": "JOSE FERNANDEZ",
+      "hemoglobin": "13.2",
+      "glucose_fasting_": "80.2",
+      "creatinine": "1.3",
+      "alt": "38.0",
+      "tsh": "3.0"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  }
+]

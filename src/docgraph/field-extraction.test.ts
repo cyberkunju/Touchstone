@@ -6,10 +6,39 @@ import {
   getFieldSpecs,
   normalizeLabelText,
   isLabelItem,
+  isWellFormedAmountToken,
   valueTypeScore,
   extractFields,
   ExtractedField,
 } from './field-extraction';
+import type { Lattice } from '../beam/lattice';
+
+/* -------------------------------------------------------------------------- */
+/*  Helpers                                                                   */
+/* -------------------------------------------------------------------------- */
+
+/** CTC-realistic lattice for a string, with optional per-position corruption
+ *  (wrong char as top-1, truth as runner-up). */
+function latFor(s: string, corrupt: Record<number, string> = {}): Lattice {
+  const out: Lattice = [];
+  [...s].forEach((ch, i) => {
+    const wrong = corrupt[i];
+    if (wrong === undefined) {
+      out.push([
+        [ch, 0.95],
+        ['', 0.05],
+      ]);
+    } else {
+      out.push([
+        [wrong, 0.55],
+        [ch, 0.42],
+        ['', 0.03],
+      ]);
+    }
+    out.push([['', 0.92]]);
+  });
+  return out;
+}
 
 /* -------------------------------------------------------------------------- */
 /*  Helpers                                                                   */
@@ -412,5 +441,161 @@ describe('extractFields — dateLocale', () => {
   it('leaves the raw date untouched when no options are passed', () => {
     const map = byCanonical(extractFields(items, 'passport'));
     expect(map.date_of_birth?.value).toBe('14/05/1990');
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+/*  P1.6: typed lattice re-decode + globally optimal assignment               */
+/* -------------------------------------------------------------------------- */
+
+describe('type exclusions (silent-error regressions from the corpus gate)', () => {
+  it('a calendar-valid date never scores as an id_number', () => {
+    // Live gate catch: on a degraded scan the unread passport number's label
+    // paired with a nearby DATE and confirmed it — the N1 failure class.
+    expect(valueTypeScore('id_number', '24/03/1982')).toBe(0);
+    expect(valueTypeScore('id_number', '1982-03-24')).toBe(0);
+    // Real document numbers still score perfectly:
+    expect(valueTypeScore('id_number', '4Z6ARKD10')).toBe(1);
+  });
+
+  it('date-contaminated text never scores as an amount (period-line merge)', () => {
+    expect(valueTypeScore('amount', '01/02/2026 - 02/03/2026 5,887.15')).toBe(0);
+  });
+
+  it('structurally malformed amounts never score (10 live silents)', () => {
+    // Neighboring digit merged in (internal space):
+    expect(valueTypeScore('amount', '6 3,707.56')).toBe(0);
+    // Dropped digit → comma group ≠ 3 digits:
+    expect(valueTypeScore('amount', '1,05.11')).toBe(0);
+    expect(valueTypeScore('amount', '2,55.53')).toBe(0);
+    // Double decimal point:
+    expect(valueTypeScore('amount', '4.511.28')).toBe(0);
+  });
+
+  it('well-formed amounts in all supported shapes still score 1', () => {
+    for (const ok of ['3,859.60', '3859.6', '12.00', '1,234,567.89', '(1,200.00)', '$ 45.10', 'USD 99.95', '1.234,56', '987,65']) {
+      expect(valueTypeScore('amount', ok), ok).toBe(1);
+    }
+  });
+
+  it('isWellFormedAmountToken edge law', () => {
+    expect(isWellFormedAmountToken('')).toBe(false);
+    expect(isWellFormedAmountToken('12,34')).toBe(true);   // euro decimals
+    expect(isWellFormedAmountToken('12,3456')).toBe(false); // not grouping, not decimals
+    expect(isWellFormedAmountToken('1,234')).toBe(true);    // exact 3-group
+    expect(isWellFormedAmountToken('1,2345')).toBe(false);  // broken group
+  });
+});
+
+describe('grammar re-decode rescue (I3) — the "c/call" killer, end to end', () => {
+  it('rescues a garbage sex value when the lattice contains the truth', () => {
+    // Greedy OCR read "c/" for the sex value (the real observed bug class).
+    // The lattice still holds 'F' as runner-up; the enum grammar must find it
+    // and the field must emit as F — not "c/", not omitted.
+    const sexValue: OcrItem = {
+      text: 'c/',
+      boxNorm: [0.42, 0.4, 0.47, 0.44],
+      nodeId: 'sex-val',
+      confidence: 0.6,
+      lattice: [
+        [
+          ['c', 0.5],
+          ['F', 0.45],
+          ['', 0.05],
+        ],
+        [
+          ['/', 0.55],
+          ['', 0.45],
+        ],
+      ],
+    };
+    const fields = extractFields(
+      [
+        { text: 'Sex', boxNorm: [0.3, 0.4, 0.36, 0.44], nodeId: 'sex-lbl', confidence: 0.95 },
+        sexValue,
+      ],
+      'passport'
+    );
+    const map = byCanonical(fields);
+    expect(map.sex?.value).toBe('F');
+  });
+
+  it('omits the field honestly when even the lattice holds nothing valid', () => {
+    const sexValue: OcrItem = {
+      text: '7#',
+      boxNorm: [0.42, 0.4, 0.47, 0.44],
+      nodeId: 'sex-val',
+      confidence: 0.6,
+      lattice: latFor('7#'),
+    };
+    const fields = extractFields(
+      [
+        { text: 'Sex', boxNorm: [0.3, 0.4, 0.36, 0.44], nodeId: 'sex-lbl', confidence: 0.95 },
+        sexValue,
+      ],
+      'passport'
+    );
+    expect(byCanonical(fields).sex).toBeUndefined();
+  });
+
+  it('rescues a date whose greedy text is O-corrupted', () => {
+    const dobValue: OcrItem = {
+      text: 'O5/11/1990', // greedy read O for 0 → not a valid date
+      boxNorm: [0.42, 0.5, 0.58, 0.54],
+      nodeId: 'dob-val',
+      confidence: 0.7,
+      lattice: latFor('05/11/1990', { 0: 'O' }),
+    };
+    const fields = extractFields(
+      [
+        { text: 'Date of Birth', boxNorm: [0.2, 0.5, 0.4, 0.54], nodeId: 'dob-lbl', confidence: 0.95 },
+        dobValue,
+      ],
+      'passport',
+      { dateLocale: 'dmy' }
+    );
+    const map = byCanonical(fields);
+    expect(map.date_of_birth?.value).toBe('1990-11-05');
+  });
+
+  it('items without lattices behave exactly as before (no rescue, no crash)', () => {
+    const fields = extractFields(
+      [
+        { text: 'Sex', boxNorm: [0.3, 0.4, 0.36, 0.44], nodeId: 'l', confidence: 0.95 },
+        { text: 'c/', boxNorm: [0.42, 0.4, 0.47, 0.44], nodeId: 'v', confidence: 0.6 },
+      ],
+      'passport'
+    );
+    expect(byCanonical(fields).sex).toBeUndefined();
+  });
+});
+
+describe('globally optimal assignment (I1-lite)', () => {
+  // note: true optimality is exhaustively proven by the brute-force fuzz in
+  // consensus/hungarian.test.ts; these tests pin the INTEGRATION — correct
+  // behavior of a clean multi-field layout through the assignment path, and
+  // one-value-per-field exclusivity.
+  it('resolves a clean stacked two-field date layout correctly', () => {
+    const issueLbl: OcrItem = { text: 'Date of Issue', boxNorm: [0.1, 0.50, 0.3, 0.54], nodeId: 'il', confidence: 0.95 };
+    const issueVal: OcrItem = { text: '01/02/2020', boxNorm: [0.4, 0.50, 0.56, 0.54], nodeId: 'iv', confidence: 0.9 };
+    const expiryLbl: OcrItem = { text: 'Date of Expiry', boxNorm: [0.1, 0.60, 0.3, 0.64], nodeId: 'el', confidence: 0.95 };
+    const expiryVal: OcrItem = { text: '01/02/2030', boxNorm: [0.4, 0.60, 0.56, 0.64], nodeId: 'ev', confidence: 0.9 };
+
+    const map = byCanonical(
+      extractFields([issueLbl, expiryLbl, issueVal, expiryVal], 'passport', { dateLocale: 'dmy' })
+    );
+    expect(map.date_of_issue?.value).toBe('2020-02-01');
+    expect(map.date_of_expiry?.value).toBe('2030-02-01');
+  });
+
+  it('never assigns one value node to two fields', () => {
+    // Both labels share the row with ONE value: exactly one may win it.
+    const lblA: OcrItem = { text: 'Date of Issue', boxNorm: [0.05, 0.5, 0.2, 0.54], nodeId: 'a', confidence: 0.95 };
+    const lblB: OcrItem = { text: 'Date of Expiry', boxNorm: [0.22, 0.5, 0.38, 0.54], nodeId: 'b', confidence: 0.95 };
+    const val: OcrItem = { text: '01/02/2020', boxNorm: [0.4, 0.5, 0.56, 0.54], nodeId: 'v', confidence: 0.9 };
+
+    const fields = extractFields([lblA, lblB, val], 'passport', { dateLocale: 'dmy' });
+    const winners = fields.filter((f) => f.valueItem.nodeId === 'v');
+    expect(winners).toHaveLength(1);
   });
 });

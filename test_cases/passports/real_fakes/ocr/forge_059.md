@@ -1,0 +1,27 @@
+![img-0.jpeg](img-0.jpeg)
+
+# PERMIS DE CONDUIRE
+
+RÉPUBLIQUE FRANÇAISE
+
+1. MARTIN
+
+2. LUCAS, PIERRE
+
+3. 14.07.1994 (PARIS)
+
+4a. 01.09.2019
+
+4b. 01.09.2034
+
+4b. 01.09.2034
+
+5. 19AA00001
+
+7. Martin
+
+![img-1.jpeg](img-1.jpeg)
+
+9. AM/B1/B/BE
+
+D1FRA19AA0000114010194MARTIN<<9

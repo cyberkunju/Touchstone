@@ -1,0 +1,2270 @@
+[
+  {
+    "file": "lic_id00_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id00_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id00_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id00_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 0,
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id00_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 0,
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id00_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 0,
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id00_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "passport_number": "E46VYDDTE",
+      "date_of_birth": "1992-07-02",
+      "sex": "F",
+      "date_of_expiry": "2029-03-15",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQE46VYDDTE\nDCSERIKSSON\nDACANNA\nDBB07021992\nDBA03152029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id01_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id01_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id01_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id01_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 1,
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id01_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 1,
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id01_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 1,
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id01_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "passport_number": "9GX9X13AJ",
+      "date_of_birth": "1957-08-22",
+      "sex": "M",
+      "date_of_expiry": "2029-07-10",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ9GX9X13AJ\nDCSNAKAMURA\nDACKENJI\nDBB08221957\nDBA07102029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id02_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id02_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id02_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id02_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 2,
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id02_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 2,
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id02_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 2,
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id02_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "passport_number": "HEHXAYEKT",
+      "date_of_birth": "1950-02-05",
+      "sex": "F",
+      "date_of_expiry": "2029-04-21",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQHEHXAYEKT\nDCSOKONKWO\nDACCHINWE\nDBB02051950\nDBA04212029\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id03_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id03_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id03_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id03_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 3,
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id03_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 3,
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id03_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 3,
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id03_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "passport_number": "7TFL7JV2Y",
+      "date_of_birth": "1953-11-17",
+      "sex": "M",
+      "date_of_expiry": "2029-07-18",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ7TFL7JV2Y\nDCSOBRIEN\nDACSIOBHAN\nDBB11171953\nDBA07182029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id04_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "passport_number": "5VFCPTJ6L",
+      "date_of_birth": "1954-08-18",
+      "sex": "X",
+      "date_of_expiry": "2032-01-04",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ5VFCPTJ6L\nDCSALFARSI\nDACLAYLA\nDBB08181954\nDBA01042032\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id04_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "passport_number": "5VFCPTJ6L",
+      "date_of_birth": "1954-08-18",
+      "sex": "X",
+      "date_of_expiry": "2032-01-04",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ5VFCPTJ6L\nDCSALFARSI\nDACLAYLA\nDBB08181954\nDBA01042032\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id04_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "passport_number": "5VFCPTJ6L",
+      "date_of_birth": "1954-08-18",
+      "sex": "X",
+      "date_of_expiry": "2032-01-04",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ5VFCPTJ6L\nDCSALFARSI\nDACLAYLA\nDBB08181954\nDBA01042032\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id04_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 4,
+    "truth": {
+      "passport_number": "5VFCPTJ6L",
+      "date_of_birth": "1954-08-18",
+      "sex": "X",
+      "date_of_expiry": "2032-01-04",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ5VFCPTJ6L\nDCSALFARSI\nDACLAYLA\nDBB08181954\nDBA01042032\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id04_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 4,
+    "truth": {
+      "passport_number": "5VFCPTJ6L",
+      "date_of_birth": "1954-08-18",
+      "sex": "X",
+      "date_of_expiry": "2032-01-04",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ5VFCPTJ6L\nDCSALFARSI\nDACLAYLA\nDBB08181954\nDBA01042032\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id04_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 4,
+    "truth": {
+      "passport_number": "5VFCPTJ6L",
+      "date_of_birth": "1954-08-18",
+      "sex": "X",
+      "date_of_expiry": "2032-01-04",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ5VFCPTJ6L\nDCSALFARSI\nDACLAYLA\nDBB08181954\nDBA01042032\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id04_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "passport_number": "5VFCPTJ6L",
+      "date_of_birth": "1954-08-18",
+      "sex": "X",
+      "date_of_expiry": "2032-01-04",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ5VFCPTJ6L\nDCSALFARSI\nDACLAYLA\nDBB08181954\nDBA01042032\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id05_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "passport_number": "1CSZ9CER2",
+      "date_of_birth": "1971-04-20",
+      "sex": "F",
+      "date_of_expiry": "2027-09-11",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQ1CSZ9CER2\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB04201971\nDBA09112027\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id05_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "passport_number": "1CSZ9CER2",
+      "date_of_birth": "1971-04-20",
+      "sex": "F",
+      "date_of_expiry": "2027-09-11",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQ1CSZ9CER2\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB04201971\nDBA09112027\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id05_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "passport_number": "1CSZ9CER2",
+      "date_of_birth": "1971-04-20",
+      "sex": "F",
+      "date_of_expiry": "2027-09-11",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQ1CSZ9CER2\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB04201971\nDBA09112027\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id05_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 5,
+    "truth": {
+      "passport_number": "1CSZ9CER2",
+      "date_of_birth": "1971-04-20",
+      "sex": "F",
+      "date_of_expiry": "2027-09-11",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQ1CSZ9CER2\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB04201971\nDBA09112027\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id05_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 5,
+    "truth": {
+      "passport_number": "1CSZ9CER2",
+      "date_of_birth": "1971-04-20",
+      "sex": "F",
+      "date_of_expiry": "2027-09-11",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQ1CSZ9CER2\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB04201971\nDBA09112027\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id05_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 5,
+    "truth": {
+      "passport_number": "1CSZ9CER2",
+      "date_of_birth": "1971-04-20",
+      "sex": "F",
+      "date_of_expiry": "2027-09-11",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQ1CSZ9CER2\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB04201971\nDBA09112027\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id05_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "passport_number": "1CSZ9CER2",
+      "date_of_birth": "1971-04-20",
+      "sex": "F",
+      "date_of_expiry": "2027-09-11",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQ1CSZ9CER2\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB04201971\nDBA09112027\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id06_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "passport_number": "EYMW8KFRY",
+      "date_of_birth": "1998-07-10",
+      "sex": "M",
+      "date_of_expiry": "2030-09-18",
+      "surname": "LI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410107DLDAQEYMW8KFRY\nDCSLI\nDACWEI\nDBB07101998\nDBA09182030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id06_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "passport_number": "EYMW8KFRY",
+      "date_of_birth": "1998-07-10",
+      "sex": "M",
+      "date_of_expiry": "2030-09-18",
+      "surname": "LI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410107DLDAQEYMW8KFRY\nDCSLI\nDACWEI\nDBB07101998\nDBA09182030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id06_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "passport_number": "EYMW8KFRY",
+      "date_of_birth": "1998-07-10",
+      "sex": "M",
+      "date_of_expiry": "2030-09-18",
+      "surname": "LI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410107DLDAQEYMW8KFRY\nDCSLI\nDACWEI\nDBB07101998\nDBA09182030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id06_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 6,
+    "truth": {
+      "passport_number": "EYMW8KFRY",
+      "date_of_birth": "1998-07-10",
+      "sex": "M",
+      "date_of_expiry": "2030-09-18",
+      "surname": "LI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410107DLDAQEYMW8KFRY\nDCSLI\nDACWEI\nDBB07101998\nDBA09182030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id06_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 6,
+    "truth": {
+      "passport_number": "EYMW8KFRY",
+      "date_of_birth": "1998-07-10",
+      "sex": "M",
+      "date_of_expiry": "2030-09-18",
+      "surname": "LI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410107DLDAQEYMW8KFRY\nDCSLI\nDACWEI\nDBB07101998\nDBA09182030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id06_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 6,
+    "truth": {
+      "passport_number": "EYMW8KFRY",
+      "date_of_birth": "1998-07-10",
+      "sex": "M",
+      "date_of_expiry": "2030-09-18",
+      "surname": "LI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410107DLDAQEYMW8KFRY\nDCSLI\nDACWEI\nDBB07101998\nDBA09182030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id06_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "passport_number": "EYMW8KFRY",
+      "date_of_birth": "1998-07-10",
+      "sex": "M",
+      "date_of_expiry": "2030-09-18",
+      "surname": "LI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410107DLDAQEYMW8KFRY\nDCSLI\nDACWEI\nDBB07101998\nDBA09182030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id07_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "passport_number": "3A1EC2V5H",
+      "date_of_birth": "1952-05-19",
+      "sex": "F",
+      "date_of_expiry": "2028-09-10",
+      "surname": "FERNANDEZ GARCIA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410122DLDAQ3A1EC2V5H\nDCSFERNANDEZ GARCIA\nDACJOSE\nDBB05191952\nDBA09102028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id07_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "passport_number": "3A1EC2V5H",
+      "date_of_birth": "1952-05-19",
+      "sex": "F",
+      "date_of_expiry": "2028-09-10",
+      "surname": "FERNANDEZ GARCIA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410122DLDAQ3A1EC2V5H\nDCSFERNANDEZ GARCIA\nDACJOSE\nDBB05191952\nDBA09102028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id07_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "passport_number": "3A1EC2V5H",
+      "date_of_birth": "1952-05-19",
+      "sex": "F",
+      "date_of_expiry": "2028-09-10",
+      "surname": "FERNANDEZ GARCIA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410122DLDAQ3A1EC2V5H\nDCSFERNANDEZ GARCIA\nDACJOSE\nDBB05191952\nDBA09102028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id07_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 7,
+    "truth": {
+      "passport_number": "3A1EC2V5H",
+      "date_of_birth": "1952-05-19",
+      "sex": "F",
+      "date_of_expiry": "2028-09-10",
+      "surname": "FERNANDEZ GARCIA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410122DLDAQ3A1EC2V5H\nDCSFERNANDEZ GARCIA\nDACJOSE\nDBB05191952\nDBA09102028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id07_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 7,
+    "truth": {
+      "passport_number": "3A1EC2V5H",
+      "date_of_birth": "1952-05-19",
+      "sex": "F",
+      "date_of_expiry": "2028-09-10",
+      "surname": "FERNANDEZ GARCIA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410122DLDAQ3A1EC2V5H\nDCSFERNANDEZ GARCIA\nDACJOSE\nDBB05191952\nDBA09102028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id07_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 7,
+    "truth": {
+      "passport_number": "3A1EC2V5H",
+      "date_of_birth": "1952-05-19",
+      "sex": "F",
+      "date_of_expiry": "2028-09-10",
+      "surname": "FERNANDEZ GARCIA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410122DLDAQ3A1EC2V5H\nDCSFERNANDEZ GARCIA\nDACJOSE\nDBB05191952\nDBA09102028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id07_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "passport_number": "3A1EC2V5H",
+      "date_of_birth": "1952-05-19",
+      "sex": "F",
+      "date_of_expiry": "2028-09-10",
+      "surname": "FERNANDEZ GARCIA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410122DLDAQ3A1EC2V5H\nDCSFERNANDEZ GARCIA\nDACJOSE\nDBB05191952\nDBA09102028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id08_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 8,
+    "truth": {
+      "passport_number": "9MG3F6N7Z",
+      "date_of_birth": "1982-07-12",
+      "sex": "M",
+      "date_of_expiry": "2032-03-14",
+      "surname": "MUELLER",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410113DLDAQ9MG3F6N7Z\nDCSMUELLER\nDACHANS\nDBB07121982\nDBA03142032\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id08_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 8,
+    "truth": {
+      "passport_number": "9MG3F6N7Z",
+      "date_of_birth": "1982-07-12",
+      "sex": "M",
+      "date_of_expiry": "2032-03-14",
+      "surname": "MUELLER",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410113DLDAQ9MG3F6N7Z\nDCSMUELLER\nDACHANS\nDBB07121982\nDBA03142032\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id08_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 8,
+    "truth": {
+      "passport_number": "9MG3F6N7Z",
+      "date_of_birth": "1982-07-12",
+      "sex": "M",
+      "date_of_expiry": "2032-03-14",
+      "surname": "MUELLER",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410113DLDAQ9MG3F6N7Z\nDCSMUELLER\nDACHANS\nDBB07121982\nDBA03142032\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id08_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 8,
+    "truth": {
+      "passport_number": "9MG3F6N7Z",
+      "date_of_birth": "1982-07-12",
+      "sex": "M",
+      "date_of_expiry": "2032-03-14",
+      "surname": "MUELLER",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410113DLDAQ9MG3F6N7Z\nDCSMUELLER\nDACHANS\nDBB07121982\nDBA03142032\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id08_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 8,
+    "truth": {
+      "passport_number": "9MG3F6N7Z",
+      "date_of_birth": "1982-07-12",
+      "sex": "M",
+      "date_of_expiry": "2032-03-14",
+      "surname": "MUELLER",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410113DLDAQ9MG3F6N7Z\nDCSMUELLER\nDACHANS\nDBB07121982\nDBA03142032\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id08_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 8,
+    "truth": {
+      "passport_number": "9MG3F6N7Z",
+      "date_of_birth": "1982-07-12",
+      "sex": "M",
+      "date_of_expiry": "2032-03-14",
+      "surname": "MUELLER",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410113DLDAQ9MG3F6N7Z\nDCSMUELLER\nDACHANS\nDBB07121982\nDBA03142032\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id08_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 8,
+    "truth": {
+      "passport_number": "9MG3F6N7Z",
+      "date_of_birth": "1982-07-12",
+      "sex": "M",
+      "date_of_expiry": "2032-03-14",
+      "surname": "MUELLER",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410113DLDAQ9MG3F6N7Z\nDCSMUELLER\nDACHANS\nDBB07121982\nDBA03142032\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id09_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 9,
+    "truth": {
+      "passport_number": "KLARSSF5R",
+      "date_of_birth": "1975-05-12",
+      "sex": "F",
+      "date_of_expiry": "2032-11-05",
+      "surname": "ANAND",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410112DLDAQKLARSSF5R\nDCSANAND\nDACPRIYA\nDBB05121975\nDBA11052032\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id09_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 9,
+    "truth": {
+      "passport_number": "KLARSSF5R",
+      "date_of_birth": "1975-05-12",
+      "sex": "F",
+      "date_of_expiry": "2032-11-05",
+      "surname": "ANAND",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410112DLDAQKLARSSF5R\nDCSANAND\nDACPRIYA\nDBB05121975\nDBA11052032\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id09_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 9,
+    "truth": {
+      "passport_number": "KLARSSF5R",
+      "date_of_birth": "1975-05-12",
+      "sex": "F",
+      "date_of_expiry": "2032-11-05",
+      "surname": "ANAND",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410112DLDAQKLARSSF5R\nDCSANAND\nDACPRIYA\nDBB05121975\nDBA11052032\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id09_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 9,
+    "truth": {
+      "passport_number": "KLARSSF5R",
+      "date_of_birth": "1975-05-12",
+      "sex": "F",
+      "date_of_expiry": "2032-11-05",
+      "surname": "ANAND",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410112DLDAQKLARSSF5R\nDCSANAND\nDACPRIYA\nDBB05121975\nDBA11052032\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id09_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 9,
+    "truth": {
+      "passport_number": "KLARSSF5R",
+      "date_of_birth": "1975-05-12",
+      "sex": "F",
+      "date_of_expiry": "2032-11-05",
+      "surname": "ANAND",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410112DLDAQKLARSSF5R\nDCSANAND\nDACPRIYA\nDBB05121975\nDBA11052032\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id09_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 9,
+    "truth": {
+      "passport_number": "KLARSSF5R",
+      "date_of_birth": "1975-05-12",
+      "sex": "F",
+      "date_of_expiry": "2032-11-05",
+      "surname": "ANAND",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410112DLDAQKLARSSF5R\nDCSANAND\nDACPRIYA\nDBB05121975\nDBA11052032\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id09_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 9,
+    "truth": {
+      "passport_number": "KLARSSF5R",
+      "date_of_birth": "1975-05-12",
+      "sex": "F",
+      "date_of_expiry": "2032-11-05",
+      "surname": "ANAND",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410112DLDAQKLARSSF5R\nDCSANAND\nDACPRIYA\nDBB05121975\nDBA11052032\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id10_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 10,
+    "truth": {
+      "passport_number": "6J1EVKF4G",
+      "date_of_birth": "1989-03-07",
+      "sex": "M",
+      "date_of_expiry": "2029-08-04",
+      "surname": "VAN DER BERG",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410120DLDAQ6J1EVKF4G\nDCSVAN DER BERG\nDACWILLEM\nDBB03071989\nDBA08042029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id10_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 10,
+    "truth": {
+      "passport_number": "6J1EVKF4G",
+      "date_of_birth": "1989-03-07",
+      "sex": "M",
+      "date_of_expiry": "2029-08-04",
+      "surname": "VAN DER BERG",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410120DLDAQ6J1EVKF4G\nDCSVAN DER BERG\nDACWILLEM\nDBB03071989\nDBA08042029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id10_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 10,
+    "truth": {
+      "passport_number": "6J1EVKF4G",
+      "date_of_birth": "1989-03-07",
+      "sex": "M",
+      "date_of_expiry": "2029-08-04",
+      "surname": "VAN DER BERG",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410120DLDAQ6J1EVKF4G\nDCSVAN DER BERG\nDACWILLEM\nDBB03071989\nDBA08042029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id10_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 10,
+    "truth": {
+      "passport_number": "6J1EVKF4G",
+      "date_of_birth": "1989-03-07",
+      "sex": "M",
+      "date_of_expiry": "2029-08-04",
+      "surname": "VAN DER BERG",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410120DLDAQ6J1EVKF4G\nDCSVAN DER BERG\nDACWILLEM\nDBB03071989\nDBA08042029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id10_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 10,
+    "truth": {
+      "passport_number": "6J1EVKF4G",
+      "date_of_birth": "1989-03-07",
+      "sex": "M",
+      "date_of_expiry": "2029-08-04",
+      "surname": "VAN DER BERG",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410120DLDAQ6J1EVKF4G\nDCSVAN DER BERG\nDACWILLEM\nDBB03071989\nDBA08042029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id10_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 10,
+    "truth": {
+      "passport_number": "6J1EVKF4G",
+      "date_of_birth": "1989-03-07",
+      "sex": "M",
+      "date_of_expiry": "2029-08-04",
+      "surname": "VAN DER BERG",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410120DLDAQ6J1EVKF4G\nDCSVAN DER BERG\nDACWILLEM\nDBB03071989\nDBA08042029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id10_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 10,
+    "truth": {
+      "passport_number": "6J1EVKF4G",
+      "date_of_birth": "1989-03-07",
+      "sex": "M",
+      "date_of_expiry": "2029-08-04",
+      "surname": "VAN DER BERG",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410120DLDAQ6J1EVKF4G\nDCSVAN DER BERG\nDACWILLEM\nDBB03071989\nDBA08042029\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id11_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 11,
+    "truth": {
+      "passport_number": "K2CMP5066",
+      "date_of_birth": "1958-08-01",
+      "sex": "X",
+      "date_of_expiry": "2029-12-21",
+      "surname": "KOWALCZYK",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410116DLDAQK2CMP5066\nDCSKOWALCZYK\nDACZOFIA\nDBB08011958\nDBA12212029\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id11_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 11,
+    "truth": {
+      "passport_number": "K2CMP5066",
+      "date_of_birth": "1958-08-01",
+      "sex": "X",
+      "date_of_expiry": "2029-12-21",
+      "surname": "KOWALCZYK",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410116DLDAQK2CMP5066\nDCSKOWALCZYK\nDACZOFIA\nDBB08011958\nDBA12212029\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id11_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 11,
+    "truth": {
+      "passport_number": "K2CMP5066",
+      "date_of_birth": "1958-08-01",
+      "sex": "X",
+      "date_of_expiry": "2029-12-21",
+      "surname": "KOWALCZYK",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410116DLDAQK2CMP5066\nDCSKOWALCZYK\nDACZOFIA\nDBB08011958\nDBA12212029\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id11_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 11,
+    "truth": {
+      "passport_number": "K2CMP5066",
+      "date_of_birth": "1958-08-01",
+      "sex": "X",
+      "date_of_expiry": "2029-12-21",
+      "surname": "KOWALCZYK",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410116DLDAQK2CMP5066\nDCSKOWALCZYK\nDACZOFIA\nDBB08011958\nDBA12212029\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id11_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 11,
+    "truth": {
+      "passport_number": "K2CMP5066",
+      "date_of_birth": "1958-08-01",
+      "sex": "X",
+      "date_of_expiry": "2029-12-21",
+      "surname": "KOWALCZYK",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410116DLDAQK2CMP5066\nDCSKOWALCZYK\nDACZOFIA\nDBB08011958\nDBA12212029\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id11_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 11,
+    "truth": {
+      "passport_number": "K2CMP5066",
+      "date_of_birth": "1958-08-01",
+      "sex": "X",
+      "date_of_expiry": "2029-12-21",
+      "surname": "KOWALCZYK",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410116DLDAQK2CMP5066\nDCSKOWALCZYK\nDACZOFIA\nDBB08011958\nDBA12212029\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id11_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 11,
+    "truth": {
+      "passport_number": "K2CMP5066",
+      "date_of_birth": "1958-08-01",
+      "sex": "X",
+      "date_of_expiry": "2029-12-21",
+      "surname": "KOWALCZYK",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410116DLDAQK2CMP5066\nDCSKOWALCZYK\nDACZOFIA\nDBB08011958\nDBA12212029\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id12_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 12,
+    "truth": {
+      "passport_number": "0PXTPNF2N",
+      "date_of_birth": "1987-06-24",
+      "sex": "F",
+      "date_of_expiry": "2028-09-23",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ0PXTPNF2N\nDCSERIKSSON\nDACANNA\nDBB06241987\nDBA09232028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id12_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 12,
+    "truth": {
+      "passport_number": "0PXTPNF2N",
+      "date_of_birth": "1987-06-24",
+      "sex": "F",
+      "date_of_expiry": "2028-09-23",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ0PXTPNF2N\nDCSERIKSSON\nDACANNA\nDBB06241987\nDBA09232028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id12_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 12,
+    "truth": {
+      "passport_number": "0PXTPNF2N",
+      "date_of_birth": "1987-06-24",
+      "sex": "F",
+      "date_of_expiry": "2028-09-23",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ0PXTPNF2N\nDCSERIKSSON\nDACANNA\nDBB06241987\nDBA09232028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id12_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 12,
+    "truth": {
+      "passport_number": "0PXTPNF2N",
+      "date_of_birth": "1987-06-24",
+      "sex": "F",
+      "date_of_expiry": "2028-09-23",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ0PXTPNF2N\nDCSERIKSSON\nDACANNA\nDBB06241987\nDBA09232028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id12_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 12,
+    "truth": {
+      "passport_number": "0PXTPNF2N",
+      "date_of_birth": "1987-06-24",
+      "sex": "F",
+      "date_of_expiry": "2028-09-23",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ0PXTPNF2N\nDCSERIKSSON\nDACANNA\nDBB06241987\nDBA09232028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id12_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 12,
+    "truth": {
+      "passport_number": "0PXTPNF2N",
+      "date_of_birth": "1987-06-24",
+      "sex": "F",
+      "date_of_expiry": "2028-09-23",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ0PXTPNF2N\nDCSERIKSSON\nDACANNA\nDBB06241987\nDBA09232028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id12_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 12,
+    "truth": {
+      "passport_number": "0PXTPNF2N",
+      "date_of_birth": "1987-06-24",
+      "sex": "F",
+      "date_of_expiry": "2028-09-23",
+      "surname": "ERIKSSON",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQ0PXTPNF2N\nDCSERIKSSON\nDACANNA\nDBB06241987\nDBA09232028\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id13_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 13,
+    "truth": {
+      "passport_number": "LY5BRVJMY",
+      "date_of_birth": "1994-03-13",
+      "sex": "M",
+      "date_of_expiry": "2026-05-13",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQLY5BRVJMY\nDCSNAKAMURA\nDACKENJI\nDBB03131994\nDBA05132026\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id13_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 13,
+    "truth": {
+      "passport_number": "LY5BRVJMY",
+      "date_of_birth": "1994-03-13",
+      "sex": "M",
+      "date_of_expiry": "2026-05-13",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQLY5BRVJMY\nDCSNAKAMURA\nDACKENJI\nDBB03131994\nDBA05132026\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id13_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 13,
+    "truth": {
+      "passport_number": "LY5BRVJMY",
+      "date_of_birth": "1994-03-13",
+      "sex": "M",
+      "date_of_expiry": "2026-05-13",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQLY5BRVJMY\nDCSNAKAMURA\nDACKENJI\nDBB03131994\nDBA05132026\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id13_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 13,
+    "truth": {
+      "passport_number": "LY5BRVJMY",
+      "date_of_birth": "1994-03-13",
+      "sex": "M",
+      "date_of_expiry": "2026-05-13",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQLY5BRVJMY\nDCSNAKAMURA\nDACKENJI\nDBB03131994\nDBA05132026\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id13_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 13,
+    "truth": {
+      "passport_number": "LY5BRVJMY",
+      "date_of_birth": "1994-03-13",
+      "sex": "M",
+      "date_of_expiry": "2026-05-13",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQLY5BRVJMY\nDCSNAKAMURA\nDACKENJI\nDBB03131994\nDBA05132026\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id13_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 13,
+    "truth": {
+      "passport_number": "LY5BRVJMY",
+      "date_of_birth": "1994-03-13",
+      "sex": "M",
+      "date_of_expiry": "2026-05-13",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQLY5BRVJMY\nDCSNAKAMURA\nDACKENJI\nDBB03131994\nDBA05132026\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id13_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 13,
+    "truth": {
+      "passport_number": "LY5BRVJMY",
+      "date_of_birth": "1994-03-13",
+      "sex": "M",
+      "date_of_expiry": "2026-05-13",
+      "surname": "NAKAMURA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQLY5BRVJMY\nDCSNAKAMURA\nDACKENJI\nDBB03131994\nDBA05132026\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id14_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 14,
+    "truth": {
+      "passport_number": "K8U3M2R2C",
+      "date_of_birth": "1985-04-05",
+      "sex": "F",
+      "date_of_expiry": "2026-12-28",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQK8U3M2R2C\nDCSOKONKWO\nDACCHINWE\nDBB04051985\nDBA12282026\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id14_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 14,
+    "truth": {
+      "passport_number": "K8U3M2R2C",
+      "date_of_birth": "1985-04-05",
+      "sex": "F",
+      "date_of_expiry": "2026-12-28",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQK8U3M2R2C\nDCSOKONKWO\nDACCHINWE\nDBB04051985\nDBA12282026\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id14_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 14,
+    "truth": {
+      "passport_number": "K8U3M2R2C",
+      "date_of_birth": "1985-04-05",
+      "sex": "F",
+      "date_of_expiry": "2026-12-28",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQK8U3M2R2C\nDCSOKONKWO\nDACCHINWE\nDBB04051985\nDBA12282026\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id14_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 14,
+    "truth": {
+      "passport_number": "K8U3M2R2C",
+      "date_of_birth": "1985-04-05",
+      "sex": "F",
+      "date_of_expiry": "2026-12-28",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQK8U3M2R2C\nDCSOKONKWO\nDACCHINWE\nDBB04051985\nDBA12282026\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id14_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 14,
+    "truth": {
+      "passport_number": "K8U3M2R2C",
+      "date_of_birth": "1985-04-05",
+      "sex": "F",
+      "date_of_expiry": "2026-12-28",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQK8U3M2R2C\nDCSOKONKWO\nDACCHINWE\nDBB04051985\nDBA12282026\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id14_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 14,
+    "truth": {
+      "passport_number": "K8U3M2R2C",
+      "date_of_birth": "1985-04-05",
+      "sex": "F",
+      "date_of_expiry": "2026-12-28",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQK8U3M2R2C\nDCSOKONKWO\nDACCHINWE\nDBB04051985\nDBA12282026\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id14_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 14,
+    "truth": {
+      "passport_number": "K8U3M2R2C",
+      "date_of_birth": "1985-04-05",
+      "sex": "F",
+      "date_of_expiry": "2026-12-28",
+      "surname": "OKONKWO",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQK8U3M2R2C\nDCSOKONKWO\nDACCHINWE\nDBB04051985\nDBA12282026\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXB\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id15_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 15,
+    "truth": {
+      "passport_number": "53F53E0BF",
+      "date_of_birth": "1977-09-12",
+      "sex": "M",
+      "date_of_expiry": "2030-04-16",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ53F53E0BF\nDCSOBRIEN\nDACSIOBHAN\nDBB09121977\nDBA04162030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id15_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 15,
+    "truth": {
+      "passport_number": "53F53E0BF",
+      "date_of_birth": "1977-09-12",
+      "sex": "M",
+      "date_of_expiry": "2030-04-16",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ53F53E0BF\nDCSOBRIEN\nDACSIOBHAN\nDBB09121977\nDBA04162030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id15_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 15,
+    "truth": {
+      "passport_number": "53F53E0BF",
+      "date_of_birth": "1977-09-12",
+      "sex": "M",
+      "date_of_expiry": "2030-04-16",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ53F53E0BF\nDCSOBRIEN\nDACSIOBHAN\nDBB09121977\nDBA04162030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id15_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 15,
+    "truth": {
+      "passport_number": "53F53E0BF",
+      "date_of_birth": "1977-09-12",
+      "sex": "M",
+      "date_of_expiry": "2030-04-16",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ53F53E0BF\nDCSOBRIEN\nDACSIOBHAN\nDBB09121977\nDBA04162030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id15_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 15,
+    "truth": {
+      "passport_number": "53F53E0BF",
+      "date_of_birth": "1977-09-12",
+      "sex": "M",
+      "date_of_expiry": "2030-04-16",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ53F53E0BF\nDCSOBRIEN\nDACSIOBHAN\nDBB09121977\nDBA04162030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id15_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 15,
+    "truth": {
+      "passport_number": "53F53E0BF",
+      "date_of_birth": "1977-09-12",
+      "sex": "M",
+      "date_of_expiry": "2030-04-16",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ53F53E0BF\nDCSOBRIEN\nDACSIOBHAN\nDBB09121977\nDBA04162030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id15_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 15,
+    "truth": {
+      "passport_number": "53F53E0BF",
+      "date_of_birth": "1977-09-12",
+      "sex": "M",
+      "date_of_expiry": "2030-04-16",
+      "surname": "OBRIEN",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410115DLDAQ53F53E0BF\nDCSOBRIEN\nDACSIOBHAN\nDBB09121977\nDBA04162030\nDBC1\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXC\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id16_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 16,
+    "truth": {
+      "passport_number": "T0YZ26KPM",
+      "date_of_birth": "1966-12-18",
+      "sex": "X",
+      "date_of_expiry": "2028-08-18",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQT0YZ26KPM\nDCSALFARSI\nDACLAYLA\nDBB12181966\nDBA08182028\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id16_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 16,
+    "truth": {
+      "passport_number": "T0YZ26KPM",
+      "date_of_birth": "1966-12-18",
+      "sex": "X",
+      "date_of_expiry": "2028-08-18",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQT0YZ26KPM\nDCSALFARSI\nDACLAYLA\nDBB12181966\nDBA08182028\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id16_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 16,
+    "truth": {
+      "passport_number": "T0YZ26KPM",
+      "date_of_birth": "1966-12-18",
+      "sex": "X",
+      "date_of_expiry": "2028-08-18",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQT0YZ26KPM\nDCSALFARSI\nDACLAYLA\nDBB12181966\nDBA08182028\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id16_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 16,
+    "truth": {
+      "passport_number": "T0YZ26KPM",
+      "date_of_birth": "1966-12-18",
+      "sex": "X",
+      "date_of_expiry": "2028-08-18",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQT0YZ26KPM\nDCSALFARSI\nDACLAYLA\nDBB12181966\nDBA08182028\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id16_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 16,
+    "truth": {
+      "passport_number": "T0YZ26KPM",
+      "date_of_birth": "1966-12-18",
+      "sex": "X",
+      "date_of_expiry": "2028-08-18",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQT0YZ26KPM\nDCSALFARSI\nDACLAYLA\nDBB12181966\nDBA08182028\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id16_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 16,
+    "truth": {
+      "passport_number": "T0YZ26KPM",
+      "date_of_birth": "1966-12-18",
+      "sex": "X",
+      "date_of_expiry": "2028-08-18",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQT0YZ26KPM\nDCSALFARSI\nDACLAYLA\nDBB12181966\nDBA08182028\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id16_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 16,
+    "truth": {
+      "passport_number": "T0YZ26KPM",
+      "date_of_birth": "1966-12-18",
+      "sex": "X",
+      "date_of_expiry": "2028-08-18",
+      "surname": "ALFARSI",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410114DLDAQT0YZ26KPM\nDCSALFARSI\nDACLAYLA\nDBB12181966\nDBA08182028\nDBC9\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJUT\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id17_clean.png",
+    "class": "license",
+    "degradation": "clean",
+    "identity": 17,
+    "truth": {
+      "passport_number": "VSG9CC6ZA",
+      "date_of_birth": "1958-01-04",
+      "sex": "F",
+      "date_of_expiry": "2033-04-14",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQVSG9CC6ZA\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB01041958\nDBA04142033\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id17_jpeg40.jpg",
+    "class": "license",
+    "degradation": "jpeg40",
+    "identity": 17,
+    "truth": {
+      "passport_number": "VSG9CC6ZA",
+      "date_of_birth": "1958-01-04",
+      "sex": "F",
+      "date_of_expiry": "2033-04-14",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQVSG9CC6ZA\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB01041958\nDBA04142033\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id17_blur1.png",
+    "class": "license",
+    "degradation": "blur1",
+    "identity": 17,
+    "truth": {
+      "passport_number": "VSG9CC6ZA",
+      "date_of_birth": "1958-01-04",
+      "sex": "F",
+      "date_of_expiry": "2033-04-14",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQVSG9CC6ZA\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB01041958\nDBA04142033\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id17_rot3.png",
+    "class": "license",
+    "degradation": "rot3",
+    "identity": 17,
+    "truth": {
+      "passport_number": "VSG9CC6ZA",
+      "date_of_birth": "1958-01-04",
+      "sex": "F",
+      "date_of_expiry": "2033-04-14",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQVSG9CC6ZA\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB01041958\nDBA04142033\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id17_persp.png",
+    "class": "license",
+    "degradation": "persp",
+    "identity": 17,
+    "truth": {
+      "passport_number": "VSG9CC6ZA",
+      "date_of_birth": "1958-01-04",
+      "sex": "F",
+      "date_of_expiry": "2033-04-14",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQVSG9CC6ZA\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB01041958\nDBA04142033\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id17_small720.jpg",
+    "class": "license",
+    "degradation": "small720",
+    "identity": 17,
+    "truth": {
+      "passport_number": "VSG9CC6ZA",
+      "date_of_birth": "1958-01-04",
+      "sex": "F",
+      "date_of_expiry": "2033-04-14",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQVSG9CC6ZA\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB01041958\nDBA04142033\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lic_id17_worst.jpg",
+    "class": "license",
+    "degradation": "worst",
+    "identity": 17,
+    "truth": {
+      "passport_number": "VSG9CC6ZA",
+      "date_of_birth": "1958-01-04",
+      "sex": "F",
+      "date_of_expiry": "2033-04-14",
+      "surname": "SZCZEPANSKA",
+      "barcodePayload": "@\n\u001e\rANSI 636000100002DL00410123DLDAQVSG9CC6ZA\nDCSSZCZEPANSKA\nDACMALGORZATA\nDBB01041958\nDBA04142033\nDBC2\nDAG100 MAIN STREET\nDAICAPITAL CITY\nDAJXA\nDAK00000\r"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  }
+]

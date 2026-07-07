@@ -11,6 +11,9 @@ export type ExtractionDocType =
   | 'id_card'
   | 'invoice'
   | 'receipt'
+  | 'bank_statement'
+  | 'payslip'
+  | 'utility_bill'
   | 'generic';
 
 export interface ClassifyInput {
@@ -63,6 +66,35 @@ const KEYWORDS: Record<ScoredType, string[]> = {
     'merchant',
     'thank you',
   ],
+  bank_statement: [
+    'bank statement',
+    'statement period',
+    'opening balance',
+    'closing balance',
+    'account holder',
+    'total credits',
+    'total debits',
+  ],
+  payslip: [
+    'payslip',
+    'pay slip',
+    'pay period',
+    'gross pay',
+    'net pay',
+    'total deductions',
+    'employee id',
+    'earnings',
+  ],
+  utility_bill: [
+    'utility bill',
+    'total due',
+    'due date',
+    'billing period',
+    'current charges',
+    'previous balance',
+    'meter',
+    'account number',
+  ],
 };
 
 function clamp(value: number, min: number, max: number): number {
@@ -81,6 +113,9 @@ export function classifyDocument(input: ClassifyInput): ClassifyResult {
     id_card: 0,
     invoice: 0,
     receipt: 0,
+    bank_statement: 0,
+    payslip: 0,
+    utility_bill: 0,
   };
   const reasons: string[] = [];
 
@@ -111,8 +146,7 @@ export function classifyDocument(input: ClassifyInput): ClassifyResult {
   }
 
   // All zero -> generic.
-  const total =
-    scores.passport + scores.id_card + scores.invoice + scores.receipt;
+  const total = (Object.keys(scores) as ScoredType[]).reduce((s, k) => s + scores[k], 0);
   if (total === 0) {
     return {
       type: 'generic',

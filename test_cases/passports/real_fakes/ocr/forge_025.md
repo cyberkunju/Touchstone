@@ -1,0 +1,106 @@
+![img-0.jpeg](img-0.jpeg)
+
+USA
+
+# UNITED STATES OF AMERICA
+
+## NATIONAL IDENTITY CARD
+
+![img-1.jpeg](img-1.jpeg)
+
+Surname
+
+ANDERSON
+
+Given Names
+
+JORDAN ALEXANDER
+
+Date of Birth
+
+14 MAY 1992
+
+Sex
+
+M
+
+Place of Birth
+
+AUSTIN, TX, USA
+
+Nationality
+
+USA
+
+Date of Issue
+
+21 JUN 2018
+
+Date of Expiry
+
+20 JUN 2028
+
+ID Card No.
+
+USA-920514-AX765
+
+Signature
+
+Jordan A. Anderson
+
+BRAZIL
+
+05 FEB 2019
+
+SAO PAULO
+ENTRY
+
+AUSTRALIA
+
+18 AUG 2020
+
+SYDNEY
+ENTRY
+
+IDUSA920514AX765<<920514
+
+CANADA
+
+15-07-2019
+
+VANCOUVER
+ENTRY
+
+UNITED KINGDOM
+
+22 SEP 2019
+
+LONDON
+
+HEATHROW
+
+ENTRY
+
+MEXICO
+
+10 MAR 2020
+
+MEXICO CITY
+
+ENTRY
+
+FRANCE
+
+02 JUN 2021
+
+PARIS
+
+ENTRY A123
+
+JAPAN
+
+12 NOV 2022
+
+TOKYO
+
+ENTRY

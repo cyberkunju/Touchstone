@@ -9,18 +9,36 @@ import {
 import {
   normalizeDetectorTensor,
   postProcessDBNet,
+  postProcessDBNetQuads,
   normalizeRecognitionTensor,
   computeRecTargetWidth,
   decodeCTCGreedy,
+  planDetBands,
+  dedupeBoxes,
   OcrRecResult,
   DbnetPostOptions,
+  type DetectedQuad,
 } from '../ai-runtime/ocr';
+import { extractLattice, extractProjectedLattice, greedyFromLattice, type Lattice } from '../beam/lattice';
+import {
+  YUNET_INPUT_SIZE,
+  buildYuNetBlob,
+  decodeYuNet,
+  type FaceDetection,
+  type YuNetOutputs,
+} from '../ai-runtime/yunet';
 import { enhanceForOcr } from '../ai-runtime/image-enhance';
+
+/** Recognition result carrying the top-k CTC lattice (contract: Documentation/06 §3). */
+export type OcrRecWithLattice = OcrRecResult & { lattice: Lattice };
 import {
   REC_INPUT_HEIGHT,
   REC_MAX_WIDTH,
   DET_LIMIT_SIDE,
   DET_SIZE_MULTIPLE,
+  DET_BAND_ASPECT,
+  DET_BAND_SIDE,
+  DET_BAND_OVERLAP,
   DEFAULT_LAYOUT_INPUT_SIZE,
 } from '../ai-runtime/model-registry';
 import { Box } from '../core/geometry';
@@ -102,16 +120,17 @@ function snapToMultiple(value: number, mult: number): number {
   return Math.max(mult, snapped);
 }
 
-/** Core DBNet text detection on a bitmap → normalized line boxes. */
-async function detectLinesCore(
+/** Core DBNet forward pass on a bitmap → raw probability map.
+ *  `limitSide` overrides the long-side budget (bands run at DET_BAND_SIDE). */
+async function runDetForward(
   sessionInfo: ModelSession,
   imageBitmap: ImageBitmap,
-  options?: DbnetPostOptions,
-): Promise<Box[]> {
+  limitSide: number = DET_LIMIT_SIDE,
+): Promise<{ outputData: Float32Array; mapW: number; mapH: number }> {
   const srcW = imageBitmap.width;
   const srcH = imageBitmap.height;
   const longSide = Math.max(srcW, srcH);
-  const scale = longSide > DET_LIMIT_SIDE ? DET_LIMIT_SIDE / longSide : 1;
+  const scale = longSide > limitSide ? limitSide / longSide : 1;
   const targetW = snapToMultiple(srcW * scale, DET_SIZE_MULTIPLE);
   const targetH = snapToMultiple(srcH * scale, DET_SIZE_MULTIPLE);
 
@@ -130,17 +149,83 @@ async function detectLinesCore(
 
   const results = await runSession(sessionInfo, { [sessionInfo.session.inputNames[0]]: inputTensor });
   const outputTensor = results[sessionInfo.session.outputNames[0]];
-  const outputData = outputTensor.data as Float32Array;
-  const mapH = outputTensor.dims[2];
-  const mapW = outputTensor.dims[3];
-  return postProcessDBNet(outputData, mapW, mapH, options);
+  return {
+    outputData: outputTensor.data as Float32Array,
+    mapW: outputTensor.dims[3],
+    mapH: outputTensor.dims[2],
+  };
 }
 
-/** Core PP-OCRv5 recognition on a single line-crop bitmap. */
+/** Core DBNet text detection on a bitmap → normalized line boxes.
+ *
+ * TALL-PAGE BANDING (live-caught: A4 statements read ZERO fields): portrait
+ * pages are sliced into overlapping square bands, each detected at the
+ * higher per-band budget, boxes remapped to page space and IoU-deduped.
+ * Wide pages (every certified card/passport family) keep the exact
+ * single-pass path — bit-identical to pre-banding behavior.
+ */
+async function detectLinesCore(
+  sessionInfo: ModelSession,
+  imageBitmap: ImageBitmap,
+  options?: DbnetPostOptions,
+): Promise<Box[]> {
+  const bands = planDetBands(
+    imageBitmap.width,
+    imageBitmap.height,
+    DET_BAND_ASPECT,
+    DET_BAND_OVERLAP,
+  );
+  if (bands.length === 1) {
+    const { outputData, mapW, mapH } = await runDetForward(sessionInfo, imageBitmap);
+    return postProcessDBNet(outputData, mapW, mapH, options);
+  }
+
+  const all: Box[] = [];
+  for (const band of bands) {
+    const c = new OffscreenCanvas(imageBitmap.width, band.sh);
+    const ctx = c.getContext('2d')!;
+    ctx.drawImage(imageBitmap, 0, band.sy, imageBitmap.width, band.sh, 0, 0, imageBitmap.width, band.sh);
+    const bandBitmap = await createImageBitmap(c);
+    try {
+      const { outputData, mapW, mapH } = await runDetForward(sessionInfo, bandBitmap, DET_BAND_SIDE);
+      for (const b of postProcessDBNet(outputData, mapW, mapH, options)) {
+        // Band-normalized → page-normalized (x unchanged: bands are full-width).
+        all.push([
+          b[0],
+          (band.sy + b[1] * band.sh) / imageBitmap.height,
+          b[2],
+          (band.sy + b[3] * band.sh) / imageBitmap.height,
+        ]);
+      }
+    } finally {
+      bandBitmap.close();
+    }
+  }
+  return dedupeBoxes(all);
+}
+
+/** Core DBNet text detection → rotated quads (for rectified line crops). */
+async function detectQuadsCore(
+  sessionInfo: ModelSession,
+  imageBitmap: ImageBitmap,
+  options?: DbnetPostOptions,
+): Promise<DetectedQuad[]> {
+  const { outputData, mapW, mapH } = await runDetForward(sessionInfo, imageBitmap);
+  return postProcessDBNetQuads(outputData, mapW, mapH, options);
+}
+
+/** Core PP-OCRv5 recognition on a single line-crop bitmap.
+ *
+ * `projectAlphabet` (optional): additionally emit `projectedLattice` — the
+ * posterior projected onto a restricted alphabet (see extractProjectedLattice)
+ * for constrained decoders whose legal charset is tiny (MRZ). The plain text/
+ * lattice outputs are unchanged.
+ */
 async function recognizeCropCore(
   sessionInfo: ModelSession,
   textCropBitmap: ImageBitmap,
-): Promise<OcrRecResult> {
+  projectAlphabet?: ReadonlySet<string>,
+): Promise<OcrRecWithLattice & { projectedLattice?: Lattice }> {
   if (!recognitionVocab) {
     throw new Error('Recognition vocabulary not set. Call setRecognitionVocab first.');
   }
@@ -165,7 +250,18 @@ async function recognizeCropCore(
   const outputData = outputTensor.data as Float32Array;
   const timeSteps = outputTensor.dims[1];
   const numClasses = outputTensor.dims[2];
-  return decodeCTCGreedy(outputData, timeSteps, numClasses, recognitionVocab);
+  const greedy = decodeCTCGreedy(outputData, timeSteps, numClasses, recognitionVocab);
+  // Lattice tap (P1.1/I2): capture top-k BEFORE the collapse discards the
+  // distribution — constrained decoders (MRZ/grammars) consume this, not text.
+  const lattice = extractLattice(outputData, timeSteps, numClasses, recognitionVocab);
+  // Projected top-k is WIDER than the raw lattice's frozen k=5 (plan §17
+  // freezes the raw structure; the projection is a separate object): after
+  // dropping thousands of illegal classes, rank 6-8 legal chars are exactly
+  // where blur-buried truth lives, and beam width (50) absorbs the branching.
+  const projectedLattice = projectAlphabet
+    ? extractProjectedLattice(outputData, timeSteps, numClasses, recognitionVocab, projectAlphabet, 8)
+    : undefined;
+  return { ...greedy, lattice, projectedLattice };
 }
 
 /** Crop a normalized box out of a bitmap into a new ImageBitmap. */
@@ -185,9 +281,57 @@ async function cropBitmap(bitmap: ImageBitmap, box: Box): Promise<ImageBitmap | 
   return createImageBitmap(c);
 }
 
+/**
+ * Rectify a rotated-quad line region into an axis-aligned crop (the canvas
+ * equivalent of PaddleOCR's get_rotate_crop_image). The quad is a rotated
+ * RECTANGLE (TL,TR,BR,BL), so the mapping is exactly affine: TL→(0,0),
+ * TR→(W,0), BL→(0,H). Out-of-bounds source pixels land on white — the
+ * recognizer's expected background.
+ */
+async function rectifyQuadBitmap(
+  bitmap: ImageBitmap,
+  quadNorm: [number, number][],
+): Promise<ImageBitmap | null> {
+  const w = bitmap.width;
+  const h = bitmap.height;
+  const [tl, tr, , bl] = quadNorm.map(([qx, qy]) => [qx * w, qy * h] as [number, number]);
+  const W = Math.round(Math.hypot(tr[0] - tl[0], tr[1] - tl[1]));
+  const H = Math.round(Math.hypot(bl[0] - tl[0], bl[1] - tl[1]));
+  if (W < 2 || H < 2) return null;
+
+  // src(dest) = TL + (dx/W)·(TR−TL) + (dy/H)·(BL−TL); invert for canvas.
+  const a = (tr[0] - tl[0]) / W;
+  const b = (tr[1] - tl[1]) / W;
+  const c = (bl[0] - tl[0]) / H;
+  const d = (bl[1] - tl[1]) / H;
+  const det = a * d - b * c;
+  if (Math.abs(det) < 1e-9) return null;
+  const ia = d / det;
+  const ib = -b / det;
+  const ic = -c / det;
+  const id = a / det;
+  const ie = -(ia * tl[0] + ic * tl[1]);
+  const iff = -(ib * tl[0] + id * tl[1]);
+
+  const canvas = new OffscreenCanvas(W, H);
+  const ctx = canvas.getContext('2d')!;
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, W, H);
+  ctx.imageSmoothingQuality = 'high';
+  ctx.setTransform(ia, ib, ic, id, ie, iff);
+  ctx.drawImage(bitmap, 0, 0);
+  return createImageBitmap(canvas);
+}
+
 const inferenceApi = {
   async isModelLoaded(modelName: string): Promise<boolean> {
     return !!loadedSessions[modelName];
+  },
+
+  /** The ACTUAL execution provider a model landed on — for honest runtime
+   *  metadata (a WebGPU request can silently fall back to WASM). */
+  async getEp(modelName: string): Promise<'webgpu' | 'wasm' | null> {
+    return loadedSessions[modelName]?.ep ?? null;
   },
 
   /** Stores the CTC recognition vocabulary loaded from the dictionary file. */
@@ -303,6 +447,51 @@ const inferenceApi = {
   },
 
   /**
+   * YuNet face detection (P1.7): boxes + 5 landmarks in source-normalized
+   * coordinates. Presence + geometry ONLY — no recognition, ever.
+   * The 2023mar artifact is static 320×320: the source is scaled long-side to
+   * 320, top-left anchored, zero-padded (OpenCV padWithDivisor semantics).
+   */
+  async detectFaces(
+    modelName: string,
+    imageBitmap: ImageBitmap,
+    scoreThreshold = 0.7,
+    nmsThreshold = 0.3,
+  ): Promise<FaceDetection[]> {
+    const sessionInfo = loadedSessions[modelName];
+    if (!sessionInfo) throw new Error(`Model ${modelName} is not loaded in worker`);
+
+    const size = sessionInfo.inputSize ?? YUNET_INPUT_SIZE;
+    const scale = size / Math.max(imageBitmap.width, imageBitmap.height);
+    const canvas = new OffscreenCanvas(size, size);
+    const ctx = canvas.getContext('2d')!;
+    ctx.fillStyle = '#000'; // zero padding, matching BORDER_CONSTANT 0
+    ctx.fillRect(0, 0, size, size);
+    ctx.drawImage(
+      imageBitmap,
+      0, 0, imageBitmap.width, imageBitmap.height,
+      0, 0, Math.round(imageBitmap.width * scale), Math.round(imageBitmap.height * scale),
+    );
+
+    const blob = buildYuNetBlob(ctx.getImageData(0, 0, size, size).data, size);
+    const inputTensor = new ort.Tensor('float32', blob, [1, 3, size, size]);
+    const results = await runSession(sessionInfo, { [sessionInfo.session.inputNames[0]]: inputTensor });
+
+    // Outputs are named cls_8/obj_8/bbox_8/kps_8 … _16 … _32.
+    const outputs: YuNetOutputs = { cls: {}, obj: {}, bbox: {}, kps: {} };
+    for (const name of sessionInfo.session.outputNames) {
+      const m = /^(cls|obj|bbox|kps)_(8|16|32)$/.exec(name);
+      if (!m) continue;
+      outputs[m[1] as keyof YuNetOutputs][Number(m[2])] = results[name].data as Float32Array;
+    }
+
+    return decodeYuNet(
+      outputs, scale, imageBitmap.width, imageBitmap.height,
+      scoreThreshold, nmsThreshold, size,
+    );
+  },
+
+  /**
    * Runs PP-OCRv5 DBNet text detection on a page image. The image is resized
    * to fit DET_LIMIT_SIDE with both sides snapped to a multiple of 32, then
    * post-processed into normalized text-line boxes.
@@ -319,12 +508,13 @@ const inferenceApi = {
 
   /**
    * Runs PP-OCRv5 recognition on a single text-line crop. Returns the decoded
-   * text and a REAL confidence derived from the CTC softmax probabilities.
+   * text, a REAL confidence derived from the CTC softmax probabilities, and
+   * the top-k probability lattice for constrained re-decoding (I2/I3).
    */
   async recognizeText(
     modelName: string,
     textCropBitmap: ImageBitmap,
-  ): Promise<OcrRecResult> {
+  ): Promise<OcrRecWithLattice> {
     const sessionInfo = loadedSessions[modelName];
     if (!sessionInfo) throw new Error(`Model ${modelName} is not loaded in worker`);
     return recognizeCropCore(sessionInfo, textCropBitmap);
@@ -340,20 +530,83 @@ const inferenceApi = {
     detModelName: string,
     recModelName: string,
     regionBitmap: ImageBitmap,
-    options?: DbnetPostOptions,
-  ): Promise<{ text: string; confidence: number; boxNorm: Box }[]> {
+    options?: DbnetPostOptions & { projectAlphabet?: string; unifyLineWidths?: boolean },
+  ): Promise<{ text: string; confidence: number; boxNorm: Box; lattice: Lattice; projectedLattice?: Lattice; projectedText?: string }[]> {
     const detInfo = loadedSessions[detModelName];
     const recInfo = loadedSessions[recModelName];
     if (!detInfo || !recInfo) throw new Error('Detection/recognition model not loaded in worker');
 
-    const boxes = await detectLinesCore(detInfo, regionBitmap, options);
-    const out: { text: string; confidence: number; boxNorm: Box }[] = [];
-    for (const box of boxes) {
-      const crop = await cropBitmap(regionBitmap, box);
+    // Alphabet crosses the Comlink boundary as a plain string (structured
+    // clone friendliness); rebuilt into a set here.
+    const alphaSet = options?.projectAlphabet
+      ? new Set([...options.projectAlphabet])
+      : undefined;
+
+    // Rotated quads + affine rectification: under perspective/rotation the
+    // axis-aligned crop feeds the recognizer slanted text and neighbor bleed.
+    const quads = await detectQuadsCore(detInfo, regionBitmap, options);
+
+    // MRZ-band width unification (live-caught): under heavy blur DBNet loses
+    // the faint trailing filler run (`ZOFIA<<<<…` detected only to `ZOFIA`),
+    // making the fixed-length format structurally undecodable. ICAO MRZ lines
+    // span EQUAL width by spec — so sibling wide lines are extended to their
+    // union along their own axis, and the RECOGNIZER (which sees local
+    // contrast the detector's threshold discards) judges the faint glyphs.
+    // Only lines already ≥35% of the widest width participate — a heavily
+    // truncated MRZ line 1 (name span read, filler run lost) sits near 50%,
+    // while captions ("PASSPORT", dates) stay under ~25% of a 44-char line.
+    if (options?.unifyLineWidths && quads.length >= 2) {
+      const widthOf = (q: DetectedQuad) => q.boxNorm[2] - q.boxNorm[0];
+      const maxW = Math.max(...quads.map(widthOf));
+      const wide = quads.filter((q) => widthOf(q) >= 0.35 * maxW);
+      if (wide.length >= 2) {
+        const ux1 = Math.min(...wide.map((q) => q.boxNorm[0]));
+        const ux2 = Math.max(...wide.map((q) => q.boxNorm[2]));
+        for (const q of wide) {
+          const extL = q.boxNorm[0] - ux1;
+          const extR = ux2 - q.boxNorm[2];
+          if (extL < 0.02 && extR < 0.02) continue;
+          const [tl, tr, br, bl] = q.quadNorm;
+          const wLen = Math.hypot(tr[0] - tl[0], tr[1] - tl[1]);
+          if (wLen < 1e-6) continue;
+          const ux = (tr[0] - tl[0]) / wLen;
+          const uy = (tr[1] - tl[1]) / wLen;
+          q.quadNorm = [
+            [tl[0] - ux * extL, tl[1] - uy * extL],
+            [tr[0] + ux * extR, tr[1] + uy * extR],
+            [br[0] + ux * extR, br[1] + uy * extR],
+            [bl[0] - ux * extL, bl[1] - uy * extL],
+          ];
+          q.boxNorm = [
+            Math.max(0, Math.min(q.boxNorm[0], ux1)),
+            q.boxNorm[1],
+            Math.min(1, Math.max(q.boxNorm[2], ux2)),
+            q.boxNorm[3],
+          ];
+        }
+      }
+    }
+    const out: { text: string; confidence: number; boxNorm: Box; lattice: Lattice; projectedLattice?: Lattice; projectedText?: string }[] = [];
+    for (const q of quads) {
+      const crop =
+        (await rectifyQuadBitmap(regionBitmap, q.quadNorm)) ??
+        (await cropBitmap(regionBitmap, q.boxNorm));
       if (!crop) continue;
       try {
-        const r = await recognizeCropCore(recInfo, crop);
-        if (r.text.trim() !== '') out.push({ text: r.text, confidence: r.confidence, boxNorm: box });
+        const r = await recognizeCropCore(recInfo, crop, alphaSet);
+        if (r.text.trim() !== '') {
+          out.push({
+            text: r.text,
+            confidence: r.confidence,
+            boxNorm: q.boxNorm,
+            lattice: r.lattice,
+            projectedLattice: r.projectedLattice,
+            // Greedy read over the PROJECTED lattice: already folded to the
+            // target alphabet, so shape filters (isMrzLine) see the line as
+            // the constrained decoder will — not with raw CJK noise.
+            projectedText: r.projectedLattice ? greedyFromLattice(r.projectedLattice).text : undefined,
+          });
+        }
       } finally {
         crop.close();
       }

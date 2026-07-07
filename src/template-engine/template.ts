@@ -1,5 +1,12 @@
 import { DocGraph, TemplateGraph, TemplateField, TemplateAnchor, FieldHypothesis, TemplatePage, TemplateFingerprint } from '../core/types';
 import { Box, getBoxCenter } from '../core/geometry';
+import {
+  estimateAlignment,
+  projectBox,
+  type Alignment,
+  type AnchorPair,
+} from '../geometry/homography';
+import { similarity } from '../docgraph/fuzzy';
 
 export class TemplateEngine {
   /**
@@ -216,103 +223,58 @@ export class TemplateEngine {
   }
 
   /**
-   * Calculates a 2D Affine Alignment (Translation + Scale) to project
-   * template ROI bounding boxes onto the coordinates of a newly uploaded page.
+   * Builds anchor↔page correspondences and estimates the template→page
+   * transform through the frozen ladder (Documentation/09 §4): RANSAC+DLT
+   * homography ≥6 inliers → affine 3–5 → similarity 2 → failed.
+   *
+   * Matching: exact string equality first; fuzzy ≥0.9 for long tokens (≥6
+   * chars) — OCR noise must not cost the alignment its anchors. Each anchor
+   * matches at most one page node (best similarity wins).
+   */
+  public static computeAlignment(pageNodes: any[], template: TemplateGraph): Alignment {
+    const pairs: AnchorPair[] = [];
+    const textNodes = pageNodes.filter(
+      (n: any) => (n.type === 'text_word' || n.type === 'text_line') && n.value && n.boxNorm,
+    );
+
+    for (const anchor of template.anchors) {
+      if (!anchor.boxNorm || !anchor.value) continue;
+      const a = String(anchor.value).toLowerCase().trim();
+      let best: { node: any; sim: number } | null = null;
+      for (const n of textNodes) {
+        const t = String(n.value).toLowerCase().trim();
+        const sim = t === a ? 1 : a.length >= 6 && t.length >= 6 ? similarity(a, t) : 0;
+        if (sim >= 0.9 && (!best || sim > best.sim)) best = { node: n, sim };
+      }
+      if (best) {
+        pairs.push({
+          tpl: getBoxCenter(anchor.boxNorm),
+          page: getBoxCenter(best.node.boxNorm),
+        });
+      }
+    }
+
+    const alignment = estimateAlignment(pairs);
+    console.log(
+      `[Template Engine] Alignment: ${alignment.kind} (${alignment.inliers}/${alignment.total} anchors, mean err ${alignment.meanError === Infinity ? '∞' : alignment.meanError.toFixed(4)})`,
+    );
+    return alignment;
+  }
+
+  /**
+   * Projects one template field ROI onto the page through a precomputed
+   * alignment (compute it ONCE per document with {@link computeAlignment}).
+   * A failed alignment returns the template box unchanged — the caller sees
+   * `kind === 'failed'` and must treat the document as unknown flow.
    */
   public static alignAndProject(
-    pageNodes: any[], // current page nodes
+    pageNodes: any[],
     template: TemplateGraph,
-    field: TemplateField
+    field: TemplateField,
+    precomputed?: Alignment,
   ): Box {
-    // 1. Find matched anchors
-    const matchedPairs: { tpl: Box; page: Box }[] = [];
-
-    template.anchors.forEach(anchor => {
-      if (anchor.boxNorm && anchor.value) {
-        // Find matching text node in current page
-        const matchNode = pageNodes.find(
-          (n: any) =>
-            (n.type === 'text_word' || n.type === 'text_line') &&
-            n.value &&
-            n.value.toLowerCase().trim() === anchor.value!.toLowerCase().trim()
-        );
-
-        if (matchNode && matchNode.boxNorm) {
-          matchedPairs.push({
-            tpl: anchor.boxNorm,
-            page: matchNode.boxNorm
-          });
-        }
-      }
-    });
-
-    const defaultBox = field.valueBoxNorm;
-
-    // If we have fewer than 2 pairs, fallback to static template projection (no scaling, translation only if single)
-    if (matchedPairs.length === 0) {
-      return defaultBox;
-    }
-
-    // 2. Compute translation offset (Shift ΔX, ΔY) based on centers
-    let sumDx = 0;
-    let sumDy = 0;
-
-    matchedPairs.forEach(pair => {
-      const tplCenter = getBoxCenter(pair.tpl);
-      const pageCenter = getBoxCenter(pair.page);
-      sumDx += pageCenter[0] - tplCenter[0];
-      sumDy += pageCenter[1] - tplCenter[1];
-    });
-
-    const dx = sumDx / matchedPairs.length;
-    const dy = sumDy / matchedPairs.length;
-
-    // 3. Compute scale factors (Sx, Sy) if we have 2 or more pairs
-    let sx = 1.0;
-    let sy = 1.0;
-
-    if (matchedPairs.length >= 2) {
-      // Calculate distances between anchors in template vs page
-      let tplDistSum = 0;
-      let pageDistSum = 0;
-
-      for (let i = 0; i < matchedPairs.length; i++) {
-        for (let j = i + 1; j < matchedPairs.length; j++) {
-          const tplC1 = getBoxCenter(matchedPairs[i].tpl);
-          const tplC2 = getBoxCenter(matchedPairs[j].tpl);
-          const pageC1 = getBoxCenter(matchedPairs[i].page);
-          const pageC2 = getBoxCenter(matchedPairs[j].page);
-
-          tplDistSum += Math.abs(tplC1[0] - tplC2[0]) + Math.abs(tplC1[1] - tplC2[1]);
-          pageDistSum += Math.abs(pageC1[0] - pageC2[0]) + Math.abs(pageC1[1] - pageC2[1]);
-        }
-      }
-
-      if (tplDistSum > 0) {
-        const ratio = pageDistSum / tplDistSum;
-        // Clamp scale to prevent extreme warping errors
-        sx = Math.min(1.2, Math.max(0.8, ratio));
-        sy = sx;
-      }
-    }
-
-    // 4. Project bounding box: scale and translate corners
-    const [tx1, ty1, tx2, ty2] = defaultBox;
-    const tCenter = getBoxCenter(defaultBox);
-
-    // Apply scale relative to center of box, then apply translation shift
-    const halfW = ((tx2 - tx1) / 2) * sx;
-    const halfH = ((ty2 - ty1) / 2) * sy;
-
-    const pxCenter = tCenter[0] + dx;
-    const pyCenter = tCenter[1] + dy;
-
-    const px1 = Math.max(0.0, Math.min(1.0, pxCenter - halfW));
-    const py1 = Math.max(0.0, Math.min(1.0, pyCenter - halfH));
-    const px2 = Math.max(0.0, Math.min(1.0, pxCenter + halfW));
-    const py2 = Math.max(0.0, Math.min(1.0, pyCenter + halfH));
-
-    return [px1, py1, px2, py2];
+    const alignment = precomputed ?? this.computeAlignment(pageNodes, template);
+    return projectBox(alignment, field.valueBoxNorm);
   }
 
   private static simpleHash(str: string): string {

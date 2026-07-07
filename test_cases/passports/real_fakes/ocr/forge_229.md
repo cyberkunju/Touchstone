@@ -1,0 +1,66 @@
+![img-0.jpeg](img-0.jpeg)
+
+ज्ञानसेन जयते
+
+# BHARAT GANRAJYA
+
+## REPUBLIC OF BHARAT
+NATIONAL IDENTITY CARD
+
+NID No. BGT7 3345 6678 9901
+
+Name
+ARJUN DEV KUMAR
+
+DOB
+14/05/1992
+
+Gender
+M
+
+Nationality
+BHARATIYA
+
+Address
+23, VIVEKANAND NAGAR
+SURYA PURAM, NAVA DISTRICT
+BHARAT - 560001
+
+![img-1.jpeg](img-1.jpeg)
+
+![img-2.jpeg](img-2.jpeg)
+
+Date of Issue
+01/01/2020
+Valid Till
+31/12/2030
+
+EXIT D3
+19 MAY 2023
+SURYAPURAM
+
+ENTRY D3
+12 JUN 2021
+NAVA DISTRICT
+
+EXIT D3
+25 DEC 2021
+SURYAPURAM
+
+ENTRY D3
+08 MAR 2022
+NAVA DISTRICT
+
+EXIT D3
+17 SEP 2022
+SURYAPURAM
+
+ENTRY
+05 JAN 2023 D3
+NAVA DISTRICT
+
+Holder Signature
+
+This card is the property of Bharat Ganrajya.
+
+2023 045 988

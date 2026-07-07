@@ -1,0 +1,21 @@
+# PERMIS DE CONDUIRE
+
+RÉPUBLIQUE FRANÇAISE
+
+![img-0.jpeg](img-0.jpeg)
+
+1. DURAND
+
+2. LUCAS, THOMAS
+
+3. 14.07.1988 (PARIS 075)
+
+4a. 01.09.2016 4c. Préfecture de la Loire
+4b. 01.09.2031
+5. 16AB123456
+
+Durand
+
+9. AM/A1/B1/B/BE
+
+D1FRA16AB123456789LUCAS<<THOMAS<<<<<<

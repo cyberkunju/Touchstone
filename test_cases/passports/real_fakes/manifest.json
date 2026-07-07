@@ -1,0 +1,3921 @@
+[
+  {
+    "file": "images/1.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "Z43R34255",
+      "date_of_birth": "1978-07-03",
+      "date_of_expiry": "2020-02-10",
+      "sex": "M",
+      "country_code": "ARE"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/10.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/11.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/12.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/13.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "I56Q12345",
+      "date_of_birth": "1983-02-09",
+      "date_of_expiry": "2026-10-21",
+      "sex": "F",
+      "country_code": "ARE"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/14.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "P90S12345",
+      "date_of_birth": "1987-07-27",
+      "date_of_expiry": "2021-01-12",
+      "sex": "F",
+      "country_code": "ARE"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/15.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "K12T34567",
+      "date_of_birth": "1986-05-19",
+      "date_of_expiry": "2023-04-09",
+      "sex": "F",
+      "country_code": "ARE"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/2.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/3.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "Y34B67890",
+      "date_of_birth": "1990-05-14",
+      "date_of_expiry": "2022-07-05",
+      "sex": "M",
+      "country_code": "ARE"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/4.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "C56C12345",
+      "date_of_birth": "2023-08-12",
+      "country_code": "VAE"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/5.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/6.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/7.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "V12F34567",
+      "date_of_birth": "1988-06-09",
+      "date_of_expiry": "2026-11-22",
+      "sex": "M",
+      "country_code": "ARE"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/8.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "Q34G56789",
+      "date_of_birth": "1983-03-27",
+      "date_of_expiry": "2022-04-14",
+      "sex": "M",
+      "country_code": "ARE"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/9.jpg",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/ChatGPT Image Jun 6, 2026, 07_16_24 PM.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "Y9639124",
+      "surname": "VERMA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/ChatGPT Image Jun 6, 2026, 07_18_25 PM.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "Y9639124",
+      "surname": "VERMA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/ChatGPT Image Jun 6, 2026, 08_00_23 PM (1).png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "S1234567",
+      "surname": "PATEL",
+      "date_of_birth": "1996-11-24",
+      "date_of_expiry": "2032-06-14",
+      "sex": "M",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/ChatGPT Image Jun 6, 2026, 08_00_24 PM (2).png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "Z5698297",
+      "surname": "PATEL",
+      "date_of_birth": "1992-03-21",
+      "date_of_expiry": "2032-04-13",
+      "sex": "M",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/ChatGPT Image Jun 6, 2026, 08_06_45 PM.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "V8673092",
+      "surname": "MEHTA",
+      "date_of_birth": "1993-08-05",
+      "date_of_expiry": "2031-09-22",
+      "sex": "M",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_000.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "E12345678",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_001.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "JOHNSON",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_002.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_003.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "HARTLEY",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_004.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SYNTHETIC",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_005.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_006.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "C01X29V13",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_007.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_008.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_009.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "FRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_010.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DURAND",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_011.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_012.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZP1234567",
+      "surname": "RANA",
+      "date_of_expiry": "2034-05-19",
+      "sex": "M",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_013.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2030-12-31",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_014.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_015.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "XP1234567",
+      "surname": "YAMASHITA",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_016.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_017.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_018.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SILVEIRA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_019.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2032-06-20",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_020.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_021.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_022.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "OLSEN",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_023.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_024.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_025.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_026.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_027.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_028.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SAMPLE",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_029.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_030.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "X01X01X01",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_031.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_032.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_033.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_034.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_035.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_036.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "Z1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2033-07-19",
+      "sex": "M",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_037.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1995-07-14"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_038.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1994-08-14"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_039.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZZ1234567",
+      "surname": "YAMAMOTO",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_040.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_041.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_042.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "OLIVEIRA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_043.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1995-04-15",
+      "date_of_expiry": "2032-08-20",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_044.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_045.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "P12345678",
+      "sex": "M",
+      "country_code": "PNL"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_046.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "HANSEN",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_047.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_048.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_049.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_050.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_051.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_052.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SAMPLE",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_053.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_054.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "X01X00T47",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_055.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_056.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_057.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "FRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_058.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_059.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_060.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZP1234567",
+      "surname": "KAPOOR",
+      "date_of_birth": "1990-08-15",
+      "date_of_expiry": "2034-12-31",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_061.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1992-08-14",
+      "date_of_expiry": "2026-09-11"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_062.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_063.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_064.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_065.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_066.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "ALMEIDA",
+      "country_code": "BRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_067.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2031-08-20",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_068.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_069.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "NU81234567",
+      "surname": "LINDHOLM",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_070.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "HOVLAND",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_071.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_072.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_073.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_074.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_075.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "A1234567",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_076.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "THORNTON",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_077.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_078.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "C01X00T47",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_079.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_080.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_081.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "country_code": "FRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_082.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_083.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_084.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZC1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1992-08-15",
+      "date_of_expiry": "2034-01-19",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_085.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1995-07-14"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_086.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_087.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "KA1234567",
+      "surname": "YAMAMOTO",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_088.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_089.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_090.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SILVEIRA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_091.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1997-04-15",
+      "date_of_expiry": "2031-08-20",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_092.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_093.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "NU1234567",
+      "surname": "FJELLSTR",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_094.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_095.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_096.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_097.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_098.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_099.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_100.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SAMPLE",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_101.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_102.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_103.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_104.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_105.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "N01234567",
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "NOV"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_106.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "MOREAU"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_107.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_108.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZB1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-08-15",
+      "sex": "M",
+      "country_code": "BHA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_109.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1992-09-14",
+      "date_of_expiry": "2028-08-27"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_110.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_111.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "XK1234567",
+      "surname": "YAMADA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_112.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_113.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_114.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "OLIVEIRA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_115.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2035-02-20"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_116.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_117.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SOLBERG",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_118.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "KORHONEN",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_119.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_120.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "X12345678",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_121.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_122.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_123.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_124.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "HARPER",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_125.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_126.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "C01X47T1Z",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_127.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_128.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_129.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "MARTIN",
+      "sex": "M",
+      "country_code": "FRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_130.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_131.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_132.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "B1234567",
+      "surname": "KUMAR",
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2035-01-19",
+      "sex": "M",
+      "country_code": "BHR"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_133.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1992-08-14"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_134.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_135.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "XT1234567",
+      "surname": "YAMADA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_136.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_137.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_138.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SILVEIRA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_139.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2030-04-15",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_140.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_141.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_142.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "HAUKSSON"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_143.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_144.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_145.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_146.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_147.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_148.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SAMPLETON",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_149.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_150.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "C01X00T47"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_151.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_152.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_153.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "country_code": "FRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_154.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DURAND",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_155.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_156.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "Z1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2033-07-19",
+      "sex": "M",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_157.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1997-08-12"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_158.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_159.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "TR1234567",
+      "surname": "YAMADA",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_160.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_161.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_162.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "ALMEIDA",
+      "sex": "M",
+      "country_code": "BRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_163.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1987-04-15"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_164.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_165.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "NU1234567",
+      "surname": "EFTERNAMN",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_166.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "EFTERNAVN",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_167.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_168.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "A80000001",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_169.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "JOHNSON",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_170.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_171.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_172.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SAMPLETON",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_173.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_174.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "T22000129",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_175.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_176.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_177.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "country_code": "FRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_178.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_179.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_180.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "P1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-07-15",
+      "date_of_expiry": "2033-08-19",
+      "sex": "M",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_181.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1995-09-14"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_182.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_183.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZZ0000000",
+      "surname": "YAMADA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_184.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_185.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_186.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "PA1234567",
+      "surname": "SILVA",
+      "sex": "M",
+      "country_code": "BRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_187.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2031-08-20"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_188.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_189.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_190.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "LUNDSTR",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_191.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_192.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_193.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1985-23-04",
+      "date_of_expiry": "2030-15-01",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_194.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_195.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_196.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SURNAME",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_197.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_198.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "C01X00T47"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_199.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_200.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_201.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "NVC123456",
+      "surname": "DUPONT",
+      "country_code": "NOV"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_202.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_203.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_204.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZK000000",
+      "surname": "KUMAR",
+      "date_of_birth": "2000-01-01",
+      "date_of_expiry": "2035-12-31",
+      "sex": "M",
+      "country_code": "BRT"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_205.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1995-04-15"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_206.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_207.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "TK1234567",
+      "surname": "YAMADA",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_208.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_209.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_210.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "FZ123456",
+      "surname": "SILVEIRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_211.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1987-04-15",
+      "date_of_expiry": "2028-06-20"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_212.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_213.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "NDU1234567",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_214.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SUKUNIMI",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_215.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_216.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_217.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_218.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_219.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_220.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "HAMILTON"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_221.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_222.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "C01X00T47"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_223.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_224.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_225.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "N01234567",
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "NOV"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_226.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_227.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_228.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "B1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1992-08-15",
+      "date_of_expiry": "2034-12-31",
+      "country_code": "BHA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_229.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_230.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_231.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZZ1234567",
+      "surname": "YAMADA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_232.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_233.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_234.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SILVEIRA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_235.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_236.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_237.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "NU0123456",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_238.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "RGENSEN",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_239.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_240.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_241.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_242.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_243.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_244.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SAMPLE",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_245.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_246.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_247.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_248.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_249.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "FRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_250.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DURAND",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_251.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_252.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZP1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2033-07-19",
+      "sex": "M",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_253.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1992-08-14",
+      "date_of_expiry": "2033-05-09"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_254.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_255.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZQ1234567",
+      "surname": "YAMADA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_256.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_257.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_258.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "BRZ123456",
+      "surname": "OLIVEIRA",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_259.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1995-04-15",
+      "date_of_expiry": "2032-02-20",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_260.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_261.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "EFTERNAMN",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_262.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "HOLM",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_263.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_264.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_265.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "JOHNSON",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_266.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_267.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_268.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "SAMPLE",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_269.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_270.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "X01X01234",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_271.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_272.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_273.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "FRA"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_274.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "DUPONT",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_275.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/forge_276.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "RA000000",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-04-15",
+      "date_of_expiry": "2034-12-31",
+      "sex": "M",
+      "country_code": "IND"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_277.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "date_of_birth": "1994-08-12",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_278.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": null,
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ no MRZ-shaped lines in OCR output — refusal expected"
+  },
+  {
+    "file": "images/forge_279.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "passport_number": "ZZ1234567",
+      "surname": "YAMAMOTO",
+      "sex": "M"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  },
+  {
+    "file": "images/Gemini_Generated_Image_yb1s83yb1s83yb1s.png",
+    "class": "real_fake",
+    "degradation": "real",
+    "truth": null,
+    "silverTruth": {
+      "surname": "JOHNSON",
+      "sex": "F"
+    },
+    "expect": {
+      "mrzValid": false
+    },
+    "provenance": "mistral-ocr-4-0; MRZ checksums do not validate — refusal expected"
+  }
+]

@@ -1,0 +1,602 @@
+[
+  {
+    "file": "utility_id00_clean.png",
+    "class": "utility_bill",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "account_number": "3294428916",
+      "total_due": "970.40",
+      "due_date": "2026-12-31",
+      "current_charges": "849.45"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id00_jpeg40.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "account_number": "3294428916",
+      "total_due": "970.40",
+      "due_date": "2026-12-31",
+      "current_charges": "849.45"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id00_blur1.png",
+    "class": "utility_bill_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "account_number": "3294428916",
+      "total_due": "970.40",
+      "due_date": "2026-12-31",
+      "current_charges": "849.45"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id00_rot3.png",
+    "class": "utility_bill_degraded",
+    "degradation": "rot3",
+    "identity": 0,
+    "truth": {
+      "account_number": "3294428916",
+      "total_due": "970.40",
+      "due_date": "2026-12-31",
+      "current_charges": "849.45"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id00_worst.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "account_number": "3294428916",
+      "total_due": "970.40",
+      "due_date": "2026-12-31",
+      "current_charges": "849.45"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id01_clean.png",
+    "class": "utility_bill",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "account_number": "5823756691",
+      "total_due": "518.56",
+      "due_date": "2026-10-02",
+      "current_charges": "441.58"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id01_jpeg40.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "account_number": "5823756691",
+      "total_due": "518.56",
+      "due_date": "2026-10-02",
+      "current_charges": "441.58"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id01_blur1.png",
+    "class": "utility_bill_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "account_number": "5823756691",
+      "total_due": "518.56",
+      "due_date": "2026-10-02",
+      "current_charges": "441.58"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id01_rot3.png",
+    "class": "utility_bill_degraded",
+    "degradation": "rot3",
+    "identity": 1,
+    "truth": {
+      "account_number": "5823756691",
+      "total_due": "518.56",
+      "due_date": "2026-10-02",
+      "current_charges": "441.58"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id01_worst.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "account_number": "5823756691",
+      "total_due": "518.56",
+      "due_date": "2026-10-02",
+      "current_charges": "441.58"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id02_clean.png",
+    "class": "utility_bill",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "account_number": "4406026824",
+      "total_due": "1032.87",
+      "due_date": "2026-11-21",
+      "current_charges": "828.14"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id02_jpeg40.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "account_number": "4406026824",
+      "total_due": "1032.87",
+      "due_date": "2026-11-21",
+      "current_charges": "828.14"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id02_blur1.png",
+    "class": "utility_bill_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "account_number": "4406026824",
+      "total_due": "1032.87",
+      "due_date": "2026-11-21",
+      "current_charges": "828.14"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id02_rot3.png",
+    "class": "utility_bill_degraded",
+    "degradation": "rot3",
+    "identity": 2,
+    "truth": {
+      "account_number": "4406026824",
+      "total_due": "1032.87",
+      "due_date": "2026-11-21",
+      "current_charges": "828.14"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id02_worst.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "account_number": "4406026824",
+      "total_due": "1032.87",
+      "due_date": "2026-11-21",
+      "current_charges": "828.14"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id03_clean.png",
+    "class": "utility_bill",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "account_number": "3499891483",
+      "total_due": "1180.54",
+      "due_date": "2026-08-31",
+      "current_charges": "465.24"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id03_jpeg40.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "account_number": "3499891483",
+      "total_due": "1180.54",
+      "due_date": "2026-08-31",
+      "current_charges": "465.24"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id03_blur1.png",
+    "class": "utility_bill_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "account_number": "3499891483",
+      "total_due": "1180.54",
+      "due_date": "2026-08-31",
+      "current_charges": "465.24"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id03_rot3.png",
+    "class": "utility_bill_degraded",
+    "degradation": "rot3",
+    "identity": 3,
+    "truth": {
+      "account_number": "3499891483",
+      "total_due": "1180.54",
+      "due_date": "2026-08-31",
+      "current_charges": "465.24"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id03_worst.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "account_number": "3499891483",
+      "total_due": "1180.54",
+      "due_date": "2026-08-31",
+      "current_charges": "465.24"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id04_clean.png",
+    "class": "utility_bill",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "account_number": "7193668621",
+      "total_due": "1877.89",
+      "due_date": "2026-12-08",
+      "current_charges": "1287.48"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id04_jpeg40.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "account_number": "7193668621",
+      "total_due": "1877.89",
+      "due_date": "2026-12-08",
+      "current_charges": "1287.48"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id04_blur1.png",
+    "class": "utility_bill_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "account_number": "7193668621",
+      "total_due": "1877.89",
+      "due_date": "2026-12-08",
+      "current_charges": "1287.48"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id04_rot3.png",
+    "class": "utility_bill_degraded",
+    "degradation": "rot3",
+    "identity": 4,
+    "truth": {
+      "account_number": "7193668621",
+      "total_due": "1877.89",
+      "due_date": "2026-12-08",
+      "current_charges": "1287.48"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id04_worst.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "account_number": "7193668621",
+      "total_due": "1877.89",
+      "due_date": "2026-12-08",
+      "current_charges": "1287.48"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id05_clean.png",
+    "class": "utility_bill",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "account_number": "4782601478",
+      "total_due": "922.24",
+      "due_date": "2026-11-29",
+      "current_charges": "815.73"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id05_jpeg40.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "account_number": "4782601478",
+      "total_due": "922.24",
+      "due_date": "2026-11-29",
+      "current_charges": "815.73"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id05_blur1.png",
+    "class": "utility_bill_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "account_number": "4782601478",
+      "total_due": "922.24",
+      "due_date": "2026-11-29",
+      "current_charges": "815.73"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id05_rot3.png",
+    "class": "utility_bill_degraded",
+    "degradation": "rot3",
+    "identity": 5,
+    "truth": {
+      "account_number": "4782601478",
+      "total_due": "922.24",
+      "due_date": "2026-11-29",
+      "current_charges": "815.73"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id05_worst.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "account_number": "4782601478",
+      "total_due": "922.24",
+      "due_date": "2026-11-29",
+      "current_charges": "815.73"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id06_clean.png",
+    "class": "utility_bill",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "account_number": "6110891361",
+      "total_due": "1104.29",
+      "due_date": "2026-06-21",
+      "current_charges": "952.03"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id06_jpeg40.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "account_number": "6110891361",
+      "total_due": "1104.29",
+      "due_date": "2026-06-21",
+      "current_charges": "952.03"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id06_blur1.png",
+    "class": "utility_bill_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "account_number": "6110891361",
+      "total_due": "1104.29",
+      "due_date": "2026-06-21",
+      "current_charges": "952.03"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id06_rot3.png",
+    "class": "utility_bill_degraded",
+    "degradation": "rot3",
+    "identity": 6,
+    "truth": {
+      "account_number": "6110891361",
+      "total_due": "1104.29",
+      "due_date": "2026-06-21",
+      "current_charges": "952.03"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id06_worst.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "account_number": "6110891361",
+      "total_due": "1104.29",
+      "due_date": "2026-06-21",
+      "current_charges": "952.03"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id07_clean.png",
+    "class": "utility_bill",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "account_number": "2223980053",
+      "total_due": "1120.39",
+      "due_date": "2026-07-10",
+      "current_charges": "360.94"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id07_jpeg40.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "account_number": "2223980053",
+      "total_due": "1120.39",
+      "due_date": "2026-07-10",
+      "current_charges": "360.94"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id07_blur1.png",
+    "class": "utility_bill_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "account_number": "2223980053",
+      "total_due": "1120.39",
+      "due_date": "2026-07-10",
+      "current_charges": "360.94"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id07_rot3.png",
+    "class": "utility_bill_degraded",
+    "degradation": "rot3",
+    "identity": 7,
+    "truth": {
+      "account_number": "2223980053",
+      "total_due": "1120.39",
+      "due_date": "2026-07-10",
+      "current_charges": "360.94"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "utility_id07_worst.jpg",
+    "class": "utility_bill_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "account_number": "2223980053",
+      "total_due": "1120.39",
+      "due_date": "2026-07-10",
+      "current_charges": "360.94"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  }
+]

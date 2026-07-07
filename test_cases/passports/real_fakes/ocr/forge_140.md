@@ -1,0 +1,96 @@
+![img-0.jpeg](img-0.jpeg)
+
+REPÚBLICA FEDERATIVA DO BRASIL
+MINISTÉRIO DA INFRAESTRUTURA
+SECRETARIA NACIONAL DE TRÂNSITO
+
+BR
+
+# CARTEIRA NACIONAL DE HABILITAÇÃO / DRIVER LICENSE / PERMISO DE CONDUCCIÓN
+
+2 • NOME E SOBRENOME
+JOÃO PEDRO DA SILVA
+
+1ª HABILITAÇÃO
+15/04/2020
+
+3 • DATA, LOCAL E UF DE NASCIMENTO
+21/05/1996, PORTO ALEGRE, RS
+
+4a • DATA EMISSÃO
+20/04/2025
+
+4b • VALIDADE
+20/04/2035
+
+ACC
+
+D
+
+4c • DOC. IDENTIDADE / ORG. EMISSOR / UF
+4123456789 SSP/RS
+
+4d • CPF
+012.345.678-90
+
+5 • Nº REGISTRO
+01234567890
+
+9 • CAT. HAB.
+B
+
+NACIONALIDADE
+BRASILEIRA
+
+FILIAÇÃO
+CARLOS ALBERTO DA SILVA
+MARIA APARECIDA DA SILVA
+
+![img-1.jpeg](img-1.jpeg)
+
+João Pedro da Silva
+
+7 • ASSINATURA DO PORTADOR
+
+|  9 | 18 | 13  |
+| --- | --- | --- |
+|  ACC |  |   |
+|  A |  |   |
+|  A1 |  | 20/04/2035  |
+|  B |  |   |
+|  B1 | 20/04/2035 | 20/04/2035  |
+|  |   |   |
+|  |   |   |
+|  |   |   |
+
+|  9 | 12 | 19  |
+| --- | --- | --- |
+|  C |  | 20/04/2035  |
+|  C1 |  |   |
+|  D |  |   |
+|  D1 |  |   |
+|  BE |  |   |
+|  CE |  |   |
+|  C1E |  |   |
+|  DE |  |   |
+|  D1E |  |   |
+
+12
+OBSERVAÇÕES
+EAR
+
+LOCAL
+PORTO ALEGRE, RS
+
+ASSINATURA DO EMISSOR
+
+12345678901
+RS123456789
+
+RIO GRANDE DO SUL
+
+101
+
+VALIDA EM TODO O TERRITÓRIO NACIONAL
+
+1234567890

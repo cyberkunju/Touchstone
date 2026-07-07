@@ -1,8 +1,6 @@
-import { openDB, IDBPDatabase } from 'idb';
+import { IDBPDatabase } from 'idb';
 import { DocGraph, TemplateGraph } from '../core/types';
-
-const DB_NAME = 'docgraph-engine-db';
-const DB_VERSION = 1;
+import { getWorkspaceDb } from './workspace-db';
 
 export interface ProcessingJob {
   id: string;
@@ -14,36 +12,16 @@ export interface ProcessingJob {
   updatedAt: number;
 }
 
-let dbInstance: IDBPDatabase | null = null;
-
 /**
- * Initializes the IndexedDB database with object stores.
+ * Legacy accessor — DELEGATES to the workspace database (P2 integration).
+ *
+ * workspace-db.ts owns the single connection and the v1→v2 migration
+ * (adds-only, idempotent, tested against a real populated v1 db). Keeping
+ * this thin alias preserves every existing call site while guaranteeing
+ * exactly ONE open(name, version) exists in the app.
  */
 export async function getDb(): Promise<IDBPDatabase> {
-  if (dbInstance) return dbInstance;
-
-  dbInstance = await openDB(DB_NAME, DB_VERSION, {
-    upgrade(db) {
-      // Store for processed document graphs
-      if (!db.objectStoreNames.contains('docGraphs')) {
-        db.createObjectStore('docGraphs', { keyPath: 'id' });
-      }
-
-      // Store for learned TemplateGraphs
-      if (!db.objectStoreNames.contains('templates')) {
-        const templateStore = db.createObjectStore('templates', { keyPath: 'id' });
-        templateStore.createIndex('familyId', 'familyId', { unique: false });
-        templateStore.createIndex('docType', 'docType', { unique: false });
-      }
-
-      // Store for orchestration job states
-      if (!db.objectStoreNames.contains('jobs')) {
-        db.createObjectStore('jobs', { keyPath: 'id' });
-      }
-    },
-  });
-
-  return dbInstance;
+  return getWorkspaceDb();
 }
 
 /* --- DOCGRAPH DATABASE ACTIONS --- */

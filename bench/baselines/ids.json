@@ -1,0 +1,10 @@
+{
+    "adversarialRefusalRate":  0,
+    "entries":  84,
+    "when":  "2026-07-07T10:04:51.2530684Z",
+    "silentErrors":  0,
+    "mrzValidRate":  1,
+    "fieldHitRate":  0.986,
+    "note":  "certified from _ids_full2.log (84/84, post k=8 projection fix)",
+    "passed":  84
+}

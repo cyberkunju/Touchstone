@@ -1,0 +1,21 @@
+![img-0.jpeg](img-0.jpeg)
+
+# FØRERKORT
+
+# NORGE
+
+1. NILSEN
+
+2. OLAV HENRIK
+
+3. 14.07.1988 - OSLO
+
+4a. 01.09.2017 4c. STATENS VEGVESEN
+
+4b. 01.09.2027 4d. 140788 12345
+
+5. 88 07 14 12345
+
+7.
+
+9. A B BE C1E

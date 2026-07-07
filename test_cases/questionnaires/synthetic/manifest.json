@@ -1,0 +1,642 @@
+[
+  {
+    "file": "quest_id00_clean.png",
+    "class": "questionnaire",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id00_jpeg40.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id00_blur1.png",
+    "class": "questionnaire_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id00_worst.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "full_name": "ANNA ERIKSSON",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id01_clean.png",
+    "class": "questionnaire",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "checkedStates": [
+        true,
+        false,
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id01_jpeg40.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "checkedStates": [
+        true,
+        false,
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id01_blur1.png",
+    "class": "questionnaire_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "checkedStates": [
+        true,
+        false,
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id01_worst.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "full_name": "KENJI NAKAMURA",
+      "checkedStates": [
+        true,
+        false,
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id02_clean.png",
+    "class": "questionnaire",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id02_jpeg40.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id02_blur1.png",
+    "class": "questionnaire_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id02_worst.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "full_name": "CHINWE OKONKWO",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id03_clean.png",
+    "class": "questionnaire",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "checkedStates": [
+        true,
+        true,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id03_jpeg40.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "checkedStates": [
+        true,
+        true,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id03_blur1.png",
+    "class": "questionnaire_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "checkedStates": [
+        true,
+        true,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id03_worst.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "full_name": "SIOBHAN OBRIEN",
+      "checkedStates": [
+        true,
+        true,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id04_clean.png",
+    "class": "questionnaire",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "checkedStates": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id04_jpeg40.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "checkedStates": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id04_blur1.png",
+    "class": "questionnaire_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "checkedStates": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id04_worst.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "full_name": "LAYLA ALFARSI",
+      "checkedStates": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id05_clean.png",
+    "class": "questionnaire",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "checkedStates": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id05_jpeg40.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "checkedStates": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id05_blur1.png",
+    "class": "questionnaire_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "checkedStates": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id05_worst.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "full_name": "MALGORZATA SZCZEPANSKA",
+      "checkedStates": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id06_clean.png",
+    "class": "questionnaire",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id06_jpeg40.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id06_blur1.png",
+    "class": "questionnaire_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id06_worst.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "full_name": "WEI LI",
+      "checkedStates": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id07_clean.png",
+    "class": "questionnaire",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "checkedStates": [
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id07_jpeg40.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "checkedStates": [
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id07_blur1.png",
+    "class": "questionnaire_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "checkedStates": [
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "quest_id07_worst.jpg",
+    "class": "questionnaire_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "full_name": "JOSE FERNANDEZ",
+      "checkedStates": [
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  }
+]

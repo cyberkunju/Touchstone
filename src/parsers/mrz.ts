@@ -24,7 +24,7 @@
  */
 
 /** Recognised MRZ document layout, or `'unknown'` when detection fails. */
-export type MrzFormat = 'TD1' | 'TD2' | 'TD3' | 'unknown';
+export type MrzFormat = 'TD1' | 'TD2' | 'TD3' | 'MRV_A' | 'MRV_B' | 'unknown';
 
 /**
  * Result of a single check-digit verification.
@@ -165,6 +165,8 @@ const CANONICAL_LENGTH: Readonly<Record<Exclude<MrzFormat, 'unknown'>, number>> 
   TD1: 30,
   TD2: 36,
   TD3: 44,
+  MRV_A: 44,
+  MRV_B: 36,
 };
 
 /** Canonical line count for each known format. */
@@ -172,6 +174,8 @@ const CANONICAL_LINES: Readonly<Record<Exclude<MrzFormat, 'unknown'>, number>> =
   TD1: 3,
   TD2: 2,
   TD3: 2,
+  MRV_A: 2,
+  MRV_B: 2,
 };
 
 /** True when `value` is within `tol` of `target` (OCR length tolerance). */
@@ -200,6 +204,20 @@ export function detectMrzFormat(lines: string[]): MrzFormat {
     return 'TD1';
   }
   if (count === 2) {
+    // Visas (ICAO 9303-7): MRV-A 2×44, MRV-B 2×36. Shape alone cannot
+    // separate them from TD3/TD2 — the document-code first character 'V'
+    // is the discriminator. Passports/ID booklets never carry a V code,
+    // so a leading V here is authoritative.
+    if (nonEmpty[0][0] === 'V') {
+      const dA = Math.abs(maxLen - CANONICAL_LENGTH.MRV_A);
+      const dB = Math.abs(maxLen - CANONICAL_LENGTH.MRV_B);
+      if (dA <= 3 && dA <= dB) {
+        return 'MRV_A';
+      }
+      if (dB <= 3) {
+        return 'MRV_B';
+      }
+    }
     // Choose the nearest canonical 2-line length (TD3=44, TD2=36) within tolerance.
     const dTd3 = Math.abs(maxLen - CANONICAL_LENGTH.TD3);
     const dTd2 = Math.abs(maxLen - CANONICAL_LENGTH.TD2);
@@ -270,6 +288,27 @@ function buildPositionTypes(format: Exclude<MrzFormat, 'unknown'>): PositionType
     line2[27] = 'n'; // expiry check
     line2[42] = 'n'; // optional data check
     line2[43] = 'n'; // composite check
+    return [line1, line2];
+  }
+
+  if (format === 'MRV_A' || format === 'MRV_B') {
+    // Visas (9303-7): line 2 matches TD3/TD2 through the expiry check; the
+    // tail is UNchecked optional data — no optional/composite check digits.
+    const len = CANONICAL_LENGTH[format];
+    const line1: PositionType[] = new Array<PositionType>(len).fill('m');
+    line1[0] = 'a'; // document type ('V')
+    fillRange(line1, 2, 4, 'a'); // issuing country
+    fillRange(line1, 5, len - 1, 'a'); // name
+
+    const line2: PositionType[] = new Array<PositionType>(len).fill('m');
+    line2[9] = 'n'; // document number check
+    fillRange(line2, 10, 12, 'a'); // nationality
+    fillRange(line2, 13, 18, 'n'); // date of birth
+    line2[19] = 'n'; // dob check
+    line2[20] = 'a'; // sex
+    fillRange(line2, 21, 26, 'n'); // expiry
+    line2[27] = 'n'; // expiry check
+    // [28..len) optional data — no check digits (MRV law).
     return [line1, line2];
   }
 
@@ -636,6 +675,51 @@ function parseTd2(lines: string[]): { fields: MrzFields; checks: MrzCheckDigitRe
   return { fields, checks };
 }
 
+/** Extract fields and check digits for an MRV-A/MRV-B visa (ICAO 9303-7).
+ *  Line-2 layout matches TD3/TD2 through the expiry check digit; the tail is
+ *  unchecked optional data and there is NO composite check digit. */
+function parseMrv(
+  lines: string[],
+  len: 36 | 44,
+): { fields: MrzFields; checks: MrzCheckDigitResult[] } {
+  const [l1, l2] = lines;
+  const fields: MrzFields = {};
+
+  assignIfPresent(fields, 'documentType', stripFillers(l1.slice(0, 2)));
+  assignIfPresent(fields, 'issuingCountry', stripFillers(l1.slice(2, 5)));
+  assignIfPresent(fields, 'documentNumber', stripFillers(l2.slice(0, 9)));
+  assignIfPresent(fields, 'nationality', stripFillers(l2.slice(10, 13)));
+  assignIfPresent(fields, 'optionalData', stripFillers(l2.slice(28, len)));
+
+  const dob = parseMrzDate(l2.slice(13, 19), false);
+  if (dob !== undefined) {
+    fields.dateOfBirth = dob;
+  }
+  const expiry = parseMrzDate(l2.slice(21, 27), true);
+  if (expiry !== undefined) {
+    fields.expiryDate = expiry;
+  }
+  const sex = parseSex(l2[20]);
+  if (sex !== undefined) {
+    fields.sex = sex;
+  }
+
+  const name = parseName(l1.slice(5, len));
+  if (name.surname !== undefined) {
+    fields.surname = name.surname;
+  }
+  if (name.givenNames !== undefined) {
+    fields.givenNames = name.givenNames;
+  }
+
+  const checks: MrzCheckDigitResult[] = [
+    makeCheckDigit('documentNumber', l2.slice(0, 9), l2[9]),
+    makeCheckDigit('dateOfBirth', l2.slice(13, 19), l2[19]),
+    makeCheckDigit('expiryDate', l2.slice(21, 27), l2[27]),
+  ];
+  return { fields, checks };
+}
+
 /** Extract fields and check digits for a TD1 document. */
 function parseTd1(lines: string[]): { fields: MrzFields; checks: MrzCheckDigitResult[] } {
   const [l1, l2, l3] = lines;
@@ -783,6 +867,14 @@ function getCorrectableFields(format: Exclude<MrzFormat, 'unknown'>): Correctabl
         checkLine: 1,
         checkPos: 35,
       },
+    ];
+  }
+  if (format === 'MRV_A' || format === 'MRV_B') {
+    // Visas: three checked fields, NO composite / optional-data checks.
+    return [
+      { name: 'documentNumber', cells: rangeCells(1, 0, 9), checkLine: 1, checkPos: 9 },
+      { name: 'dateOfBirth', cells: rangeCells(1, 13, 19), checkLine: 1, checkPos: 19 },
+      { name: 'expiryDate', cells: rangeCells(1, 21, 27), checkLine: 1, checkPos: 27 },
     ];
   }
   // TD1
@@ -1052,7 +1144,11 @@ export function parseMrz(rawText: string, options?: MrzParseOptions): MrzParseRe
       ? parseTd3(finalLines)
       : format === 'TD2'
         ? parseTd2(finalLines)
-        : parseTd1(finalLines);
+        : format === 'MRV_A'
+          ? parseMrv(finalLines, 44)
+          : format === 'MRV_B'
+            ? parseMrv(finalLines, 36)
+            : parseTd1(finalLines);
 
   return {
     format,

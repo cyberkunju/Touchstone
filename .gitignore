@@ -76,3 +76,44 @@ exports_all/
 # real benchmark DATA (8.4GB MIDV-500 etc.) — reproducible via
 # training/benchmarks/normalize_*.py; keep the CODE, never commit the data.
 training/benchmarks/real/
+
+.puppeteer-profile/
+passport_images/corpus/
+_probe.cjs
+
+# --- dataset factory outputs (regenerable via bench/corpus/*.cjs + label-real) ---
+# Images/binaries are generated artifacts; manifests + reviews + OCR caches
+# (the labeled TRUTH) stay tracked. Real-fake source images are archived
+# locally — never in git history.
+test_cases/**/*.png
+test_cases/**/*.jpg
+test_cases/**/*.jpeg
+test_cases/**/*.webp
+test_cases/**/*.pdf
+test_cases/**/*.xlsx
+test_cases/**/*.csv
+
+# --- python service hygiene ---
+service/**/__pycache__/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+service/build/
+service/dist/
+
+# --- kaggle/modal experiment outputs (code stays, outputs don't) ---
+kaggle_run_out/runs/
+kaggle_probe_out/
+kaggle_t4x2_out/
+smoke_out/
+kaggle_train/dl/
+
+# --- staging exemptions (pending src-patches are real state, incl. tiny RGBA fixtures) ---
+!.staging/src-patches/geometry/fixtures/*.rgba
+
+# --- accidental 59GB self-copy (never commit; delete manually when confirmed) ---
+bin/
+
+# debug strays
+_band.png
+bench/_probe_image.png

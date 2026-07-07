@@ -363,3 +363,267 @@ export function postProcessDBNet(
 
   return boxes;
 }
+
+/* ------------------------- rotated-quad detection ------------------------- */
+
+/** A detected text line as a rotated quadrilateral (min-area rectangle).
+ *  `quadNorm` corners are normalized [x,y], ordered TL, TR, BR, BL with the
+ *  TL→TR edge along the text's long axis. `boxNorm` is the axis-aligned
+ *  bounding box of the quad (clamped) for downstream geometry. */
+export interface DetectedQuad {
+  boxNorm: Box;
+  quadNorm: [number, number][];
+}
+
+type Pt = [number, number];
+
+/** Andrew's monotone-chain convex hull. Input order irrelevant; collinear
+ *  points dropped. Returns counter-clockwise hull (screen coords, y-down). */
+function convexHull(points: Pt[]): Pt[] {
+  if (points.length <= 2) return points.slice();
+  const pts = points.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cross = (o: Pt, a: Pt, b: Pt) =>
+    (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const lower: Pt[] = [];
+  for (const p of pts) {
+    while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
+    lower.push(p);
+  }
+  const upper: Pt[] = [];
+  for (let i = pts.length - 1; i >= 0; i--) {
+    const p = pts[i];
+    while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
+    upper.push(p);
+  }
+  lower.pop();
+  upper.pop();
+  return lower.concat(upper);
+}
+
+/** Minimum-area enclosing rectangle via rotating calipers over hull edges.
+ *  Returns center, half-extents and the unit axis of the rect's WIDER side. */
+function minAreaRect(hull: Pt[]): { cx: number; cy: number; hw: number; hh: number; ux: number; uy: number } {
+  if (hull.length === 1) {
+    return { cx: hull[0][0], cy: hull[0][1], hw: 0.5, hh: 0.5, ux: 1, uy: 0 };
+  }
+  let best = { area: Infinity, cx: 0, cy: 0, hw: 0, hh: 0, ux: 1, uy: 0 };
+  for (let i = 0; i < hull.length; i++) {
+    const [x1, y1] = hull[i];
+    const [x2, y2] = hull[(i + 1) % hull.length];
+    const elen = Math.hypot(x2 - x1, y2 - y1);
+    if (elen === 0) continue;
+    const ux = (x2 - x1) / elen;
+    const uy = (y2 - y1) / elen;
+    // Project hull onto edge axis (u) and its normal (v = (-uy, ux)).
+    let minU = Infinity, maxU = -Infinity, minV = Infinity, maxV = -Infinity;
+    for (const [px, py] of hull) {
+      const pu = px * ux + py * uy;
+      const pv = -px * uy + py * ux;
+      if (pu < minU) minU = pu;
+      if (pu > maxU) maxU = pu;
+      if (pv < minV) minV = pv;
+      if (pv > maxV) maxV = pv;
+    }
+    const w = maxU - minU;
+    const h = maxV - minV;
+    const area = w * h;
+    if (area < best.area) {
+      const cu = (minU + maxU) / 2;
+      const cv = (minV + maxV) / 2;
+      best = {
+        area,
+        cx: cu * ux - cv * uy,
+        cy: cu * uy + cv * ux,
+        hw: w / 2,
+        hh: h / 2,
+        ux,
+        uy,
+      };
+    }
+  }
+  return best;
+}
+
+/**
+ * DBNet post-processing that emits ROTATED quads (min-area rectangles).
+ *
+ * Same flood fill / thresholds / unclip law as {@link postProcessDBNet}, but
+ * each component's shape is captured by the minimum-area rotated rectangle
+ * of its pixels instead of the axis-aligned bbox. Under perspective/rotation
+ * an axis-aligned crop feeds the recognizer slanted text plus neighbor
+ * bleed-through (live-caught: persp rungs read "P<XB1<<W|<<<…" from a
+ * perfectly legible MRZ); the rotated quad lets the caller rectify the line
+ * before recognition — the same normalization PaddleOCR's reference pipeline
+ * performs (get_rotate_crop_image).
+ */
+export function postProcessDBNetQuads(
+  probabilityMap: Float32Array,
+  mapW: number,
+  mapH: number,
+  options?: DbnetPostOptions
+): DetectedQuad[] {
+  const binaryThreshold = options?.binaryThreshold ?? 0.3;
+  const boxThreshold = options?.boxThreshold ?? 0.6;
+  const unclipRatio = options?.unclipRatio ?? 1.5;
+  const minSize = options?.minSize ?? 3;
+
+  const visited = new Uint8Array(mapW * mapH);
+  const out: DetectedQuad[] = [];
+
+  for (let y = 0; y < mapH; y++) {
+    for (let x = 0; x < mapW; x++) {
+      const idx = y * mapW + x;
+      if (visited[idx] !== 0 || probabilityMap[idx] < binaryThreshold) continue;
+
+      // Flood fill (4-neighborhood), collecting component pixels.
+      const pixels: Pt[] = [];
+      let probSum = 0;
+      const queue: number[] = [idx];
+      visited[idx] = 1;
+      while (queue.length > 0) {
+        const cur = queue.pop()!;
+        const cx = cur % mapW;
+        const cy = (cur - cx) / mapW;
+        pixels.push([cx, cy]);
+        probSum += probabilityMap[cur];
+        if (cx + 1 < mapW) {
+          const n = cur + 1;
+          if (visited[n] === 0 && probabilityMap[n] >= binaryThreshold) { visited[n] = 1; queue.push(n); }
+        }
+        if (cx - 1 >= 0) {
+          const n = cur - 1;
+          if (visited[n] === 0 && probabilityMap[n] >= binaryThreshold) { visited[n] = 1; queue.push(n); }
+        }
+        if (cy + 1 < mapH) {
+          const n = cur + mapW;
+          if (visited[n] === 0 && probabilityMap[n] >= binaryThreshold) { visited[n] = 1; queue.push(n); }
+        }
+        if (cy - 1 >= 0) {
+          const n = cur - mapW;
+          if (visited[n] === 0 && probabilityMap[n] >= binaryThreshold) { visited[n] = 1; queue.push(n); }
+        }
+      }
+
+      const meanProb = probSum / pixels.length;
+      if (meanProb < boxThreshold) continue;
+
+      const rect = minAreaRect(convexHull(pixels));
+      // Half-extent +0.5: pixel centers → pixel bounds.
+      let hw = rect.hw + 0.5;
+      let hh = rect.hh + 0.5;
+      let { ux, uy } = rect;
+      // Text axis = the LONGER side.
+      if (hh > hw) {
+        [hw, hh] = [hh, hw];
+        [ux, uy] = [-uy, ux];
+      }
+      if (2 * hw < minSize || 2 * hh < minSize) continue;
+
+      // Same unclip law as the bbox path, applied along the rect's own axes.
+      const area = 4 * hw * hh;
+      const perimeter = 4 * (hw + hh);
+      const d = perimeter > 0 ? (area * unclipRatio) / perimeter : 0;
+      hw += d;
+      hh += d;
+
+      // Orient: u mostly +x (reading direction), v = u rotated +90° (down).
+      if (ux < 0) { ux = -ux; uy = -uy; }
+      const vx = -uy;
+      const vy = ux;
+      const corners: Pt[] = [
+        [rect.cx - hw * ux - hh * vx, rect.cy - hw * uy - hh * vy], // TL
+        [rect.cx + hw * ux - hh * vx, rect.cy + hw * uy - hh * vy], // TR
+        [rect.cx + hw * ux + hh * vx, rect.cy + hw * uy + hh * vy], // BR
+        [rect.cx - hw * ux + hh * vx, rect.cy - hw * uy + hh * vy], // BL
+      ];
+
+      const xs = corners.map((c) => c[0]);
+      const ys = corners.map((c) => c[1]);
+      out.push({
+        boxNorm: [
+          Math.max(0, Math.min(...xs)) / mapW,
+          Math.max(0, Math.min(...ys)) / mapH,
+          Math.min(mapW, Math.max(...xs)) / mapW,
+          Math.min(mapH, Math.max(...ys)) / mapH,
+        ],
+        quadNorm: corners.map(([qx, qy]) => [qx / mapW, qy / mapH] as [number, number]),
+      });
+    }
+  }
+
+  out.sort((a, b) => (a.boxNorm[1] - b.boxNorm[1]) || (a.boxNorm[0] - b.boxNorm[0]));
+  return out;
+}
+
+/* ------------------------- banded tall-page detection ---------------------- */
+
+/** One horizontal band of a tall page, in source-pixel coordinates. */
+export interface DetBand {
+  /** Source-pixel y offset of the band's top edge. */
+  sy: number;
+  /** Source-pixel band height. */
+  sh: number;
+}
+
+/**
+ * Plans overlapping horizontal bands for tall-page detection.
+ *
+ * THE TALL-PAGE LAW (live-caught: bank statements extracted ZERO fields):
+ * single-pass detection downscales the LONG side to the detector limit, so a
+ * portrait A4 page shrinks its width — and its caption glyphs — far below the
+ * detector's floor. Banding spends multiple detector passes instead: each
+ * band is a square-ish slice whose width is the full page width, so per-band
+ * downscale is bounded by width (mild), not height (brutal).
+ *
+ * Bands overlap by `overlapFrac` so any line cut by one boundary is whole in
+ * the neighbouring band; the duplicate detections are IoU-deduped after
+ * coordinate remapping.
+ */
+export function planDetBands(
+  srcW: number,
+  srcH: number,
+  aspectThreshold: number,
+  overlapFrac: number,
+): DetBand[] {
+  if (srcW <= 0 || srcH <= 0 || srcH / srcW <= aspectThreshold) {
+    return [{ sy: 0, sh: srcH }]; // single pass — the certified wide-page path
+  }
+  const bandH = Math.round(srcW); // square bands: downscale bounded by width
+  const step = Math.max(1, Math.round(bandH * (1 - overlapFrac)));
+  const bands: DetBand[] = [];
+  for (let sy = 0; sy < srcH; sy += step) {
+    const sh = Math.min(bandH, srcH - sy);
+    bands.push({ sy, sh });
+    if (sy + sh >= srcH) break;
+  }
+  // A trailing sliver shorter than the overlap is already covered — drop it.
+  if (bands.length >= 2) {
+    const last = bands[bands.length - 1];
+    const prev = bands[bands.length - 2];
+    if (last.sh < bandH * overlapFrac && prev.sy + prev.sh >= srcH) bands.pop();
+  }
+  return bands;
+}
+
+/**
+ * Deduplicates text boxes re-detected in band overlap zones: boxes whose IoU
+ * exceeds `iouThreshold` collapse to the LARGER box (the fuller detection of
+ * the two partial views). Output keeps reading order (top→bottom, left→right).
+ */
+export function dedupeBoxes(boxes: Box[], iouThreshold = 0.5): Box[] {
+  const area = (b: Box) => Math.max(0, b[2] - b[0]) * Math.max(0, b[3] - b[1]);
+  const iou = (a: Box, b: Box) => {
+    const ix = Math.max(0, Math.min(a[2], b[2]) - Math.max(a[0], b[0]));
+    const iy = Math.max(0, Math.min(a[3], b[3]) - Math.max(a[1], b[1]));
+    const inter = ix * iy;
+    const union = area(a) + area(b) - inter;
+    return union > 0 ? inter / union : 0;
+  };
+  const sorted = boxes.slice().sort((a, b) => area(b) - area(a)); // big first
+  const kept: Box[] = [];
+  for (const b of sorted) {
+    if (!kept.some((k) => iou(k, b) > iouThreshold)) kept.push(b);
+  }
+  kept.sort((a, b) => (a[1] - b[1]) || (a[0] - b[0]));
+  return kept;
+}

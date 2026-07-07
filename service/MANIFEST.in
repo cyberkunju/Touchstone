@@ -1,0 +1,8 @@
+# sdist data files. NOTE (P7.2 remaining work): with the current flat
+# py-modules layout, WHEELS do not include root-level data files — the
+# fresh-machine acceptance must install from sdist, or P7.2 completes the
+# move to a proper package dir (docutract_service/) with package-data.
+include MANIFEST.json
+include bundle-schema.json
+include requirements.txt
+recursive-include stages *.py

@@ -1,0 +1,752 @@
+[
+  {
+    "file": "ship_id00_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "tracking_number": "6712101190932178",
+      "recipient_name": "SIOBHAN OBRIEN",
+      "barcodePayload": "6712101190932178"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id00_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "tracking_number": "6712101190932178",
+      "recipient_name": "SIOBHAN OBRIEN",
+      "barcodePayload": "6712101190932178"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id00_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "tracking_number": "6712101190932178",
+      "recipient_name": "SIOBHAN OBRIEN",
+      "barcodePayload": "6712101190932178"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id00_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 0,
+    "truth": {
+      "tracking_number": "6712101190932178",
+      "recipient_name": "SIOBHAN OBRIEN",
+      "barcodePayload": "6712101190932178"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id00_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "tracking_number": "6712101190932178",
+      "recipient_name": "SIOBHAN OBRIEN",
+      "barcodePayload": "6712101190932178"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id01_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "tracking_number": "5691089662521994",
+      "recipient_name": "LAYLA ALFARSI",
+      "barcodePayload": "5691089662521994"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id01_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "tracking_number": "5691089662521994",
+      "recipient_name": "LAYLA ALFARSI",
+      "barcodePayload": "5691089662521994"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id01_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "tracking_number": "5691089662521994",
+      "recipient_name": "LAYLA ALFARSI",
+      "barcodePayload": "5691089662521994"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id01_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 1,
+    "truth": {
+      "tracking_number": "5691089662521994",
+      "recipient_name": "LAYLA ALFARSI",
+      "barcodePayload": "5691089662521994"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id01_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "tracking_number": "5691089662521994",
+      "recipient_name": "LAYLA ALFARSI",
+      "barcodePayload": "5691089662521994"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id02_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "tracking_number": "8244462214333370",
+      "recipient_name": "MALGORZATA SZCZEPANSKA",
+      "barcodePayload": "8244462214333370"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id02_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "tracking_number": "8244462214333370",
+      "recipient_name": "MALGORZATA SZCZEPANSKA",
+      "barcodePayload": "8244462214333370"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id02_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "tracking_number": "8244462214333370",
+      "recipient_name": "MALGORZATA SZCZEPANSKA",
+      "barcodePayload": "8244462214333370"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id02_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 2,
+    "truth": {
+      "tracking_number": "8244462214333370",
+      "recipient_name": "MALGORZATA SZCZEPANSKA",
+      "barcodePayload": "8244462214333370"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id02_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "tracking_number": "8244462214333370",
+      "recipient_name": "MALGORZATA SZCZEPANSKA",
+      "barcodePayload": "8244462214333370"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id03_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "tracking_number": "0040057735239609",
+      "recipient_name": "WEI LI",
+      "barcodePayload": "0040057735239609"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id03_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "tracking_number": "0040057735239609",
+      "recipient_name": "WEI LI",
+      "barcodePayload": "0040057735239609"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id03_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "tracking_number": "0040057735239609",
+      "recipient_name": "WEI LI",
+      "barcodePayload": "0040057735239609"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id03_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 3,
+    "truth": {
+      "tracking_number": "0040057735239609",
+      "recipient_name": "WEI LI",
+      "barcodePayload": "0040057735239609"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id03_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "tracking_number": "0040057735239609",
+      "recipient_name": "WEI LI",
+      "barcodePayload": "0040057735239609"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id04_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "tracking_number": "5105719600790677",
+      "recipient_name": "JOSE FERNANDEZ",
+      "barcodePayload": "5105719600790677"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id04_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "tracking_number": "5105719600790677",
+      "recipient_name": "JOSE FERNANDEZ",
+      "barcodePayload": "5105719600790677"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id04_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "tracking_number": "5105719600790677",
+      "recipient_name": "JOSE FERNANDEZ",
+      "barcodePayload": "5105719600790677"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id04_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 4,
+    "truth": {
+      "tracking_number": "5105719600790677",
+      "recipient_name": "JOSE FERNANDEZ",
+      "barcodePayload": "5105719600790677"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id04_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "tracking_number": "5105719600790677",
+      "recipient_name": "JOSE FERNANDEZ",
+      "barcodePayload": "5105719600790677"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id05_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "tracking_number": "1741685255553081",
+      "recipient_name": "HANS MUELLER",
+      "barcodePayload": "1741685255553081"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id05_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "tracking_number": "1741685255553081",
+      "recipient_name": "HANS MUELLER",
+      "barcodePayload": "1741685255553081"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id05_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "tracking_number": "1741685255553081",
+      "recipient_name": "HANS MUELLER",
+      "barcodePayload": "1741685255553081"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id05_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 5,
+    "truth": {
+      "tracking_number": "1741685255553081",
+      "recipient_name": "HANS MUELLER",
+      "barcodePayload": "1741685255553081"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id05_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "tracking_number": "1741685255553081",
+      "recipient_name": "HANS MUELLER",
+      "barcodePayload": "1741685255553081"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id06_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "tracking_number": "7104688435484011",
+      "recipient_name": "PRIYA ANAND",
+      "barcodePayload": "7104688435484011"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id06_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "tracking_number": "7104688435484011",
+      "recipient_name": "PRIYA ANAND",
+      "barcodePayload": "7104688435484011"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id06_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "tracking_number": "7104688435484011",
+      "recipient_name": "PRIYA ANAND",
+      "barcodePayload": "7104688435484011"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id06_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 6,
+    "truth": {
+      "tracking_number": "7104688435484011",
+      "recipient_name": "PRIYA ANAND",
+      "barcodePayload": "7104688435484011"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id06_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "tracking_number": "7104688435484011",
+      "recipient_name": "PRIYA ANAND",
+      "barcodePayload": "7104688435484011"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id07_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "tracking_number": "7907203706343560",
+      "recipient_name": "WILLEM VAN DER BERG",
+      "barcodePayload": "7907203706343560"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id07_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "tracking_number": "7907203706343560",
+      "recipient_name": "WILLEM VAN DER BERG",
+      "barcodePayload": "7907203706343560"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id07_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "tracking_number": "7907203706343560",
+      "recipient_name": "WILLEM VAN DER BERG",
+      "barcodePayload": "7907203706343560"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id07_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 7,
+    "truth": {
+      "tracking_number": "7907203706343560",
+      "recipient_name": "WILLEM VAN DER BERG",
+      "barcodePayload": "7907203706343560"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id07_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "tracking_number": "7907203706343560",
+      "recipient_name": "WILLEM VAN DER BERG",
+      "barcodePayload": "7907203706343560"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id08_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 8,
+    "truth": {
+      "tracking_number": "7360487924066479",
+      "recipient_name": "ZOFIA KOWALCZYK",
+      "barcodePayload": "7360487924066479"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id08_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 8,
+    "truth": {
+      "tracking_number": "7360487924066479",
+      "recipient_name": "ZOFIA KOWALCZYK",
+      "barcodePayload": "7360487924066479"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id08_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 8,
+    "truth": {
+      "tracking_number": "7360487924066479",
+      "recipient_name": "ZOFIA KOWALCZYK",
+      "barcodePayload": "7360487924066479"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id08_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 8,
+    "truth": {
+      "tracking_number": "7360487924066479",
+      "recipient_name": "ZOFIA KOWALCZYK",
+      "barcodePayload": "7360487924066479"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id08_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 8,
+    "truth": {
+      "tracking_number": "7360487924066479",
+      "recipient_name": "ZOFIA KOWALCZYK",
+      "barcodePayload": "7360487924066479"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id09_clean.png",
+    "class": "shipping_label",
+    "degradation": "clean",
+    "identity": 9,
+    "truth": {
+      "tracking_number": "2336473298263970",
+      "recipient_name": "ANNA ERIKSSON",
+      "barcodePayload": "2336473298263970"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id09_jpeg40.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "jpeg40",
+    "identity": 9,
+    "truth": {
+      "tracking_number": "2336473298263970",
+      "recipient_name": "ANNA ERIKSSON",
+      "barcodePayload": "2336473298263970"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id09_blur1.png",
+    "class": "shipping_label_degraded",
+    "degradation": "blur1",
+    "identity": 9,
+    "truth": {
+      "tracking_number": "2336473298263970",
+      "recipient_name": "ANNA ERIKSSON",
+      "barcodePayload": "2336473298263970"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id09_rot3.png",
+    "class": "shipping_label_degraded",
+    "degradation": "rot3",
+    "identity": 9,
+    "truth": {
+      "tracking_number": "2336473298263970",
+      "recipient_name": "ANNA ERIKSSON",
+      "barcodePayload": "2336473298263970"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ship_id09_worst.jpg",
+    "class": "shipping_label_degraded",
+    "degradation": "worst",
+    "identity": 9,
+    "truth": {
+      "tracking_number": "2336473298263970",
+      "recipient_name": "ANNA ERIKSSON",
+      "barcodePayload": "2336473298263970"
+    },
+    "expect": {
+      "barcodeDecodes": true,
+      "noSilentErrors": true
+    }
+  }
+]

@@ -1,0 +1,31 @@
+RÉPUBLIQUE FRANÇAISE
+CARTE NATIONALE D'IDENTITÉ / IDENTITY CARD
+
+NOM / Surname
+DURAND
+
+PRÉNOMS / Given names
+LUCAS, MARTIN
+
+SEXE / Sex
+M
+NATIONALITÉ / Nationality
+FRA
+
+LIEU DE NAISSANCE / Place of birth
+LYON 5E ARRONDISSEMENT
+
+NOM D'USAGE / Alternate name
+LAIRAND
+
+N° DU DOCUMENT / Document No.
+X4RTBPFW4
+
+Signature
+
+DATE DE NAISS. / Date of birth
+12 05 1990
+
+DATE D'EXPIR. / Expiry date
+11 08 2050
+384213

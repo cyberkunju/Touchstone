@@ -6,6 +6,8 @@ export interface PreprocessOutput {
   height: number;
   quality: PageQualityReport;
   transforms: PageTransform[];
+  /** Estimated page skew in degrees (0 when undetectable — never guessed). */
+  skewDeg: number;
 }
 
 /**
@@ -83,13 +85,141 @@ export async function preprocessPage(
   // Transfer canvas back to an ImageBitmap
   const normalizedBitmap = canvas.transferToImageBitmap();
 
+  // 4. Skew estimation on the canonical thumbnail (P1.8a). Reported to the
+  // caller; the App applies the rotation to the WORKING bitmap so the whole
+  // pipeline (detection, recognition, MRZ band) sees level text.
+  const skewDeg = estimateSkewDeg(imageData);
+  if (Math.abs(skewDeg) >= 1.5) {
+    quality.orientation = { score: Math.min(1, Math.abs(skewDeg) / 15), level: 'warning' };
+    transforms.push({
+      type: 'rotate',
+      parameters: { angleDeg: skewDeg },
+      timestamp: Date.now(),
+    });
+  }
+
   return {
     normalizedBitmap,
     width: canonicalWidth,
     height: canonicalHeight,
     quality,
-    transforms
+    transforms,
+    skewDeg,
   };
+}
+
+/**
+ * Estimates page skew (degrees, positive = content rotated clockwise) via the
+ * projection-profile method: binarize a downscaled grayscale, then for each
+ * candidate angle compute the variance of row ink-sums after shearing rows by
+ * that angle. Level text concentrates ink into few rows → maximum variance at
+ * the true skew. Deterministic, dependency-free, ~ms at 400px width.
+ *
+ * Search space ±12° (typical photo skew); step 0.5° then 0.1° refinement.
+ * Returns 0 for content without usable line structure (blank/noise pages) —
+ * the variance peak must beat the 0° baseline by 8% to be believed, so the
+ * method NEVER rotates a page it does not understand (N1 applies to
+ * preprocessing too: a wrong rotation is worse than none).
+ */
+export function estimateSkewDeg(imageData: ImageData): number {
+  const { data, width, height } = imageData;
+  // Downscale to ~400px wide grid for speed (nearest sampling).
+  const gw = Math.min(400, width);
+  const gh = Math.max(1, Math.round((gw * height) / width));
+  const stepX = width / gw;
+  const stepY = height / gh;
+
+  // Grayscale + global threshold (mean - 0.25σ: ink is darker than paper).
+  const gray = new Float32Array(gw * gh);
+  let mean = 0;
+  for (let y = 0; y < gh; y++) {
+    for (let x = 0; x < gw; x++) {
+      const sx = Math.min(width - 1, Math.floor(x * stepX));
+      const sy = Math.min(height - 1, Math.floor(y * stepY));
+      const i = (sy * width + sx) * 4;
+      const v = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+      gray[y * gw + x] = v;
+      mean += v;
+    }
+  }
+  mean /= gw * gh;
+  let variance = 0;
+  for (let i = 0; i < gray.length; i++) variance += (gray[i] - mean) ** 2;
+  const sigma = Math.sqrt(variance / gray.length);
+  const threshold = mean - 0.25 * sigma;
+
+  const ink: number[][] = [];
+  // Text glyphs are SHORT dark runs (≤8px at 400px width); backgrounds,
+  // photo boxes and border art are long runs — without this filter a dark
+  // backdrop drowns the profile and the estimator refuses on real photos
+  // (observed live on the corpus rot-7 rung).
+  const MAX_TEXT_RUN = 12;
+  let inkCount = 0;
+  for (let y = 0; y < gh; y++) {
+    const row: number[] = [];
+    let runStart = -1;
+    for (let x = 0; x <= gw; x++) {
+      const dark = x < gw && gray[y * gw + x] < threshold;
+      if (dark && runStart < 0) runStart = x;
+      if (!dark && runStart >= 0) {
+        const runLen = x - runStart;
+        if (runLen <= MAX_TEXT_RUN) {
+          for (let rx = runStart; rx < x; rx++) row.push(rx);
+        }
+        runStart = -1;
+      }
+    }
+    inkCount += row.length;
+    ink.push(row);
+  }
+  // Degenerate ink mass (blank page or saturated noise): refuse to guess.
+  const inkFrac = inkCount / (gw * gh);
+  if (inkFrac < 0.005 || inkFrac > 0.4) return 0;
+
+  const profileVariance = (angleDeg: number): number => {
+    // Content rotated by +θ has lines along y = y0 + x·tan(θ); shearing by
+    // −tan(θ) re-levels them (sign verified by the synthetic-angle tests —
+    // the first cut used +tan and reported every angle negated).
+    const t = -Math.tan((angleDeg * Math.PI) / 180);
+    const bins = new Float64Array(gh + gw); // sheared y can exceed gh
+    for (let y = 0; y < gh; y++) {
+      const row = ink[y];
+      for (let j = 0; j < row.length; j++) {
+        const sy = Math.round(y + row[j] * t) + Math.floor(gw / 2);
+        if (sy >= 0 && sy < bins.length) bins[sy]++;
+      }
+    }
+    let m = 0;
+    for (let i = 0; i < bins.length; i++) m += bins[i];
+    m /= bins.length;
+    let v = 0;
+    for (let i = 0; i < bins.length; i++) v += (bins[i] - m) ** 2;
+    return v;
+  };
+
+  const base = profileVariance(0);
+  let bestAngle = 0;
+  let bestVar = base;
+  for (let a = -12; a <= 12; a += 0.5) {
+    if (a === 0) continue;
+    const v = profileVariance(a);
+    if (v > bestVar) {
+      bestVar = v;
+      bestAngle = a;
+    }
+  }
+  // Refinement around the coarse peak.
+  for (let a = bestAngle - 0.4; a <= bestAngle + 0.4; a += 0.1) {
+    const v = profileVariance(a);
+    if (v > bestVar) {
+      bestVar = v;
+      bestAngle = a;
+    }
+  }
+
+  // Believe the peak only when clearly better than level — never guess.
+  if (bestVar < base * 1.08) return 0;
+  return Math.round(bestAngle * 10) / 10;
 }
 
 /**

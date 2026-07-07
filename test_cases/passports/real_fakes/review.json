@@ -1,0 +1,2882 @@
+[
+  {
+    "file": "1.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "Z43R34255ARE03071978M10022020<<<<<<<<<<<<8"
+    ],
+    "silver": {
+      "passport_number": "Z43R34255",
+      "date_of_birth": "1978-07-03",
+      "date_of_expiry": "2020-02-10",
+      "sex": "M",
+      "country_code": "ARE"
+    }
+  },
+  {
+    "file": "10.jpg",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "L78I23456ARE05081987M07062023<<<<<<<<<<<<<<8"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "11.jpg",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<MANSOURI<<LAYLA<AL<<<<<<<<<<<<<<<<<<<<<<<<",
+      "Z54R76423ARE24111989F16062018<<<<<<<<<<<<<<8"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "12.jpg",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<NAIMI<<NOURA<AL<<<<<<<<<<<<<<<<<<<<<<<<<<",
+      "U12N34567ARE11121996F07072024<<<<<<<<<<<<8"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "13.jpg",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<ALZAHERI<<REEM<AL<<<<<<<<<<<<<<<<<<<<<<<<<",
+      "I56Q12345ARE09021983F21102026<<<<<<<<<<<<<8"
+    ],
+    "silver": {
+      "passport_number": "I56Q12345",
+      "date_of_birth": "1983-02-09",
+      "date_of_expiry": "2026-10-21",
+      "sex": "F",
+      "country_code": "ARE"
+    }
+  },
+  {
+    "file": "14.jpg",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "P90S12345",
+      "date_of_birth": "1987-07-27",
+      "date_of_expiry": "2021-01-12",
+      "sex": "F",
+      "country_code": "ARE"
+    }
+  },
+  {
+    "file": "15.jpg",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "K12T34567ARE19051986F09042023<<<<<<<<<<<<<<8"
+    ],
+    "silver": {
+      "passport_number": "K12T34567",
+      "date_of_birth": "1986-05-19",
+      "date_of_expiry": "2023-04-09",
+      "sex": "F",
+      "country_code": "ARE"
+    }
+  },
+  {
+    "file": "2.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<ALI<<SALEH<AL<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+      "X12A45678ARE21111985M15032021<<<<<<<<<<<<<<8"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "3.jpg",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "Y34B67890",
+      "date_of_birth": "1990-05-14",
+      "date_of_expiry": "2022-07-05",
+      "sex": "M",
+      "country_code": "ARE"
+    }
+  },
+  {
+    "file": "4.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "C56C12345",
+      "date_of_birth": "2023-08-12",
+      "country_code": "VAE"
+    }
+  },
+  {
+    "file": "5.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "6.jpg",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<ALKINDI<<ABDULLAH<AL<<<<<<<<<<<<<<<<<<<<",
+      "Z90E56789ARE11021999M02102025<<<<<<<<<<<<<<8"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "7.jpg",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "V12F34567ARE09061988M22112026<<<<<<<<<<<<<<8"
+    ],
+    "silver": {
+      "passport_number": "V12F34567",
+      "date_of_birth": "1988-06-09",
+      "date_of_expiry": "2026-11-22",
+      "sex": "M",
+      "country_code": "ARE"
+    }
+  },
+  {
+    "file": "8.jpg",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<SHAMSI<<MAJID<AL<<<<<<<<<<<<<<<<<<<<<<<<<<",
+      "Q34G56789ARE27031983M14042022<<<<<<<<<<<<<<8"
+    ],
+    "silver": {
+      "passport_number": "Q34G56789",
+      "date_of_birth": "1983-03-27",
+      "date_of_expiry": "2022-04-14",
+      "sex": "M",
+      "country_code": "ARE"
+    }
+  },
+  {
+    "file": "9.jpg",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "M56H12345ARE15121981M03052021<<<<<<<<<<<<<<8"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "ChatGPT Image Jun 6, 2026, 07_16_24 PM.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "Y9639124",
+      "surname": "VERMA"
+    }
+  },
+  {
+    "file": "ChatGPT Image Jun 6, 2026, 07_18_25 PM.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "Y9639124",
+      "surname": "VERMA"
+    }
+  },
+  {
+    "file": "ChatGPT Image Jun 6, 2026, 08_00_23 PM (1).png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "S1234567",
+      "surname": "PATEL",
+      "date_of_birth": "1996-11-24",
+      "date_of_expiry": "2032-06-14",
+      "sex": "M",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "ChatGPT Image Jun 6, 2026, 08_00_24 PM (2).png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "Z5698297",
+      "surname": "PATEL",
+      "date_of_birth": "1992-03-21",
+      "date_of_expiry": "2032-04-13",
+      "sex": "M",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "ChatGPT Image Jun 6, 2026, 08_06_45 PM.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "V8673092",
+      "surname": "MEHTA",
+      "date_of_birth": "1993-08-05",
+      "date_of_expiry": "2031-09-22",
+      "sex": "M",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "forge_000.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "E12345678",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_001.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "JOHNSON",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_002.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_003.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "HARTLEY",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_004.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SYNTHETIC",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_005.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_006.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "C01X29V13",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_007.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDD<<MUSTERFRAU<<ANNA<MARIA<<<<<<<<<<<<",
+      "L01X47R92<6D<<8308125<3112317<<<<<<<<<<4"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_008.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_009.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "FRA"
+    }
+  },
+  {
+    "file": "forge_010.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DURAND",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_011.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA16AB123456789LUCAS<<THOMAS<<<<<<"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_012.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "ZP1234567",
+      "surname": "RANA",
+      "date_of_expiry": "2034-05-19",
+      "sex": "M",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "forge_013.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2030-12-31",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_014.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_015.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<JPNYAMASHITA<<SAKURA<<<<<<<<<<<<<<<<<<<<",
+      "XP12345674JPN9803125F3204202<<<<<<<<<<00"
+    ],
+    "silver": {
+      "passport_number": "XP1234567",
+      "surname": "YAMASHITA",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_016.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_017.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_018.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SILVEIRA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_019.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2032-06-20",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_020.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_021.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_022.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "OLSEN",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_023.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_024.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "5555555555USA9001015M3405149<<<<<<<<<<<<<<08"
+    ],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_025.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_026.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_027.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_028.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SAMPLE",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_029.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_030.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "X01X01X01D<<9001013M3Q12312<<<<<<<<<<<<<<04"
+    ],
+    "silver": {
+      "passport_number": "X01X01X01",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_031.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_032.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_033.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_034.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_035.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA12AB123456785MARTIN<<JULIEN<<<<<<"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_036.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "Z1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2033-07-19",
+      "sex": "M",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "forge_037.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1995-07-14"
+    }
+  },
+  {
+    "file": "forge_038.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1994-08-14"
+    }
+  },
+  {
+    "file": "forge_039.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "ZZ12345679JPN9012120M3001018<<<<<<<<<<<<08"
+    ],
+    "silver": {
+      "passport_number": "ZZ1234567",
+      "surname": "YAMAMOTO",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_040.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_041.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_042.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "OLIVEIRA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_043.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1995-04-15",
+      "date_of_expiry": "2032-08-20",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_044.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_045.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "P12345678",
+      "sex": "M",
+      "country_code": "PNL"
+    }
+  },
+  {
+    "file": "forge_046.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDNRBHANSEN<<LARS<MIKKEL<<<<<<<<<<<<<<",
+      "NR75844217NRB8607145M3103221<<<<<<<<<<8",
+      "1234567A<<<<<<<<<<NRB<<<<<<<<<<<<<<<2021"
+    ],
+    "silver": {
+      "surname": "HANSEN",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_047.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_048.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<USADOE<<JOHN<MICHAEL<<<<<<<<<<<<<<<<<<<<",
+      "A12345678USA9001157M3404309876543210<123456"
+    ],
+    "silver": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_049.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDNOV4587213987<<JACKSON<<ETHAN<MICHAEL<<<<"
+    ],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_050.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_051.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_052.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SAMPLE",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_053.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_054.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "X01X00T47",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_055.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_056.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_057.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "FRA"
+    }
+  },
+  {
+    "file": "forge_058.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_059.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA19AA0000114010194MARTIN<<9"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_060.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "ZP1234567",
+      "surname": "KAPOOR",
+      "date_of_birth": "1990-08-15",
+      "date_of_expiry": "2034-12-31",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_061.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1992-08-14",
+      "date_of_expiry": "2026-09-11"
+    }
+  },
+  {
+    "file": "forge_062.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_063.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_064.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_065.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_066.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "ALMEIDA",
+      "country_code": "BRA"
+    }
+  },
+  {
+    "file": "forge_067.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2031-08-20",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_068.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_069.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "NU81234567",
+      "surname": "LINDHOLM",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_070.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "HOVLAND",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_071.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_072.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_073.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_074.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_075.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "A1234567",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_076.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "THORNTON",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_077.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_078.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "C01X00T47",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_079.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_080.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_081.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "country_code": "FRA"
+    }
+  },
+  {
+    "file": "forge_082.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDFRAMARTIN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+      "X4RTBPFW27LUCAS<<PIERRE<<<<<920412M7"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_083.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA18AA123456781261MARTIN<<ALEXANDRE<<"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_084.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "ZC1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1992-08-15",
+      "date_of_expiry": "2034-01-19",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "forge_085.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1995-07-14"
+    }
+  },
+  {
+    "file": "forge_086.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_087.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "KA1234567",
+      "surname": "YAMAMOTO",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_088.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_089.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_090.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SILVEIRA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_091.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1997-04-15",
+      "date_of_expiry": "2031-08-20",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_092.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_093.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "NU1234567",
+      "surname": "FJELLSTR",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_094.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDNORDLARSEN<<HENRIK<ALVAR<<<<<<<<<<<<<",
+      "NR24857212NLD8803148M300712092857439<<82",
+      "92857439<<<<<<<<<<NORDLAND<<<<<<<<<<<<<0"
+    ],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_095.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_096.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<USADOE<<JOHN<MICHAEL<<<<<<<<<<<<<<<<<<<",
+      "A12345678USA9006150M3412319876543210<123456"
+    ],
+    "silver": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_097.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_098.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_099.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_100.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDNBRNB1234567<7<<<<<<<<<<<<<<<<<<<<<0",
+      "8505159M3401014NBR<<<<<<<<<<<<<<<0",
+      "SAMPLE<<JOHN<ALEXANDER<<<<<<<<<<<<<0"
+    ],
+    "silver": {
+      "surname": "SAMPLE",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_101.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_102.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_103.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDD<<MUSTER<<ALEXANDER<<<<<<<<<<<<<",
+      "L01X00T47D<<8508125<3001017<<<<<<<<6"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_104.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_105.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "N01234567",
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "NOV"
+    }
+  },
+  {
+    "file": "forge_106.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "MOREAU"
+    }
+  },
+  {
+    "file": "forge_107.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA20AA12345678901<<<<<<<<<<"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_108.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "ZB1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-08-15",
+      "sex": "M",
+      "country_code": "BHA"
+    }
+  },
+  {
+    "file": "forge_109.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1992-09-14",
+      "date_of_expiry": "2028-08-27"
+    }
+  },
+  {
+    "file": "forge_110.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_111.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "XK1234567",
+      "surname": "YAMADA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_112.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_113.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_114.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "OLIVEIRA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_115.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2035-02-20"
+    }
+  },
+  {
+    "file": "forge_116.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_117.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<NLDSOLBERG<<JONAS<ANDERS<<<<<<<<<<<04"
+    ],
+    "silver": {
+      "surname": "SOLBERG",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_118.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDNLDKORHONEN<<MIKAEL<ALEXANDER<<<<<<<",
+      "NLD58472319421068734TX<<<<<<<<<<<<<<<<8"
+    ],
+    "silver": {
+      "surname": "KORHONEN",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_119.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_120.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "X12345678USA9003157M34123198000000000<123456"
+    ],
+    "silver": {
+      "passport_number": "X12345678",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_121.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDUSAANDERSON<<<TAYLOR<<JAMES<<<<<<<<<<<"
+    ],
+    "silver": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_122.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_123.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "9250765437GBR9204127M2506189<<<<<<<<<<<<<<04"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_124.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "HARPER",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_125.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_126.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "C01X47T1Z",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_127.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_128.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_129.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "MARTIN",
+      "sex": "M",
+      "country_code": "FRA"
+    }
+  },
+  {
+    "file": "forge_130.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "7XG8Z9L2P3FRA8707149M3208146<<<<<<<<<<02"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_131.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_132.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "B1234567",
+      "surname": "KUMAR",
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2035-01-19",
+      "sex": "M",
+      "country_code": "BHR"
+    }
+  },
+  {
+    "file": "forge_133.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1992-08-14"
+    }
+  },
+  {
+    "file": "forge_134.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_135.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "XT1234567",
+      "surname": "YAMADA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_136.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_137.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_138.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "ZB457952<4BRA9210123M2908152<<<<<<<<<<<<<04"
+    ],
+    "silver": {
+      "surname": "SILVEIRA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_139.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2030-04-15",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_140.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_141.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<NORERIKSSON<<LUKAS<ANDER<<<<<<<<<<<<<00"
+    ],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_142.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "HAUKSSON"
+    }
+  },
+  {
+    "file": "forge_143.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_144.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<USAANDERSON<<JORDAN<MICHAEL<<<<<<<<<<<<<<<",
+      "A12345678USA8503142M3105236<<<<<<<<<<<<<<08"
+    ],
+    "silver": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_145.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_146.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_147.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<GBRWALTERS<<JAMES<ALEXANDER<<<<<<<<<<<<<<<",
+      "9254763124GBR8803147M2804027<<<<<<<<<<<<<<08"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_148.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDEXASAMPLETON<<ALICE<JANE<<<<<<<<<<<<<<<<<<",
+      "EXA123456<7EXA9005156F3412312<<<<<<<<<<<<02"
+    ],
+    "silver": {
+      "surname": "SAMPLETON",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_149.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_150.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "C01X00T47"
+    }
+  },
+  {
+    "file": "forge_151.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_152.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_153.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "country_code": "FRA"
+    }
+  },
+  {
+    "file": "forge_154.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DURAND",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_155.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA18AX12345678923123IMARTIN<<LUCAS<PAUL<<"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_156.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "Z1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2033-07-19",
+      "sex": "M",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "forge_157.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1997-08-12"
+    }
+  },
+  {
+    "file": "forge_158.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_159.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "TR1234567",
+      "surname": "YAMADA",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_160.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_161.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_162.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "ALMEIDA",
+      "sex": "M",
+      "country_code": "BRA"
+    }
+  },
+  {
+    "file": "forge_163.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1987-04-15"
+    }
+  },
+  {
+    "file": "forge_164.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_165.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<NDULINDSTROEM<<ERIK<NIKLAS<<<<<<<<<<<",
+      "NU12345673NDU8505149M2806204<<<<<<<<<04"
+    ],
+    "silver": {
+      "passport_number": "NU1234567",
+      "surname": "EFTERNAMN",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_166.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "EFTERNAVN",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_167.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_168.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<USADOE<<JANE<ELIZABETH<<<<<<<<<<<<<<<<<<<<",
+      "A80000001USA9001012F3405149876543210<123456"
+    ],
+    "silver": {
+      "passport_number": "A80000001",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_169.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "JOHNSON",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_170.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_171.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_172.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SAMPLETON",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_173.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_174.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "T22000129",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_175.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_176.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_177.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "country_code": "FRA"
+    }
+  },
+  {
+    "file": "forge_178.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_179.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA16AX12345678923123THOMAS<<LUC<<88"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_180.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "P1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-07-15",
+      "date_of_expiry": "2033-08-19",
+      "sex": "M",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "forge_181.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1995-09-14"
+    }
+  },
+  {
+    "file": "forge_182.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_183.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "ZZ0000000",
+      "surname": "YAMADA"
+    }
+  },
+  {
+    "file": "forge_184.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_185.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_186.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "PA1234567",
+      "surname": "SILVA",
+      "sex": "M",
+      "country_code": "BRA"
+    }
+  },
+  {
+    "file": "forge_187.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1990-04-15",
+      "date_of_expiry": "2031-08-20"
+    }
+  },
+  {
+    "file": "forge_188.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_189.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "NU9876543<6NU8603145M280P412<<<<<<<<<03"
+    ],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_190.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "LUNDSTR",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_191.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_192.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<USATRAVELER<<ALEX<JOHN<<<<<<<<<<<<<<<<<<<<",
+      "1234567890USA9001018M3405142<<<<<<<<<<<<<<08"
+    ],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_193.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1985-23-04",
+      "date_of_expiry": "2030-15-01",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_194.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_195.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_196.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SURNAME",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_197.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_198.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "C01X00T47"
+    }
+  },
+  {
+    "file": "forge_199.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "DD<<MUSTERMANN<<LUKAS<<<<<<<<<<<<<<<<",
+      "T220001297D<<9408126M3110315<<<<<<0",
+      "DEUTSCH<<KOELN<<<<<<<<<<<<<<<<<<<<<<"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_200.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_201.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<NOVDUPONT<<ALEXANDRE<PAUL<<<<<<<<<<<<<<<",
+      "NVC1234569NOV8503142M3003012<<<<<<<<<<<<08"
+    ],
+    "silver": {
+      "passport_number": "NVC123456",
+      "surname": "DUPONT",
+      "country_code": "NOV"
+    }
+  },
+  {
+    "file": "forge_202.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_203.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_204.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "ZK000000",
+      "surname": "KUMAR",
+      "date_of_birth": "2000-01-01",
+      "date_of_expiry": "2035-12-31",
+      "sex": "M",
+      "country_code": "BRT"
+    }
+  },
+  {
+    "file": "forge_205.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1995-04-15"
+    }
+  },
+  {
+    "file": "forge_206.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_207.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "TK1234567",
+      "surname": "YAMADA",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_208.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_209.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_210.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "FZ123456",
+      "surname": "SILVEIRA"
+    }
+  },
+  {
+    "file": "forge_211.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1987-04-15",
+      "date_of_expiry": "2028-06-20"
+    }
+  },
+  {
+    "file": "forge_212.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_213.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "NDU1234567",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_214.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SUKUNIMI",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_215.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_216.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_217.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_218.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_219.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_220.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDGBRZB12345673<9615142F3402159<<<<<<<<<",
+      "9605145F3402159GBR<<<<<<<<<<<<<<<<<<<<6",
+      "HAMILTON<<EMILY<JANE<<<<<<<<<<<<<<<<<<<<<"
+    ],
+    "silver": {
+      "surname": "HAMILTON"
+    }
+  },
+  {
+    "file": "forge_221.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_222.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "C01X00T47"
+    }
+  },
+  {
+    "file": "forge_223.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDD<<L01X00T47<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+      "9208125<3210312D<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_224.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_225.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "N01234567",
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "NOV"
+    }
+  },
+  {
+    "file": "forge_226.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_227.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA18AC568918807141DURAND<<LUCAS<P"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_228.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "B1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1992-08-15",
+      "date_of_expiry": "2034-12-31",
+      "country_code": "BHA"
+    }
+  },
+  {
+    "file": "forge_229.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_230.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_231.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "ZZ1234567JPN8501019M3003158<<<<<<<<<<06"
+    ],
+    "silver": {
+      "passport_number": "ZZ1234567",
+      "surname": "YAMADA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_232.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_233.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_234.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SILVEIRA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_235.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_236.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_237.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "NU0123456<NUN8807145M3104219<<<<<<<<<<<<<<00"
+    ],
+    "silver": {
+      "passport_number": "NU0123456",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_238.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "RGENSEN",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_239.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_240.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<USADOE<<JORDAN<ALEXANDER<<<<<<<<<<<<<<<",
+      "A12345678USA9006150M340519987654321<987654"
+    ],
+    "silver": {
+      "passport_number": "A12345678",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_241.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "ANDERSON",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_242.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_243.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<GBRHARRISON<<JACK<ANDREW<<<<<<<<<<<<<<<<",
+      "9259989788GBR9405179M2806257<<<<<<<<<<<<08"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_244.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SAMPLE",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_245.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_246.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_247.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "IDD<<MUSTERMANN<<MAXIMILIAN<<<<<<<<<<<<",
+      "L01X00T47D<<8708125<3110319<<<<<<<<<<<<4"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_248.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_249.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "FRA"
+    }
+  },
+  {
+    "file": "forge_250.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DURAND",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_251.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA16AA000026140788MARTIN<<9"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_252.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "ZP1234567",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-08-15",
+      "date_of_expiry": "2033-07-19",
+      "sex": "M",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "forge_253.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "BGJX5678123490875<<<<<<<<<<<<",
+      "9208142M3305098BGJX<<<<<<<<<<"
+    ],
+    "silver": {
+      "date_of_birth": "1992-08-14",
+      "date_of_expiry": "2033-05-09"
+    }
+  },
+  {
+    "file": "forge_254.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_255.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "ZQ12345679JPN9001019M3002157<<<<<<<<<<<<02"
+    ],
+    "silver": {
+      "passport_number": "ZQ1234567",
+      "surname": "YAMADA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_256.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_257.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_258.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "BRZ123456",
+      "surname": "OLIVEIRA",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_259.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1995-04-15",
+      "date_of_expiry": "2032-02-20",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_260.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_261.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "EFTERNAMN",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_262.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "HOLM",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_263.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_264.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<USADOE<<JOHN<MICHAEL<<<<<<<<<<<<<<<<<<<<<",
+      "5500006504USA9003157M3401195<<<<<<<<<<<<08"
+    ],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_265.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "USAJOHNSON<<MICHAEL<ANDREW<<<<<<<<<<<<<<<"
+    ],
+    "silver": {
+      "surname": "JOHNSON",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_266.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_267.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_268.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "SAMPLE",
+      "sex": "F"
+    }
+  },
+  {
+    "file": "forge_269.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_270.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "X01X01234",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_271.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_272.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_273.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M",
+      "country_code": "FRA"
+    }
+  },
+  {
+    "file": "forge_274.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "surname": "DUPONT",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_275.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "D1FRA21DA000026140567DUPONT<<THEO<<<<"
+    ],
+    "silver": {}
+  },
+  {
+    "file": "forge_276.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "passport_number": "RA000000",
+      "surname": "SHARMA",
+      "date_of_birth": "1995-04-15",
+      "date_of_expiry": "2034-12-31",
+      "sex": "M",
+      "country_code": "IND"
+    }
+  },
+  {
+    "file": "forge_277.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {
+      "date_of_birth": "1994-08-12",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "forge_278.png",
+    "status": "unverified",
+    "reason": "no MRZ-shaped lines in OCR output",
+    "mrzCandidates": [],
+    "silver": {}
+  },
+  {
+    "file": "forge_279.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "ZZ12345672JPN8501019M2902158<<<<<<<<<<<<00"
+    ],
+    "silver": {
+      "passport_number": "ZZ1234567",
+      "surname": "YAMAMOTO",
+      "sex": "M"
+    }
+  },
+  {
+    "file": "Gemini_Generated_Image_yb1s83yb1s83yb1s.png",
+    "status": "unverified",
+    "reason": "checksums do not validate",
+    "mrzCandidates": [
+      "P<UTOJOHNSON<<SARAH<<ELIZABETH<<<<<<<<<",
+      "U123456781UT08510141F3212316<<<<<<<<<<02"
+    ],
+    "silver": {
+      "surname": "JOHNSON",
+      "sex": "F"
+    }
+  }
+]

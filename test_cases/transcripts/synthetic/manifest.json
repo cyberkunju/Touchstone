@@ -1,0 +1,450 @@
+[
+  {
+    "file": "tr_id00_clean.png",
+    "class": "transcript",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "student_id": "STU-618505",
+      "gpa": "2.92",
+      "full_name": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id00_jpeg40.jpg",
+    "class": "transcript_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "student_id": "STU-618505",
+      "gpa": "2.92",
+      "full_name": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id00_blur1.png",
+    "class": "transcript_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "student_id": "STU-618505",
+      "gpa": "2.92",
+      "full_name": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id00_worst.jpg",
+    "class": "transcript_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "student_id": "STU-618505",
+      "gpa": "2.92",
+      "full_name": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id01_clean.png",
+    "class": "transcript",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "student_id": "STU-230839",
+      "gpa": "2.53",
+      "full_name": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id01_jpeg40.jpg",
+    "class": "transcript_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "student_id": "STU-230839",
+      "gpa": "2.53",
+      "full_name": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id01_blur1.png",
+    "class": "transcript_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "student_id": "STU-230839",
+      "gpa": "2.53",
+      "full_name": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id01_worst.jpg",
+    "class": "transcript_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "student_id": "STU-230839",
+      "gpa": "2.53",
+      "full_name": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id02_clean.png",
+    "class": "transcript",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "student_id": "STU-689377",
+      "gpa": "3.03",
+      "full_name": "CHINWE OKONKWO"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id02_jpeg40.jpg",
+    "class": "transcript_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "student_id": "STU-689377",
+      "gpa": "3.03",
+      "full_name": "CHINWE OKONKWO"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id02_blur1.png",
+    "class": "transcript_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "student_id": "STU-689377",
+      "gpa": "3.03",
+      "full_name": "CHINWE OKONKWO"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id02_worst.jpg",
+    "class": "transcript_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "student_id": "STU-689377",
+      "gpa": "3.03",
+      "full_name": "CHINWE OKONKWO"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id03_clean.png",
+    "class": "transcript",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "student_id": "STU-362299",
+      "gpa": "2.72",
+      "full_name": "SIOBHAN OBRIEN"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id03_jpeg40.jpg",
+    "class": "transcript_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "student_id": "STU-362299",
+      "gpa": "2.72",
+      "full_name": "SIOBHAN OBRIEN"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id03_blur1.png",
+    "class": "transcript_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "student_id": "STU-362299",
+      "gpa": "2.72",
+      "full_name": "SIOBHAN OBRIEN"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id03_worst.jpg",
+    "class": "transcript_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "student_id": "STU-362299",
+      "gpa": "2.72",
+      "full_name": "SIOBHAN OBRIEN"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id04_clean.png",
+    "class": "transcript",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "student_id": "STU-957876",
+      "gpa": "2.81",
+      "full_name": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id04_jpeg40.jpg",
+    "class": "transcript_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "student_id": "STU-957876",
+      "gpa": "2.81",
+      "full_name": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id04_blur1.png",
+    "class": "transcript_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "student_id": "STU-957876",
+      "gpa": "2.81",
+      "full_name": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id04_worst.jpg",
+    "class": "transcript_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "student_id": "STU-957876",
+      "gpa": "2.81",
+      "full_name": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id05_clean.png",
+    "class": "transcript",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "student_id": "STU-734327",
+      "gpa": "3.25",
+      "full_name": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id05_jpeg40.jpg",
+    "class": "transcript_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "student_id": "STU-734327",
+      "gpa": "3.25",
+      "full_name": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id05_blur1.png",
+    "class": "transcript_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "student_id": "STU-734327",
+      "gpa": "3.25",
+      "full_name": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id05_worst.jpg",
+    "class": "transcript_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "student_id": "STU-734327",
+      "gpa": "3.25",
+      "full_name": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id06_clean.png",
+    "class": "transcript",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "student_id": "STU-996376",
+      "gpa": "2.78",
+      "full_name": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id06_jpeg40.jpg",
+    "class": "transcript_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "student_id": "STU-996376",
+      "gpa": "2.78",
+      "full_name": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id06_blur1.png",
+    "class": "transcript_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "student_id": "STU-996376",
+      "gpa": "2.78",
+      "full_name": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id06_worst.jpg",
+    "class": "transcript_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "student_id": "STU-996376",
+      "gpa": "2.78",
+      "full_name": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id07_clean.png",
+    "class": "transcript",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "student_id": "STU-393513",
+      "gpa": "2.97",
+      "full_name": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id07_jpeg40.jpg",
+    "class": "transcript_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "student_id": "STU-393513",
+      "gpa": "2.97",
+      "full_name": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id07_blur1.png",
+    "class": "transcript_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "student_id": "STU-393513",
+      "gpa": "2.97",
+      "full_name": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "tr_id07_worst.jpg",
+    "class": "transcript_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "student_id": "STU-393513",
+      "gpa": "2.97",
+      "full_name": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  }
+]

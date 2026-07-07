@@ -1,0 +1,482 @@
+[
+  {
+    "file": "lease_id00_clean.png",
+    "class": "property_lease",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "monthly_rent": "1334.77",
+      "security_deposit": "2669.54",
+      "landlord": "ANNA ERIKSSON",
+      "tenant": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id00_jpeg40.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "monthly_rent": "1334.77",
+      "security_deposit": "2669.54",
+      "landlord": "ANNA ERIKSSON",
+      "tenant": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id00_blur1.png",
+    "class": "property_lease_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "monthly_rent": "1334.77",
+      "security_deposit": "2669.54",
+      "landlord": "ANNA ERIKSSON",
+      "tenant": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id00_worst.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "monthly_rent": "1334.77",
+      "security_deposit": "2669.54",
+      "landlord": "ANNA ERIKSSON",
+      "tenant": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id01_clean.png",
+    "class": "property_lease",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "monthly_rent": "2708.87",
+      "security_deposit": "5417.74",
+      "landlord": "KENJI NAKAMURA",
+      "tenant": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id01_jpeg40.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "monthly_rent": "2708.87",
+      "security_deposit": "5417.74",
+      "landlord": "KENJI NAKAMURA",
+      "tenant": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id01_blur1.png",
+    "class": "property_lease_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "monthly_rent": "2708.87",
+      "security_deposit": "5417.74",
+      "landlord": "KENJI NAKAMURA",
+      "tenant": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id01_worst.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "monthly_rent": "2708.87",
+      "security_deposit": "5417.74",
+      "landlord": "KENJI NAKAMURA",
+      "tenant": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id02_clean.png",
+    "class": "property_lease",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "monthly_rent": "1008.08",
+      "security_deposit": "2016.16",
+      "landlord": "CHINWE OKONKWO",
+      "tenant": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id02_jpeg40.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "monthly_rent": "1008.08",
+      "security_deposit": "2016.16",
+      "landlord": "CHINWE OKONKWO",
+      "tenant": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id02_blur1.png",
+    "class": "property_lease_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "monthly_rent": "1008.08",
+      "security_deposit": "2016.16",
+      "landlord": "CHINWE OKONKWO",
+      "tenant": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id02_worst.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "monthly_rent": "1008.08",
+      "security_deposit": "2016.16",
+      "landlord": "CHINWE OKONKWO",
+      "tenant": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id03_clean.png",
+    "class": "property_lease",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "monthly_rent": "1121.54",
+      "security_deposit": "2243.08",
+      "landlord": "SIOBHAN OBRIEN",
+      "tenant": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id03_jpeg40.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "monthly_rent": "1121.54",
+      "security_deposit": "2243.08",
+      "landlord": "SIOBHAN OBRIEN",
+      "tenant": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id03_blur1.png",
+    "class": "property_lease_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "monthly_rent": "1121.54",
+      "security_deposit": "2243.08",
+      "landlord": "SIOBHAN OBRIEN",
+      "tenant": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id03_worst.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "monthly_rent": "1121.54",
+      "security_deposit": "2243.08",
+      "landlord": "SIOBHAN OBRIEN",
+      "tenant": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id04_clean.png",
+    "class": "property_lease",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "monthly_rent": "2638.21",
+      "security_deposit": "5276.42",
+      "landlord": "LAYLA ALFARSI",
+      "tenant": "HANS MUELLER"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id04_jpeg40.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "monthly_rent": "2638.21",
+      "security_deposit": "5276.42",
+      "landlord": "LAYLA ALFARSI",
+      "tenant": "HANS MUELLER"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id04_blur1.png",
+    "class": "property_lease_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "monthly_rent": "2638.21",
+      "security_deposit": "5276.42",
+      "landlord": "LAYLA ALFARSI",
+      "tenant": "HANS MUELLER"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id04_worst.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "monthly_rent": "2638.21",
+      "security_deposit": "5276.42",
+      "landlord": "LAYLA ALFARSI",
+      "tenant": "HANS MUELLER"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id05_clean.png",
+    "class": "property_lease",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "monthly_rent": "1051.60",
+      "security_deposit": "2103.20",
+      "landlord": "MALGORZATA SZCZEPANSKA",
+      "tenant": "PRIYA ANAND"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id05_jpeg40.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "monthly_rent": "1051.60",
+      "security_deposit": "2103.20",
+      "landlord": "MALGORZATA SZCZEPANSKA",
+      "tenant": "PRIYA ANAND"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id05_blur1.png",
+    "class": "property_lease_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "monthly_rent": "1051.60",
+      "security_deposit": "2103.20",
+      "landlord": "MALGORZATA SZCZEPANSKA",
+      "tenant": "PRIYA ANAND"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id05_worst.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "monthly_rent": "1051.60",
+      "security_deposit": "2103.20",
+      "landlord": "MALGORZATA SZCZEPANSKA",
+      "tenant": "PRIYA ANAND"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id06_clean.png",
+    "class": "property_lease",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "monthly_rent": "949.22",
+      "security_deposit": "1898.44",
+      "landlord": "WEI LI",
+      "tenant": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id06_jpeg40.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "monthly_rent": "949.22",
+      "security_deposit": "1898.44",
+      "landlord": "WEI LI",
+      "tenant": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id06_blur1.png",
+    "class": "property_lease_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "monthly_rent": "949.22",
+      "security_deposit": "1898.44",
+      "landlord": "WEI LI",
+      "tenant": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id06_worst.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "monthly_rent": "949.22",
+      "security_deposit": "1898.44",
+      "landlord": "WEI LI",
+      "tenant": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id07_clean.png",
+    "class": "property_lease",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "monthly_rent": "1289.75",
+      "security_deposit": "2579.50",
+      "landlord": "JOSE FERNANDEZ",
+      "tenant": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id07_jpeg40.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "monthly_rent": "1289.75",
+      "security_deposit": "2579.50",
+      "landlord": "JOSE FERNANDEZ",
+      "tenant": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id07_blur1.png",
+    "class": "property_lease_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "monthly_rent": "1289.75",
+      "security_deposit": "2579.50",
+      "landlord": "JOSE FERNANDEZ",
+      "tenant": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "lease_id07_worst.jpg",
+    "class": "property_lease_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "monthly_rent": "1289.75",
+      "security_deposit": "2579.50",
+      "landlord": "JOSE FERNANDEZ",
+      "tenant": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  }
+]

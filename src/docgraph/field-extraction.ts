@@ -20,12 +20,19 @@ import { FieldValueType } from '../core/types';
 import { parseDate, parseAmount, normalizeId } from '../parsers/scalars';
 import { getBoxCenter } from '../core/geometry';
 import { bestWindowSimilarity } from './fuzzy';
+import { assignOptimal } from '../consensus/hungarian';
+import { beamDecode } from '../beam/beam-search';
+import { dateGrammar } from '../beam/grammars/date';
+import { sexGrammar } from '../beam/grammars/enum';
 
 /* -------------------------------------------------------------------------- */
 /*  Public types                                                              */
 /* -------------------------------------------------------------------------- */
 
-export type ExtractionDocType = 'passport' | 'id_card' | 'invoice' | 'receipt' | 'generic';
+// Single source of truth for the doc-type union — duplicating it here let
+// the two copies drift the moment commerce types landed (caught by tsc).
+export type { ExtractionDocType } from './document-classify';
+import type { ExtractionDocType } from './document-classify';
 
 export interface FieldSpec {
   /** snake_case canonical label, e.g. 'date_of_birth'. */
@@ -179,7 +186,12 @@ export const INVOICE_FIELDS: FieldSpec[] = [
     canonicalLabel: 'invoice_number',
     displayLabel: 'Invoice Number',
     synonyms: ['invoice number', 'invoice no', 'invoice #', 'invoice'],
-    valueType: 'text',
+    // An invoice number is an IDENTIFIER, not free text (live-caught: typed
+    // as 'text', the vendor's company name under the "INVOICE" title paired
+    // and CONFIRMED as the number — 5 silent errors in the first docs gate).
+    // id_number typing excludes dates and demands digits via the pattern.
+    valueType: 'id_number',
+    valuePattern: /\d[\s\S]*\d/,
     required: false,
   },
   {
@@ -226,6 +238,125 @@ export const INVOICE_FIELDS: FieldSpec[] = [
   },
 ];
 
+/** Bank statements — running-balance closure family (Tier 2). */
+export const BANK_STATEMENT_FIELDS: FieldSpec[] = [
+  {
+    canonicalLabel: 'account_number',
+    displayLabel: 'Account Number',
+    synonyms: ['account number', 'account no', 'acct number'],
+    valueType: 'id_number',
+    valuePattern: /^\d[\d\s-]{6,}$/,
+    required: false,
+  },
+  {
+    canonicalLabel: 'account_holder',
+    displayLabel: 'Account Holder',
+    synonyms: ['account holder', 'account name', 'customer name'],
+    valueType: 'name',
+    required: false,
+  },
+  {
+    canonicalLabel: 'opening_balance',
+    displayLabel: 'Opening Balance',
+    synonyms: ['opening balance', 'previous balance', 'balance forward'],
+    valueType: 'amount',
+    required: false,
+  },
+  {
+    canonicalLabel: 'closing_balance',
+    displayLabel: 'Closing Balance',
+    synonyms: ['closing balance', 'ending balance', 'new balance'],
+    valueType: 'amount',
+    required: false,
+  },
+  {
+    canonicalLabel: 'total_credits',
+    displayLabel: 'Total Credits',
+    synonyms: ['total credits', 'deposits total', 'total deposits'],
+    valueType: 'amount',
+    required: false,
+  },
+  {
+    canonicalLabel: 'total_debits',
+    displayLabel: 'Total Debits',
+    synonyms: ['total debits', 'withdrawals total', 'total withdrawals'],
+    valueType: 'amount',
+    required: false,
+  },
+];
+
+/** Payslips — gross − deductions = net closure family (Tier 2). */
+export const PAYSLIP_FIELDS: FieldSpec[] = [
+  {
+    canonicalLabel: 'employee_id',
+    displayLabel: 'Employee ID',
+    synonyms: ['employee id', 'employee no', 'staff id', 'emp id'],
+    valueType: 'id_number',
+    required: false,
+  },
+  {
+    canonicalLabel: 'employee_name',
+    displayLabel: 'Employee Name',
+    synonyms: ['employee name', 'employee', 'staff name'],
+    valueType: 'name',
+    required: false,
+  },
+  {
+    canonicalLabel: 'gross_pay',
+    displayLabel: 'Gross Pay',
+    synonyms: ['gross pay', 'gross earnings', 'total earnings', 'gross'],
+    valueType: 'amount',
+    required: false,
+  },
+  {
+    canonicalLabel: 'total_deductions',
+    displayLabel: 'Total Deductions',
+    synonyms: ['total deductions', 'deductions total', 'deductions'],
+    valueType: 'amount',
+    required: false,
+  },
+  {
+    canonicalLabel: 'net_pay',
+    displayLabel: 'Net Pay',
+    synonyms: ['net pay', 'take home pay', 'net salary', 'net amount'],
+    valueType: 'amount',
+    required: false,
+  },
+];
+
+/** Utility bills — line-item closure family (Tier 2). */
+export const UTILITY_BILL_FIELDS: FieldSpec[] = [
+  {
+    canonicalLabel: 'account_number',
+    displayLabel: 'Account Number',
+    synonyms: ['account number', 'account no', 'customer number'],
+    valueType: 'id_number',
+    valuePattern: /^\d[\d\s-]{5,}$/,
+    required: false,
+  },
+  {
+    canonicalLabel: 'total_due',
+    displayLabel: 'Total Due',
+    synonyms: ['total due', 'amount due', 'total payable', 'balance due'],
+    valueType: 'amount',
+    required: false,
+  },
+  {
+    canonicalLabel: 'due_date',
+    displayLabel: 'Due Date',
+    synonyms: ['due date', 'payment due', 'pay by'],
+    valueType: 'date',
+    required: false,
+  },
+  {
+    canonicalLabel: 'current_charges',
+    displayLabel: 'Current Charges',
+    synonyms: ['current charges', 'new charges', 'charges this period'],
+    valueType: 'amount',
+    required: false,
+  },
+];
+
 export function getFieldSpecs(docType: ExtractionDocType): FieldSpec[] {
   switch (docType) {
     case 'passport':
@@ -234,6 +365,12 @@ export function getFieldSpecs(docType: ExtractionDocType): FieldSpec[] {
     case 'invoice':
     case 'receipt':
       return INVOICE_FIELDS;
+    case 'bank_statement':
+      return BANK_STATEMENT_FIELDS;
+    case 'payslip':
+      return PAYSLIP_FIELDS;
+    case 'utility_bill':
+      return UTILITY_BILL_FIELDS;
     case 'generic':
     default:
       return [];
@@ -291,6 +428,21 @@ function synonymMatches(normText: string, synonym: string): boolean {
  * (exact) is never mistaken for date_of_birth (fuzzy).
  */
 export function isLabelItem(item: OcrItem, specs: FieldSpec[]): FieldSpec | null {
+  return isLabelItemScored(item, specs)?.spec ?? null;
+}
+
+/**
+ * Scored variant of {@link isLabelItem}: also returns the match score so
+ * callers can rank competing label candidates. Exact whole-phrase matches
+ * score > 1 (1 + synonymLength/1000); fuzzy matches score < 1 (their edit
+ * similarity). A document TITLE like "PASSPORT" only ever fuzzy-matches a
+ * synonym ('passeport' ≈ 0.89) while the true caption "PASSPORT NO" matches
+ * exactly — the score gap is what keeps titles from stealing label slots.
+ */
+export function isLabelItemScored(
+  item: OcrItem,
+  specs: FieldSpec[]
+): { spec: FieldSpec; score: number } | null {
   const normText = normalizeLabelText(item.text);
   if (normText === '') return null;
 
@@ -319,7 +471,7 @@ export function isLabelItem(item: OcrItem, specs: FieldSpec[]): FieldSpec | null
     }
   }
 
-  return bestScore > 0 ? best : null;
+  return best !== null && bestScore > 0 ? { spec: best, score: bestScore } : null;
 }
 
 /**
@@ -346,6 +498,28 @@ export function extractInlineValue(rawText: string, spec: FieldSpec): string | n
 /*  Value-type scoring                                                        */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * True when `text` is ONE structurally well-formed currency token:
+ * optional sign/symbol, digits with CORRECT thousands grouping (every comma
+ * group exactly 3 digits), at most one decimal point, optional 3-letter code.
+ * A malformed token means the OCR read lost or gained characters — the
+ * printed value is unprovable from this text and must not score as an amount.
+ */
+export function isWellFormedAmountToken(text: string): boolean {
+  let t = text.trim();
+  // Strip currency decorations (symbol/code/sign/parens) from the edges.
+  t = t.replace(/^[($€£¥₹+\-\s]+|[)\s]+$/g, '');
+  t = t.replace(/^[A-Z]{3}\s+/i, '').replace(/\s+[A-Z]{3}$/i, '');
+  if (t.length === 0) return false;
+  // No internal whitespace may remain: "6 3,707.56" is two tokens, not one.
+  if (/\s/.test(t)) return false;
+  // European style with comma decimals ("1.234,56") — normalize view only.
+  const euro = /^\d{1,3}(\.\d{3})+(,\d{1,2})?$/.test(t) || /^\d+,\d{1,2}$/.test(t);
+  if (euro) return true;
+  // US/plain style: optional exact-3-digit comma groups, one optional decimal.
+  return /^\d{1,3}(,\d{3})*(\.\d{1,4})?$/.test(t) || /^\d+(\.\d{1,4})?$/.test(t);
+}
+
 /** Returns a 0..1 score for how well `text` fits `valueType`. */
 export function valueTypeScore(valueType: FieldValueType, text: string): number {
   const trimmed = text.trim();
@@ -355,10 +529,32 @@ export function valueTypeScore(valueType: FieldValueType, text: string): number 
       return parseDate(trimmed).valid ? 1 : 0;
 
     case 'amount':
-    case 'currency':
+    case 'currency': {
+      // Type exclusion (live-caught): under blur, a statement-period line
+      // merges into the balance below it — "01/02/2026 - 02/03/2026 5,887.15"
+      // parses as a big number and was CONFIRMED as opening_balance. Text
+      // containing a calendar date is a mixed line, never a bare amount.
+      if (/\d{1,2}[\/.]\d{1,2}[\/.]\d{2,4}/.test(trimmed)) return 0;
+      // STRUCTURAL WELL-FORMEDNESS (live-caught, 10 silents): an amount must
+      // be ONE well-formed currency token. Refused shapes:
+      //  - "6 3,707.56"  — a neighboring digit merged in (internal space
+      //    between digit groups that isn't thousands punctuation);
+      //  - "1,05.11"     — comma group of ≠3 digits: a dropped digit turned
+      //    the read into structurally-invalid grouping — the printed value
+      //    was something else, proof is gone;
+      //  - "4.511.28"    — multiple decimal points (locale mixups resolve in
+      //    normalizeFieldValue, but two dots + two decimals is corruption).
+      if (!isWellFormedAmountToken(trimmed)) return 0;
       return parseAmount(trimmed).valid ? 1 : 0;
+    }
 
     case 'id_number': {
+      // Type exclusion: a calendar-valid date is a DATE, never a document
+      // number — normalizeId strips separators, so "24/03/1982" would
+      // otherwise score as a perfect 8-digit id. On degraded scans where the
+      // real number went unread, the nearest date then gets CONFIRMED into
+      // the id field: a silent error (caught live by the corpus gate).
+      if (parseDate(trimmed).valid) return 0;
       const n = normalizeId(trimmed).normalized;
       if (n.length >= 4 && /[0-9]/.test(n) && /^[A-Z0-9]+$/.test(n)) {
         return 1;
@@ -450,6 +646,36 @@ function clamp01(n: number): number {
   return Math.max(0, Math.min(1, n));
 }
 
+/**
+ * Typed lattice re-decode (I3): when a candidate's greedy text fails a
+ * field's constraint but its CTC lattice contains a constraint-satisfying
+ * path, decode THAT instead of rejecting the pairing. This is what turns the
+ * observed `sex = "c/call"` class of garbage into correct values — or into
+ * honest omissions when the lattice holds nothing valid.
+ *
+ * Scope (bounded by design): `sex` (enum grammar) and `date` fields — the two
+ * empirically failing classes. Wider grammar coverage lands with the full
+ * solver in P5.
+ *
+ * @returns Re-decoded text, or null when no valid path exists / not in scope.
+ */
+export function grammarRedecode(
+  spec: FieldSpec,
+  candidate: OcrItem,
+  dateLocale?: 'dmy' | 'mdy' | 'ymd'
+): string | null {
+  if (!candidate.lattice) return null;
+  if (spec.canonicalLabel === 'sex') {
+    const res = beamDecode(candidate.lattice, sexGrammar());
+    return res ? res.text : null;
+  }
+  if (spec.valueType === 'date') {
+    const res = beamDecode(candidate.lattice, dateGrammar(dateLocale));
+    return res ? res.text : null;
+  }
+  return null;
+}
+
 interface ScoredPair {
   spec: FieldSpec;
   labelItem: OcrItem;
@@ -472,34 +698,45 @@ export function extractFields(
   if (specs.length === 0) return [];
 
   // Step 2: identify label items and pick the best representative per spec.
+  // MATCH QUALITY DOMINATES the choice (live-caught bug: the page title
+  // "PASSPORT" fuzzy-matches 'passeport' at 0.89 and its SHORTER text used to
+  // beat the exact caption "PASSPORT NO" — the title then pairs with nothing
+  // and the field silently vanishes). Exact synonym containment (score > 1)
+  // must always outrank a fuzzy title; only ties fall back to shorter text.
   const labelByCanonical = new Map<string, OcrItem>();
+  const labelScoreByCanonical = new Map<string, number>();
   const labelItemNodeIds = new Set<string>();
 
   for (const item of items) {
-    const spec = isLabelItem(item, specs);
-    if (!spec) continue;
+    const scored = isLabelItemScored(item, specs);
+    if (!scored) continue;
+    const spec = scored.spec;
     labelItemNodeIds.add(item.nodeId);
 
     const existing = labelByCanonical.get(spec.canonicalLabel);
     if (!existing) {
       labelByCanonical.set(spec.canonicalLabel, item);
+      labelScoreByCanonical.set(spec.canonicalLabel, scored.score);
       continue;
     }
 
-    // Prefer the item whose normalized text is closest to a synonym (least
-    // extra text); tie-break on smaller area.
+    // Rank: match score DESC, then least extra text, then smaller area.
     const score = (it: OcrItem): number => normalizeLabelText(it.text).length;
     const area = (it: OcrItem): number => {
       const [x1, y1, x2, y2] = it.boxNorm;
       return Math.max(0, x2 - x1) * Math.max(0, y2 - y1);
     };
+    const existingMatch = labelScoreByCanonical.get(spec.canonicalLabel) ?? 0;
     const existingScore = score(existing);
     const candidateScore = score(item);
     if (
-      candidateScore < existingScore ||
-      (candidateScore === existingScore && area(item) < area(existing))
+      scored.score > existingMatch ||
+      (scored.score === existingMatch &&
+        (candidateScore < existingScore ||
+          (candidateScore === existingScore && area(item) < area(existing))))
     ) {
       labelByCanonical.set(spec.canonicalLabel, item);
+      labelScoreByCanonical.set(spec.canonicalLabel, scored.score);
     }
   }
 
@@ -539,14 +776,30 @@ export function extractFields(
       const { relation, positionScore, distance } = relate(labelItem, candidate);
       if (relation === 'none') continue;
 
-      // Value constraint: a constrained field rejects non-matching values
-      // outright, making it immune to nearby OCR noise.
-      if (spec.valuePattern && !spec.valuePattern.test(candidate.text.trim())) continue;
+      // Typed lattice re-decode (I3): when the greedy text violates the
+      // field's constraints, the lattice may still contain a valid reading —
+      // use it. When even the lattice holds nothing valid, the pairing dies
+      // honestly (no fabrication; omission over garbage).
+      let effective = candidate;
+      if (spec.valuePattern && !spec.valuePattern.test(candidate.text.trim())) {
+        const redecoded = grammarRedecode(spec, candidate, options?.dateLocale);
+        if (redecoded === null || !spec.valuePattern.test(redecoded.trim())) continue;
+        effective = { ...candidate, text: redecoded };
+      }
 
-      const typeScore = valueTypeScore(spec.valueType, candidate.text);
+      let typeScore = valueTypeScore(spec.valueType, effective.text);
 
-      // Strongly-typed fields must have a well-typed value or be omitted.
-      if (strongTypes.has(spec.valueType) && typeScore < 0.5) continue;
+      // Strongly-typed fields must have a well-typed value or be omitted —
+      // but give the lattice one chance to produce a well-typed reading.
+      if (strongTypes.has(spec.valueType) && typeScore < 0.5) {
+        const redecoded =
+          effective === candidate ? grammarRedecode(spec, candidate, options?.dateLocale) : null;
+        if (redecoded === null) continue;
+        const rescuedScore = valueTypeScore(spec.valueType, redecoded);
+        if (rescuedScore < 0.5) continue;
+        effective = { ...candidate, text: redecoded };
+        typeScore = rescuedScore;
+      }
 
       // PROXIMITY-DOMINANT scoring: each value should attach to its NEAREST
       // label, so a label never steals a neighbouring field's value in a
@@ -556,25 +809,35 @@ export function extractFields(
         positionScore * 0.25 + proximity * 0.5 + typeScore * 0.2 + candidate.confidence * 0.05;
 
       if (total > 0.3) {
-        pairs.push({ spec, labelItem, valueItem: candidate, total });
+        pairs.push({ spec, labelItem, valueItem: effective, total });
       }
     }
   }
 
-  // Step 5: greedy resolution. Highest score wins; no spec or value item is
-  // assigned twice.
-  pairs.sort((a, b) => b.total - a.total);
-
-  const assignedSpecs = new Set<string>();
-  const usedValueNodeIds = new Set<string>();
-  const emitted: ExtractedField[] = [];
-
+  // Step 5: GLOBALLY OPTIMAL resolution (I1-lite). Greedy highest-first has a
+  // classic pathology: one label steals its neighbour's value on a marginal
+  // score edge, cascading a second field into garbage. The Hungarian solve
+  // maximizes total pairing quality instead — the whole-document best answer.
+  const specIndex = new Map<string, number>();
+  const valueIndex = new Map<string, number>();
+  const bestPairAt = new Map<string, ScoredPair>();
   for (const pair of pairs) {
-    if (assignedSpecs.has(pair.spec.canonicalLabel)) continue;
-    if (usedValueNodeIds.has(pair.valueItem.nodeId)) continue;
+    if (!specIndex.has(pair.spec.canonicalLabel)) specIndex.set(pair.spec.canonicalLabel, specIndex.size);
+    if (!valueIndex.has(pair.valueItem.nodeId)) valueIndex.set(pair.valueItem.nodeId, valueIndex.size);
+    const key = `${specIndex.get(pair.spec.canonicalLabel)}|${valueIndex.get(pair.valueItem.nodeId)}`;
+    const existing = bestPairAt.get(key);
+    if (!existing || pair.total > existing.total) bestPairAt.set(key, pair);
+  }
+  const profit = new Map<number, Map<number, number>>();
+  for (const [key, pair] of bestPairAt) {
+    const [r, c] = key.split('|').map(Number);
+    if (!profit.has(r)) profit.set(r, new Map());
+    profit.get(r)!.set(c, pair.total);
+  }
 
-    assignedSpecs.add(pair.spec.canonicalLabel);
-    usedValueNodeIds.add(pair.valueItem.nodeId);
+  const emitted: ExtractedField[] = [];
+  for (const [r, c] of assignOptimal(specIndex.size, valueIndex.size, profit)) {
+    const pair = bestPairAt.get(`${r}|${c}`)!;
 
     const rawValue = cleanWhitespace(pair.valueItem.text);
 

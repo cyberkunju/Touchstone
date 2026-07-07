@@ -1,0 +1,450 @@
+[
+  {
+    "file": "ins_id00_clean.png",
+    "class": "insurance_notice",
+    "degradation": "clean",
+    "identity": 0,
+    "truth": {
+      "policy_number": "POL-178061",
+      "total_due": "1671.59",
+      "full_name": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id00_jpeg40.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "jpeg40",
+    "identity": 0,
+    "truth": {
+      "policy_number": "POL-178061",
+      "total_due": "1671.59",
+      "full_name": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id00_blur1.png",
+    "class": "insurance_notice_degraded",
+    "degradation": "blur1",
+    "identity": 0,
+    "truth": {
+      "policy_number": "POL-178061",
+      "total_due": "1671.59",
+      "full_name": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id00_worst.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "worst",
+    "identity": 0,
+    "truth": {
+      "policy_number": "POL-178061",
+      "total_due": "1671.59",
+      "full_name": "ANNA ERIKSSON"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id01_clean.png",
+    "class": "insurance_notice",
+    "degradation": "clean",
+    "identity": 1,
+    "truth": {
+      "policy_number": "POL-872915",
+      "total_due": "1883.85",
+      "full_name": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id01_jpeg40.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "jpeg40",
+    "identity": 1,
+    "truth": {
+      "policy_number": "POL-872915",
+      "total_due": "1883.85",
+      "full_name": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id01_blur1.png",
+    "class": "insurance_notice_degraded",
+    "degradation": "blur1",
+    "identity": 1,
+    "truth": {
+      "policy_number": "POL-872915",
+      "total_due": "1883.85",
+      "full_name": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id01_worst.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "worst",
+    "identity": 1,
+    "truth": {
+      "policy_number": "POL-872915",
+      "total_due": "1883.85",
+      "full_name": "KENJI NAKAMURA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id02_clean.png",
+    "class": "insurance_notice",
+    "degradation": "clean",
+    "identity": 2,
+    "truth": {
+      "policy_number": "POL-288788",
+      "total_due": "2045.89",
+      "full_name": "CHINWE OKONKWO"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id02_jpeg40.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "jpeg40",
+    "identity": 2,
+    "truth": {
+      "policy_number": "POL-288788",
+      "total_due": "2045.89",
+      "full_name": "CHINWE OKONKWO"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id02_blur1.png",
+    "class": "insurance_notice_degraded",
+    "degradation": "blur1",
+    "identity": 2,
+    "truth": {
+      "policy_number": "POL-288788",
+      "total_due": "2045.89",
+      "full_name": "CHINWE OKONKWO"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id02_worst.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "worst",
+    "identity": 2,
+    "truth": {
+      "policy_number": "POL-288788",
+      "total_due": "2045.89",
+      "full_name": "CHINWE OKONKWO"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id03_clean.png",
+    "class": "insurance_notice",
+    "degradation": "clean",
+    "identity": 3,
+    "truth": {
+      "policy_number": "POL-874989",
+      "total_due": "2248.44",
+      "full_name": "SIOBHAN OBRIEN"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id03_jpeg40.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "jpeg40",
+    "identity": 3,
+    "truth": {
+      "policy_number": "POL-874989",
+      "total_due": "2248.44",
+      "full_name": "SIOBHAN OBRIEN"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id03_blur1.png",
+    "class": "insurance_notice_degraded",
+    "degradation": "blur1",
+    "identity": 3,
+    "truth": {
+      "policy_number": "POL-874989",
+      "total_due": "2248.44",
+      "full_name": "SIOBHAN OBRIEN"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id03_worst.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "worst",
+    "identity": 3,
+    "truth": {
+      "policy_number": "POL-874989",
+      "total_due": "2248.44",
+      "full_name": "SIOBHAN OBRIEN"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id04_clean.png",
+    "class": "insurance_notice",
+    "degradation": "clean",
+    "identity": 4,
+    "truth": {
+      "policy_number": "POL-454069",
+      "total_due": "2251.71",
+      "full_name": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id04_jpeg40.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "jpeg40",
+    "identity": 4,
+    "truth": {
+      "policy_number": "POL-454069",
+      "total_due": "2251.71",
+      "full_name": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id04_blur1.png",
+    "class": "insurance_notice_degraded",
+    "degradation": "blur1",
+    "identity": 4,
+    "truth": {
+      "policy_number": "POL-454069",
+      "total_due": "2251.71",
+      "full_name": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id04_worst.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "worst",
+    "identity": 4,
+    "truth": {
+      "policy_number": "POL-454069",
+      "total_due": "2251.71",
+      "full_name": "LAYLA ALFARSI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id05_clean.png",
+    "class": "insurance_notice",
+    "degradation": "clean",
+    "identity": 5,
+    "truth": {
+      "policy_number": "POL-537449",
+      "total_due": "888.64",
+      "full_name": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id05_jpeg40.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "jpeg40",
+    "identity": 5,
+    "truth": {
+      "policy_number": "POL-537449",
+      "total_due": "888.64",
+      "full_name": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id05_blur1.png",
+    "class": "insurance_notice_degraded",
+    "degradation": "blur1",
+    "identity": 5,
+    "truth": {
+      "policy_number": "POL-537449",
+      "total_due": "888.64",
+      "full_name": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id05_worst.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "worst",
+    "identity": 5,
+    "truth": {
+      "policy_number": "POL-537449",
+      "total_due": "888.64",
+      "full_name": "MALGORZATA SZCZEPANSKA"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id06_clean.png",
+    "class": "insurance_notice",
+    "degradation": "clean",
+    "identity": 6,
+    "truth": {
+      "policy_number": "POL-550939",
+      "total_due": "895.31",
+      "full_name": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id06_jpeg40.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "jpeg40",
+    "identity": 6,
+    "truth": {
+      "policy_number": "POL-550939",
+      "total_due": "895.31",
+      "full_name": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id06_blur1.png",
+    "class": "insurance_notice_degraded",
+    "degradation": "blur1",
+    "identity": 6,
+    "truth": {
+      "policy_number": "POL-550939",
+      "total_due": "895.31",
+      "full_name": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id06_worst.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "worst",
+    "identity": 6,
+    "truth": {
+      "policy_number": "POL-550939",
+      "total_due": "895.31",
+      "full_name": "WEI LI"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id07_clean.png",
+    "class": "insurance_notice",
+    "degradation": "clean",
+    "identity": 7,
+    "truth": {
+      "policy_number": "POL-353353",
+      "total_due": "2004.53",
+      "full_name": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id07_jpeg40.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "jpeg40",
+    "identity": 7,
+    "truth": {
+      "policy_number": "POL-353353",
+      "total_due": "2004.53",
+      "full_name": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id07_blur1.png",
+    "class": "insurance_notice_degraded",
+    "degradation": "blur1",
+    "identity": 7,
+    "truth": {
+      "policy_number": "POL-353353",
+      "total_due": "2004.53",
+      "full_name": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "ins_id07_worst.jpg",
+    "class": "insurance_notice_degraded",
+    "degradation": "worst",
+    "identity": 7,
+    "truth": {
+      "policy_number": "POL-353353",
+      "total_due": "2004.53",
+      "full_name": "JOSE FERNANDEZ"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  }
+]

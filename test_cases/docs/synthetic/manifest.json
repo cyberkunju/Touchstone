@@ -1,0 +1,581 @@
+[
+  {
+    "file": "inv00_clean.png",
+    "class": "invoice",
+    "degradation": "clean",
+    "truth": {
+      "invoice_number": "INV-2026-2205",
+      "invoice_date": "2026-11-24",
+      "vendor": "NORTHWIND SUPPLIES LTD",
+      "total": "880.26",
+      "subtotal": "815.06",
+      "tax": "65.20"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv00_blur15.jpg",
+    "class": "invoice_degraded",
+    "degradation": "blur15",
+    "truth": {
+      "invoice_number": "INV-2026-2205",
+      "invoice_date": "2026-11-24",
+      "vendor": "NORTHWIND SUPPLIES LTD",
+      "total": "880.26",
+      "subtotal": "815.06",
+      "tax": "65.20"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv00_rot5.jpg",
+    "class": "invoice_degraded",
+    "degradation": "rot5",
+    "truth": {
+      "invoice_number": "INV-2026-2205",
+      "invoice_date": "2026-11-24",
+      "vendor": "NORTHWIND SUPPLIES LTD",
+      "total": "880.26",
+      "subtotal": "815.06",
+      "tax": "65.20"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv00_worst.jpg",
+    "class": "invoice_degraded",
+    "degradation": "worst",
+    "truth": {
+      "invoice_number": "INV-2026-2205",
+      "invoice_date": "2026-11-24",
+      "vendor": "NORTHWIND SUPPLIES LTD",
+      "total": "880.26",
+      "subtotal": "815.06",
+      "tax": "65.20"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "rcp00_clean.png",
+    "class": "receipt",
+    "degradation": "clean",
+    "truth": {
+      "total": "880.26",
+      "subtotal": "815.06",
+      "tax": "65.20"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv01_clean.png",
+    "class": "invoice",
+    "degradation": "clean",
+    "truth": {
+      "invoice_number": "INV-2025-9748",
+      "invoice_date": "2026-08-06",
+      "vendor": "ACME INDUSTRIAL CO",
+      "total": "2604.92",
+      "subtotal": "2411.96",
+      "tax": "192.96"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv01_blur15.jpg",
+    "class": "invoice_degraded",
+    "degradation": "blur15",
+    "truth": {
+      "invoice_number": "INV-2025-9748",
+      "invoice_date": "2026-08-06",
+      "vendor": "ACME INDUSTRIAL CO",
+      "total": "2604.92",
+      "subtotal": "2411.96",
+      "tax": "192.96"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv01_rot5.jpg",
+    "class": "invoice_degraded",
+    "degradation": "rot5",
+    "truth": {
+      "invoice_number": "INV-2025-9748",
+      "invoice_date": "2026-08-06",
+      "vendor": "ACME INDUSTRIAL CO",
+      "total": "2604.92",
+      "subtotal": "2411.96",
+      "tax": "192.96"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv01_worst.jpg",
+    "class": "invoice_degraded",
+    "degradation": "worst",
+    "truth": {
+      "invoice_number": "INV-2025-9748",
+      "invoice_date": "2026-08-06",
+      "vendor": "ACME INDUSTRIAL CO",
+      "total": "2604.92",
+      "subtotal": "2411.96",
+      "tax": "192.96"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv02_clean.png",
+    "class": "invoice",
+    "degradation": "clean",
+    "truth": {
+      "invoice_number": "INV-2024-3042",
+      "invoice_date": "2026-03-05",
+      "vendor": "BLUE HARBOR FOODS",
+      "total": "492.67",
+      "subtotal": "456.18",
+      "tax": "36.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv02_blur15.jpg",
+    "class": "invoice_degraded",
+    "degradation": "blur15",
+    "truth": {
+      "invoice_number": "INV-2024-3042",
+      "invoice_date": "2026-03-05",
+      "vendor": "BLUE HARBOR FOODS",
+      "total": "492.67",
+      "subtotal": "456.18",
+      "tax": "36.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv02_rot5.jpg",
+    "class": "invoice_degraded",
+    "degradation": "rot5",
+    "truth": {
+      "invoice_number": "INV-2024-3042",
+      "invoice_date": "2026-03-05",
+      "vendor": "BLUE HARBOR FOODS",
+      "total": "492.67",
+      "subtotal": "456.18",
+      "tax": "36.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv02_worst.jpg",
+    "class": "invoice_degraded",
+    "degradation": "worst",
+    "truth": {
+      "invoice_number": "INV-2024-3042",
+      "invoice_date": "2026-03-05",
+      "vendor": "BLUE HARBOR FOODS",
+      "total": "492.67",
+      "subtotal": "456.18",
+      "tax": "36.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "rcp02_clean.png",
+    "class": "receipt",
+    "degradation": "clean",
+    "truth": {
+      "total": "492.67",
+      "subtotal": "456.18",
+      "tax": "36.49"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv03_clean.png",
+    "class": "invoice",
+    "degradation": "clean",
+    "truth": {
+      "invoice_number": "INV-2026-9375",
+      "invoice_date": "2026-03-15",
+      "vendor": "ORION TECH SERVICES",
+      "total": "2033.75",
+      "subtotal": "1883.10",
+      "tax": "150.65"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv03_blur15.jpg",
+    "class": "invoice_degraded",
+    "degradation": "blur15",
+    "truth": {
+      "invoice_number": "INV-2026-9375",
+      "invoice_date": "2026-03-15",
+      "vendor": "ORION TECH SERVICES",
+      "total": "2033.75",
+      "subtotal": "1883.10",
+      "tax": "150.65"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv03_rot5.jpg",
+    "class": "invoice_degraded",
+    "degradation": "rot5",
+    "truth": {
+      "invoice_number": "INV-2026-9375",
+      "invoice_date": "2026-03-15",
+      "vendor": "ORION TECH SERVICES",
+      "total": "2033.75",
+      "subtotal": "1883.10",
+      "tax": "150.65"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv03_worst.jpg",
+    "class": "invoice_degraded",
+    "degradation": "worst",
+    "truth": {
+      "invoice_number": "INV-2026-9375",
+      "invoice_date": "2026-03-15",
+      "vendor": "ORION TECH SERVICES",
+      "total": "2033.75",
+      "subtotal": "1883.10",
+      "tax": "150.65"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv04_clean.png",
+    "class": "invoice",
+    "degradation": "clean",
+    "truth": {
+      "invoice_number": "INV-2025-8747",
+      "invoice_date": "2026-02-16",
+      "vendor": "CEDAR & STONE STUDIO",
+      "total": "1327.44",
+      "subtotal": "1229.11",
+      "tax": "98.33"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv04_blur15.jpg",
+    "class": "invoice_degraded",
+    "degradation": "blur15",
+    "truth": {
+      "invoice_number": "INV-2025-8747",
+      "invoice_date": "2026-02-16",
+      "vendor": "CEDAR & STONE STUDIO",
+      "total": "1327.44",
+      "subtotal": "1229.11",
+      "tax": "98.33"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv04_rot5.jpg",
+    "class": "invoice_degraded",
+    "degradation": "rot5",
+    "truth": {
+      "invoice_number": "INV-2025-8747",
+      "invoice_date": "2026-02-16",
+      "vendor": "CEDAR & STONE STUDIO",
+      "total": "1327.44",
+      "subtotal": "1229.11",
+      "tax": "98.33"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv04_worst.jpg",
+    "class": "invoice_degraded",
+    "degradation": "worst",
+    "truth": {
+      "invoice_number": "INV-2025-8747",
+      "invoice_date": "2026-02-16",
+      "vendor": "CEDAR & STONE STUDIO",
+      "total": "1327.44",
+      "subtotal": "1229.11",
+      "tax": "98.33"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "rcp04_clean.png",
+    "class": "receipt",
+    "degradation": "clean",
+    "truth": {
+      "total": "1327.44",
+      "subtotal": "1229.11",
+      "tax": "98.33"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv05_clean.png",
+    "class": "invoice",
+    "degradation": "clean",
+    "truth": {
+      "invoice_number": "INV-2024-7745",
+      "invoice_date": "2026-06-02",
+      "vendor": "KILIMANJARO TRADING",
+      "total": "1815.56",
+      "subtotal": "1681.07",
+      "tax": "134.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv05_blur15.jpg",
+    "class": "invoice_degraded",
+    "degradation": "blur15",
+    "truth": {
+      "invoice_number": "INV-2024-7745",
+      "invoice_date": "2026-06-02",
+      "vendor": "KILIMANJARO TRADING",
+      "total": "1815.56",
+      "subtotal": "1681.07",
+      "tax": "134.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv05_rot5.jpg",
+    "class": "invoice_degraded",
+    "degradation": "rot5",
+    "truth": {
+      "invoice_number": "INV-2024-7745",
+      "invoice_date": "2026-06-02",
+      "vendor": "KILIMANJARO TRADING",
+      "total": "1815.56",
+      "subtotal": "1681.07",
+      "tax": "134.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "inv05_worst.jpg",
+    "class": "invoice_degraded",
+    "degradation": "worst",
+    "truth": {
+      "invoice_number": "INV-2024-7745",
+      "invoice_date": "2026-06-02",
+      "vendor": "KILIMANJARO TRADING",
+      "total": "1815.56",
+      "subtotal": "1681.07",
+      "tax": "134.49"
+    },
+    "expect": {
+      "docType": "invoice",
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "form00_clean.png",
+    "class": "form",
+    "degradation": "clean",
+    "truth": {
+      "full_name": "SOFIA RAJAN",
+      "email": "sofia.rajan@example.test",
+      "phone": "+1 555 0950 2734",
+      "date_of_birth": "1870-07-16"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "form00_worst.jpg",
+    "class": "form",
+    "degradation": "worst",
+    "truth": {
+      "full_name": "SOFIA RAJAN",
+      "email": "sofia.rajan@example.test",
+      "phone": "+1 555 0950 2734",
+      "date_of_birth": "1870-07-16"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "form01_clean.png",
+    "class": "form",
+    "degradation": "clean",
+    "truth": {
+      "full_name": "SOFIA HOLT",
+      "email": "sofia.holt@example.test",
+      "phone": "+1 555 0475 6401",
+      "date_of_birth": "1971-05-14"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "form01_worst.jpg",
+    "class": "form",
+    "degradation": "worst",
+    "truth": {
+      "full_name": "SOFIA HOLT",
+      "email": "sofia.holt@example.test",
+      "phone": "+1 555 0475 6401",
+      "date_of_birth": "1971-05-14"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "form02_clean.png",
+    "class": "form",
+    "degradation": "clean",
+    "truth": {
+      "full_name": "DEV ENDO",
+      "email": "dev.endo@example.test",
+      "phone": "+1 555 0675 1235",
+      "date_of_birth": "1890-05-15"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "form02_worst.jpg",
+    "class": "form",
+    "degradation": "worst",
+    "truth": {
+      "full_name": "DEV ENDO",
+      "email": "dev.endo@example.test",
+      "phone": "+1 555 0675 1235",
+      "date_of_birth": "1890-05-15"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "form03_clean.png",
+    "class": "form",
+    "degradation": "clean",
+    "truth": {
+      "full_name": "DEV RAJAN",
+      "email": "dev.rajan@example.test",
+      "phone": "+1 555 0752 5020",
+      "date_of_birth": "1886-03-16"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "form03_worst.jpg",
+    "class": "form",
+    "degradation": "worst",
+    "truth": {
+      "full_name": "DEV RAJAN",
+      "email": "dev.rajan@example.test",
+      "phone": "+1 555 0752 5020",
+      "date_of_birth": "1886-03-16"
+    },
+    "expect": {
+      "noSilentErrors": true
+    }
+  },
+  {
+    "file": "neg_book.png",
+    "class": "negative",
+    "degradation": "clean",
+    "truth": null,
+    "expect": {
+      "mrzValid": false,
+      "noConfirmedIdentityOrMoney": true
+    }
+  },
+  {
+    "file": "neg_screenshot.png",
+    "class": "negative",
+    "degradation": "clean",
+    "truth": null,
+    "expect": {
+      "mrzValid": false,
+      "noConfirmedIdentityOrMoney": true
+    }
+  }
+]

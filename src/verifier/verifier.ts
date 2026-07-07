@@ -154,6 +154,13 @@ export class VerifierService {
       reasons.push('Evidence is sufficient and all critical validators passed.');
     }
 
+    // Review cap (N1): a hypothesis whose source cannot PROVE its value never
+    // auto-confirms, regardless of confidence. User edits take precedence.
+    if (status === 'confirmed' && hyp.reviewCap && !hyp.userEdited) {
+      status = 'needs_review';
+      reasons.push(hyp.reviewCap);
+    }
+
     hyp.status = status;
     hyp.reasons = reasons;
     hyp.confidence.reasons = [...conf.reasons, ...reasons];
@@ -295,12 +302,14 @@ export class VerifierService {
       }
     }
 
-    // Document / passport number.
+    // Document / passport number. Check EVERY matching hypothesis — a wrong
+    // duplicate must not escape because a correct twin was found first.
     if (f.documentNumber) {
-      const docNo = graph.hypotheses.find(
+      const docNos = graph.hypotheses.filter(
         (h) => h.valueType === 'id_number' && /passport|document|doc\s*no|number/i.test(h.label),
       );
-      if (docNo && typeof docNo.value === 'string' && docNo.value.trim() !== '') {
+      for (const docNo of docNos) {
+        if (typeof docNo.value !== 'string' || docNo.value.trim() === '') continue;
         const a = normalizeId(docNo.value).normalized;
         const b = normalizeId(f.documentNumber).normalized;
         if (a !== b) {
@@ -326,6 +335,68 @@ export class VerifierService {
             exp,
             `MRZ expiry (${f.expiryDate}) does not match the visible expiry (${iso}).`,
             { mrz: f.expiryDate, visual: iso },
+          );
+        }
+      }
+    }
+
+    // Issuing state / nationality codes (live-caught silent error class):
+    // these MRZ positions have NO checksum coverage, so they are never
+    // promoted authoritatively — but a valid MRZ still provides a second
+    // reading. Disagreement between two independent reads of the same code
+    // is exactly what review exists for. Only compared when both sides look
+    // like 3-letter codes (the visible side may hold a full country name).
+    const codePairs: Array<[string | undefined, RegExp]> = [
+      [f.issuingCountry, /country\s*code/i],
+      [f.nationality, /nationality/i],
+    ];
+    for (const [code, labelRe] of codePairs) {
+      if (!code || !/^[A-Z]{3}$/.test(code)) continue;
+      for (const hyp of graph.hypotheses) {
+        if (hyp.valueType === 'mrz' || !labelRe.test(hyp.label)) continue;
+        if (typeof hyp.value !== 'string') continue;
+        const visual = hyp.value.trim().toUpperCase();
+        if (!/^[A-Z]{3}$/.test(visual)) continue;
+        if (visual !== code) {
+          addConflict(
+            hyp,
+            `MRZ code (${code}) does not match the visible value (${hyp.value}).`,
+            { mrz: code, visual: hyp.value },
+          );
+        }
+      }
+    }
+
+    // Sex.
+    if (f.sex === 'M' || f.sex === 'F' || f.sex === 'X') {
+      for (const hyp of graph.hypotheses) {
+        if (hyp.valueType === 'mrz' || !/^sex$|gender/i.test(hyp.label.trim())) continue;
+        if (typeof hyp.value !== 'string') continue;
+        const visual = hyp.value.trim().toUpperCase();
+        if (!/^[MFX]$/.test(visual)) continue;
+        if (visual !== f.sex) {
+          addConflict(
+            hyp,
+            `MRZ sex (${f.sex}) does not match the visible value (${hyp.value}).`,
+            { mrz: f.sex, visual: hyp.value },
+          );
+        }
+      }
+    }
+
+    // Surname. Skipped when the MRZ-side name is degenerate (< 2 chars — an
+    // OCR-shredded MRZ line 1 must not taint a clean visible surname).
+    if (f.surname && f.surname.trim().length >= 2) {
+      const mrzName = f.surname.trim().toUpperCase().replace(/[^A-Z ]/g, '');
+      for (const hyp of graph.hypotheses) {
+        if (hyp.valueType === 'mrz' || !/surname|last\s*name/i.test(hyp.label)) continue;
+        if (typeof hyp.value !== 'string' || hyp.value.trim().length < 2) continue;
+        const visual = hyp.value.trim().toUpperCase().replace(/[^A-Z ]/g, '');
+        if (visual && mrzName && visual !== mrzName) {
+          addConflict(
+            hyp,
+            `MRZ surname (${f.surname}) does not match the visible value (${hyp.value}).`,
+            { mrz: f.surname, visual: hyp.value },
           );
         }
       }
