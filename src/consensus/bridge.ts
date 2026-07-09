@@ -2,18 +2,27 @@
  * Consensus bridge (P5.2 "verifier becomes consumer") — the seam between
  * the certified DocGraph pipeline and the attestation layer.
  *
- * ADDITIVE LAW (certification protection): consensus may only
- *   (a) ATTACH printable justification chains to hypotheses (GATE P5), and
+ * THE LAW (post promotion A/B):
+ *   (a) ATTACH printable justification chains to hypotheses (GATE P5);
  *   (b) DOWNGRADE a confirmed hypothesis that an attestor CONTRADICTS
- *       (turning a potential silent error into review — strictly safer).
- * It NEVER upgrades: a review-status field stays review even when proven —
- * promotion authority migrates here only after a dedicated A/B + burst
- * re-certification.
+ *       (turning a potential silent error into review — strictly safer);
+ *   (c) PROMOTE a plain review hypothesis that an attestor PROVES — under
+ *       three iron guards:
+ *         • NEVER a reviewCap'd hypothesis: caps mark spots where a checksum
+ *           was BLIND to an ambiguity — the same math cannot buy them back;
+ *         • NEVER below PROMOTION_MIN_STRENGTH (0.9): schemes with fat
+ *           measured blind spots (IMO ~11%) may support, not auto-confirm;
+ *         • `proven` requires ZERO contradictions (attestAll's definition).
+ *       Promotion is flag-gated; the full-universe burst A/B is the judge
+ *       (recall may only rise, SILENT stays 0).
  */
 
 import type { DocGraph, FieldHypothesis } from '../core/types';
 import { attestAll } from './attestors';
 import type { DocContext, FieldCandidate } from './types';
+
+/** Proof strength floor for auto-confirmation (see measured blind spots). */
+export const PROMOTION_MIN_STRENGTH = 0.9;
 
 /** Map pipeline hypotheses onto consensus candidates. */
 export function hypothesesToCandidates(hypotheses: readonly FieldHypothesis[]): FieldCandidate[] {
@@ -43,15 +52,23 @@ export function hypothesesToCandidates(hypotheses: readonly FieldHypothesis[]): 
 export interface ConsensusAugmentation {
   /** Hypothesis ids downgraded confirmed → needs_review (with reasons). */
   downgraded: Array<{ id: string; label: string; reason: string }>;
+  /** Hypothesis ids promoted needs_review → confirmed by proof. */
+  promoted: Array<{ id: string; label: string; attestors: string[] }>;
   /** Hypothesis ids that carry at least one 'proves' justification. */
   justified: string[];
 }
 
 /**
- * Run the attestor registry over the verified graph and apply the additive
- * law IN PLACE (the graph object is the pipeline's own mutable copy).
+ * Run the attestor registry over the verified graph and apply the law IN
+ * PLACE (the graph object is the pipeline's own mutable copy).
+ * `promote` gates (c) — default ON post-A/B; set false to reproduce the
+ * additive-only behavior for comparisons.
  */
-export function augmentWithConsensus(graph: DocGraph, now: Date = new Date()): ConsensusAugmentation {
+export function augmentWithConsensus(
+  graph: DocGraph,
+  now: Date = new Date(),
+  promote = true,
+): ConsensusAugmentation {
   const candidates = hypothesesToCandidates(graph.hypotheses);
   const ctx: DocContext = {
     docType: graph.metadata?.sourceFileType ?? 'unknown',
@@ -60,7 +77,7 @@ export function augmentWithConsensus(graph: DocGraph, now: Date = new Date()): C
     now,
   };
   const outcomes = attestAll(ctx);
-  const result: ConsensusAugmentation = { downgraded: [], justified: [] };
+  const result: ConsensusAugmentation = { downgraded: [], promoted: [], justified: [] };
 
   for (const h of graph.hypotheses) {
     const o = outcomes.get(h.id);
@@ -80,6 +97,31 @@ export function augmentWithConsensus(graph: DocGraph, now: Date = new Date()): C
       h.status = 'needs_review';
       h.reasons.push(`⛔ downgraded — ${reason}`);
       result.downgraded.push({ id: h.id, label: h.label, reason });
+    }
+
+    // (c) proof promotes a PLAIN review field — the three iron guards.
+    if (
+      promote &&
+      o.proven && // ≥1 proves AND zero contradictions
+      h.status === 'needs_review' &&
+      !h.reviewCap && // capped ambiguity is NEVER bought back by the same math
+      !h.userEdited &&
+      !result.downgraded.some((d) => d.id === h.id) // never re-promote a downgrade
+    ) {
+      const proofs = o.attestations.filter(
+        (a) => a.verdict === 'proves' && a.strength >= PROMOTION_MIN_STRENGTH,
+      );
+      if (proofs.length > 0) {
+        h.status = 'confirmed';
+        h.confidence.overall = Math.max(
+          h.confidence.overall,
+          Math.max(...proofs.map((p) => p.strength)),
+        );
+        h.reasons.push(
+          `⚡ promoted — proven by ${proofs.map((p) => p.attestorId).join(', ')} (N1: proof, not confidence)`,
+        );
+        result.promoted.push({ id: h.id, label: h.label, attestors: proofs.map((p) => p.attestorId) });
+      }
     }
   }
   return result;

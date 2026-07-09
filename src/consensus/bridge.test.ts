@@ -74,7 +74,7 @@ describe('augmentWithConsensus: the additive law', () => {
     expect(num.reasons.some((x) => x.includes('agrees with MRZ'))).toBe(true);
   });
 
-  it('NEVER upgrades: proven-but-review stays review', () => {
+  it('proven review field promotes under the default (post-A/B) law', () => {
     const iban = hyp({
       label: 'IBAN', value: 'GB82WEST12345698765432', valueType: 'id_number',
       canonicalLabel: 'iban', status: 'needs_review',
@@ -82,7 +82,7 @@ describe('augmentWithConsensus: the additive law', () => {
     const g = graph([iban]);
     const r = augmentWithConsensus(g);
     expect(r.justified).toContain(iban.id);
-    expect(iban.status).toBe('needs_review'); // promotion needs the A/B
+    expect(iban.status).toBe('confirmed'); // checksum.iban strength 0.99 ≥ 0.9
   });
 
   it('DOWNGRADES a confirmed field the attestors contradict — silent killer', () => {
@@ -125,5 +125,72 @@ describe('augmentWithConsensus: the additive law', () => {
     const before = JSON.stringify(name);
     augmentWithConsensus(graph([name]));
     expect(JSON.stringify(name)).toBe(before);
+  });
+});
+
+describe('promotion authority (post-A/B law)', () => {
+  it('PROMOTES a plain review field the attestors prove', () => {
+    const mrz = hyp({ label: 'MRZ', value: MRZ_VALID, valueType: 'mrz' });
+    const num = hyp({
+      label: 'Passport Number', value: 'L898902C3', valueType: 'id_number',
+      canonicalLabel: 'passport_number', status: 'needs_review',
+    });
+    const r = augmentWithConsensus(graph([mrz, num]));
+    expect(num.status).toBe('confirmed');
+    const numPromotion = r.promoted.find((p) => p.id === num.id);
+    expect(numPromotion?.attestors).toContain('checksum.mrz');
+    // The MRZ hypothesis itself also promotes — all check digits ARE proof.
+    expect(r.promoted.some((p) => p.id === mrz.id)).toBe(true);
+    expect(num.reasons.some((x) => x.includes('⚡ promoted'))).toBe(true);
+    expect(num.confidence.overall).toBeGreaterThanOrEqual(0.9);
+  });
+
+  it('IRON GUARD 1: reviewCap is NEVER bought back by the same math', () => {
+    const iban = hyp({
+      label: 'IBAN', value: 'GB82WEST12345698765432', valueType: 'id_number',
+      canonicalLabel: 'iban', status: 'needs_review',
+      reviewCap: 'checksum-invisible ambiguity in source read',
+    });
+    const r = augmentWithConsensus(graph([iban]));
+    expect(iban.status).toBe('needs_review');
+    expect(r.promoted).toEqual([]);
+    // Justification still attaches — visible, not authoritative.
+    expect(r.justified).toContain(iban.id);
+  });
+
+  it('IRON GUARD 2: weak-scheme proof (below 0.9) supports, never auto-confirms', () => {
+    // IMO strength is 0.87 (measured ~11% blind spot) < PROMOTION_MIN_STRENGTH.
+    const imo = hyp({
+      label: 'IMO Number', value: 'IMO9074729', valueType: 'id_number',
+      canonicalLabel: 'imo', status: 'needs_review',
+    });
+    const r = augmentWithConsensus(graph([imo]));
+    expect(imo.status).toBe('needs_review');
+    expect(r.promoted).toEqual([]);
+  });
+
+  it('IRON GUARD 3: contradicted fields never promote (proven ⇒ zero contradictions)', () => {
+    const mrz = hyp({ label: 'MRZ', value: MRZ_VALID, valueType: 'mrz' });
+    // Claimed IBAN with VALID mod-97 but the label ALSO maps to MRZ… simpler:
+    // a passport_number in review that DISAGREES with the proven MRZ.
+    const wrong = hyp({
+      label: 'Passport Number', value: 'LI898902C3', valueType: 'id_number',
+      canonicalLabel: 'passport_number', status: 'needs_review',
+    });
+    const r = augmentWithConsensus(graph([mrz, wrong]));
+    expect(wrong.status).toBe('needs_review');
+    expect(r.promoted.some((p) => p.id === wrong.id)).toBe(false); // the contradicted field never promotes
+  });
+
+  it('promote=false reproduces additive-only behavior exactly (A/B control arm)', () => {
+    const mrz = hyp({ label: 'MRZ', value: MRZ_VALID, valueType: 'mrz' });
+    const num = hyp({
+      label: 'Passport Number', value: 'L898902C3', valueType: 'id_number',
+      canonicalLabel: 'passport_number', status: 'needs_review',
+    });
+    const r = augmentWithConsensus(graph([mrz, num]), new Date(), false);
+    expect(num.status).toBe('needs_review');
+    expect(r.promoted).toEqual([]);
+    expect(r.justified).toContain(num.id);
   });
 });
