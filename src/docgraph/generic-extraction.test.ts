@@ -163,6 +163,40 @@ describe('extractGenericFields', () => {
     expect(fields[0].value).toBe('RAHUL');
   });
 
+  it('extracts colonless card contacts and the structural identity heading', () => {
+    const items: OcrItem[] = [
+      mk('ANNA ERIKSSON', 0.05, 0.15, 0.3, 0.2),
+      mk('Senior Engineer', 0.05, 0.22, 0.25, 0.26),
+      mk('Cobalt Ridge Consulting', 0.05, 0.3, 0.36, 0.34),
+      mk('Email  anna@cobaltridgeconsulting.example', 0.05, 0.68, 0.55, 0.72),
+      mk('Phone  +1-555-0100', 0.05, 0.75, 0.3, 0.79),
+      mk('Web    www.cobaltridgeconsulting.example', 0.05, 0.82, 0.55, 0.86),
+    ];
+
+    const map = byCanonical(extractGenericFields(items));
+    expect(map.email?.value).toBe('anna@cobaltridgeconsulting.example');
+    expect(map.email?.valueType).toBe('email');
+    expect(map.phone?.value).toBe('+1-555-0100');
+    expect(map.phone?.valueType).toBe('phone');
+    expect(map.full_name?.value).toBe('ANNA ERIKSSON');
+    expect(map.full_name?.valueType).toBe('name');
+  });
+
+  it('does not invent a contact name without both validated channels', () => {
+    const titleBlock: OcrItem[] = [
+      mk('QUARTERLY REPORT', 0.05, 0.1, 0.3, 0.14),
+      mk('NORTHWIND TRADERS', 0.05, 0.18, 0.32, 0.22),
+      mk('Email not-an-email', 0.05, 0.8, 0.3, 0.84),
+    ];
+    expect(byCanonical(extractGenericFields(titleBlock)).full_name).toBeUndefined();
+
+    const oneChannel = [
+      ...titleBlock.slice(0, 2),
+      mk('Email audit@northwind.example', 0.05, 0.8, 0.38, 0.84),
+    ];
+    expect(byCanonical(extractGenericFields(oneChannel)).full_name).toBeUndefined();
+  });
+
   it('ignores items in excludeNodeIds', () => {
     const items: OcrItem[] = [
       mk('Place of Birth', 0.05, 0.4, 0.18, 0.43),

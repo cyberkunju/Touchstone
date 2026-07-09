@@ -246,6 +246,30 @@ describe('extractFields — UAE passport (the bug)', () => {
 /* -------------------------------------------------------------------------- */
 
 describe('extractFields — strong-type omission', () => {
+  it('extracts insurance policy identity fields from a utility-like notice', () => {
+    const items: OcrItem[] = [
+      it_('Policy Number', 0.05, 0.2, 0.18, 0.23),
+      it_('Policy Holder', 0.3, 0.2, 0.43, 0.23),
+      it_('Due Date', 0.62, 0.2, 0.7, 0.23),
+      it_('POL-178061', 0.05, 0.25, 0.17, 0.29),
+      it_('ANNA ERIKSSON', 0.3, 0.25, 0.46, 0.29),
+      it_('20/08/2026', 0.62, 0.25, 0.74, 0.29),
+    ];
+
+    const map = byCanonical(extractFields(items, 'utility_bill'));
+    expect(map.policy_number?.value).toBe('POL-178061');
+    expect(map.policy_holder?.value).toBe('ANNA ERIKSSON');
+    expect(map.due_date?.value).toBe('20/08/2026');
+  });
+
+  it('refuses a policy number label whose value does not satisfy POL grammar', () => {
+    const items: OcrItem[] = [
+      it_('Policy Number', 0.05, 0.2, 0.18, 0.23),
+      it_('ACCOUNT-178061', 0.05, 0.25, 0.2, 0.29),
+    ];
+    expect(byCanonical(extractFields(items, 'utility_bill')).policy_number).toBeUndefined();
+  });
+
   it('omits a date field that has no valid date neighbor', () => {
     const items: OcrItem[] = [
       it_('Date of Birth', 0.05, 0.4, 0.18, 0.43),

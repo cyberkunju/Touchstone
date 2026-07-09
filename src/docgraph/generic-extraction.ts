@@ -32,7 +32,7 @@
 
 import { OcrItem } from './ocr-item';
 import { FieldValueType } from '../core/types';
-import { parseDate, parseAmount } from '../parsers/scalars';
+import { isPlausiblePhone, isValidEmail, parseDate, parseAmount } from '../parsers/scalars';
 import { getBoxCenter, getDistance } from '../core/geometry';
 
 /* -------------------------------------------------------------------------- */
@@ -296,8 +296,85 @@ export function extractGenericFields(
   const consumed = new Set<string>();
   const inlineFields: GenericField[] = [];
 
-  // 2. Inline "Label: value" pairs (label and value live in the same item).
+  // 2a. Self-labeled contact lines (label and value live in the same OCR
+  // item, but cards commonly omit the colon: "Email a@b.com", "Phone +1…").
+  // The scalar validators are the gate — a prefix alone proves nothing.
+  let hasEmail = false;
+  let hasPhone = false;
   for (const item of pool) {
+    const text = collapseWhitespace(item.text);
+    const email = text.match(/^e-?mail\s*:?\s*(\S+@\S+)$/i)?.[1] ?? null;
+    if (email && isValidEmail(email)) {
+      inlineFields.push({
+        canonicalLabel: 'email',
+        label: 'Email',
+        valueType: 'email',
+        value: email,
+        valueItem: item,
+        labelItem: item,
+        score: 0.95,
+      });
+      consumed.add(item.nodeId);
+      hasEmail = true;
+      continue;
+    }
+
+    const phone = text.match(/^(?:phone|tel(?:ephone)?|mobile)\s*:?\s*(\+?[0-9][0-9().\s-]*[0-9])$/i)?.[1] ?? null;
+    if (phone && isPlausiblePhone(phone)) {
+      inlineFields.push({
+        canonicalLabel: 'phone',
+        label: 'Phone',
+        valueType: 'phone',
+        value: phone,
+        valueItem: item,
+        labelItem: item,
+        score: 0.95,
+      });
+      consumed.add(item.nodeId);
+      hasPhone = true;
+    }
+  }
+
+  // Contact-cluster name law: when BOTH independent contact channels exist,
+  // a topmost uppercase 2–4-word alphabetic line above them is the card's
+  // identity heading. This is structural, not a name dictionary. The App's
+  // generic-name law review-caps it, so it improves recall without gaining
+  // confirmation authority.
+  if (hasEmail && hasPhone) {
+    const firstContactY = Math.min(
+      ...pool.filter((it) => consumed.has(it.nodeId)).map((it) => it.boxNorm[1]),
+    );
+    const name = pool
+      .filter((it) => !consumed.has(it.nodeId) && it.boxNorm[1] < firstContactY)
+      .filter((it) => {
+        const text = collapseWhitespace(it.text);
+        const words = text.split(/\s+/);
+        return (
+          words.length >= 2 &&
+          words.length <= 4 &&
+          text.length <= 60 &&
+          /^[A-Z][A-Z .'-]*$/.test(text) &&
+          /[A-Z].*\s+[A-Z]/.test(text)
+        );
+      })
+      .sort((a, b) => a.boxNorm[1] - b.boxNorm[1] || a.boxNorm[0] - b.boxNorm[0])[0];
+    if (name) {
+      inlineFields.push({
+        canonicalLabel: 'full_name',
+        label: 'Full Name',
+        valueType: 'name',
+        value: collapseWhitespace(name.text),
+        valueItem: name,
+        labelItem: name,
+        score: 0.85,
+      });
+      consumed.add(name.nodeId);
+    }
+  }
+
+  // 2b. Inline "Label: value" pairs (label and value live in the same item).
+  for (const item of pool) {
+    if (consumed.has(item.nodeId)) continue;
     const colonIdx = item.text.indexOf(':');
     if (colonIdx < 0) {
       continue;

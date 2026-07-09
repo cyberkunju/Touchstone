@@ -336,6 +336,26 @@ export const PAYSLIP_FIELDS: FieldSpec[] = [
 /** Utility bills — line-item closure family (Tier 2). */
 export const UTILITY_BILL_FIELDS: FieldSpec[] = [
   {
+    // Insurance renewal notices currently classify as utility_bill because
+    // the strong structural signal is "Due Date / Total Due". Keep that
+    // classification honest and extend the shared billing registry with the
+    // insurance-specific labels — exact labels mean ordinary utilities are
+    // unaffected.
+    canonicalLabel: 'policy_number',
+    displayLabel: 'Policy Number',
+    synonyms: ['policy number', 'policy no'],
+    valueType: 'id_number',
+    valuePattern: /^POL-[A-Z0-9][A-Z0-9-]{3,}$/i,
+    required: false,
+  },
+  {
+    canonicalLabel: 'policy_holder',
+    displayLabel: 'Policy Holder',
+    synonyms: ['policy holder', 'insured name'],
+    valueType: 'name',
+    required: false,
+  },
+  {
     canonicalLabel: 'account_number',
     displayLabel: 'Account Number',
     synonyms: ['account number', 'account no', 'customer number'],
