@@ -521,6 +521,110 @@ const inferenceApi = {
   },
 
   /**
+   * Full-page detect + recognize in ONE worker call (13 §5: batching is the
+   * single biggest CPU win and is mandatory). Detection runs once; every
+   * line crop is cropped/padded worker-side (no per-line Comlink round-trip,
+   * no per-line bitmap transfer) and recognized through batched tensors:
+   * crops sharing an EXACT target width form one [N,3,48,W] session.run —
+   * per-item preprocessing is bit-identical to recognizeText, so results
+   * cannot drift from the certified single-crop path.
+   */
+  async detectAndRecognize(
+    detModelName: string,
+    recModelName: string,
+    imageBitmap: ImageBitmap,
+    options?: DbnetPostOptions,
+  ): Promise<{ text: string; confidence: number; boxNorm: Box; lattice: Lattice }[]> {
+    const detInfo = loadedSessions[detModelName];
+    const recInfo = loadedSessions[recModelName];
+    if (!detInfo || !recInfo) throw new Error('Detection/recognition model not loaded in worker');
+    if (!recognitionVocab) throw new Error('Recognition vocabulary not set. Call setRecognitionVocab first.');
+
+    const boxes = await detectLinesCore(detInfo, imageBitmap, options);
+
+    // Crop with the SAME padding law as the certified App loop (25% of line
+    // height horizontal, 8% vertical).
+    interface Prepared { boxNorm: Box; float: Float32Array; targetW: number }
+    const prepared: Prepared[] = [];
+    const w = imageBitmap.width;
+    const h = imageBitmap.height;
+    for (const box of boxes) {
+      const [bx1, by1, bx2, by2] = box;
+      const origX1 = Math.round(bx1 * w);
+      const origY1 = Math.round(by1 * h);
+      const origW = Math.round((bx2 - bx1) * w);
+      const origH = Math.round((by2 - by1) * h);
+      const px = Math.round(origH * 0.25);
+      const py = Math.round(origH * 0.08);
+      const x1 = Math.max(0, origX1 - px);
+      const y1 = Math.max(0, origY1 - py);
+      const x2 = Math.min(w, origX1 + origW + px);
+      const y2 = Math.min(h, origY1 + origH + py);
+      const cropW = x2 - x1;
+      const cropH = y2 - y1;
+      if (cropW <= 0 || cropH <= 0) continue;
+
+      const imgH = REC_INPUT_HEIGHT;
+      const targetW = computeRecTargetWidth(cropW, cropH, imgH, REC_MAX_WIDTH);
+      // TWO-step draw (crop at native size, then resize) — bit-identical to
+      // the certified App-loop + recognizeCropCore resampling chain.
+      const cropCanvas = new OffscreenCanvas(cropW, cropH);
+      cropCanvas.getContext('2d')!.drawImage(imageBitmap, x1, y1, cropW, cropH, 0, 0, cropW, cropH);
+      const canvas = new OffscreenCanvas(targetW, imgH);
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(cropCanvas, 0, 0, targetW, imgH);
+      const imageData = ctx.getImageData(0, 0, targetW, imgH);
+      const enhanced = enhanceForOcr(imageData.data, targetW, imgH, {
+        grayscale: false,
+        stretch: true,
+        sharpen: true,
+      });
+      prepared.push({
+        boxNorm: box,
+        float: normalizeRecognitionTensor(enhanced, targetW, imgH, targetW),
+        targetW,
+      });
+    }
+
+    // Group by exact target width → one batched forward per group.
+    const groups = new Map<number, Prepared[]>();
+    for (const p of prepared) {
+      const g = groups.get(p.targetW);
+      if (g) g.push(p);
+      else groups.set(p.targetW, [p]);
+    }
+
+    const out: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[] = [];
+    const imgH = REC_INPUT_HEIGHT;
+    for (const [targetW, group] of groups) {
+      const per = 3 * imgH * targetW;
+      const batch = new Float32Array(group.length * per);
+      group.forEach((p, i) => batch.set(p.float, i * per));
+      const inputTensor = new ort.Tensor('float32', batch, [group.length, 3, imgH, targetW]);
+      const results = await runSession(recInfo, { [recInfo.session.inputNames[0]]: inputTensor });
+      const outputTensor = results[recInfo.session.outputNames[0]];
+      const data = outputTensor.data as Float32Array;
+      const [n, timeSteps, numClasses] = outputTensor.dims as number[];
+      if (n !== group.length) throw new Error(`batch rec: expected ${group.length} outputs, got ${n}`);
+      const stride = timeSteps * numClasses;
+      for (let i = 0; i < n; i++) {
+        const slice = data.subarray(i * stride, (i + 1) * stride);
+        const greedy = decodeCTCGreedy(slice, timeSteps, numClasses, recognitionVocab);
+        if (greedy.text.trim() === '') continue;
+        out.push({
+          ...greedy,
+          boxNorm: group[i].boxNorm,
+          lattice: extractLattice(slice, timeSteps, numClasses, recognitionVocab),
+        });
+      }
+    }
+    // Restore detector order (top-to-bottom reading order downstream relies on it).
+    const rank = new Map(boxes.map((b, i) => [b, i]));
+    out.sort((a, b) => (rank.get(a.boxNorm) ?? 0) - (rank.get(b.boxNorm) ?? 0));
+    return out;
+  },
+
+  /**
    * High-resolution region OCR: detects text lines within an already-cropped,
    * upscaled region bitmap and recognizes each, returning lines ordered
    * top-to-bottom. Used to re-read small zones (e.g. the MRZ band) at full

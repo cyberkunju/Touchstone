@@ -114,21 +114,46 @@ async function browserHalf() {
     await page.goto('http://localhost:5173', { waitUntil: 'networkidle0', timeout: 60000 });
 
     // Unknown doc — full verified form ≤ 8 s (clean passport, throttled).
+    // Methodology per 13 §6: model/session warmup is one-time setup, NOT
+    // per-document cost — one untimed warmup upload loads the ONNX sessions,
+    // then budgets assert on the MEDIAN of 3 timed runs.
     const img = join(root, 'test_cases/passports/synthetic/id00_clean.png');
-    const input = await page.waitForSelector('input[type=file]', { timeout: 15000 });
-    // Attach the completion listener BEFORE uploading — a fast doc could
-    // emit its [GATE] line before a late listener exists (measured-race).
-    const done = new Promise((resolveWait) => {
-      const timer = setTimeout(resolveWait, 30000);
-      page.on('console', (msg) => {
-        if (msg.text().startsWith('[GATE]')) { clearTimeout(timer); resolveWait(); }
+    const timeOneUpload = async () => {
+      const input = await page.waitForSelector('input[type=file]', { timeout: 15000 });
+      // Attach the completion listener BEFORE uploading — a fast doc could
+      // emit its [GATE] line before a late listener exists (measured-race).
+      const done = new Promise((resolveWait) => {
+        const timer = setTimeout(resolveWait, 60000);
+        const onMsg = (msg) => {
+          if (msg.text().startsWith('[GATE]')) {
+            clearTimeout(timer);
+            page.off('console', onMsg);
+            resolveWait();
+          }
+        };
+        page.on('console', onMsg);
       });
-    });
-    const t0 = performance.now();
-    await input.uploadFile(img);
-    await done;
-    const elapsed = performance.now() - t0;
-    check('unknown doc full form (throttled 2x)', elapsed, 8000, 'ms');
+      const t0 = performance.now();
+      await input.uploadFile(img);
+      await done;
+      return performance.now() - t0;
+    };
+    await timeOneUpload(); // warmup: session + dictionary load (untimed)
+    const runs = [];
+    for (let i = 0; i < 3; i++) {
+      // Reset via the app's own Clear Document control — sessions stay hot;
+      // steady-state per-document cost is what the 13 §3 budget governs.
+      await page.evaluate(() => {
+        const btn = [...document.querySelectorAll('button')].find((b) =>
+          b.textContent?.includes('Clear Document'),
+        );
+        if (!btn) throw new Error('Clear Document button not found');
+        btn.click();
+      });
+      runs.push(await timeOneUpload());
+    }
+    runs.sort((a, b) => a - b);
+    check('unknown doc full form (throttled 2x, median of 3)', runs[1], 8000, 'ms');
   } finally {
     await browser.close();
   }

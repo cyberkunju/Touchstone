@@ -1,0 +1,326 @@
+[
+ {
+  "file": "invoice_card_00.png",
+  "class": "mixed_page",
+  "layout": "side",
+  "constituents": [
+   {
+    "family": "docs",
+    "sourceFile": "inv00_clean.png",
+    "truth": {
+     "invoice_number": "INV-2026-2205",
+     "invoice_date": "2026-11-24",
+     "vendor": "NORTHWIND SUPPLIES LTD",
+     "total": "880.26",
+     "subtotal": "815.06",
+     "tax": "65.20"
+    }
+   },
+   {
+    "family": "business_cards",
+    "sourceFile": "card_id00_clean.png",
+    "truth": {
+     "full_name": "ANNA ERIKSSON",
+     "email": "anna@cobaltridgeconsulting.example",
+     "phone": "+1-555-0100"
+    }
+   }
+  ],
+  "expect": {
+   "noSilentErrors": true,
+   "noCrossDocumentBleed": true
+  }
+ },
+ {
+  "file": "invoice_card_01.png",
+  "class": "mixed_page",
+  "layout": "side",
+  "constituents": [
+   {
+    "family": "docs",
+    "sourceFile": "inv01_clean.png",
+    "truth": {
+     "invoice_number": "INV-2025-9748",
+     "invoice_date": "2026-08-06",
+     "vendor": "ACME INDUSTRIAL CO",
+     "total": "2604.92",
+     "subtotal": "2411.96",
+     "tax": "192.96"
+    }
+   },
+   {
+    "family": "business_cards",
+    "sourceFile": "card_id01_clean.png",
+    "truth": {
+     "full_name": "KENJI NAKAMURA",
+     "email": "kenji@fernlinestudios.example",
+     "phone": "+1-555-0101"
+    }
+   }
+  ],
+  "expect": {
+   "noSilentErrors": true,
+   "noCrossDocumentBleed": true
+  }
+ },
+ {
+  "file": "invoice_card_02.png",
+  "class": "mixed_page",
+  "layout": "side",
+  "constituents": [
+   {
+    "family": "docs",
+    "sourceFile": "inv02_clean.png",
+    "truth": {
+     "invoice_number": "INV-2024-3042",
+     "invoice_date": "2026-03-05",
+     "vendor": "BLUE HARBOR FOODS",
+     "total": "492.67",
+     "subtotal": "456.18",
+     "tax": "36.49"
+    }
+   },
+   {
+    "family": "business_cards",
+    "sourceFile": "card_id02_clean.png",
+    "truth": {
+     "full_name": "CHINWE OKONKWO",
+     "email": "chinwe@atlasmeadowfoods.example",
+     "phone": "+1-555-0102"
+    }
+   }
+  ],
+  "expect": {
+   "noSilentErrors": true,
+   "noCrossDocumentBleed": true
+  }
+ },
+ {
+  "file": "two_ids_00.png",
+  "class": "mixed_page",
+  "layout": "stack",
+  "constituents": [
+   {
+    "family": "id_cards",
+    "sourceFile": "td1_id00_clean.png",
+    "truth": {
+     "passport_number": "E46VYDDTE",
+     "country_code": "UTO",
+     "date_of_birth": "1992-07-02",
+     "sex": "F",
+     "date_of_expiry": "2029-03-15",
+     "surname": "ERIKSSON",
+     "mrzLines": [
+      "I<UTOE46VYDDTE0<<<<<<<<<<<<<<<",
+      "9207020F2903150UTO<<<<<<<<<<<4",
+      "ERIKSSON<<ANNA<MARIA<<<<<<<<<<"
+     ]
+    }
+   },
+   {
+    "family": "id_cards",
+    "sourceFile": "td2_id01_clean.png",
+    "truth": {
+     "passport_number": "9GX9X13AJ",
+     "country_code": "XAA",
+     "date_of_birth": "1957-08-22",
+     "sex": "M",
+     "date_of_expiry": "2029-07-10",
+     "surname": "NAKAMURA",
+     "mrzLines": [
+      "I<XAANAKAMURA<<KENJI<<<<<<<<<<<<<<<<",
+      "9GX9X13AJ7XAA5708220M2907103<<<<<<<0"
+     ]
+    }
+   }
+  ],
+  "expect": {
+   "noSilentErrors": true,
+   "noCrossDocumentBleed": true
+  }
+ },
+ {
+  "file": "two_ids_01.png",
+  "class": "mixed_page",
+  "layout": "stack",
+  "constituents": [
+   {
+    "family": "id_cards",
+    "sourceFile": "td1_id02_clean.png",
+    "truth": {
+     "passport_number": "HEHXAYEKT",
+     "country_code": "XBB",
+     "date_of_birth": "1950-02-05",
+     "sex": "F",
+     "date_of_expiry": "2029-04-21",
+     "surname": "OKONKWO",
+     "mrzLines": [
+      "I<XBBHEHXAYEKT0<<<<<<<<<<<<<<<",
+      "5002054F2904216XBB<<<<<<<<<<<0",
+      "OKONKWO<<CHINWE<ADAEZE<<<<<<<<"
+     ]
+    }
+   },
+   {
+    "family": "id_cards",
+    "sourceFile": "td2_id03_clean.png",
+    "truth": {
+     "passport_number": "7TFL7JV2Y",
+     "country_code": "XCC",
+     "date_of_birth": "1953-11-17",
+     "sex": "M",
+     "date_of_expiry": "2029-07-18",
+     "surname": "OBRIEN",
+     "mrzLines": [
+      "I<XCCOBRIEN<<SIOBHAN<<<<<<<<<<<<<<<<",
+      "7TFL7JV2Y5XCC5311172M2907181<<<<<<<8"
+     ]
+    }
+   }
+  ],
+  "expect": {
+   "noSilentErrors": true,
+   "noCrossDocumentBleed": true
+  }
+ },
+ {
+  "file": "two_ids_02.png",
+  "class": "mixed_page",
+  "layout": "stack",
+  "constituents": [
+   {
+    "family": "id_cards",
+    "sourceFile": "td1_id04_clean.png",
+    "truth": {
+     "passport_number": "5VFCPTJ6L",
+     "country_code": "UTO",
+     "date_of_birth": "1954-08-18",
+     "sex": "X",
+     "date_of_expiry": "2032-01-04",
+     "surname": "ALFARSI",
+     "mrzLines": [
+      "I<UTO5VFCPTJ6L3<<<<<<<<<<<<<<<",
+      "5408184X3201048UTO<<<<<<<<<<<4",
+      "ALFARSI<<LAYLA<<<<<<<<<<<<<<<<"
+     ]
+    }
+   },
+   {
+    "family": "id_cards",
+    "sourceFile": "td2_id05_clean.png",
+    "truth": {
+     "passport_number": "1CSZ9CER2",
+     "country_code": "XAA",
+     "date_of_birth": "1971-04-20",
+     "sex": "F",
+     "date_of_expiry": "2027-09-11",
+     "surname": "SZCZEPANSKA",
+     "mrzLines": [
+      "I<XAASZCZEPANSKA<<MALGORZATA<<<<<<<<",
+      "1CSZ9CER26XAA7104206F2709112<<<<<<<4"
+     ]
+    }
+   }
+  ],
+  "expect": {
+   "noSilentErrors": true,
+   "noCrossDocumentBleed": true
+  }
+ },
+ {
+  "file": "payslip_lease_00.png",
+  "class": "mixed_page",
+  "layout": "overlap",
+  "constituents": [
+   {
+    "family": "payslips",
+    "sourceFile": "payslip_id00_clean.png",
+    "truth": {
+     "employee_id": "213254",
+     "gross_pay": "7163.88",
+     "net_pay": "5670.13",
+     "total_deductions": "1493.75",
+     "employee_name": "Taro Endo"
+    }
+   },
+   {
+    "family": "property_leases",
+    "sourceFile": "lease_id00_clean.png",
+    "truth": {
+     "monthly_rent": "1334.77",
+     "security_deposit": "2669.54",
+     "landlord": "ANNA ERIKSSON",
+     "tenant": "LAYLA ALFARSI"
+    }
+   }
+  ],
+  "expect": {
+   "noSilentErrors": true,
+   "noCrossDocumentBleed": true
+  }
+ },
+ {
+  "file": "payslip_lease_01.png",
+  "class": "mixed_page",
+  "layout": "overlap",
+  "constituents": [
+   {
+    "family": "payslips",
+    "sourceFile": "payslip_id01_clean.png",
+    "truth": {
+     "employee_id": "516677",
+     "gross_pay": "6002.99",
+     "net_pay": "4511.28",
+     "total_deductions": "1491.71",
+     "employee_name": "Mina Ortega"
+    }
+   },
+   {
+    "family": "property_leases",
+    "sourceFile": "lease_id01_clean.png",
+    "truth": {
+     "monthly_rent": "2708.87",
+     "security_deposit": "5417.74",
+     "landlord": "KENJI NAKAMURA",
+     "tenant": "MALGORZATA SZCZEPANSKA"
+    }
+   }
+  ],
+  "expect": {
+   "noSilentErrors": true,
+   "noCrossDocumentBleed": true
+  }
+ },
+ {
+  "file": "payslip_lease_02.png",
+  "class": "mixed_page",
+  "layout": "overlap",
+  "constituents": [
+   {
+    "family": "payslips",
+    "sourceFile": "payslip_id02_clean.png",
+    "truth": {
+     "employee_id": "295943",
+     "gross_pay": "4560.07",
+     "net_pay": "3347.42",
+     "total_deductions": "1212.65",
+     "employee_name": "Luca Ferraro"
+    }
+   },
+   {
+    "family": "property_leases",
+    "sourceFile": "lease_id02_clean.png",
+    "truth": {
+     "monthly_rent": "1008.08",
+     "security_deposit": "2016.16",
+     "landlord": "CHINWE OKONKWO",
+     "tenant": "WEI LI"
+    }
+   }
+  ],
+  "expect": {
+   "noSilentErrors": true,
+   "noCrossDocumentBleed": true
+  }
+ }
+]

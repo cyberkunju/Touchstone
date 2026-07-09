@@ -72,7 +72,13 @@ const LAYOUTS = {
         ${LAYOUTS[pairing.layout](dataA, dataB)}
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 45% 35%, transparent 55%, rgba(0,0,0,0.38))"></div>
       </body></html>`;
-      await page.setContent(html, { waitUntil: 'networkidle0' });
+      // networkidle0 stalls on multi-MB data-URIs (no network activity to go
+      // idle FROM) — wait for load, then explicitly for image decode.
+      await page.setContent(html, { waitUntil: 'load', timeout: 120000 });
+      await page.waitForFunction(
+        () => [...document.images].every((i) => i.complete && i.naturalWidth > 0),
+        { timeout: 60000 },
+      );
       const file = `${pairing.name}_${String(i).padStart(2, '0')}.png`;
       await page.screenshot({ path: path.join(OUT, file) });
       manifest.push({

@@ -296,79 +296,37 @@ export default function App() {
         }
       }
 
+      // Kick off barcode/QR decoding NOW — it runs in the PARSER worker,
+      // fully independent of OCR in the inference worker; the two overlap
+      // on real cores (13 §5 throughput discipline).
+      const codesPromise: Promise<{ text: string; format: string; boxNorm: Box; isValid: boolean }[]> =
+        parserWorker.decodeCodes(bitmap).catch((codeErr: unknown) => {
+          console.error('[App] Code decoding failed:', codeErr);
+          return [];
+        });
+
       // Run real PP-OCRv5 DBNet text detection on the page (skipped when a
       // verified digital text layer supplies native lines).
       let recognizedNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[];
       if (nativeNodes) {
         recognizedNodes = nativeNodes;
       } else {
-      setStatusText('Running local PP-OCRv5 text detector (DBNet)...');
-      const detBoxes = await inferenceWorker.detectText(OCR_DET_MODEL.key, bitmap);
-      console.log(`[App] DBNet found ${detBoxes.length} text lines.`);
-
-      // Run real PP-OCRv5 recognition on each detected line crop.
-      setStatusText(`Recognizing characters on ${detBoxes.length} text lines (PP-OCRv5)...`);
-      const visionNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[] = [];
-
-      for (let i = 0; i < detBoxes.length; i++) {
-        const box = detBoxes[i];
-        const [bx1, by1, bx2, by2] = box;
-
-        const w = bitmap.width;
-        const h = bitmap.height;
-        const origX1 = Math.round(bx1 * w);
-        const origY1 = Math.round(by1 * h);
-        const origW = Math.round((bx2 - bx1) * w);
-        const origH = Math.round((by2 - by1) * h);
-
-        // Add padding proportional to the text box height
-        const px = Math.round(origH * 0.25); // 25% horizontal padding on each side
-        const py = Math.round(origH * 0.08); // 8% vertical padding on each side
-
-        const x1 = Math.max(0, origX1 - px);
-        const y1 = Math.max(0, origY1 - py);
-        const x2 = Math.min(w, origX1 + origW + px);
-        const y2 = Math.min(h, origY1 + origH + py);
-
-        const cropW = x2 - x1;
-        const cropH = y2 - y1;
-
-        if (cropW <= 0 || cropH <= 0) continue;
-
-        const cropCanvas = new OffscreenCanvas(cropW, cropH);
-        const cropCtx = cropCanvas.getContext('2d')!;
-        cropCtx.drawImage(bitmap, x1, y1, cropW, cropH, 0, 0, cropW, cropH);
-
-        const cropBitmap = await createImageBitmap(cropCanvas);
-        try {
-          const recResult = await inferenceWorker.recognizeText(OCR_REC_MODEL.key, cropBitmap);
-
-          if (recResult.text.trim()) {
-            visionNodes.push({
-              text: recResult.text,
-              confidence: recResult.confidence,
-              boxNorm: box,
-              lattice: recResult.lattice,
-            });
-          }
-        } catch (recErr) {
-          console.error(`Failed to recognize text line ${i}:`, recErr);
-        }
-      }
-      recognizedNodes = visionNodes;
+        // Batched det+rec in ONE worker call (13 §5): same padding law, same
+        // per-item preprocessing, same-width crops share one tensor forward.
+        setStatusText('Detecting & recognizing text (PP-OCRv5, batched)...');
+        recognizedNodes = await inferenceWorker.detectAndRecognize(
+          OCR_DET_MODEL.key,
+          OCR_REC_MODEL.key,
+          bitmap,
+        );
       } // end vision ladder (no verified text layer)
 
       console.log('[App] PP-OCRv5 recognized texts:', recognizedNodes.map(n => `${n.text} (${(n.confidence * 100).toFixed(0)}%)`).join(' | '));
 
-      // Decode any 1D/2D codes (QR, PDF417, DataMatrix, barcodes) locally.
+      // Barcode/QR results (started before OCR — already done or nearly so).
       setStatusText('Decoding barcodes & QR codes (zxing)...');
-      let decodedCodes: { text: string; format: string; boxNorm: Box; isValid: boolean }[] = [];
-      try {
-        decodedCodes = await parserWorker.decodeCodes(bitmap);
-        console.log(`[App] Decoded ${decodedCodes.length} valid code(s).`);
-      } catch (codeErr) {
-        console.error('[App] Code decoding failed:', codeErr);
-      }
+      const decodedCodes = await codesPromise;
+      console.log(`[App] Decoded ${decodedCodes.length} valid code(s).`);
 
       // 3. Initialize DocGraphBuilder
       setStatusText('Constructing property DocGraph...');

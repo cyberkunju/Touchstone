@@ -53,6 +53,7 @@ const CORPUS_DIRS = {
   rx: join('prescriptions', 'synthetic'),
   quest: join('questionnaires', 'synthetic'),
   composites: 'composites',
+  mixed: 'mixed',
 };
 const BASELINE_FILES = {
   passports: 'p1.json',
@@ -83,6 +84,7 @@ const BASELINE_FILES = {
   rx: 'rx.json',
   quest: 'quest.json',
   composites: 'composites.json',
+  mixed: 'mixed.json',
 };
 const CORPUS = join(root, 'test_cases', CORPUS_DIRS[corpusArg] ?? CORPUS_DIRS.passports);
 const BASELINE = join(here, 'baselines', BASELINE_FILES[corpusArg] ?? BASELINE_FILES.passports);
@@ -356,6 +358,37 @@ function scoreEntry(entry, gate) {
     // Extraction floors ratchet upward via the baseline; the LAW is silence.
     const floor = entry.degradation === 'clean' ? 0.5 : 0.25;
     r.pass = r.silentErrors.length === 0 && r.fieldHits >= Math.ceil(r.fieldTotal * floor);
+  } else if (entry.class === 'mixed_page') {
+    // Multi-document pages: every constituent's truth scores independently.
+    // THE mixed silent class: a field CONFIRMED with a value that belongs to
+    // the OTHER constituent (cross-document bleed) — checked by testing each
+    // confirmed value against every constituent's truth pool.
+    const allTruths = entry.constituents.map((c) =>
+      new Map(Object.entries(c.truth).filter(([k]) => k !== 'mrzLines' && k !== 'barcodePayload' && k !== 'checkedStates')));
+    r.fieldTotal = allTruths.reduce((s, t) => s + t.size, 0);
+    const seen = new Set();
+    for (const f of gate.fields) {
+      const key = truthKeyFor(f.label);
+      if (!key || f.value === null) continue;
+      // A field matching ANY constituent's truth for that key = hit.
+      let matched = false;
+      for (let ci = 0; ci < allTruths.length; ci++) {
+        if (allTruths[ci].has(key) && valuesMatch(key, allTruths[ci].get(key), f.value)) {
+          if (!seen.has(`${ci}:${key}`)) { seen.add(`${ci}:${key}`); }
+          matched = true;
+          break;
+        }
+      }
+      if (matched) continue;
+      // Confirmed + wrong for every constituent that HAS this key = silent.
+      if (f.status === 'confirmed' && allTruths.some((t) => t.has(key))) {
+        r.silentErrors.push({ field: key, got: f.value, want: allTruths.map((t) => t.get(key)).filter(Boolean).join(' | ') });
+      }
+    }
+    r.fieldHits = seen.size;
+    // Floors start permissive (single-doc assumption in the pipeline today);
+    // SILENT=0 is the law from day one.
+    r.pass = r.silentErrors.length === 0;
   } else {
     r.pass =
       r.silentErrors.length === 0 &&
