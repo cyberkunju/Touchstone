@@ -17,3 +17,10 @@ python-multipart>=0.0.9,<1
 
 # Dev:
 pytest>=8,<10
+# FastAPI's allowed range spans Starlette's httpx → httpx2 transition.
+# Install both transports so TestClient works across the full supported range.
+httpx>=0.27,<0.29
+httpx2>=2,<3
+# test_packaging builds with --no-build-isolation by design, so the caller
+# must provide the PEP 517 backend declared in pyproject.toml.
+setuptools>=68
