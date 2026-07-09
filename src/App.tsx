@@ -38,6 +38,10 @@ import DocumentViewer from './components/DocumentViewer';
 import FormEditor from './components/FormEditor';
 import EvidenceInspector from './components/EvidenceInspector';
 import ModelLoaderOverlay, { ModelProgress } from './components/ModelLoaderOverlay';
+import QuestionCards from './components/QuestionCards';
+import ReviewLane from './components/ReviewLane';
+import { rankQuestions, type QuestionCandidate } from './lwt/question-ranking';
+import type { ReviewItem } from './workspace/ui/review-lane';
 
 import { FileText, Save, RefreshCw, Layers, Sparkles, CheckSquare, Trash2 } from 'lucide-react';
 
@@ -97,6 +101,7 @@ export default function App() {
   // Active DocGraph States
   const [activeGraph, setActiveGraph] = useState<DocGraph | null>(null);
   const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
+  const [reviewLaneOpen, setReviewLaneOpen] = useState(false);
   
   // Active document metadata
   const [docName, setDocName] = useState<string>('');
@@ -1548,6 +1553,71 @@ export default function App() {
                 </div>
 
                 <div className="panel-scroll">
+                  {/* I12 question cards: ≤3 asks, conflicts first, confirmed
+                      fields NEVER questioned (ranking is the certified core). */}
+                  {!reviewLaneOpen && (() => {
+                    const candidates: QuestionCandidate[] = activeGraph.hypotheses
+                      .filter((h) => typeof h.value === 'string' || h.displayValue)
+                      .map((h) => ({
+                        fieldId: h.id,
+                        label: h.label,
+                        status: h.status === 'conflict' ? 'conflict' : h.status === 'confirmed' ? 'confirmed' : 'needs_review',
+                        confidence: h.confidence.overall,
+                        critical: ['amount', 'date', 'id_number'].includes(h.valueType),
+                        required: h.required ?? false,
+                        column: false,
+                        candidates: [String(h.displayValue ?? h.value ?? '')],
+                      }));
+                    const questions = rankQuestions(candidates);
+                    return (
+                      <QuestionCards
+                        questions={questions}
+                        onAnswer={(fieldId, value) => handleUpdateFieldValue(fieldId, value)}
+                        onFix={(fieldId) => handleSelectField(fieldId)}
+                      />
+                    );
+                  })()}
+
+                  {/* Keyboard-first review lane over every open field. */}
+                  {(() => {
+                    const open = activeGraph.hypotheses.filter(
+                      (h) => h.status === 'needs_review' || h.status === 'conflict',
+                    );
+                    if (open.length === 0 || reviewLaneOpen) return null;
+                    return (
+                      <button
+                        onClick={() => setReviewLaneOpen(true)}
+                        style={{
+                          margin: '8px 0', padding: '6px 12px', borderRadius: 3,
+                          border: '1px solid var(--border-color)', background: 'transparent',
+                          cursor: 'pointer', fontSize: '0.8rem', width: '100%',
+                        }}
+                      >
+                        Review {open.length} open field{open.length === 1 ? '' : 's'} (keyboard)
+                      </button>
+                    );
+                  })()}
+                  {reviewLaneOpen && (
+                    <ReviewLane
+                      items={activeGraph.hypotheses
+                        .filter((h) => h.status === 'needs_review' || h.status === 'conflict')
+                        .map((h): ReviewItem => ({
+                          recordId: activeGraph.documentId,
+                          fieldId: h.id,
+                          label: h.label,
+                          value: String(h.displayValue ?? h.value ?? ''),
+                        }))}
+                      onAction={(action) =>
+                        handleUpdateFieldValue(
+                          action.item.fieldId,
+                          action.kind === 'save_edit' ? action.newValue : action.item.value,
+                        )
+                      }
+                      onSelectField={handleSelectField}
+                      onClose={() => setReviewLaneOpen(false)}
+                    />
+                  )}
+
                   <FormEditor
                     hypotheses={activeGraph.hypotheses}
                     selectedId={selectedFieldId}

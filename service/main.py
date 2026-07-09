@@ -12,12 +12,14 @@ Run: `uvicorn service.main:app --host 127.0.0.1 --port 8477`
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -118,6 +120,27 @@ async def v1_reperceive(file: UploadFile = File(...),
 @app.exception_handler(HTTPException)
 async def http_exc_handler(_req: Any, exc: HTTPException) -> JSONResponse:
     return _error(exc.status_code, "INTERNAL", str(exc.detail))
+
+
+def _mount_ui() -> None:
+    """P7.2: serve the built UI from the service so one process delivers the
+    whole product. Mounted LAST so /v1/* always wins. Resolution order:
+    `DOCUTRACT_UI_DIR` env → repo-layout `../dist` → packaged `ui/`. Absent
+    UI is not an error — the service is a valid headless deployment."""
+    candidates = []
+    env_dir = os.environ.get("DOCUTRACT_UI_DIR")
+    if env_dir:
+        candidates.append(Path(env_dir))
+    here = Path(__file__).resolve().parent
+    candidates.append(here.parent / "dist")
+    candidates.append(here / "ui")
+    for c in candidates:
+        if c.is_dir() and (c / "index.html").is_file():
+            app.mount("/", StaticFiles(directory=str(c), html=True), name="ui")
+            return
+
+
+_mount_ui()
 
 
 def run_cli() -> None:

@@ -251,6 +251,7 @@ FAMILIES: dict[str, list[str | None]] = {
     "rx": ["rx.*id0[0-4]|presc.*id0[0-4]", "rx.*id0[5-9]|presc.*id0[5-9]"],
     "quest": [None],
     "composites": ["__desk", "__fabric", "__lowlight"],
+    "mixed": [None],
     "real": ["forge_0[0-2]", "forge_0[3-5]", "forge_0[6-9]",
              "forge_1[0-2]", "forge_1[3-5]", "forge_1[6-9]",
              "forge_2[0-2]", "forge_2[3-5]", "forge_2[6-9]",

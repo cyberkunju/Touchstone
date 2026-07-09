@@ -27,13 +27,19 @@ dependencies = [
 dev = ["pytest>=8,<10", "httpx>=0.27"]
 
 [project.scripts]
-docutract-service = "main:run_cli"
+docutract-service = "docutract_service.main:run_cli"
 
+# Package-dir mapping: the service stays FLAT in the repo (every module in
+# service/, flat imports, sys.path bootstrap in main) but ships as a proper
+# package — the only layout in which wheels deliver package-data (a flat
+# py-modules wheel silently drops MANIFEST.json/bundle-schema.json, which
+# fetch-verify and the bundle contract both refuse to run without).
 [tool.setuptools]
-py-modules = ["main", "config", "ladder", "bundle", "router", "fetch_models"]
+packages = ["docutract_service", "docutract_service.stages"]
 
-[tool.setuptools.packages.find]
-include = ["stages*"]
+[tool.setuptools.package-dir]
+docutract_service = "."
+"docutract_service.stages" = "stages"
 
 [tool.setuptools.package-data]
-"*" = ["MANIFEST.json", "bundle-schema.json"]
+docutract_service = ["MANIFEST.json", "bundle-schema.json"]

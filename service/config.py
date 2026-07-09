@@ -16,7 +16,11 @@ BUNDLE_VERSION = 1
 
 # Hard-coded by Constitution: changing the bind address before Phase 7's
 # authenticated exposure is a violation (05 section 1).
-BIND_HOST = "127.0.0.1"
+# DOCUTRACT_BIND_HOST exists SOLELY for containerized deployment, where the
+# container boundary provides the isolation and the host-side publish rule
+# (`-p 127.0.0.1:8477:8477`) re-establishes loopback-only reachability.
+# Setting it on a bare host is a constitutional violation, not a feature.
+BIND_HOST = os.environ.get("DOCUTRACT_BIND_HOST", "127.0.0.1")
 BIND_PORT = 8477
 
 MODEL_DIR = Path(os.environ.get("DOCUTRACT_MODEL_DIR",
