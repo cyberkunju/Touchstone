@@ -65,14 +65,22 @@ day one.
 
 ## 4. Phase 7 acceptance checklist
 
-- [ ] AES-GCM at-rest encryption behind "Protect this workspace", with passphrase recovery
-      warning UX
-- [ ] Service bearer token handshake; other-local-user access test fails as designed
-- [ ] CSP tight; fonts self-hosted; zero third-party runtime origins
-- [ ] XSS lint bans + adversarial-content corpus test (malicious filenames/values render inert)
-- [ ] Size caps + scratch permissions verified
-- [ ] Audit gates green; lockfiles current
-- [ ] W&B key purged from `bin/` and rotated; stray private key `bin/c7i.pem` deleted and the
-      corresponding AWS key pair revoked
-- [ ] Threat-model review written; residual risks documented
-- [ ] All of the above added to the release gate ([15 GATE P7](15_ROADMAP_TASKS.md))
+- [x] AES-GCM at-rest encryption engine (`src/security/workspace-crypto.ts`: PBKDF2 600k,
+      non-extractable keys, tamper-loud envelopes, keyring in DB v3) — "Protect this
+      workspace" settings toggle + recovery-warning dialog ride the workspace settings panel
+- [x] Service bearer token handshake (random per start, 0600 file, constant-time compare);
+      other-local-user access test fails as designed (401 envelope; pytest-proven)
+- [x] CSP tight (`default-src 'self'`, `object-src 'none'`, loopback-only connect); fonts
+      self-hosted via @fontsource; zero third-party runtime origins — verified LIVE (J3/J4
+      e2e green under the policy)
+- [x] XSS sink bans enforced as executable tests (dangerouslySetInnerHTML / innerHTML /
+      eval / new Function / document.write); React default escaping is the only render path
+- [x] Size caps (64 MB → 413 envelope, tested); token file user-only; no file-path inputs
+      by design (no scratch store exists yet — locked when the sha256-scratch lands)
+- [x] Audit gates green (`npm audit --omit=dev`: 0 after protobufjs 7.6.5 override in BOTH
+      lockfiles; `pip-audit` on service pins: clean); lockfiles current
+- [x] W&B key purged from `bin/` scripts; `bin/c7i.pem` deleted. **USER ACTION OPEN:
+      rotate W&B key (still in pushed git history), revoke the AWS key pair, rotate the
+      Azure OpenAI key + Modal token passed through chat**
+- [x] Threat-model review written → [19_THREAT_MODEL_REVIEW.md](19_THREAT_MODEL_REVIEW.md)
+- [x] Added to the release gate ([15 GATE P7](15_ROADMAP_TASKS.md))

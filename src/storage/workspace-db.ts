@@ -16,7 +16,7 @@ import { openDB, type IDBPDatabase } from 'idb';
 import type { BenchRun, ConfusionPrior, DocRecord, Family, FormatPrior } from '../workspace/types';
 
 export const WORKSPACE_DB_NAME = 'docgraph-engine-db';
-export const WORKSPACE_DB_VERSION = 2;
+export const WORKSPACE_DB_VERSION = 3;
 
 /** Applies the FULL schema (v1 + v2 stores), idempotently. Exported for
  *  direct testing of migration idempotency. */
@@ -49,6 +49,11 @@ export function applySchema(db: IDBPDatabase): void {
   if (!db.objectStoreNames.contains('benchruns')) {
     const s = db.createObjectStore('benchruns', { keyPath: 'runId' });
     s.createIndex('createdAt', 'createdAt', { unique: false });
+  }
+
+  // --- v3 store (P7.3 §2.1): keyring for "Protect this workspace" ---
+  if (!db.objectStoreNames.contains('keyring')) {
+    db.createObjectStore('keyring'); // out-of-line: 'active' → KeyringRecord
   }
 }
 
@@ -116,6 +121,14 @@ export async function putFormatPrior(familyId: string, prior: FormatPrior): Prom
 }
 export async function putBenchRun(run: BenchRun): Promise<void> {
   return idbPut('benchruns', run);
+}
+
+/** P7.3 §2.1: the active workspace keyring (undefined = unprotected). */
+export async function getKeyring(): Promise<import('../security/workspace-crypto').KeyringRecord | undefined> {
+  return idbGet('keyring', 'active');
+}
+export async function putKeyring(keyring: import('../security/workspace-crypto').KeyringRecord): Promise<void> {
+  return idbPut('keyring', keyring, 'active');
 }
 
 // Re-exported store value types for consumers that only need shapes.

@@ -29,6 +29,14 @@ MODEL_DIR = Path(os.environ.get("DOCUTRACT_MODEL_DIR",
 MAX_UPLOAD_BYTES = 64 * 1024 * 1024          # PAYLOAD_TOO_LARGE above this
 DEFAULT_BUDGET_MS = 6000
 
+# P7.3 §2.2: bearer-token handshake. A random token generated at service
+# start is written to a user-only handshake file the UI reads — defeats
+# other-local-user access on shared machines. /v1/health stays tokenless
+# (liveness probing carries no document data).
+TOKEN_FILE = Path(os.environ.get(
+    "DOCUTRACT_TOKEN_FILE",
+    Path.home() / ".docutract" / "service-token"))
+
 
 @dataclass(frozen=True)
 class Profile:

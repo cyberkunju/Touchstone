@@ -21,6 +21,9 @@ export interface HealthInfo {
   version: string;
   bundleVersion: number;
   profile: string;
+  /** P7.3 §2.2: when true, data endpoints require the bearer token from the
+   *  handshake file (~/.docutract/service-token) or DOCUTRACT_TOKEN. */
+  authRequired?: boolean;
 }
 
 type FetchLike = (input: string, init?: RequestInit) => Promise<Response>;
@@ -65,6 +68,10 @@ export interface PerceiveOptions {
  */
 export class PerceptionClient<TBundle> {
   private mode: PerceptionMode = 'browser';
+  /** Bearer token for data endpoints (P7.3 §2.2). Supplied by the host
+   *  shell (Electron/service-served UI reads the handshake file; the dev
+   *  server injects via VITE_DOCUTRACT_TOKEN). Null = tokenless dev mode. */
+  private token: string | null = null;
 
   constructor(
     private readonly browserFallback: (file: Blob, name: string) => Promise<TBundle>,
@@ -72,6 +79,10 @@ export class PerceptionClient<TBundle> {
     private readonly fetchFn: FetchLike = globalThis.fetch?.bind(globalThis) as FetchLike,
     private readonly diag: (msg: string) => void = (m) => console.log(`[perception] ${m}`),
   ) {}
+
+  setToken(token: string | null): void {
+    this.token = token;
+  }
 
   /** Current mode — for the status chip ONLY; never branch brain logic on it. */
   getMode(): PerceptionMode {
@@ -113,7 +124,11 @@ export class PerceptionClient<TBundle> {
     form.append('options', JSON.stringify(options));
     let res: Response;
     try {
-      res = await this.fetchFn(`${this.baseUrl}/v1/perceive`, { method: 'POST', body: form });
+      res = await this.fetchFn(`${this.baseUrl}/v1/perceive`, {
+        method: 'POST',
+        body: form,
+        headers: this.token ? { Authorization: `Bearer ${this.token}` } : undefined,
+      });
     } catch (e) {
       throw new ServiceUnavailable(`network: ${(e as Error).message}`);
     }

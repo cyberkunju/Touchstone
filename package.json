@@ -17,6 +17,8 @@
     "postinstall": "node scripts/copy-ort-wasm.mjs"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/outfit": "^5.2.8",
     "comlink": "^4.4.1",
     "idb": "^8.0.1",
     "lucide-react": "^0.400.0",
@@ -37,5 +39,8 @@
     "typescript": "^5.5.3",
     "vite": "^5.4.1",
     "vitest": "^2.1.9"
+  },
+  "overrides": {
+    "protobufjs": "^7.6.5"
   }
 }

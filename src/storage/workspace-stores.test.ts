@@ -66,10 +66,10 @@ describe('v1→v2 migration (P2.1 law: adds only, idempotent)', () => {
     await v1.put('templates', { id: 't1', familyId: 'f1', docType: 'passport' });
     v1.close();
 
-    // Open at v2 through the real module.
+    // Open at the current version through the real module.
     const db = await getWorkspaceDb();
     expect([...db.objectStoreNames].sort()).toEqual(
-      ['benchruns', 'docGraphs', 'families', 'jobs', 'priors', 'records', 'templates'].sort(),
+      ['benchruns', 'docGraphs', 'families', 'jobs', 'keyring', 'priors', 'records', 'templates'].sort(),
     );
     // v1 data survived byte-for-byte.
     expect(await db.get('docGraphs', 'g1')).toEqual({ id: 'g1', payload: 'precious' });
@@ -82,6 +82,7 @@ describe('v1→v2 migration (P2.1 law: adds only, idempotent)', () => {
     expect(db.objectStoreNames.contains('records')).toBe(true);
     expect(db.objectStoreNames.contains('priors')).toBe(true);
     expect(db.objectStoreNames.contains('benchruns')).toBe(true);
+    expect(db.objectStoreNames.contains('keyring')).toBe(true);
   });
 
   it('applySchema is idempotent (double-apply converges, never throws)', async () => {

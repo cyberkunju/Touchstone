@@ -11,13 +11,16 @@ Run: `uvicorn service.main:app --host 127.0.0.1 --port 8477`
 
 from __future__ import annotations
 
+import hmac
 import json
 import os
+import secrets
+import stat
 import sys
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -33,6 +36,7 @@ from config import (  # noqa: E402
     MODEL_DIR,
     PROFILE,
     SERVICE_VERSION,
+    TOKEN_FILE,
 )
 from ladder import Models, UnsupportedType, perceive, reperceive  # noqa: E402
 
@@ -40,6 +44,44 @@ app = FastAPI(title="docutract perception service", version=SERVICE_VERSION,
               docs_url=None, redoc_url=None)
 
 _models = Models(model_dir=MODEL_DIR)
+
+
+def _init_token() -> str:
+    """P7.3 §2.2: random per-start bearer token, written to a USER-ONLY
+    handshake file (0600) the UI reads. `DOCUTRACT_TOKEN` env overrides for
+    test harnesses. Defeats other-local-user access on shared machines."""
+    env = os.environ.get("DOCUTRACT_TOKEN")
+    if env:
+        return env
+    token = secrets.token_urlsafe(32)
+    try:
+        TOKEN_FILE.parent.mkdir(parents=True, exist_ok=True)
+        TOKEN_FILE.write_text(token, encoding="utf-8")
+        try:
+            TOKEN_FILE.chmod(stat.S_IRUSR | stat.S_IWUSR)  # 0600 (POSIX; no-op ACLs on Windows)
+        except OSError:
+            pass
+    except OSError as e:  # unwritable home: still serve, log loudly
+        print(f"WARNING: could not write token handshake file {TOKEN_FILE}: {e}")
+    return token
+
+
+_TOKEN = _init_token()
+
+
+@app.middleware("http")
+async def _require_bearer(request: Request, call_next: Any) -> Any:
+    """Every endpoint except tokenless /v1/health (liveness carries no
+    document data) and the static UI requires the bearer token,
+    constant-time compared. 401 envelope on failure — never a stack trace."""
+    path = request.url.path
+    if not path.startswith("/v1/") or path == "/v1/health":
+        return await call_next(request)
+    auth = request.headers.get("authorization", "")
+    presented = auth[7:] if auth.startswith("Bearer ") else ""
+    if not hmac.compare_digest(presented.encode(), _TOKEN.encode()):
+        return _error(401, "UNAUTHORIZED", "missing or invalid bearer token")
+    return await call_next(request)
 
 
 def _error(status: int, code: str, detail: str) -> JSONResponse:
@@ -62,6 +104,7 @@ def health() -> dict[str, Any]:
         "profile": PROFILE.name,
         "modelsLoaded": loaded,
         "residentMB": 0,  # populated when the LRU registry lands (post-P3.1)
+        "authRequired": True,  # P7.3 §2.2 — data endpoints need the bearer token
     }
 
 

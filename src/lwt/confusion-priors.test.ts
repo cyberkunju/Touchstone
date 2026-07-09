@@ -129,4 +129,15 @@ describe('read side: priors suggest, never veto', () => {
     expect(forO[0]).toEqual({ char: '0', p: 1 });
     expect(plausibleTruths(emptyConfusionPrior(), 'O')).toEqual([]);
   });
+
+  it('PRIVACY AUDIT (17 §3): priors contain single-character pairs ONLY — no document content', () => {
+    // Even after learning from a full IBAN, no key or nested key may exceed
+    // one character: the prior cannot reconstruct any document substring.
+    for (const [seen, truths] of Object.entries(trained.counts)) {
+      expect(seen.length).toBe(1);
+      for (const truth of Object.keys(truths)) expect(truth.length).toBe(1);
+    }
+    const serialized = JSON.stringify(trained);
+    expect(serialized).not.toContain('DE8937'); // no fragment of the source value
+  });
 });

@@ -111,7 +111,7 @@ the planted regression.
 |---|---|---|
 | P7.1 | ✅ | Perf CI: `bench/perf.mjs` — ALL budgets from 13 green: health 0.7ms/50 · digital 167ms/1000 · RSS 95MB/450 · **unknown-doc-full-form 7.9s/8s @2× throttle** (was 13.2s; won by 13 §5's mandatory batched recognition — detectAndRecognize one-call worker API, exact-width tensor batching, bit-parity two-step draw — + zxing overlap; methodology per 13 §6: warmup untimed, median of 3) | budgets green in CI ✅ |
 | P7.2 | 🔶 install+UI+Docker ✅ | Packaging: package-dir move (`docutract_service` package — wheel PROVEN to ship MANIFEST.json/bundle-schema.json by building+inspecting the real wheel in tests); UI served from the service (DOCUTRACT_UI_DIR → ../dist → packaged ui/, /v1/* wins); service/Dockerfile (loopback isolation via host-side publish rule; models fetch-verified at first run). Remaining: OS smoke matrix | fresh-machine install→first extraction ≤ 10 min |
-| P7.3 | Security pass per [17](17_SECURITY_PRIVACY_PLAN.md) (deferred by owner decision to here) | 17's checklist complete |
+| P7.3 | ✅ | Security pass per [17](17_SECURITY_PRIVACY_PLAN.md): bearer-token handshake (constant-time, 0600 handshake file, tokenless /v1/health, 401-envelope pytest), tight CSP + self-hosted fonts (live-verified via e2e), XSS sink bans as executable tests, AES-GCM-256 workspace crypto (PBKDF2 600k, tamper-loud, keyring DB v3), priors privacy audit test, audits clean (protobufjs override both lockfiles; pip-audit clean), W&B key + c7i.pem purged (ROTATION = user action), threat-model review [19](19_THREAT_MODEL_REVIEW.md) | 17's checklist complete ✅ |
 
 **GATE P7 (release):** all budgets green · install gate · security checklist · all corpora zero
 silent errors · amendment log reviewed.

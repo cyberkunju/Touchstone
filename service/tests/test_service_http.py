@@ -7,11 +7,16 @@ ladder, the real models; no port binding, no network.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
+
+# P7.3 §2.2: pin the bearer token BEFORE main imports (token init is
+# import-time). The suite exercises the REAL auth middleware.
+os.environ.setdefault("DOCUTRACT_TOKEN", "test-suite-token")
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import fetch_models  # noqa: E402
@@ -24,7 +29,27 @@ PASSPORTS = ROOT / "test_cases" / "passports" / "synthetic"
 
 @pytest.fixture(scope="module")
 def client():
-    return TestClient(app)
+    c = TestClient(app)
+    c.headers.update({"Authorization": "Bearer test-suite-token"})
+    return c
+
+
+def test_health_is_tokenless(client):
+    r = TestClient(app).get("/v1/health")  # NO token — liveness must work
+    assert r.status_code == 200
+    assert r.json()["authRequired"] is True
+
+
+def test_other_local_user_is_refused():
+    """P7.3 acceptance: without the handshake token, data endpoints 401 with
+    the error envelope (no stack traces, no partial processing)."""
+    anon = TestClient(app)
+    r = anon.post("/v1/perceive", files={"file": ("x.png", b"fake")})
+    assert r.status_code == 401
+    assert r.json()["error"]["code"] == "UNAUTHORIZED"
+    wrong = TestClient(app)
+    wrong.headers.update({"Authorization": "Bearer wrong-token"})
+    assert wrong.post("/v1/perceive", files={"file": ("x.png", b"fake")}).status_code == 401
 
 
 def test_health(client):
