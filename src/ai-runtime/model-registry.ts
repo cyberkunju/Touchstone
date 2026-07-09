@@ -134,11 +134,27 @@ export const OCR_REC_MODEL: OnnxModelSpec = OCR_TIER === 'v6-small' ? OCR_REC_V6
 export const PPOCR_DICT: CharDictSpec = OCR_TIER === 'v6-small' ? PPOCR_DICT_V6 : PPOCR_DICT_V5;
 
 /**
- * Custom-trained YOLOv11n document-layout detector. Intentionally `null` until
- * a real artifact is trained and published — we never substitute a generic
- * COCO model. When set, the worker's layout detection path activates.
+ * Custom-trained YOLOv11n document-layout detector (docdet_v1, 60k-image
+ * Kaggle run). STATIC 640 input; output [1,16,8400] = attribute-major
+ * [4+12 classes, anchors] — verified by ONNX probe at export. Ships IN the
+ * repo (no upstream host; the repo is its source of truth).
+ *
+ * Consumption law (P4.1 activation): layout zones are FALLBACK-ONLY seeds —
+ * they fill in where classical detection found nothing, never override it.
  */
-export const LAYOUT_MODEL: OnnxModelSpec | null = null;
+export const LAYOUT_MODEL: OnnxModelSpec | null = {
+  key: 'docdet_v1',
+  fileName: 'docdet_v1.onnx',
+  url: `${MODEL_BASE}/docdet_v1.onnx`,
+  kind: 'layout',
+  executionProvider: 'wasm',
+  inputSize: 640,
+  classNames: [
+    'document_page', 'photo', 'signature', 'stamp', 'seal', 'logo',
+    'qr_code', 'barcode', 'mrz_zone', 'table', 'checkbox', 'text_block',
+  ],
+  classVersion: 'docdet_v1_kaggle60k',
+};
 
 /**
  * YuNet face detector (OpenCV Zoo, MIT, ~0.23 MB). Detection + 5 landmarks

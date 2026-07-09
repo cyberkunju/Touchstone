@@ -104,6 +104,11 @@ image = (
     .add_local_file("index.html", "/root/app/index.html", copy=True)
     .add_local_file("vite.config.ts", "/root/app/vite.config.ts", copy=True)
     .add_local_file("tsconfig.json", "/root/app/tsconfig.json", copy=True)
+    # Our own trained layout model ships IN the repo (no upstream host) —
+    # fetch-models can't fetch it; it must land before the vite build copies
+    # public/ into dist/.
+    .add_local_file("public/models/docdet_v1.onnx",
+                    "/root/app/public/models/docdet_v1.onnx", copy=True)
     .add_local_dir("src", "/root/app/src", copy=True)
     .add_local_dir("scripts", "/root/app/scripts", copy=True)
     .run_commands(

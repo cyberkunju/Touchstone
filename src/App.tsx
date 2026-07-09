@@ -7,7 +7,7 @@ import { saveDocGraph, saveTemplate, getAllTemplates, deleteTemplate } from './s
 import { DocGraph, FieldHypothesis, FieldValueType, ValidationResult, TemplateGraph, GraphNode } from './core/types';
 import { Box } from './core/geometry';
 import { ensureFileCached, isFileCached, loadCharDictionary } from './ai-runtime/model-loader';
-import { CORE_OCR_MODELS, FACE_MODEL, OCR_DET_MODEL, OCR_REC_MODEL, PPOCR_DICT } from './ai-runtime/model-registry';
+import { CORE_OCR_MODELS, FACE_MODEL, LAYOUT_MODEL, OCR_DET_MODEL, OCR_REC_MODEL, PPOCR_DICT } from './ai-runtime/model-registry';
 import { parseMrz } from './parsers/mrz';
 import { parseAamva } from './parsers/aamva';
 import { decodeMrzFromLattices } from './beam/mrz-beam';
@@ -256,6 +256,21 @@ export default function App() {
         } catch (faceErr) {
           console.warn('[App] YuNet unavailable — portrait framing disabled:', faceErr);
         }
+        // docdet_v1 layout detector (P4.1): OPTIONAL like YuNet — a fetch/
+        // load failure only disables layout seeding, never the pipeline.
+        if (LAYOUT_MODEL) {
+          try {
+            if (!(await inferenceWorker.isModelLoaded(LAYOUT_MODEL.key))) {
+              const lb = await ensureFileCached(LAYOUT_MODEL.fileName, LAYOUT_MODEL.url, () => {});
+              await inferenceWorker.loadModel(LAYOUT_MODEL.key, lb, LAYOUT_MODEL.executionProvider, {
+                inputSize: LAYOUT_MODEL.inputSize,
+                classNames: LAYOUT_MODEL.classNames,
+              });
+            }
+          } catch (layoutErr) {
+            console.warn('[App] docdet_v1 unavailable — layout seeding disabled:', layoutErr);
+          }
+        }
       } finally {
         if (needsSetup) setIsDownloading(false);
       }
@@ -471,6 +486,63 @@ export default function App() {
           }
         } catch (e) {
           console.warn('[DIAG] MRZ bottom-band fallback failed:', e);
+        }
+      }
+
+      // Layout-seeded MRZ rung (P4.1): when BOTH the classical zone detector
+      // and the fixed bottom band failed, ask docdet_v1 for an mrz_zone box
+      // and probe THAT region at high resolution. Fallback-only by law — a
+      // detected zone that reads nothing changes nothing (evidence-only).
+      if (!mrzZone && LAYOUT_MODEL && (await inferenceWorker.isModelLoaded(LAYOUT_MODEL.key))) {
+        try {
+          const zones = await inferenceWorker.runLayoutDetection(LAYOUT_MODEL.key, bitmap, 0.35, 0.45);
+          const mrzDet = zones
+            .filter((z) => z.className === 'mrz_zone')
+            .sort((a, b) => b.score - a.score)[0];
+          if (mrzDet) {
+            const [zx1, zy1, zx2, zy2] = mrzDet.box;
+            // Pad generously — the zone box is a seed, not a crop law.
+            const px1 = Math.max(0, zx1 - 0.02);
+            const py1 = Math.max(0, zy1 - 0.02);
+            const px2 = Math.min(1, zx2 + 0.02);
+            const py2 = Math.min(1, zy2 + 0.02);
+            const sw = Math.round((px2 - px1) * bitmap.width);
+            const sh = Math.round((py2 - py1) * bitmap.height);
+            if (sw > 100 && sh > 12) {
+              const targetW = Math.min(2200, Math.max(sw, 1600));
+              const scale = targetW / sw;
+              const zc = new OffscreenCanvas(Math.round(sw * scale), Math.round(sh * scale));
+              const zctx = zc.getContext('2d')!;
+              zctx.imageSmoothingQuality = 'high';
+              zctx.drawImage(
+                bitmap,
+                Math.round(px1 * bitmap.width), Math.round(py1 * bitmap.height), sw, sh,
+                0, 0, zc.width, zc.height,
+              );
+              const zoneBitmap = await createImageBitmap(zc);
+              const probe = await inferenceWorker.ocrRegionLines(
+                OCR_DET_MODEL.key, OCR_REC_MODEL.key, zoneBitmap,
+                { projectAlphabet: MRZ_PROJECT_ALPHABET, unifyLineWidths: true },
+              );
+              zoneBitmap.close();
+              const mrzish = probe
+                .map((l) => ({ ...l, clean: (l.projectedText ?? l.text).toUpperCase().replace(/\s+/g, '') }))
+                .filter((l) => isMrzLine(l.clean))
+                .filter((l, i, a) => a.findIndex((x) => x.clean === l.clean) === i);
+              if (mrzish.length >= 2) {
+                mrzZone = {
+                  lines: mrzish.map((l) => l.clean),
+                  itemIds: [],
+                  boxNorm: [px1, py1, px2, py2],
+                };
+                mrzLineLattices = mrzish.map((l) => l.projectedLattice ?? l.lattice);
+                mrzFromBandFallback = true;
+                console.log(`[DIAG] docdet_v1 mrz_zone seed found ${mrzish.length} lines (conf ${mrzDet.score.toFixed(2)})`);
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('[DIAG] layout-seeded MRZ rung failed:', e);
         }
       }
 

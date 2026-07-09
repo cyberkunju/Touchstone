@@ -7,6 +7,9 @@ dist-ssr/
 
 # Large local AI model artifacts (fetch via `npm run setup:models`)
 public/models/
+# EXCEPT our own trained document-layout detector (P4.1) — no upstream host,
+# the repo IS its source of truth (10 MB, versioned with the code it serves).
+!public/models/docdet_v1.onnx
 
 # onnxruntime-web wasm runtime (copied via `npm run setup:ort`)
 public/ort/
