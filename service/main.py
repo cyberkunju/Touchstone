@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -42,6 +43,17 @@ from ladder import Models, UnsupportedType, perceive, reperceive  # noqa: E402
 
 app = FastAPI(title="docutract perception service", version=SERVICE_VERSION,
               docs_url=None, redoc_url=None)
+
+# CORS: the standalone/dev UI runs on a different localhost port (vite
+# 5173+, Electron file origin uses none). Scope is LOCALHOST ONLY — never
+# `*`: a hostile website must not be able to read bundles even with a leaked
+# token, and the bearer token stays the real gate either way.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
+    allow_methods=["GET", "POST"],
+    allow_headers=["Authorization", "Content-Type"],
+)
 
 _models = Models(model_dir=MODEL_DIR)
 
@@ -75,6 +87,10 @@ async def _require_bearer(request: Request, call_next: Any) -> Any:
     document data) and the static UI requires the bearer token,
     constant-time compared. 401 envelope on failure — never a stack trace."""
     path = request.url.path
+    # CORS preflight carries no document data and CANNOT carry the bearer
+    # (browsers strip auth on OPTIONS) — CORSMiddleware answers it.
+    if request.method == "OPTIONS":
+        return await call_next(request)
     if not path.startswith("/v1/") or path == "/v1/health":
         return await call_next(request)
     auth = request.headers.get("authorization", "")

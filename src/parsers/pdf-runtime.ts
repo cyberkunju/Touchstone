@@ -34,7 +34,11 @@ export async function renderPdfPage(data: ArrayBuffer, index: number): Promise<R
     import.meta.url,
   ).toString();
 
-  const task = pdfjs.getDocument({ data });
+  // pdfjs TRANSFERS the buffer to its worker (detaching the caller's copy —
+  // a second render call on the same bytes would throw on a detached
+  // ArrayBuffer). Hand it a private copy so callers can render page after
+  // page from one buffer.
+  const task = pdfjs.getDocument({ data: data.slice(0) });
   const doc = await task.promise;
   try {
     const page = await doc.getPage(index + 1); // pdfjs is 1-based

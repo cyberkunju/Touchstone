@@ -51,6 +51,8 @@ import { createFamily, listFamilies, updateFamilySchema } from './storage/family
 import { appendRecord, findBySha256 } from './storage/record-store';
 import { familyNameFor, mergeSchema, schemaFromGraph, valuesFromGraph } from './workspace/assemble';
 import { dHash64 } from './geometry/phash';
+import { PerceptionClient } from './perception/client';
+import { bundleToEvidence, type MappedEvidence, type ServiceBundle } from './perception/bundle-map';
 import WorkspaceView from './components/WorkspaceView';
 import type { ReviewItem } from './workspace/ui/review-lane';
 
@@ -60,6 +62,34 @@ import { FileText, Save, RefreshCw, Layers, Sparkles, CheckSquare, Trash2, Folde
 async function sha256Hex(file: File): Promise<string> {
   const digest = await crypto.subtle.digest('SHA-256', await file.arrayBuffer());
   return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+/* ------------------------- P3.5 service perception ------------------------ */
+/** Sentinel: perceive() calls this fallback when the service is down/failed
+ *  — the call site catches it and runs the browser ladder instead. */
+class BrowserPathSignal extends Error {}
+const perceptionClient = new PerceptionClient<ServiceBundle>(() => {
+  throw new BrowserPathSignal();
+});
+if (import.meta.env?.VITE_DOCUTRACT_TOKEN) {
+  perceptionClient.setToken(import.meta.env.VITE_DOCUTRACT_TOKEN as string);
+}
+const perceptionInit = perceptionClient.init().catch(() => 'browser' as const);
+
+/** Service bundle → mapped evidence, or null for ANY reason (the browser
+ *  ladder is always a complete answer — the brain never sees a difference). */
+async function perceiveViaServiceOrNull(file: File): Promise<MappedEvidence | null> {
+  try {
+    await perceptionInit;
+    if (perceptionClient.getMode() !== 'service') return null;
+    const bundle = await perceptionClient.perceive(file, file.name);
+    return bundleToEvidence(bundle);
+  } catch (e) {
+    if (!(e instanceof BrowserPathSignal)) {
+      console.warn('[App] service perceive failed — browser ladder used:', e);
+    }
+    return null;
+  }
 }
 
 /** The MRZ legal alphabet as a flat string — crosses the Comlink boundary to
@@ -160,15 +190,19 @@ export default function App() {
       setStatusText('Decoding document image...');
       let bitmap: ImageBitmap;
       let pdfPage: PdfPageText | null = null;
+      let pdfData: ArrayBuffer | null = null;
+      let pdfPageCount = 1;
       const { isPdfFile } = await import('./parsers/pdf-runtime');
       if (await isPdfFile(file)) {
         setStatusText('Rendering PDF page 1 (PDF.js)...');
         const { renderPdfPage } = await import('./parsers/pdf-runtime');
-        const rendered = await renderPdfPage(await file.arrayBuffer(), 0);
+        pdfData = await file.arrayBuffer();
+        const rendered = await renderPdfPage(pdfData, 0);
         bitmap = rendered.bitmap;
         pdfPage = rendered.page;
+        pdfPageCount = rendered.pageCount;
         if (rendered.pageCount > 1) {
-          console.warn(`[App] PDF has ${rendered.pageCount} pages; interim route processes page 1 only.`);
+          console.log(`[App] PDF has ${rendered.pageCount} pages — continuation pass will process the rest.`);
         }
         console.log(`[App] PDF page 1: ${pdfPage.kind} (${pdfPage.runs.length} text runs).`);
       } else {
@@ -347,27 +381,48 @@ export default function App() {
           return [];
         });
 
-      // Run real PP-OCRv5 DBNet text detection on the page (skipped when a
-      // verified digital text layer supplies native lines).
+      // Run real text detection on the page (skipped when a verified
+      // digital text layer supplies native lines).
       let recognizedNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[];
+      let serviceCodes: { text: string; format: string; boxNorm: Box; isValid: boolean }[] | null = null;
       if (nativeNodes) {
         recognizedNodes = nativeNodes;
       } else {
-        // Batched det+rec in ONE worker call (13 §5): same padding law, same
-        // per-item preprocessing, same-width crops share one tensor forward.
-        setStatusText('Detecting & recognizing text (PP-OCRv5, batched)...');
-        recognizedNodes = await inferenceWorker.detectAndRecognize(
-          OCR_DET_MODEL.key,
-          OCR_REC_MODEL.key,
-          bitmap,
-        );
+        // P3.5 SERVICE BRANCH: when the local perception service answered
+        // the startup probe, it perceives the ORIGINAL file and the bundle
+        // maps to the exact evidence shapes below (the brain cannot tell).
+        // COORDINATE COHERENCE GUARD: the service perceives the raw file —
+        // if the browser deskewed its working bitmap, the two coordinate
+        // spaces disagree and overlays would lie; the browser ladder runs
+        // instead (the service does its own deskew internally, but its
+        // polys are in its own space, not ours).
+        let fromService: MappedEvidence | null = null;
+        if (!pdfPage && Math.abs(prepResult.skewDeg) < 1.5) {
+          fromService = await perceiveViaServiceOrNull(file);
+        }
+        if (fromService) {
+          recognizedNodes = fromService.nodes;
+          serviceCodes = fromService.codes;
+          console.log(`[App] perception: SERVICE bundle (${recognizedNodes.length} lines, ${serviceCodes.length} codes).`);
+        } else {
+          // Batched det+rec in ONE worker call (13 §5): same padding law, same
+          // per-item preprocessing, same-width crops share one tensor forward.
+          setStatusText('Detecting & recognizing text (batched)...');
+          recognizedNodes = await inferenceWorker.detectAndRecognize(
+            OCR_DET_MODEL.key,
+            OCR_REC_MODEL.key,
+            bitmap,
+          );
+        }
       } // end vision ladder (no verified text layer)
 
-      console.log('[App] PP-OCRv5 recognized texts:', recognizedNodes.map(n => `${n.text} (${(n.confidence * 100).toFixed(0)}%)`).join(' | '));
+      console.log('[App] recognized texts:', recognizedNodes.map(n => `${n.text} (${(n.confidence * 100).toFixed(0)}%)`).join(' | '));
 
       // Barcode/QR results (started before OCR — already done or nearly so).
+      // A service bundle supplies its own zxing evidence; the local promise
+      // result is simply dropped then (the work already overlapped).
       setStatusText('Decoding barcodes & QR codes (zxing)...');
-      const decodedCodes = await codesPromise;
+      const decodedCodes = serviceCodes ?? (await codesPromise);
       console.log(`[App] Decoded ${decodedCodes.length} valid code(s).`);
 
       // 3. Initialize DocGraphBuilder
@@ -1468,6 +1523,128 @@ export default function App() {
         console.warn('[App] Signature extraction failed:', sigErr);
       }
 
+      // 4.9 CONTINUATION PAGES (multi-page PDFs): pages 2+ run an ADDITIVE
+      // extraction pass — text (trusted native or full OCR), checksummed
+      // codes, typed + generic fields. THE CONTINUATION LAW (N1): nothing
+      // read from a continuation page auto-confirms except payload-proven
+      // codes — cross-page reconciliation does not exist yet, so every
+      // scalar is review-capped rather than silently trusted. Fields whose
+      // canonical label page 1 already claimed are skipped (first-page
+      // precedence; a disagreeing duplicate would need reconciliation to
+      // judge — capped extraction beats a silent coin-flip). Page 1's
+      // certified pipeline is byte-identical when pageCount === 1.
+      const MAX_CONTINUATION_PAGES = 8;
+      if (pdfData && pdfPageCount > 1) {
+        const { renderPdfPage } = await import('./parsers/pdf-runtime');
+        const pagesToDo = Math.min(pdfPageCount, MAX_CONTINUATION_PAGES);
+        if (pdfPageCount > MAX_CONTINUATION_PAGES) {
+          console.warn(`[App] PDF has ${pdfPageCount} pages; budget processes the first ${MAX_CONTINUATION_PAGES}.`);
+        }
+        const already = new Set(
+          builder.build().hypotheses.map((h) => (h.canonicalLabel ?? h.label).toLowerCase()),
+        );
+        for (let pi = 1; pi < pagesToDo; pi++) {
+          try {
+            setStatusText(`Processing page ${pi + 1} of ${pagesToDo}...`);
+            const rp = await renderPdfPage(pdfData, pi);
+            const pBitmap = rp.bitmap;
+            const pPageId = builder.addPage(pi, pBitmap.width, pBitmap.height, `${pBitmap.width}`);
+
+            // Text: same I9 law — a digital layer is a CLAIM; verify samples
+            // against rendered pixels before trusting it.
+            let pNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[];
+            if (rp.page.kind === 'digital') {
+              const samples = pickVerificationSamples(rp.page.runs);
+              const reads: string[] = [];
+              for (const s of samples) {
+                const sx = pBitmap.width / rp.page.width;
+                const sy = pBitmap.height / rp.page.height;
+                const x1 = Math.max(0, Math.round(s.box[0] * sx) - 3);
+                const y1 = Math.max(0, Math.round(s.box[1] * sy) - 3);
+                const x2 = Math.min(pBitmap.width, Math.round(s.box[2] * sx) + 3);
+                const y2 = Math.min(pBitmap.height, Math.round(s.box[3] * sy) + 3);
+                if (x2 - x1 < 4 || y2 - y1 < 4) { reads.push(''); continue; }
+                const cc = new OffscreenCanvas(x2 - x1, y2 - y1);
+                cc.getContext('2d')!.drawImage(pBitmap, x1, y1, x2 - x1, y2 - y1, 0, 0, x2 - x1, y2 - y1);
+                const cb = await createImageBitmap(cc);
+                try { reads.push((await inferenceWorker.recognizeText(OCR_REC_MODEL.key, cb)).text); } catch { reads.push(''); }
+              }
+              const verdict = judgeTextLayer(samples, reads);
+              pNodes = verdict.trusted
+                ? textLayerToLines(rp.page).map((l) => ({
+                    text: l.text, confidence: 1, boxNorm: l.boxNorm as Box,
+                    lattice: [...l.text].map((ch) => [[ch, 1]]) as Lattice,
+                  }))
+                : await inferenceWorker.detectAndRecognize(OCR_DET_MODEL.key, OCR_REC_MODEL.key, pBitmap);
+              if (!verdict.trusted) console.warn(`[App] page ${pi + 1}: text layer UNTRUSTED — OCR used.`);
+            } else {
+              pNodes = await inferenceWorker.detectAndRecognize(OCR_DET_MODEL.key, OCR_REC_MODEL.key, pBitmap);
+            }
+
+            const pItems: OcrItem[] = pNodes.map((rn, idx) => {
+              const nid = builder.addNode('text_line', pPageId, rn.boxNorm, rn.text, rn.confidence);
+              return { text: rn.text, boxNorm: rn.boxNorm, nodeId: nid, confidence: rn.confidence, lattice: rn.lattice };
+            });
+
+            // Checksummed codes keep their proofs — zxing payloads are the one
+            // channel a continuation page can PROVE.
+            const pCodes = await parserWorker.decodeCodes(pBitmap).catch(() => []);
+            for (const code of pCodes) {
+              const isQR = /qr/i.test(code.format);
+              const nodeValue = `${isQR ? 'QR' : 'BARCODE'}:${code.format}:${code.text}`;
+              const cNodeId = builder.addNode('visual_asset', pPageId, code.boxNorm, nodeValue, 1.0);
+              const h = builder.addHypothesis(`${isQR ? 'QR Code' : 'Barcode'} (p${pi + 1})`, code.text, 'barcode', code.boxNorm, pPageId);
+              builder.linkHypothesisNodes(h, { valueNodeId: cNodeId });
+            }
+
+            // Typed + generic fields, first-page precedence, EVERYTHING capped.
+            const pUsed = new Set<string>();
+            const cap = 'Read from a continuation page — cross-page reconciliation pending; review required.';
+            let pAdded = 0;
+            for (const f of extractFields(pItems, docType, isIdentityDoc ? { dateLocale: 'dmy' } : undefined)) {
+              const key = f.canonicalLabel.toLowerCase();
+              if (already.has(key)) continue;
+              already.add(key);
+              const cleanVal = normalizeFieldValue(f.valueType, f.value).value;
+              const h = builder.addHypothesis(f.label, cleanVal, f.valueType, f.valueItem.boxNorm, pPageId);
+              builder.linkHypothesisNodes(h, {
+                valueNodeId: f.valueItem.nodeId,
+                labelNodeId: f.labelItem ? f.labelItem.nodeId : undefined,
+              });
+              hypReviewCaps.set(h, cap);
+              pUsed.add(f.valueItem.nodeId);
+              if (f.labelItem) pUsed.add(f.labelItem.nodeId);
+              pAdded++;
+            }
+            // Generic layer runs on continuation pages for EVERY docType —
+            // continuation sheets carry fields outside page 1's registry
+            // (PO numbers on invoice riders…). Page 1 restricts generic to
+            // unclassified docs because registry and generic COMPETE there;
+            // here the registry picked first (pUsed) and every result is
+            // review-capped — surfacing beats silence, and nothing can
+            // silently corrupt.
+            {
+              for (const g of extractGenericFields(pItems, pUsed)) {
+                const key = g.canonicalLabel.toLowerCase();
+                if (already.has(key)) continue;
+                already.add(key);
+                const cleanVal = normalizeFieldValue(g.valueType, g.value).value;
+                const gNodeId = builder.addNode('field', pPageId, g.valueItem.boxNorm, cleanVal, Math.min(g.score, 0.6));
+                const h = builder.addHypothesis(g.label, cleanVal, g.valueType, g.valueItem.boxNorm, pPageId);
+                builder.linkHypothesisNodes(h, { valueNodeId: gNodeId, labelNodeId: g.labelItem.nodeId });
+                hypReviewCaps.set(h, cap);
+                pAdded++;
+              }
+            }
+            console.log(`[App] continuation page ${pi + 1}: ${pItems.length} lines, ${pCodes.length} code(s), ${pAdded} field(s) (review-capped).`);
+            pBitmap.close();
+          } catch (pageErr) {
+            // Per-page isolation: one bad page never kills the document.
+            console.warn(`[App] continuation page ${pi + 1} failed:`, pageErr);
+          }
+        }
+      }
+
       // 5. Run Verifier Engine to resolve statuses
       setStatusText('Running local verification & cross-field checks...');
       const graph = builder.build();
@@ -1771,8 +1948,15 @@ export default function App() {
               <div style={{ flex: 1, minHeight: 0 }}>
                 <DocumentViewer
                   imageSrc={imageSrc}
-                  hypotheses={activeGraph?.hypotheses ?? []}
-                  nodes={activeGraph?.nodes ?? []}
+                  // The canvas shows PAGE 1 — continuation-page boxes live in
+                  // other coordinate spaces and must not paint here (their
+                  // fields still list in the form editor and the record).
+                  hypotheses={(activeGraph?.hypotheses ?? []).filter(
+                    (h) => !activeGraph || !h.pageId || h.pageId === activeGraph.pages[0]?.id,
+                  )}
+                  nodes={(activeGraph?.nodes ?? []).filter(
+                    (n) => !activeGraph || !n.pageId || n.pageId === activeGraph.pages[0]?.id,
+                  )}
                   selectedId={selectedFieldId}
                   onSelectField={handleSelectField}
                 />
