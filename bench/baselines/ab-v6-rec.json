@@ -58,5 +58,36 @@
   ],
   "diagnosis": "checksum-guided-beam hallucination class: v6 lattices on degraded MRZ crops leave enough noise freedom for the beam to construct checksum-VALID but WRONG dates (2/1656 = 0.12%). The raw-crop A/B could not see this because it scores greedy text, not beam-over-lattice.",
   "verdict": "v5-server STAYS LOCKED (N1: silents are constitutional, recall is not). v6 adoption path (future change control): beam path-probability floor OR dual-tier quorum (v6 read + v5 verify on MRZ bands) must drive the hallucination class to zero first."
+ },
+ "finalVerdict": {
+  "when": "2026-07-09",
+  "lock": "v6-small",
+  "threeTierUniverse": {
+   "v6-small": {
+    "total": "1428/1656",
+    "silents": 0,
+    "run": "ap-ZTHbnjQ7KG0Mh0IuDa0Xc6",
+    "note": "WINNER - all guards live; letters 0/24 honest-refusal (v6-small long-text interplay, not a silent)"
+   },
+   "v5-server": {
+    "total": "~1406/1656",
+    "silents": 0,
+    "note": "previous lock; letters control arm 9/24 proves the new laws did not cause the letters delta"
+   },
+   "v6-medium": {
+    "total": "1422/1656",
+    "silents": 3,
+    "run": "ap-WQCYnaFamMmR3Df2SP7sLL",
+    "note": "DISQUALIFIED - new confident-wrong VIZ reads: permits passport_number O-for-0, real sex M/F flip, real country ARE/VAE"
+   }
+  },
+  "lawsThatMadeItSafe": [
+   "unverifiable-machine-zone",
+   "orphaned-competitor binding cap",
+   "grammarRedecode fabrication floor",
+   "mrz weak_span guard",
+   "pattern-matched date-role windows"
+  ],
+  "serviceNote": "service stays v5-server pinned (separate golden set); browser is the certified extraction engine"
  }
 }

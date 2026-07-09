@@ -135,13 +135,16 @@ export const PPOCR_DICT_V6: CharDictSpec = {
 };
 
 /**
- * OCR tier lock (04 §1.1 enum). Build-time selected so the gate harness can
- * A/B the tiers on identical code: `VITE_OCR_TIER=v6-small vite build`.
- * v5-server stays the certified default until the v6 burst A/B passes
- * change control (raw-crop wins ≠ pipeline wins).
+ * OCR tier lock (04 §1.1 enum) — **LOCKED: v6-small** by the three-tier
+ * universe A/B (2026-07-09, all under the binding/zone/fabrication laws):
+ *   v6-small  1428/1656 SILENT=0  (rec 3× faster than v5)   ← WINNER
+ *   v5-server 1406/1656 SILENT=0  (previous lock)
+ *   v6-medium 1422/1656 SILENT=3  (DISQUALIFIED: new confident-wrong VIZ
+ *             reads — O↔0 id, sex M/F flip, country-code confusion)
+ * Build-time selectable for A/Bs: `VITE_OCR_TIER=v5-server vite build`.
  */
 export const OCR_TIER: 'v5-server' | 'v6-small' | 'v6-medium' =
-  (import.meta.env?.VITE_OCR_TIER as 'v5-server' | 'v6-small' | 'v6-medium') ?? 'v5-server';
+  (import.meta.env?.VITE_OCR_TIER as 'v5-server' | 'v6-small' | 'v6-medium') ?? 'v6-small';
 
 /** The ACTIVE recognition model + dictionary for the locked tier. */
 export const OCR_REC_MODEL: OnnxModelSpec =

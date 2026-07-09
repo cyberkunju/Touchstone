@@ -63,10 +63,9 @@ def _stage_bench() -> str:
 
 _BENCH_DIR = _stage_bench() if modal.is_local() else "/root/app/bench"
 
-# P3.6 A/B knob: GATE_OCR_TIER=v6-small builds the image with the v6
-# recognition tier (build-time constant — different command string ⇒ new
-# layer hash ⇒ clean rebuild). Default = the certified v5-server lock.
-_OCR_TIER = _os.environ.get("GATE_OCR_TIER", "v5-server") if modal.is_local() else "v5-server"
+# P3.6 A/B knob — default = the LOCKED tier (v6-small, three-tier universe
+# verdict 2026-07-09). GATE_OCR_TIER=v5-server reproduces the fallback tier.
+_OCR_TIER = _os.environ.get("GATE_OCR_TIER", "v6-small") if modal.is_local() else "v6-small"
 
 # ---------------------------------------------------------------- image ----
 # Layered for cache-friendliness: node+chrome deps rarely change; deps layer
