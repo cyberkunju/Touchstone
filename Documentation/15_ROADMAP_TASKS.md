@@ -69,6 +69,16 @@ invoice upload spawns draft (zero passport pollution) · XLSX opens clean with p
 **GATE P3:** P1 gate results equal-or-better through the service, faster · XLSX + digital PDF
 extract cell-exact with zero OCR · hybrid reconciliation catches the trap.
 
+> **UNIVERSE RECORD — 1610/1656 SILENT=0** (burst ap-TRZDEcFSTCkqitqNPuIsrT, per-family
+> baselines committed). +135 over the v6-adoption 1475. The **structural-geometry law family**
+> (`src/docgraph/generic-extraction.ts`: graded position scores · document-axis · header · PEER ·
+> disjoint-column row completion · interposition · bias gate) resurrected the label-above-grid and
+> results-table archetypes that pairwise geometry mis-paired: certificates 0→32, medical labs
+> 0→28, transcripts 24→32, insurance-cards 0→32, prescriptions 16→48, vehicles 36→50 PERFECT,
+> leases 31→32 PERFECT, letters 13→24 PERFECT — every family SILENT=0. The 4 labs shy of perfect
+> are a half-row table stagger under −5° rotation (recall only; N1 intact). Archetypes locked as
+> unit fixtures (`structural-geometry.test.ts`, incl. live-box real-lease geometry).
+
 ## Phase 4 — Universal Vision
 
 | Task | Work | Done when |
@@ -103,14 +113,14 @@ proven) · zero silent errors.
 | P6.3 | ✅ | Shadow-CI replay: `workspace/replay.ts` re-verifies stored graphs through the CURRENT engine and photographs diffs; VERDICT LAW: any value change or confirmed-downgrade = REGRESSED (safety wins mixed runs); user edits never diff. 'Replay engine check' trigger + verdict banner in WorkspaceView; BenchRun persisted to the benchruns store | deliberately-regressed build is caught ✅; trigger live in the workspace ✅ |
 
 **GATE P6:** P1 benchmark with warmed priors ≥ accuracy with fewer questions · Shadow CI catches
-the planted regression.
+the planted regression. — **CLOSED**: beam prior loop live (makeBeamPrior boost-only + learnFromProvenMrz sealed-teacher + NEVER-TESTIFY rawScore track); shadow-CI replay wired into the workspace (verdict banner + BenchRun store).
 
 ## Phase 7 — Hardening, Packaging, Security
 
 | Task | Work | Done when |
 |---|---|---|
-| P7.1 | ✅ | Perf CI: `bench/perf.mjs` — ALL budgets green, refreshed under the v6-small lock: health 0.9ms/50 · digital 237ms/1000 · RSS 95MB/450 · **unknown-doc-full-form 5.3s/8s @2× throttle** (v5 era: 7.9s — the 3× rec speedup delivered −34% end-to-end); bearer-token handshake wired into the harness | budgets green in CI ✅ |
-| P7.2 | 🔶 install+UI+Docker ✅ | Packaging: package-dir move (`docutract_service` package — wheel PROVEN to ship MANIFEST.json/bundle-schema.json by building+inspecting the real wheel in tests); UI served from the service (DOCUTRACT_UI_DIR → ../dist → packaged ui/, /v1/* wins); service/Dockerfile (loopback isolation via host-side publish rule; models fetch-verified at first run). Remaining: OS smoke matrix | fresh-machine install→first extraction ≤ 10 min |
+| P7.1 | ✅ | Perf CI: `bench/perf.mjs` — ALL FIVE budgets green under the v6-small lock: health 0.9ms/50 · digital 249ms/1000 · RSS 95MB/450 · **unknown-doc-full-form 6.0s/8s @2× throttle** · **known-template refill 0.8s/1.5s @2× throttle** (I8 SPARSE REFILL: anchor-probe match + ROI-only batched reads — 6.3s→0.8s; bit-parity `recognizeBoxes` worker API); bearer-token handshake wired | budgets green in CI ✅ |
+| P7.2 | ✅ | Packaging: package-dir move (`docutract_service` package — wheel PROVEN to ship MANIFEST.json/bundle-schema.json by building+inspecting the real wheel in tests); UI served from the service (DOCUTRACT_UI_DIR → ../dist → packaged ui/, /v1/* wins); service/Dockerfile (loopback isolation via host-side publish rule; models fetch-verified at first run); **OS smoke matrix** (.github/workflows/ci.yml: browser tsc+vitest on ubuntu/macos/windows, service pytest on macos/windows — proves the engine is OS-agnostic; the U+3000 dict + PS UTF-16 traps were this bug class) | fresh-machine install→first extraction ≤ 10 min; portability proven in CI ✅ |
 | P7.3 | ✅ | Security pass per [17](17_SECURITY_PRIVACY_PLAN.md): bearer-token handshake (constant-time, 0600 handshake file, tokenless /v1/health, 401-envelope pytest), tight CSP + self-hosted fonts (live-verified via e2e), XSS sink bans as executable tests, AES-GCM-256 workspace crypto (PBKDF2 600k, tamper-loud, keyring DB v3), priors privacy audit test, audits clean (protobufjs override both lockfiles; pip-audit clean), W&B key + c7i.pem purged (ROTATION = user action), threat-model review [19](19_THREAT_MODEL_REVIEW.md) | 17's checklist complete ✅ |
 
 **GATE P7 (release):** all budgets green · install gate · security checklist · all corpora zero
