@@ -32,6 +32,7 @@ import {
   textLayerToLines,
   type PdfPageText,
 } from './parsers/pdf-text-layer';
+import { augmentWithConsensus } from './consensus/bridge';
 
 import UploadManager from './components/UploadManager';
 import DocumentViewer from './components/DocumentViewer';
@@ -1317,6 +1318,16 @@ export default function App() {
 
       const verifiedGraph = VerifierService.verify(graph);
 
+      // 5.5 Consensus layer (P5, additive law): attach printable
+      // justification chains to attested fields; DOWNGRADE any confirmed
+      // field an attestor contradicts (potential silents become review;
+      // promotion authority stays with the certified verifier until A/B).
+      const consensus = augmentWithConsensus(verifiedGraph);
+      if (consensus.downgraded.length > 0) {
+        console.warn('[App] consensus downgraded confirmed fields:', consensus.downgraded);
+      }
+      console.log(`[App] consensus: ${consensus.justified.length} field(s) carry proof chains.`);
+
       // Save raw graph to IndexedDB
       await saveDocGraph(verifiedGraph);
       setActiveGraph(verifiedGraph);
@@ -1376,6 +1387,7 @@ export default function App() {
 
     // Re-verify after correction
     const updatedGraph = VerifierService.verify(currentGraph);
+    augmentWithConsensus(updatedGraph); // justifications stay current (user edits never downgraded)
     setActiveGraph(updatedGraph);
     saveDocGraph(updatedGraph);
   };

@@ -1,12 +1,12 @@
 {
-  "when": "2026-07-09T09:54:24.542Z",
+  "when": "2026-07-09T10:44:39.347Z",
   "entries": 8,
   "passed": 8,
   "silentErrors": 0,
   "mrzValidRate": 1,
   "fieldHitRate": 1,
   "adversarialRefusalRate": 0,
-  "totalMs": 71562,
+  "totalMs": 67146,
   "results": [
     {
       "file": "id00_clean.png",
@@ -19,7 +19,7 @@
       "fieldTotal": 6,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 8498
+      "ms": 7859
     },
     {
       "file": "id00_jpeg40.jpg",
@@ -32,7 +32,7 @@
       "fieldTotal": 6,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 9049
+      "ms": 7171
     },
     {
       "file": "id00_blur1.png",
@@ -45,7 +45,7 @@
       "fieldTotal": 6,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 10275
+      "ms": 8455
     },
     {
       "file": "id00_blur2.jpg",
@@ -58,7 +58,7 @@
       "fieldTotal": 6,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 10260
+      "ms": 9234
     },
     {
       "file": "id00_rot3.png",
@@ -71,7 +71,7 @@
       "fieldTotal": 6,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 10518
+      "ms": 10641
     },
     {
       "file": "id00_rot-7.jpg",
@@ -84,7 +84,7 @@
       "fieldTotal": 6,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 8102
+      "ms": 8372
     },
     {
       "file": "id00_persp.png",
@@ -97,7 +97,7 @@
       "fieldTotal": 6,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 6964
+      "ms": 6868
     },
     {
       "file": "id00_noise.png",
@@ -110,7 +110,7 @@
       "fieldTotal": 6,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 6768
+      "ms": 7412
     }
   ]
 }
