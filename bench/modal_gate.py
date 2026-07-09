@@ -63,6 +63,11 @@ def _stage_bench() -> str:
 
 _BENCH_DIR = _stage_bench() if modal.is_local() else "/root/app/bench"
 
+# P3.6 A/B knob: GATE_OCR_TIER=v6-small builds the image with the v6
+# recognition tier (build-time constant — different command string ⇒ new
+# layer hash ⇒ clean rebuild). Default = the certified v5-server lock.
+_OCR_TIER = _os.environ.get("GATE_OCR_TIER", "v5-server") if modal.is_local() else "v5-server"
+
 # ---------------------------------------------------------------- image ----
 # Layered for cache-friendliness: node+chrome deps rarely change; deps layer
 # changes with the lockfile; source layer changes per commit; corpus is a
@@ -108,7 +113,8 @@ image = (
         "cd /root/app && node scripts/copy-ort-wasm.mjs",
         "cd /root/app && node scripts/fetch-models.mjs",
         # Production build — deterministic, no HMR, no dev-server races.
-        "cd /root/app && npx tsc --noEmit && npx vite build",
+        # OCR tier is a build-time constant (P3.6 A/B knob).
+        f"cd /root/app && VITE_OCR_TIER={_OCR_TIER} npx tsc --noEmit && VITE_OCR_TIER={_OCR_TIER} npx vite build",
     )
     # Gate + baselines (immutable snapshot — see _stage_bench).
     .add_local_dir(_BENCH_DIR, "/root/app/bench", copy=True)

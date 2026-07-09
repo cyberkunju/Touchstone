@@ -86,7 +86,7 @@ export const OCR_DET_MODEL: OnnxModelSpec = {
  * PP-OCRv5 server text-recognition model (SVTR-LCNet, CTC head).
  * Input: [1,3,48,W] dynamic width. Output: logits [1,T,numClasses].
  */
-export const OCR_REC_MODEL: OnnxModelSpec = {
+export const OCR_REC_V5: OnnxModelSpec = {
   key: 'ppocrv5_rec',
   fileName: 'PP-OCRv5_server_rec_infer.onnx',
   url: `${MODEL_BASE}/PP-OCRv5_server_rec_infer.onnx`,
@@ -94,12 +94,44 @@ export const OCR_REC_MODEL: OnnxModelSpec = {
   executionProvider: 'wasm',
 };
 
-/** The PP-OCRv5 character dictionary (18,383 entries, one char per line). */
-export const PPOCR_DICT: CharDictSpec = {
+/**
+ * PP-OCRv6-small text-recognition (P3.6 tier candidate). Same input contract
+ * as v5 ([N,3,48,W] dynamic); C=18710 = blank + 18708 dict chars + space —
+ * verified by ONNX output probe. Raw-crop A/B verdict on file
+ * (bench/baselines/ab-v6-rec.json): 2× MRZ-exact at 2.9× speed.
+ */
+export const OCR_REC_V6: OnnxModelSpec = {
+  key: 'ppocrv6_rec',
+  fileName: 'PP-OCRv6_small_rec_infer.onnx',
+  url: `${MODEL_BASE}/PP-OCRv6_small_rec_infer.onnx`,
+  kind: 'recognition',
+  executionProvider: 'wasm',
+};
+
+export const PPOCR_DICT_V5: CharDictSpec = {
   key: 'ppocrv5_dict',
   fileName: 'ppocrv5_dict.txt',
   url: `${MODEL_BASE}/ppocrv5_dict.txt`,
 };
+
+export const PPOCR_DICT_V6: CharDictSpec = {
+  key: 'ppocrv6_dict',
+  fileName: 'ppocrv6_dict.txt',
+  url: `${MODEL_BASE}/ppocrv6_dict.txt`,
+};
+
+/**
+ * OCR tier lock (04 §1.1 enum). Build-time selected so the gate harness can
+ * A/B the tiers on identical code: `VITE_OCR_TIER=v6-small vite build`.
+ * v5-server stays the certified default until the v6 burst A/B passes
+ * change control (raw-crop wins ≠ pipeline wins).
+ */
+export const OCR_TIER: 'v5-server' | 'v6-small' =
+  (import.meta.env?.VITE_OCR_TIER as 'v5-server' | 'v6-small') ?? 'v5-server';
+
+/** The ACTIVE recognition model + dictionary for the locked tier. */
+export const OCR_REC_MODEL: OnnxModelSpec = OCR_TIER === 'v6-small' ? OCR_REC_V6 : OCR_REC_V5;
+export const PPOCR_DICT: CharDictSpec = OCR_TIER === 'v6-small' ? PPOCR_DICT_V6 : PPOCR_DICT_V5;
 
 /**
  * Custom-trained YOLOv11n document-layout detector. Intentionally `null` until
