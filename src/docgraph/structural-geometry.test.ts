@@ -59,6 +59,39 @@ describe('HEADER ROW (the lab patient-block archetype)', () => {
     expect(map['collected']?.value).toBe('01/07/2026');
     expect(map['physician']?.value).toBe('DR. R. VANCE');
   });
+
+  it('keeps a directly stacked name despite a typed token in another column', () => {
+    // Exact live boxes from lab_id01_worst: the collected date overlaps the
+    // PATIENT NAME row, but KENJI is the high-overlap value directly below.
+    const items = [
+      mk('PATIENT NAME', 0.1364, 0.1979, 0.199, 0.2142),
+      mk('MEDICAL RECORD NO', 0.2911, 0.1996, 0.3776, 0.2136),
+      mk('COLLECTED', 0.4178, 0.198, 0.4697, 0.214),
+      mk('PHYSICIAN', 0.546, 0.1992, 0.5936, 0.2151),
+      mk('KENJI NAKAMURA', 0.1362, 0.2115, 0.2659, 0.2283),
+      mk('MRN-806023', 0.2891, 0.2101, 0.3817, 0.232),
+      mk('02/07/2026', 0.4146, 0.2084, 0.5, 0.2326),
+      mk('DR. R. VANCE', 0.5453, 0.2101, 0.6442, 0.232),
+    ];
+
+    const map = byCanonical(extractGenericFields(items));
+    expect(map.patient_name?.value).toBe('KENJI NAKAMURA');
+    expect(map.medical_record_no?.value).toBe('MRN-806023');
+    expect(map.collected?.value).toBe('02/07/2026');
+    expect(map.physician?.value).toBe('DR. R. VANCE');
+  });
+
+  it('does not grant direct-stack ownership to a non-identity label', () => {
+    const items = [
+      mk('DESCRIPTION', 0.06, 0.2, 0.2, 0.23),
+      mk('DATE', 0.55, 0.2, 0.62, 0.23),
+      mk('NORTHWIND TRADERS', 0.06, 0.225, 0.24, 0.26),
+      mk('02/07/2026', 0.55, 0.208, 0.67, 0.25),
+    ];
+
+    const map = byCanonical(extractGenericFields(items));
+    expect(map.description?.value).not.toBe('NORTHWIND TRADERS');
+  });
 });
 
 describe('INTERPOSITION (the lease archetype)', () => {

@@ -7,8 +7,8 @@ No cloud. Runs on a 4 GB laptop.
 
 ## Certification status
 
-**29/29 document families, SILENT = 0** across 1,656 documents on the burst
-harness — with proof-based confirmation live (fields confirmed by MRZ check
+**29/29 document families, 1,649/1,656 passes, SILENT = 0** on the certified
+burst harness — with proof-based confirmation live (fields confirmed by MRZ check
 digits, checksum claims, barcode/QR cross-channel agreement, arithmetic
 closure, and dual-channel quorum carry printable justification chains).
 Baselines: [bench/baselines/](bench/baselines/). Every claim in this README
@@ -19,7 +19,7 @@ is enforced by a committed test or baseline.
 ```bash
 bun install && bun run setup     # deps + pinned OCR models (sha256-verified)
 bun run dev                      # app at http://localhost:5173
-bun run test                     # 727-test unit suite (must stay green)
+bun run test                     # 769-test unit suite (must stay green)
 bunx tsc --noEmit && bunx vite build
 ```
 

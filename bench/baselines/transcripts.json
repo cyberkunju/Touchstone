@@ -1,10 +1,10 @@
 {
- "when": "2026-07-09T18:52:50.144241+00:00",
+ "when": "2026-07-09T20:53:23.327901+00:00",
  "entries": 32,
  "passed": 32,
  "silentErrors": 0,
  "mrzValidRate": 0.0,
- "fieldHitRate": 0.99,
+ "fieldHitRate": 1.0,
  "adversarialRefusalRate": 0,
  "note": "certified on Modal burst (single-environment record; shard-merged)"
 }

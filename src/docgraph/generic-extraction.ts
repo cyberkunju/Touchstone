@@ -541,8 +541,30 @@ export function extractGenericFields(
 
     for (const { value: v, pos } of valid) {
       const vLooksLikeLabel = looksLikeLabel(v.text);
+      // DIRECT-STACK OWNERSHIP (live-caught on lab_id01_worst): PATIENT NAME
+      // had KENJI NAKAMURA directly beneath it, but a date in a distant
+      // column overlapped the label's row and triggered the generic -0.5
+      // label-like penalty. A value immediately below with strong horizontal
+      // overlap belongs to this label's column; another column cannot demote
+      // it merely by having a more typed-looking token.
+      const stackedText = collapseWhitespace(v.text);
+      const stackedWords = stackedText.split(/\s+/);
+      const uppercaseIdentityPhrase =
+        stackedWords.length >= 2 &&
+        stackedWords.length <= 4 &&
+        /^[A-Z][A-Z .'-]*$/.test(stackedText);
+      const identityRoleLabel =
+        /\b(?:name|holder|patient|tenant|landlord|employee|student|member|respondent|insured)\b/i
+          .test(cleanLabelText(l.text));
+      const directlyStacked =
+        identityRoleLabel &&
+        uppercaseIdentityPhrase &&
+        stacksBelow(l, v, 0.06) &&
+        horizontalOverlapRatio(l, v) >= 0.7;
       const labelBias = vLooksLikeLabel
-        ? hasNonLabelValue
+        ? directlyStacked
+          ? 0.15
+          : hasNonLabelValue
           ? -0.5
           : 0.15
         : 0.15;

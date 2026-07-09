@@ -6,27 +6,26 @@ gate not worsened. This file mirrors and elaborates plan.md §15 (which remains 
 
 ## Current Completion State — 2026-07-10
 
-- **Certified and baseline-sealed:** **1645/1656, SILENT=0**, 29/29 families
-	(`ap-APexxZXMtjbk6VeP1FLcT5`). Cards and insurance are both 32/32-or-better family passes;
+- **Certified and baseline-sealed:** **1649/1656, SILENT=0**, 29/29 families
+	(`ap-nfYHTCuf8Cbk1NRWfoQnNS`, funded `stratosix-labs` workspace). Cards, insurance,
+	labs, and mixed are complete family passes;
 	all five performance budgets, 769 browser tests, 123 service tests, TypeScript, production build,
 	dependency audits, and the seven-job Linux/macOS/Windows CI matrix are green.
-- **Validated candidate:** **1649/1656, SILENT=0**. The remaining +4 are not new OCR guesses:
-	the engine already extracted exact lab patient names, while the scorer resolved the shared
+- **Lab residual closed:** the remaining +4 were not new OCR guesses: the engine already extracted
+	exact lab patient names, while the scorer resolved the shared
 	`PATIENT NAME` label to the prescription schema key. Context-aware scoring plus a narrowly
 	gated uppercase direct-stack ownership law passes the complete labs family at 32/32 and 73.7%
-	field recall. This candidate is not called certified until the universe burst seals it.
-- **Certification blocker:** the replacement Modal token verifies and is active in profile
-	`versifine`, but it resolves to the same `versifine` workspace. Modal rejects app creation with
-	`workspace billing cycle spend limit reached`. A token from a workspace with available spend,
-	or a billing-limit reset on `versifine`, is required for the final seal.
+	field recall; the universe burst proves no family regression and SILENT=0.
+- **Certification infrastructure hardened:** `stratosix-labs` now holds a SHA-256-verified
+	`docutract-corpus` volume. The Modal coverage law includes `mixed`, so an absent mixed corpus can
+	never again masquerade as a 0/0 pass.
 
 ### Active Completion Queue
 
-1. Point Modal at a workspace with available spend (do not paste secrets into source or logs).
-2. Run `modal run bench/modal_gate.py --commit`; require **1649/1656, SILENT=0, 29/29**.
-3. Commit and push the scorer/direct-stack laws plus all 29 updated baseline artifacts.
-4. Treat the final seven misses (3 composites, 4 real-world photos) as measured recall research;
+1. Treat the final seven misses (3 composites, 4 real-world photos) as measured recall research;
 	 no release change may trade away N1 or regress a committed family baseline.
+2. Keep release tooling truthful: lint, build, tests, audits, perf, OS smoke, and universe coverage
+	 remain executable gates rather than documentation claims.
 
 ---
 
@@ -93,10 +92,9 @@ invoice upload spawns draft (zero passport pollution) · XLSX opens clean with p
 **GATE P3:** P1 gate results equal-or-better through the service, faster · XLSX + digital PDF
 extract cell-exact with zero OCR · hybrid reconciliation catches the trap.
 
-> **CERTIFIED UNIVERSE RECORD — 1645/1656 SILENT=0** (burst
-> `ap-APexxZXMtjbk6VeP1FLcT5`, 29/29 baselines sealed). The locally validated 1649 candidate is
-> tracked in Current Completion State above and remains explicitly uncertified until Modal can run
-> against a workspace with available spend. The certified record is +170 over v6-adoption 1475.
+> **CERTIFIED UNIVERSE RECORD — 1649/1656 SILENT=0** (burst
+> `ap-nfYHTCuf8Cbk1NRWfoQnNS`, 29/29 baselines sealed). The record is +174 over
+> v6-adoption 1475.
 > The **structural-geometry law family**
 > (`src/docgraph/generic-extraction.ts`: graded position scores · document-axis · header · PEER ·
 > disjoint-column row completion · interposition · bias gate) resurrected the label-above-grid and
@@ -105,10 +103,9 @@ extract cell-exact with zero OCR · hybrid reconciliation catches the trap.
 > leases 31→32 PERFECT, letters 13→24 PERFECT — every family SILENT=0. The contact-cluster law
 > resurrected business cards 9→36 PERFECT (validated email+phone + uppercase identity heading,
 > still review-capped); strict policy labels resurrected insurance notices 24→32 PERFECT. A scorer
-> schema ambiguity (`PATIENT NAME`: labs `full_name` vs prescriptions `patient_name`) hides four
-> already-correct lab reports in the 1645 baseline; the candidate context-aware resolution plus
-> uppercase direct-stack ownership closes labs 28→32 at 73.7% field recall, pending the final
-> universe seal. Archetypes are locked as unit fixtures
+> schema ambiguity (`PATIENT NAME`: labs `full_name` vs prescriptions `patient_name`) hid four
+> already-correct lab reports; context-aware resolution plus identity-role-gated uppercase
+> direct-stack ownership closes labs 28→32 at 73.7% field recall. Archetypes are locked as unit fixtures
 > (`structural-geometry.test.ts`, incl. live-box real-lease and worst-lab geometry).
 
 ## Phase 4 — Universal Vision

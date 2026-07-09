@@ -362,7 +362,8 @@ def main(families: str = "", seed: bool = False, commit: bool = False,
         "blanks": "blank_forms/synthetic", "foreign": "foreign_script/synthetic",
         "letters": "letters/synthetic", "leases": "property_leases/synthetic",
         "rx": "prescriptions/synthetic", "quest": "questionnaires/synthetic",
-        "composites": "composites", "real": "passports/real_fakes",
+        "composites": "composites", "mixed": "mixed",
+        "real": "passports/real_fakes",
     }
     root = _Path(__file__).resolve().parents[1]
     coverage_holes: list[str] = []

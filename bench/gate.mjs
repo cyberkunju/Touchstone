@@ -186,8 +186,16 @@ const LABEL_TO_TRUTH = new Map([
   ['ALT', 'alt'],
   ['TSH', 'tsh'],
 ]);
-function truthKeyFor(label) {
-  return LABEL_TO_TRUTH.get(norm(label).replace(/\s*\(MRZ\)$/, '')) ?? null;
+function truthKeysFor(label) {
+  const normalized = norm(label).replace(/\s*\(MRZ\)$/, '');
+  // The same printed label can have family-specific schema keys. A Map's
+  // last-write-wins behavior silently made PATIENT NAME score prescriptions
+  // (`patient_name`) but disappear from medical labs (`full_name`) even when
+  // the engine extracted the exact value. Return every legitimate key; the
+  // active manifest decides which one exists.
+  if (normalized === 'PATIENT NAME') return ['full_name', 'patient_name'];
+  const key = LABEL_TO_TRUTH.get(normalized);
+  return key ? [key] : [];
 }
 /** Semantic date canonicalization: truth is ISO (YYYY-MM-DD); documents
  *  print locale forms (corpus renders DMY). "31/12/2026" IS "2026-12-31" —
@@ -271,7 +279,7 @@ function scoreEntry(entry, gate) {
     r.fieldTotal = wanted.size;
     const seen = new Map(); // truthKey → best {value,status}
     for (const f of gate.fields) {
-      const key = truthKeyFor(f.label);
+      const key = truthKeysFor(f.label).find((candidate) => wanted.has(candidate));
       if (!key || !wanted.has(key) || f.value === null) continue;
       const match = valuesMatch(key, wanted.get(key), f.value);
       if (match && !seen.has(key)) seen.set(key, f);
@@ -295,7 +303,7 @@ function scoreEntry(entry, gate) {
     let silverContradictions = 0;
     if (entry.silverTruth) {
       for (const f of gate.fields) {
-        const key = truthKeyFor(f.label);
+        const key = truthKeysFor(f.label).find((candidate) => candidate in entry.silverTruth);
         if (!key || !(key in entry.silverTruth) || f.value === null) continue;
         if (f.status === 'confirmed' && !valuesMatch(key, entry.silverTruth[key], f.value)) {
           silverContradictions++;
@@ -380,21 +388,29 @@ function scoreEntry(entry, gate) {
     r.fieldTotal = allTruths.reduce((s, t) => s + t.size, 0);
     const seen = new Set();
     for (const f of gate.fields) {
-      const key = truthKeyFor(f.label);
-      if (!key || f.value === null) continue;
-      // A field matching ANY constituent's truth for that key = hit.
+      const keys = truthKeysFor(f.label);
+      if (keys.length === 0 || f.value === null) continue;
+      // A field matching ANY constituent's truth for ANY schema-compatible
+      // key = hit (e.g. PATIENT NAME in a lab vs prescription constituent).
       let matched = false;
       for (let ci = 0; ci < allTruths.length; ci++) {
-        if (allTruths[ci].has(key) && valuesMatch(key, allTruths[ci].get(key), f.value)) {
-          if (!seen.has(`${ci}:${key}`)) { seen.add(`${ci}:${key}`); }
-          matched = true;
-          break;
+        for (const key of keys) {
+          if (allTruths[ci].has(key) && valuesMatch(key, allTruths[ci].get(key), f.value)) {
+            if (!seen.has(`${ci}:${key}`)) { seen.add(`${ci}:${key}`); }
+            matched = true;
+            break;
+          }
         }
+        if (matched) break;
       }
       if (matched) continue;
-      // Confirmed + wrong for every constituent that HAS this key = silent.
-      if (f.status === 'confirmed' && allTruths.some((t) => t.has(key))) {
-        r.silentErrors.push({ field: key, got: f.value, want: allTruths.map((t) => t.get(key)).filter(Boolean).join(' | ') });
+      // Confirmed + wrong for every constituent that HAS a compatible key = silent.
+      if (f.status === 'confirmed' && allTruths.some((t) => keys.some((key) => t.has(key)))) {
+        r.silentErrors.push({
+          field: keys.join('|'),
+          got: f.value,
+          want: allTruths.flatMap((t) => keys.map((key) => t.get(key))).filter(Boolean).join(' | '),
+        });
       }
     }
     r.fieldHits = seen.size;
