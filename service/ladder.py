@@ -50,6 +50,7 @@ from stages import (
     quality_stage,
     tables_stage,
     align_stage,
+    seal_stage,
 )
 from stages.ocr_tap import create_session, load_vocab, tap_line
 from stages.reconcile import reconcile_text_layer
@@ -186,6 +187,18 @@ def _vision_page(models: Models, img: Image.Image, index: int,
     except Exception as e:  # noqa: BLE001
         stage_errors.append({"stage": "tables", "code": "INTERNAL", "detail": str(e)})
     timings["tables"] = timings.get("tables", 0) + (time.perf_counter() - t0) * 1000
+
+    t0 = time.perf_counter()
+    try:
+        page["seals"] = [{
+            "box": list(s.box),
+            "hue": s.dominant_hue,
+            "inkFrac": s.ink_frac,
+        } for s in seal_stage.detect_seals(arr)]
+    except Exception as e:  # noqa: BLE001
+        stage_errors.append({"stage": "seals", "code": "INTERNAL", "detail": str(e)})
+        page["seals"] = []
+    timings["seals"] = timings.get("seals", 0) + (time.perf_counter() - t0) * 1000
 
     return page
 

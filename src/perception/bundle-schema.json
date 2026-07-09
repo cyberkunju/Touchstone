@@ -188,6 +188,18 @@
             }
           }
         },
+        "seals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["box", "hue", "inkFrac"],
+            "properties": {
+              "box": { "$ref": "#/$defs/Box" },
+              "hue": { "enum": ["red", "blue"] },
+              "inkFrac": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        },
         "native": {
           "type": "object",
           "properties": {
