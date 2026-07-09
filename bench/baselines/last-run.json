@@ -1,12 +1,12 @@
 {
-  "when": "2026-07-09T14:06:41.346Z",
+  "when": "2026-07-09T14:33:23.251Z",
   "entries": 24,
-  "passed": 9,
+  "passed": 11,
   "silentErrors": 0,
   "mrzValidRate": 0,
-  "fieldHitRate": 0.375,
+  "fieldHitRate": 0.4583333333333333,
   "adversarialRefusalRate": 0,
-  "totalMs": 195034,
+  "totalMs": 140405,
   "results": [
     {
       "file": "letter_id00_clean.png",
@@ -15,11 +15,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 0,
+      "fieldHits": 1,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": false,
-      "ms": 9319
+      "pass": true,
+      "ms": 6157
     },
     {
       "file": "letter_id00_jpeg40.jpg",
@@ -28,11 +28,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 1,
+      "fieldHits": 0,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": true,
-      "ms": 8469
+      "pass": false,
+      "ms": 5846
     },
     {
       "file": "letter_id00_blur1.png",
@@ -41,11 +41,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 1,
+      "fieldHits": 0,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": true,
-      "ms": 7015
+      "pass": false,
+      "ms": 5624
     },
     {
       "file": "letter_id00_worst.jpg",
@@ -58,7 +58,7 @@
       "fieldTotal": 1,
       "conflictSurfaced": null,
       "pass": false,
-      "ms": 7694
+      "ms": 5736
     },
     {
       "file": "letter_id01_clean.png",
@@ -67,11 +67,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 0,
+      "fieldHits": 1,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": false,
-      "ms": 7458
+      "pass": true,
+      "ms": 5378
     },
     {
       "file": "letter_id01_jpeg40.jpg",
@@ -80,11 +80,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 1,
+      "fieldHits": 0,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": true,
-      "ms": 6828
+      "pass": false,
+      "ms": 5180
     },
     {
       "file": "letter_id01_blur1.png",
@@ -93,11 +93,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 0,
+      "fieldHits": 1,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": false,
-      "ms": 7287
+      "pass": true,
+      "ms": 5372
     },
     {
       "file": "letter_id01_worst.jpg",
@@ -106,11 +106,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 1,
+      "fieldHits": 0,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": true,
-      "ms": 6564
+      "pass": false,
+      "ms": 5905
     },
     {
       "file": "letter_id02_clean.png",
@@ -119,11 +119,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 0,
+      "fieldHits": 1,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": false,
-      "ms": 7595
+      "pass": true,
+      "ms": 7798
     },
     {
       "file": "letter_id02_jpeg40.jpg",
@@ -136,7 +136,7 @@
       "fieldTotal": 1,
       "conflictSurfaced": null,
       "pass": false,
-      "ms": 6964
+      "ms": 5873
     },
     {
       "file": "letter_id02_blur1.png",
@@ -145,11 +145,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 0,
+      "fieldHits": 1,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": false,
-      "ms": 7163
+      "pass": true,
+      "ms": 6176
     },
     {
       "file": "letter_id02_worst.jpg",
@@ -162,7 +162,7 @@
       "fieldTotal": 1,
       "conflictSurfaced": null,
       "pass": false,
-      "ms": 7090
+      "ms": 5618
     },
     {
       "file": "letter_id03_clean.png",
@@ -175,7 +175,7 @@
       "fieldTotal": 1,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 7334
+      "ms": 5221
     },
     {
       "file": "letter_id03_jpeg40.jpg",
@@ -184,11 +184,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 0,
+      "fieldHits": 1,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": false,
-      "ms": 7171
+      "pass": true,
+      "ms": 5331
     },
     {
       "file": "letter_id03_blur1.png",
@@ -201,7 +201,7 @@
       "fieldTotal": 1,
       "conflictSurfaced": null,
       "pass": true,
-      "ms": 7918
+      "ms": 5319
     },
     {
       "file": "letter_id03_worst.jpg",
@@ -214,7 +214,7 @@
       "fieldTotal": 1,
       "conflictSurfaced": null,
       "pass": false,
-      "ms": 8011
+      "ms": 5594
     },
     {
       "file": "letter_id04_clean.png",
@@ -223,11 +223,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 0,
+      "fieldHits": 1,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": false,
-      "ms": 8599
+      "pass": true,
+      "ms": 5433
     },
     {
       "file": "letter_id04_jpeg40.jpg",
@@ -236,11 +236,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 1,
+      "fieldHits": 0,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": true,
-      "ms": 14076
+      "pass": false,
+      "ms": 5416
     },
     {
       "file": "letter_id04_blur1.png",
@@ -249,11 +249,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 1,
+      "fieldHits": 0,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": true,
-      "ms": 8153
+      "pass": false,
+      "ms": 5292
     },
     {
       "file": "letter_id04_worst.jpg",
@@ -266,7 +266,7 @@
       "fieldTotal": 1,
       "conflictSurfaced": null,
       "pass": false,
-      "ms": 8404
+      "ms": 5418
     },
     {
       "file": "letter_id05_clean.png",
@@ -275,11 +275,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 0,
+      "fieldHits": 1,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": false,
-      "ms": 8905
+      "pass": true,
+      "ms": 6455
     },
     {
       "file": "letter_id05_jpeg40.jpg",
@@ -288,11 +288,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 1,
+      "fieldHits": 0,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": true,
-      "ms": 8142
+      "pass": false,
+      "ms": 5785
     },
     {
       "file": "letter_id05_blur1.png",
@@ -301,11 +301,11 @@
       "completed": true,
       "mrzValid": false,
       "silentErrors": [],
-      "fieldHits": 0,
+      "fieldHits": 1,
       "fieldTotal": 1,
       "conflictSurfaced": null,
-      "pass": false,
-      "ms": 8366
+      "pass": true,
+      "ms": 5834
     },
     {
       "file": "letter_id05_worst.jpg",
@@ -318,7 +318,7 @@
       "fieldTotal": 1,
       "conflictSurfaced": null,
       "pass": false,
-      "ms": 7649
+      "ms": 5649
     }
   ]
 }

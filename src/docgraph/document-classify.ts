@@ -164,6 +164,25 @@ export function classifyDocument(input: ClassifyInput): ClassifyResult {
   const topScore = ranked[0].score;
   const runnerUp = ranked[1]?.score ?? 0;
 
+  // CORROBORATION LAW (live-caught by the v6-small universe burst): a LONE
+  // keyword match is prose, not a classification — "we confirm receipt of
+  // your application" classified every LETTER as a receipt, routing it to
+  // the curated receipt registry (no `reference` spec) and silencing the
+  // universal layer. v5 only escaped by misreading the word. One generic
+  // English word proves nothing; curated registries activate on ≥2
+  // independent signals or a structural one (MRZ). Single-signal pages go
+  // GENERIC, where the universal extractor + self-labeling do the work.
+  if (!strongSignal && topScore < 2) {
+    return {
+      type: 'generic',
+      confidence: 0.4,
+      reasons: [
+        ...reasons,
+        `Single keyword match ("${ranked[0].type}") lacks corroboration — generic (universal layer).`,
+      ],
+    };
+  }
+
   // MRZ-driven tie-breaking between passport and id_card.
   const hasIdentitySignal = haystack.includes('identity');
   if (input.hasMrz) {
