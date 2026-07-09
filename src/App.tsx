@@ -40,6 +40,43 @@ import { FileText, Save, RefreshCw, Layers, Sparkles, CheckSquare, Trash2 } from
  *  Derived from the beam module's own charset so the two can never drift. */
 const MRZ_PROJECT_ALPHABET = [...MRZ_ANY].join('');
 
+/** I1 name policing: does the proven MRZ witness vouch for a VIZ name read?
+ *
+ *  Agreement is exact after normalization (uppercase, collapse whitespace,
+ *  hyphens/apostrophes dropped — MRZ cannot encode them). `full_name`
+ *  accepts either ordering of surname/given. A field the witness carries no
+ *  value for is NOT vouched (unknown ≠ agreed — N1).
+ *
+ *  note: ICAO truncation of very long names (>39 chars) would fail equality
+ *  and cost a review, never a silent — acceptable until the corpus shows it.
+ */
+function mrzWitnessAgrees(
+  field: { canonicalLabel: string; valueType: string },
+  value: string,
+  witness: { surname?: string; givenNames?: string } | null,
+): boolean {
+  if (field.valueType !== 'name' || witness === null) return false;
+  const norm = (s: string) => s.toUpperCase().replace(/['’-]/g, ' ').replace(/\s+/g, ' ').trim();
+  const v = norm(value);
+  const sur = witness.surname !== undefined ? norm(witness.surname) : undefined;
+  const giv = witness.givenNames !== undefined ? norm(witness.givenNames) : undefined;
+
+  switch (field.canonicalLabel) {
+    case 'surname':
+      return sur !== undefined && v === sur;
+    case 'given_names':
+    case 'given_name':
+      return giv !== undefined && v === giv;
+    case 'full_name':
+      return (
+        sur !== undefined && giv !== undefined &&
+        (v === `${giv} ${sur}` || v === `${sur} ${giv}`)
+      );
+    default:
+      return false;
+  }
+}
+
 export default function App() {
   // App States
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -618,6 +655,14 @@ export default function App() {
         // MRZ-derived fields that lack proof — added AFTER visual extraction
         // so an unproven MRZ read never blocks a clean visual one.
         const mrzGapFill: ReturnType<typeof mrzToFields> = [];
+        // True ONLY when the checksum-guided beam decoded a fully valid MRZ
+        // — the sole event that licenses identity-name auto-confirmation.
+        let mrzProven = false;
+        // The proven MRZ's name fields — the I1 witness that POLICES visual
+        // name reads. "The MRZ polices names" was an assumption until a
+        // knife-edge blur read confirmed "L" for "LI" beside a proven MRZ
+        // that knew better (live-caught, cloud run): policing must compare.
+        let mrzNameWitness: { surname?: string; givenNames?: string } | null = null;
 
         // 1. MRZ decode. Order (I2): checksum-guided BEAM SEARCH over the raw
         //    CTC lattices first — check digits drive the read, so ambiguous
@@ -715,6 +760,13 @@ export default function App() {
           // or non-ICAO specimen MRZ can pass a single check by coincidence, so
           // per-field gating is not enough. Visual fields win otherwise.
           if (parsedMRZ.format !== 'unknown' && parsedMRZ.status === 'valid') {
+            mrzProven = beamResult !== null;
+            if (mrzProven) {
+              mrzNameWitness = {
+                surname: parsedMRZ.fields.surname,
+                givenNames: parsedMRZ.fields.givenNames,
+              };
+            }
             const hMRZ = builder.addHypothesis('MRZ Payload', parsedMRZ, 'mrz', mrzZone.boxNorm, pageId);
             mrzZone.itemIds.forEach((id) => builder.linkHypothesisNodes(hMRZ, { valueNodeId: id }));
 
@@ -840,13 +892,23 @@ export default function App() {
           // cross-check polices them; commerce docs have no name attestor.
           if (
             f.valueType === 'id_number' ||
-            (f.valueType === 'name' && !isIdentityDoc)
+            ((f.valueType === 'name' || f.canonicalLabel === 'vendor') &&
+              (!isIdentityDoc || !mrzProven || !mrzWitnessAgrees(f, cleanVal, mrzNameWitness)))
           ) {
             hypReviewCaps.set(
               h,
               f.valueType === 'id_number'
                 ? 'Identifier read from pixels alone — no checksum or cross-source proof; review required.'
-                : 'Name read from pixels alone on a non-identity document — no attestor; review required.',
+                : !isIdentityDoc
+                  ? 'Name read from pixels alone on a non-identity document — no attestor; review required.'
+                  : !mrzProven
+                    // A detected-but-REFUSED zone is no police at all (live-
+                    // caught: AI fakes with refused MRZs got "DE ALMEIDA"/
+                    // "FJELLSTRM" confirmed). Refusal kills the exemption.
+                    ? 'Name on an identity-classified page without a beam-proven MRZ to cross-check — review required.'
+                    // I1 is a COMPARISON, not a vibe: the proven MRZ witness
+                    // disagreed with (or could not vouch for) this read.
+                    : 'Name disagrees with the proven MRZ witness — review required.',
             );
           }
           usedNodeIds.add(f.valueItem.nodeId);
@@ -879,7 +941,20 @@ export default function App() {
                     terms: ['gross_pay', 'total_deductions', 'net_pay'],
                     holds: ([g, d, n]) => g !== null && d !== null && n !== null && g - d === n,
                   }]
-                : [];
+                : docType === 'invoice'
+                  ? [{
+                      // Invoices/POs publish subtotal + tax = total — and the
+                      // equation is the ONLY attestor. Two surviving terms
+                      // have no checkable relation (live-caught: subtotal
+                      // "5456.18" + total, tax unread → the wrong subtotal
+                      // confirmed); partial closures prove nothing, exactly
+                      // like partial checksums. Confirm ONLY on the full
+                      // equation verifying to the cent.
+                      terms: ['subtotal', 'tax', 'total'],
+                      holds: ([s, t, tot]) =>
+                        s !== null && t !== null && tot !== null && s + t === tot,
+                    }]
+                  : [];
           for (const fam of closureFamilies) {
             const values = fam.terms.map((t) => cents(byCanonical.get(t)?.value));
             if (fam.holds(values)) {
@@ -921,6 +996,7 @@ export default function App() {
         //    types the curated registry is authoritative; running the heuristic
         //    generic layer there only adds noise (title/label mis-pairings).
         if (docType === 'generic') {
+          const genericAmounts: { id: string; slug: string; value: string }[] = [];
           for (const g of extractGenericFields(ocrItems, usedNodeIds)) {
             if (addedCanonical.has(g.canonicalLabel)) continue;
             addedCanonical.add(g.canonicalLabel);
@@ -932,8 +1008,62 @@ export default function App() {
               valueNodeId: genNodeId,
               labelNodeId: g.labelItem.nodeId,
             });
+            // N1: names/identifiers read by the GENERIC layer have no attestor
+            // whatsoever (live-caught: "KENJINAKAMURA" — OCR-merged, missing
+            // its space — confirmed as full_name on a tax form; the registry
+            // path carried this law, the generic path did not).
+            if (
+              g.valueType === 'id_number' ||
+              g.valueType === 'name' ||
+              g.canonicalLabel === 'vendor' ||
+              g.canonicalLabel === 'full_name'
+            ) {
+              hypReviewCaps.set(
+                h,
+                'Read from pixels alone by the generic layer — no attestor; review required.',
+              );
+            }
             usedNodeIds.add(g.valueItem.nodeId);
             usedNodeIds.add(g.labelItem.nodeId);
+            if (g.valueType === 'amount') {
+              genericAmounts.push({ id: h, slug: g.canonicalLabel, value: cleanVal });
+            }
+          }
+
+          // 3b. Generic-layer AMOUNT closure (N1): on unclassified pages the
+          //   subtotal/tax/total trio must attest each other exactly like the
+          //   registry path — a LONE surviving amount has no attestor (live-
+          //   caught: composite scenes ate the partner amounts and "$80.26"
+          //   confirmed for a total of 880.26 through THIS layer, after the
+          //   registry-path closure law was already in force).
+          {
+            const cents = (v: string): number | null => {
+              const n = parseFloat(v.replace(/[^\d.-]/g, ''));
+              return Number.isFinite(n) ? Math.round(n * 100) : null;
+            };
+            const CLOSURE_SLUGS = new Set(['subtotal', 'tax', 'total', 'amount_due', 'total_due', 'sub_total']);
+            const closureAmounts = genericAmounts.filter((a) => CLOSURE_SLUGS.has(a.slug));
+            if (closureAmounts.length > 0) {
+              const val = (slug: string): number | null => {
+                const hit = closureAmounts.find((a) => a.slug === slug);
+                return hit ? cents(hit.value) : null;
+              };
+              const s = val('subtotal') ?? val('sub_total');
+              const t = val('tax');
+              const tot = val('total') ?? val('amount_due') ?? val('total_due');
+              const closes = s !== null && t !== null && tot !== null && s + t === tot;
+              if (!closes) {
+                for (const a of closureAmounts) {
+                  hypReviewCaps.set(
+                    a.id,
+                    'Amount not attested: the closure equation is incomplete or does not verify — review required.',
+                  );
+                }
+                console.log(
+                  `[DIAG] generic amount closure NOT attested — ${closureAmounts.length} amount(s) review-capped`,
+                );
+              }
+            }
           }
         }
       }

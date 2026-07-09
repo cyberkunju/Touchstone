@@ -8,7 +8,7 @@
  */
 import ExcelJS from 'exceljs';
 import { describe, expect, it } from 'vitest';
-import type { DocRecord, Family, JustificationSummary } from '../../../src/workspace/types';
+import type { DocRecord, Family, JustificationSummary } from './types';
 import { buildAssetsZip, buildCsv, buildJson, buildXlsx, csvField, exportColumns } from './export';
 
 const J: JustificationSummary = { attestations: [], confidence: 0.97, reasons: ['test'] };

@@ -106,7 +106,11 @@ export const PASSPORT_FIELDS: FieldSpec[] = [
     synonyms: ['country code'],
     valueType: 'text',
     required: false,
-    valuePattern: /^[A-Z]{2,3}$/i,
+    // ICAO 9303 country codes are EXACTLY alpha-3: accepting 2 letters made
+    // a clipped read ("UTO" → "TO" under rotation) unfalsifiable — the
+    // truncation IS a valid-looking value (live-caught: 2 silents, deepened
+    // TD1 corpus). Exact length or no pairing.
+    valuePattern: /^[A-Z]{3}$/i,
   },
   {
     canonicalLabel: 'full_name',

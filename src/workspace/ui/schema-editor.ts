@@ -12,7 +12,7 @@
  * DESTINATION: src/workspace/ui/schema-editor.ts
  */
 
-import type { FormField } from '../../../../src/workspace/types';
+import type { FormField } from '../types';
 
 export interface SchemaEditorState {
   fields: (FormField & { deleted: boolean })[];

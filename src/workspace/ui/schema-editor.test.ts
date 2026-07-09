@@ -3,7 +3,7 @@
  * src/workspace/ui/schema-editor.test.ts
  */
 import { describe, expect, it } from 'vitest';
-import type { FormField } from '../../../../src/workspace/types';
+import type { FormField } from '../types';
 import { initSchemaEditor, schemaEditorReduce } from './schema-editor';
 
 const PROPOSED: FormField[] = [

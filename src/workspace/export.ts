@@ -12,7 +12,7 @@
  */
 
 import ExcelJS from 'exceljs';
-import type { DocRecord, Family, FormField } from '../../../src/workspace/types';
+import type { DocRecord, Family, FormField } from './types';
 
 /** Fields that appear as export columns, in schema order. */
 export function exportColumns(family: Family): FormField[] {

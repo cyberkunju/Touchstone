@@ -181,25 +181,38 @@ function truthKeyFor(label) {
 /** Semantic date canonicalization: truth is ISO (YYYY-MM-DD); documents
  *  print locale forms (corpus renders DMY). "31/12/2026" IS "2026-12-31" —
  *  string compare minted 24 fake silents on utility (live-caught). */
-function canonDate(s) {
+/** All plausible ISO readings of a date string — the scorer assumes NO
+ *  locale. "23/04/1985" → one reading (23 can't be a month); "05/03/2026"
+ *  → two. Matching = plausible-set intersection: a faithful read of the
+ *  printed token never scores as a silent whichever locale printed it
+ *  (live-caught both ways: DMY-assumed scoring minted 24 false silents on
+ *  utility, then computed month 23 on a correct MDY read on forge_193). */
+function canonDates(s) {
+  const out = new Set();
   const m = String(s).match(/(\d{1,4})[/\-.](\d{1,2})[/\-.](\d{2,4})/);
-  if (!m) return null;
+  if (!m) return out;
   const [, a, b, c] = m;
-  let y, mo, d;
-  if (a.length === 4) { y = a; mo = b; d = c; }        // ISO Y-M-D
-  else if (c.length === 4) { y = c; mo = b; d = a; }   // DMY (corpus locale)
-  else return null;
-  if (Number(mo) < 1 || Number(mo) > 12 || Number(d) < 1 || Number(d) > 31) return null;
-  return `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+  const iso = (y, mo, d) => {
+    if (Number(mo) >= 1 && Number(mo) <= 12 && Number(d) >= 1 && Number(d) <= 31) {
+      out.add(`${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`);
+    }
+  };
+  if (a.length === 4) iso(a, b, c);            // ISO Y-M-D
+  else if (c.length === 4) {
+    iso(c, b, a);                              // DMY reading
+    iso(c, a, b);                              // MDY reading
+  }
+  return out;
 }
 function valuesMatch(truthKey, truthVal, got) {
   const g = norm(got);
   const t = norm(truthVal);
   if (truthKey.includes('date')) {
     if (g === t || g.replaceAll('/', '-') === t) return true;
-    const cg = canonDate(g);
-    const ct = canonDate(t);
-    return cg !== null && ct !== null && cg === ct;
+    const cg = canonDates(g);
+    const ct = canonDates(t);
+    for (const iso of cg) if (ct.has(iso)) return true;
+    return false;
   }
   // Surname must be EXACT — substring matching scored garbage like "I" as a
   // hit for "LI" (live-caught). Only multi-token fields keep containment.

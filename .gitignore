@@ -117,3 +117,8 @@ bin/
 # debug strays
 _band.png
 bench/_probe_image.png
+
+.modal-corpus.zip
+
+.modal-stage/
+.modal-corpus.tar.gz

@@ -5,10 +5,10 @@ to be careful of, and every non-obvious lesson paid for in debugging time. Compa
 [plan.md](plan.md) (the law) and [Documentation/](Documentation/README.md) (the spec).
 Status source of truth: [Documentation/15_ROADMAP_TASKS.md](Documentation/15_ROADMAP_TASKS.md).
 
-*Last updated: 2026-07-07 (night) — definitive certification chain running · P2/P3/P4/P6/P7
-delegable tasks ALL absorbed by the lead (built + tested; src-destined pieces staged) ·
-service core COMPLETE incl. HTTP surface, live-proven · first chain verdicts: passports
-183/183, docs 37/37, licenses 126/126, ids 123/126 (2 silents root-caused, fix staged).*
+*Last updated: 2026-07-09 — **UNIVERSE CERTIFICATION COMPLETE: 28/28 families SILENT=0**,
+all baselines committed as a single-environment record (Modal burst, ~8 min full runs) ·
+toolchain migrated to Bun · I1 name policing is now a real comparison · scorer date matching
+is locale-free by plausible-set intersection.*
 
 ---
 
@@ -16,17 +16,13 @@ service core COMPLETE incl. HTTP surface, live-proven · first chain verdicts: p
 
 | Metric | Value | Source |
 |---|---|---|
-| Unit tests | **484 green** across 28 files, tsc clean | `npm run test` |
-| Service tests (Python) | **107 green** — tap, routes, bundle, ladder+reperceive, HTTP, codes, dewarp, tables, quality, layout decode, reconcile | `python -m pytest service/tests` |
-| Staged src-patches | **80 green** — dHash, export, perception client, checkbox, shadow-CI, UI logic cores, question ranking | `npx vitest run --config .staging/vitest.staging.ts` |
-| Perf budgets (service half) | **ALL GREEN live** — health 1.2ms/50 · digital 446ms/1000 · RSS 94MB/450 | `node bench/perf.mjs --service` |
-| Passports (deepened, 183) | **183/183 · SILENT 0 · exit 0** | definitive chain |
-| Docs (37) | **37/37 · SILENT 0** | definitive chain |
-| Licenses (126) | **126/126 · SILENT 0** | definitive chain |
-| ID cards (126) | 123/126 · **SILENT 2** — country_code truncation ("TO"), law fix staged (`.staging/fix-country-code.md`) | definitive chain |
-| Visas (MRV) | smoke 10/10 · MRZ 100% · SILENT 0; full 40 in chain | visa smoke run |
-| Real fakes | forge 280 complete; dual-witness fold RUNNING; `real` gate queued post-chain | `bench/label-real.ts` |
-| **Dataset factory** | **1,471+ artifacts / 29 families** + mixed-page generator written (compile post-chain) | `test_cases/` |
+| **Universe certification** | **28/28 families · SILENT=0 · baselines committed** | Modal burst scoreboards (`_modal_full.log`, `_modal_real.log`) |
+| Perfect-extraction families | passports 183/183 · docs 37/37 · ids 126/126 · licenses 126/126 · bank 50/50 · payslips 50/50 · utility 40/40 · boarding 50/50 · shipping 50/50 · visas 40/40 · permits 40/40 · po 32/32 · blanks 24/24 · foreign 36/36 · quest 32/32 | committed baselines |
+| Refusal corpus (anti-bias) | real 295/301 · SILENT=0 (6 honest refusal-class fails) | `real.json` |
+| Honest-recall families | S=0 with permissive floors (P2 template learning lifts recall by design) | committed baselines |
+| Unit tests | **564 green**, tsc clean, under **Bun** | `bun run test` |
+| Service tests (Python) | **108 green** | `python -m pytest service/tests` |
+| Burst harness | validated: parity-proven, coverage law, chunked+sha256 corpus pipeline, ~$3/full run | `bench/modal_gate.py` |
 
 ### The immediate task queue (strict order)
 1. Definitive chain (27 keys, running) → auto-commits baselines; triage any silents on completion
@@ -81,10 +77,13 @@ service core COMPLETE incl. HTTP surface, live-proven · first chain verdicts: p
 ## 2. How to run everything
 
 ```bash
-npm run dev                      # dev server :5173 (MUST be running for all browser harnesses)
-npm run test                     # 432 unit tests
-npx tsc --noEmit                 # typecheck
+bun run dev                      # dev server :5173 (MUST be running for all browser harnesses)
+bun run test                     # unit tests (vitest)
+bunx tsc --noEmit                # typecheck
 node scripts/fetch-models.mjs    # OCR models + YuNet → public/models (skips existing)
+# Toolchain: Bun (bun.lock = source of truth; 6.5s cold install, 564/564 verified).
+# The gate harness still executes under node until a puppeteer-under-Bun parity
+# run proves verdict-identity — same doctrine as the Modal migration.
 
 node bench/corpus/compile.cjs [--quick]        # passports → test_cases/passports/synthetic (6 themes)
 node bench/corpus/compile-docs.cjs [--quick]   # invoices/receipts/forms/negatives → test_cases/docs/synthetic

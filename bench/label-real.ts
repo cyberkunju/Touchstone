@@ -125,7 +125,17 @@ function silverVizTruth(markdown: string): Record<string, string> {
   const isoFrom = (s: string | null): string | null => {
     if (!s) return null;
     const m = /(\d{2})\/(\d{2})\/(\d{4})/.exec(s);
-    return m ? `${m[3]}-${m[2]}-${m[1]}` : null;
+    if (!m) return null;
+    const a = Number(m[1]);
+    const b = Number(m[2]);
+    // Locale disambiguation by arithmetic, never by assumption (live-caught:
+    // hard-coded DMY turned a printed MDY 04/23/1985 into the impossible
+    // "1985-23-04" and charged the ENGINE with a silent error). >12 pins the
+    // day; both ≤12 is genuinely ambiguous — a silver label must be evidence
+    // or nothing, so refuse to label rather than guess.
+    if (b > 12 && a >= 1 && a <= 12) return `${m[3]}-${String(a).padStart(2, '0')}-${String(b).padStart(2, '0')}`; // MDY
+    if (a > 12 && b >= 1 && b <= 12) return `${m[3]}-${String(b).padStart(2, '0')}-${String(a).padStart(2, '0')}`; // DMY
+    return null;
   };
 
   const passWin = windowAfter(/passport\s*no\.?\s*/i);

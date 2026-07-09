@@ -1,10 +1,10 @@
 {
-    "adversarialRefusalRate":  0,
-    "entries":  84,
-    "when":  "2026-07-07T10:04:51.2530684Z",
-    "silentErrors":  0,
-    "mrzValidRate":  1,
-    "fieldHitRate":  0.986,
-    "note":  "certified from _ids_full2.log (84/84, post k=8 projection fix)",
-    "passed":  84
+ "when": "2026-07-09T08:15:14.776321+00:00",
+ "entries": 126,
+ "passed": 126,
+ "silentErrors": 0,
+ "mrzValidRate": 1.0,
+ "fieldHitRate": 0.9824,
+ "adversarialRefusalRate": 0,
+ "note": "certified on Modal burst (single-environment record; shard-merged)"
 }
