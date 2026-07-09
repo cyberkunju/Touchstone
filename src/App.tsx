@@ -41,6 +41,7 @@ import EvidenceInspector from './components/EvidenceInspector';
 import ModelLoaderOverlay, { ModelProgress } from './components/ModelLoaderOverlay';
 import QuestionCards from './components/QuestionCards';
 import ReviewLane from './components/ReviewLane';
+import WorkspaceProtection from './components/WorkspaceProtection';
 import { rankQuestions, type QuestionCandidate } from './lwt/question-ranking';
 import type { ReviewItem } from './workspace/ui/review-lane';
 
@@ -103,6 +104,9 @@ export default function App() {
   const [activeGraph, setActiveGraph] = useState<DocGraph | null>(null);
   const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
   const [reviewLaneOpen, setReviewLaneOpen] = useState(false);
+  /** P7.3 §2.1: unlocked workspace master key (null = unprotected). Held in
+   *  a ref — the key routes to record encrypt/decrypt paths, never renders. */
+  const workspaceKeyRef = React.useRef<CryptoKey | null>(null);
   
   // Active document metadata
   const [docName, setDocName] = useState<string>('');
@@ -1459,6 +1463,7 @@ export default function App() {
             </button>
           </div>
         )}
+        <WorkspaceProtection onKeyChange={(k) => { workspaceKeyRef.current = k; }} />
       </header>
 
       {/* 2. Main Workspace Layout */}

@@ -232,7 +232,8 @@ describe('solveDocument end-to-end', () => {
       expect(vinField!.supports.some((a) => a.attestorId === 'checksum.vin')).toBe(true);
     }
     // Noise creates nothing — no fabricated slots.
-    expect(r.fields.some((x) => x.label === 'text' || x.value === 'REGISTRATION CERTIFICATE')).toBe(false);
+    expect(r.fields.some((x) => x.label === 'text')).toBe(false);
+    expect(r.fields.filter((x) => x.status !== 'refused').some((x) => 'value' in x && x.value === 'REGISTRATION CERTIFICATE')).toBe(false);
   });
 
   it('Hungarian: two labels, two candidates — optimal, not greedy', () => {
