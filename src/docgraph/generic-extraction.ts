@@ -206,11 +206,16 @@ function horizontalOverlapRatio(a: OcrItem, b: OcrItem): number {
 }
 
 /**
- * Position score of value `v` relative to label `l`.
+ * Position score of value `v` relative to label `l` — GRADED, not flat
+ * (live-caught on the certificate/lab families: flat scores let same-row
+ * neighbors STEAL values from their aligned label directly above).
  *
- *  - `1.0` SAME-ROW-RIGHT: `v.x1 >= l.x2 - 0.01` and vertical overlap >= 0.3.
- *  - `0.6` BELOW: `v.y1 >= l.y2 - 0.01`, horizontal overlap >= 0.2, and the
- *    vertical gap `(v.y1 - l.y2) < 0.10`.
+ *  - SAME-ROW-RIGHT: starts at 1.0 for adjacent items and decays with the
+ *    horizontal GAP (`1.0 − min(gap×2, 0.4)`): a wide table row keeps a
+ *    strong 0.6+, but a cross-column steal (the neighbor VALUE of a
+ *    label-above grid) no longer outbids the stacked pair.
+ *  - BELOW: `0.55 + 0.4 × horizontalOverlap` — a tightly stacked
+ *    label-above-value pair (the certificate-grid archetype) reaches 0.95.
  *  - `null` when neither relationship holds.
  */
 function positionScore(l: OcrItem, v: OcrItem): number | null {
@@ -220,14 +225,25 @@ function positionScore(l: OcrItem, v: OcrItem): number | null {
   const vy1 = v.boxNorm[1];
 
   if (vx1 >= lx2 - 0.01 && verticalOverlapRatio(l, v) >= 0.3) {
-    return 1.0;
+    const gap = Math.max(0, vx1 - lx2);
+    return 1.0 - Math.min(gap * 2, 0.4);
   }
 
   if (vy1 >= ly2 - 0.01 && horizontalOverlapRatio(l, v) >= 0.2 && vy1 - ly2 < 0.1) {
-    return 0.6;
+    // The stacked-pair BOOST applies only to value-shaped items: a
+    // label-like item below a label is a label COLUMN (Place of Birth over
+    // Place of Issue), which the flat legacy 0.6 keeps appropriately weak.
+    return looksLikeLabel(v.text) ? 0.6 : 0.55 + 0.4 * horizontalOverlapRatio(l, v);
   }
 
   return null;
+}
+
+/** True when `below` stacks under `top` in the pair window (the geometry of
+ *  a value belonging to a label above it). */
+function stacksBelow(top: OcrItem, below: OcrItem, depth = 0.12): boolean {
+  const gap = below.boxNorm[1] - top.boxNorm[3];
+  return gap >= -0.01 && gap < depth && horizontalOverlapRatio(top, below) >= 0.5;
 }
 
 /** Clamps a number into [0, 1]. */
@@ -309,6 +325,55 @@ export function extractGenericFields(
   const rest = pool.filter((it) => !consumed.has(it.nodeId));
   const labelCandidates = rest.filter((it) => looksLikeLabel(it.text));
 
+  // STRUCTURAL PRE-PASSES (live-caught on certificates/labs — the grid and
+  // table archetypes are invisible to pairwise geometry alone):
+  //
+  //  DOCUMENT-AXIS law: label→value orientation is a DOCUMENT property
+  //  (exactly like date order — the forge_193 shape). Count unambiguous
+  //  row-evidence (label with an ADJACENT non-label right neighbor) vs
+  //  column-evidence (label with a non-label stacked tightly beneath); the
+  //  dominant axis wins and OFF-axis pairings decay ×0.6.
+  //
+  //  HEADER law: a label with ≥2 non-label items stacked beneath is a table
+  //  COLUMN HEADER (Result over 13.7/83.4/…) — headers own columns, not
+  //  values: their below-pairing is capped hard. Items stacked under any
+  //  header are TABLE MEMBERS; a same-row pairing between members of two
+  //  columns is a TABLE ROW (Hemoglobin → 13.7) — the one legitimate
+  //  wide-gap row read — and is exempt from both decays.
+  let rowEvidence = 0;
+  let colEvidence = 0;
+  for (const l of labelCandidates) {
+    const right = rest.find(
+      (v) =>
+        v.nodeId !== l.nodeId &&
+        v.boxNorm[0] >= l.boxNorm[2] - 0.01 &&
+        v.boxNorm[0] - l.boxNorm[2] < 0.04 &&
+        verticalOverlapRatio(l, v) >= 0.5,
+    );
+    if (right && !looksLikeLabel(right.text)) rowEvidence++;
+    const below = rest.find(
+      (v) => v.nodeId !== l.nodeId && stacksBelow(l, v, 0.1) && horizontalOverlapRatio(l, v) >= 0.7,
+    );
+    if (below && !looksLikeLabel(below.text)) colEvidence++;
+  }
+  const axis: 'row' | 'col' | null =
+    rowEvidence > colEvidence ? 'row' : colEvidence > rowEvidence ? 'col' : null;
+
+  const isColumnHeader = new Set<string>();
+  const isTableMember = new Set<string>();
+  for (const l of labelCandidates) {
+    const stacked = rest.filter((o) => o.nodeId !== l.nodeId && stacksBelow(l, o, 0.2));
+    const nonLabel = stacked.filter((o) => !looksLikeLabel(o.text));
+    if (nonLabel.length >= 2 || stacked.length >= 3) {
+      isColumnHeader.add(l.nodeId);
+      // Column members: everything stacked under this header, deep window
+      // (tables run the page; the tight window is for form pairs).
+      for (const o of rest) {
+        if (o.nodeId !== l.nodeId && stacksBelow(l, o, 0.45)) isTableMember.add(o.nodeId);
+      }
+    }
+  }
+
   // 4. Score every (label, value) candidate by geometry.
   const pairs: ScoredPair[] = [];
   for (const l of labelCandidates) {
@@ -318,9 +383,20 @@ export function extractGenericFields(
       if (v.nodeId === l.nodeId) {
         continue;
       }
-      const pos = positionScore(l, v);
+      let pos = positionScore(l, v);
       if (pos === null) {
         continue;
+      }
+      const isBelowPair = v.boxNorm[1] >= l.boxNorm[3] - 0.01;
+      const isTableRow =
+        !isBelowPair && isTableMember.has(l.nodeId) && isTableMember.has(v.nodeId);
+      if (isColumnHeader.has(l.nodeId) && isBelowPair) {
+        pos = Math.min(pos, 0.3); // headers own columns, not values
+      }
+      if (isTableRow) {
+        pos = 1.0; // the legitimate wide-gap row read — full strength
+      } else if ((axis === 'row' && isBelowPair) || (axis === 'col' && !isBelowPair)) {
+        pos *= 0.6; // off the document's axis
       }
       valid.push({ value: v, pos });
     }

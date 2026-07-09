@@ -176,6 +176,15 @@ const LABEL_TO_TRUTH = new Map([
   ['PATIENT NAME', 'patient_name'],
   ['RESPONDENT NAME', 'full_name'],
   ['MEMBER NAME', 'full_name'],
+  // certificates: the name renders under a prose banner — that banner IS
+  // the label the document prints above the value.
+  ['THIS CERTIFIES THE BIRTH OF', 'full_name'],
+  // medical labs: analyte rows are literal label→result pairs.
+  ['HEMOGLOBIN', 'hemoglobin'],
+  ['GLUCOSE (FASTING)', 'glucose_fasting_'],
+  ['CREATININE', 'creatinine'],
+  ['ALT', 'alt'],
+  ['TSH', 'tsh'],
 ]);
 function truthKeyFor(label) {
   return LABEL_TO_TRUTH.get(norm(label).replace(/\s*\(MRZ\)$/, '')) ?? null;
@@ -225,7 +234,10 @@ function valuesMatch(truthKey, truthVal, got) {
       truthKey.includes('balance') || truthKey.includes('credits') || truthKey.includes('debits') ||
       truthKey.includes('pay') || truthKey.includes('due') || truthKey.includes('charges') ||
       truthKey.includes('deductions') || truthKey.includes('income') || truthKey.includes('withheld') ||
-      truthKey.includes('rent') || truthKey.includes('deposit')) {
+      truthKey.includes('rent') || truthKey.includes('deposit') ||
+      // lab analytes: results print with units ("13.7 g/dL") — the NUMBER is
+      // the truth; a misread digit still fails numerically.
+      ['hemoglobin', 'glucose_fasting_', 'creatinine', 'alt', 'tsh'].includes(truthKey)) {
     // Money compares NUMERICALLY: "3,859.60" == "3859.6" == "3859.60".
     // (String compare marked numerically-equal reads as silent errors.)
     const num = (s) => Number.parseFloat(String(s).replace(/[^0-9.\-]/g, ''));

@@ -11,6 +11,9 @@ import { ChevronRight, Download, FolderOpen, RefreshCw } from 'lucide-react';
 
 import { listFamilies, approveFamily } from '../storage/family-store';
 import { listRecordsByFamily, applyUserEdit } from '../storage/record-store';
+import { getDocGraph } from '../storage/db';
+import { putBenchRun } from '../storage/workspace-db';
+import { buildBenchRun, replayGraph, type RecordReplay } from '../workspace/replay';
 import { buildCsv, exportColumns } from '../workspace/export';
 import type { DocRecord, Family } from '../workspace/types';
 import WorkspaceTable, { type WorkspaceRow } from './WorkspaceTable';
@@ -30,6 +33,43 @@ export default function WorkspaceView() {
   const [activeFamily, setActiveFamily] = useState<Family | null>(null);
   const [records, setRecords] = useState<DocRecord[]>([]);
   const [activeRecord, setActiveRecord] = useState<DocRecord | null>(null);
+  const [replayState, setReplayState] = useState<
+    | { phase: 'idle' }
+    | { phase: 'running'; done: number; total: number }
+    | { phase: 'done'; verdict: string; diffs: number; records: number }
+  >({ phase: 'idle' });
+
+  /** P6.3 shadow-CI: replay every stored graph through the CURRENT engine
+   *  and persist the verdict. Regressions show loudly — that is the point. */
+  const runReplay = async () => {
+    const fams = await listFamilies();
+    const all: DocRecord[] = [];
+    for (const f of fams) all.push(...(await listRecordsByFamily(f.familyId)));
+    if (all.length === 0) {
+      setReplayState({ phase: 'done', verdict: 'identical', diffs: 0, records: 0 });
+      return;
+    }
+    setReplayState({ phase: 'running', done: 0, total: all.length });
+    const replays: RecordReplay[] = [];
+    for (let k = 0; k < all.length; k++) {
+      const rec = all[k];
+      try {
+        const g = await getDocGraph(rec.docGraphId);
+        if (g) replays.push(replayGraph(rec.recordId, g));
+      } catch {
+        /* an unreadable graph is skipped — replay judges engines, not storage */
+      }
+      setReplayState({ phase: 'running', done: k + 1, total: all.length });
+    }
+    const run = buildBenchRun('stored', 'current', replays);
+    await putBenchRun(run).catch(() => {});
+    setReplayState({
+      phase: 'done',
+      verdict: run.verdict,
+      diffs: run.perRecord.reduce((s, r) => s + r.fieldDiffs.length, 0),
+      records: replays.length,
+    });
+  };
 
   const refresh = useCallback(async () => {
     const fams = await listFamilies();
@@ -206,9 +246,35 @@ export default function WorkspaceView() {
           <h2 style={h2Style}>Workspace</h2>
           <p style={subStyle}>Every processed document, grouped into families. Click a family to see its records.</p>
         </div>
-        <button style={btnStyle} onClick={() => void refresh()}>
-          <RefreshCw size={13} /> Refresh
-        </button>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          {replayState.phase === 'running' && (
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>
+              Replaying {replayState.done}/{replayState.total}…
+            </span>
+          )}
+          {replayState.phase === 'done' && (
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                color:
+                  replayState.verdict === 'regressed'
+                    ? 'var(--status-conflict)'
+                    : replayState.verdict === 'improved'
+                      ? 'var(--status-confirmed)'
+                      : 'var(--text-secondary)',
+              }}
+            >
+              Replay: {replayState.verdict.toUpperCase()} ({replayState.records} record(s), {replayState.diffs} diff(s))
+            </span>
+          )}
+          <button style={btnStyle} onClick={() => void runReplay()} disabled={replayState.phase === 'running'}>
+            Replay engine check
+          </button>
+          <button style={btnStyle} onClick={() => void refresh()}>
+            <RefreshCw size={13} /> Refresh
+          </button>
+        </div>
       </div>
       {families.length === 0 ? (
         <p style={{ color: 'var(--text-tertiary)', fontSize: '0.85rem' }}>
