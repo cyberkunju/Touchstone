@@ -26,6 +26,12 @@ import { extractFields } from './docgraph/field-extraction';
 import { mrzToFields } from './docgraph/mrz-fields';
 import { extractGenericFields } from './docgraph/generic-extraction';
 import { detectPhotoRegion } from './docgraph/photo-detection';
+import {
+  judgeTextLayer,
+  pickVerificationSamples,
+  textLayerToLines,
+  type PdfPageText,
+} from './parsers/pdf-text-layer';
 
 import UploadManager from './components/UploadManager';
 import DocumentViewer from './components/DocumentViewer';
@@ -120,13 +126,37 @@ export default function App() {
     setActiveGraph(null);
     
     try {
-      // 1. Create ImageBitmap from raw file
+      // 1. Create ImageBitmap from raw file. PDFs route through PDF.js
+      // (P2.5): rasterize page 1 at the interim ~200 DPI budget and capture
+      // the text layer — a CLAIM to be verified against rendered pixels
+      // (I9), never silently believed.
       setStatusText('Decoding document image...');
-      let bitmap = await createImageBitmap(file);
+      let bitmap: ImageBitmap;
+      let pdfPage: PdfPageText | null = null;
+      const { isPdfFile } = await import('./parsers/pdf-runtime');
+      if (await isPdfFile(file)) {
+        setStatusText('Rendering PDF page 1 (PDF.js)...');
+        const { renderPdfPage } = await import('./parsers/pdf-runtime');
+        const rendered = await renderPdfPage(await file.arrayBuffer(), 0);
+        bitmap = rendered.bitmap;
+        pdfPage = rendered.page;
+        if (rendered.pageCount > 1) {
+          console.warn(`[App] PDF has ${rendered.pageCount} pages; interim route processes page 1 only.`);
+        }
+        console.log(`[App] PDF page 1: ${pdfPage.kind} (${pdfPage.runs.length} text runs).`);
+      } else {
+        bitmap = await createImageBitmap(file);
+      }
 
-      // Create Object URL for canvas background rendering
-      const objectUrl = URL.createObjectURL(file);
-      setImageSrc(objectUrl);
+      // Create Object URL for canvas background rendering. PDFs cannot be
+      // an <img> src — the viewer shows the rendered raster instead.
+      if (pdfPage) {
+        const vc = new OffscreenCanvas(bitmap.width, bitmap.height);
+        vc.getContext('2d')!.drawImage(bitmap, 0, 0);
+        setImageSrc(URL.createObjectURL(await vc.convertToBlob({ type: 'image/png' })));
+      } else {
+        setImageSrc(URL.createObjectURL(file));
+      }
 
       // 2. Preprocess page in parser worker (blur, glare, canonical resize)
       setStatusText('Normalizing page & analyzing image quality...');
@@ -220,14 +250,65 @@ export default function App() {
         if (needsSetup) setIsDownloading(false);
       }
 
-      // Run real PP-OCRv5 DBNet text detection on the page.
+      // ---- P2.5 digital-PDF route: the text layer is a CLAIM (I9). Verify
+      // sampled spans against RENDERED pixels via the recognizer; only a
+      // trusted layer skips full OCR. Untrusted ⇒ full vision ladder + loud
+      // flag — the planted-garbage-text-layer trap dies here.
+      let nativeNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[] | null = null;
+      if (pdfPage && pdfPage.kind === 'digital') {
+        setStatusText('Verifying PDF text layer against rendered pixels (I9)...');
+        const samples = pickVerificationSamples(pdfPage.runs);
+        const reads: string[] = [];
+        for (const s of samples) {
+          const sx = bitmap.width / pdfPage.width;
+          const sy = bitmap.height / pdfPage.height;
+          const pad = 3;
+          const x1 = Math.max(0, Math.round(s.box[0] * sx) - pad);
+          const y1 = Math.max(0, Math.round(s.box[1] * sy) - pad);
+          const x2 = Math.min(bitmap.width, Math.round(s.box[2] * sx) + pad);
+          const y2 = Math.min(bitmap.height, Math.round(s.box[3] * sy) + pad);
+          if (x2 - x1 < 4 || y2 - y1 < 4) {
+            reads.push('');
+            continue;
+          }
+          const cc = new OffscreenCanvas(x2 - x1, y2 - y1);
+          cc.getContext('2d')!.drawImage(bitmap, x1, y1, x2 - x1, y2 - y1, 0, 0, x2 - x1, y2 - y1);
+          const cb = await createImageBitmap(cc);
+          try {
+            reads.push((await inferenceWorker.recognizeText(OCR_REC_MODEL.key, cb)).text);
+          } catch {
+            reads.push('');
+          }
+        }
+        const verdict = judgeTextLayer(samples, reads);
+        if (verdict.trusted) {
+          // N1-gold: text from the content stream, exact by construction.
+          // Lattice steps are honest certainty-1 columns.
+          nativeNodes = textLayerToLines(pdfPage).map((l) => ({
+            text: l.text,
+            confidence: 1,
+            boxNorm: l.boxNorm as Box,
+            lattice: [...l.text].map((ch) => [[ch, 1]]) as Lattice,
+          }));
+          console.log(`[App] Text layer TRUSTED (${verdict.sampled} samples, ${verdict.disagreements} disagreements) — OCR skipped, ${nativeNodes.length} native lines.`);
+        } else {
+          console.warn(`[App] Text layer UNTRUSTED (${verdict.disagreements}/${verdict.sampled} disagree) — full vision ladder engaged.`, verdict.details);
+        }
+      }
+
+      // Run real PP-OCRv5 DBNet text detection on the page (skipped when a
+      // verified digital text layer supplies native lines).
+      let recognizedNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[];
+      if (nativeNodes) {
+        recognizedNodes = nativeNodes;
+      } else {
       setStatusText('Running local PP-OCRv5 text detector (DBNet)...');
       const detBoxes = await inferenceWorker.detectText(OCR_DET_MODEL.key, bitmap);
       console.log(`[App] DBNet found ${detBoxes.length} text lines.`);
 
       // Run real PP-OCRv5 recognition on each detected line crop.
       setStatusText(`Recognizing characters on ${detBoxes.length} text lines (PP-OCRv5)...`);
-      const recognizedNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[] = [];
+      const visionNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[] = [];
 
       for (let i = 0; i < detBoxes.length; i++) {
         const box = detBoxes[i];
@@ -263,7 +344,7 @@ export default function App() {
           const recResult = await inferenceWorker.recognizeText(OCR_REC_MODEL.key, cropBitmap);
 
           if (recResult.text.trim()) {
-            recognizedNodes.push({
+            visionNodes.push({
               text: recResult.text,
               confidence: recResult.confidence,
               boxNorm: box,
@@ -274,6 +355,8 @@ export default function App() {
           console.error(`Failed to recognize text line ${i}:`, recErr);
         }
       }
+      recognizedNodes = visionNodes;
+      } // end vision ladder (no verified text layer)
 
       console.log('[App] PP-OCRv5 recognized texts:', recognizedNodes.map(n => `${n.text} (${(n.confidence * 100).toFixed(0)}%)`).join(' | '));
 

@@ -75,7 +75,7 @@ extract cell-exact with zero OCR · hybrid reconciliation catches the trap.
 |---|---|---|
 | P4.1 | 🔶 wiring ✅ | `service/stages/layout_stage.py` — letterbox/decode/per-class-NMS as a faithful browser-twin port (attribute-major [4+C, anchors]; class-count mismatch is LOUD), 7 synthetic-tensor goldens. Remaining: model artifacts + the A/B harness run over the degraded bench → verdict artifact → model decision | layout wired; A/B verdict committed |
 | P4.2 ∥ | ✅ | `stages/codes_stage.py` zxing-cpp (raw `.bytes` payloads — display-escaping trap caught; wired into the ladder) + `stages/dewarp_stage.py` classical (Otsu quad + brightness-plausibility ring; honesty pass-through; wired into the ladder, UVDoc still flag-future) | code corpus decodes ✅ (Aztec BCBP / Code128 / AAMVA PDF417 bit-exact vs manifests, 18 tests; boarding-pass-through-ladder E2E); dewarp goldens ✅ (6 tests incl. phantom-quad + registration-square accuracy) |
-| P4.3 | 🔶 rulings core ✅ | Table engine: `service/stages/tables_stage.py` rulings-first (close-bridge + open morphology → grid → merged-cell flood fill → rs/cs spans, geometry only) DONE w/ synthetic goldens (dashed rulings, merges both axes, text-noise immunity, no-table honesty, bundle contract flow). `stages/quality_stage.py` (blur/glare/contrast, monotone goldens) also done. Remaining: SLANet_plus → LORE fallback for borderless; closure + single-cell repair (brain); stamp/seal masks | closure attests clean invoices; repair suite green |
+| P4.3 | 🔶 rulings+closure ✅ | Table engine: `service/stages/tables_stage.py` rulings-first DONE w/ synthetic goldens. `stages/quality_stage.py` done. **Brain closure+repair DONE**: `src/docgraph/table-closure.ts` — equation auto-discovery (column sums via 3 structural signals: holds / same-result-row corroboration / totals-row layout; row products via 60% majority column-triple), full closure self-attests, single-cell lattice repair must satisfy ALL equations simultaneously (0 or 2+ repairs ⇒ review), failure message IS the equation. Remaining: SLANet_plus → LORE fallback for borderless; stamp/seal masks | closure attests clean invoices ✅; repair suite green ✅ |
 | P4.4 | 🔶 generator ✅ | Corpus expansion: `bench/corpus/compile-mixed.cjs` written (4 real-world pairings, truth passthrough per constituent, cross-document-bleed silent class defined). Compile + first gate when the harness frees | corpora committed with expectations
 
 **GATE P4:** invoice tables reconstructed with closure passing on clean scans · QR/PDF417 payloads
@@ -85,10 +85,10 @@ cross-attest printed totals · zero silent errors on `mixed`.
 
 | Task | Work | Done when |
 |---|---|---|
-| P5.1 | All ~25 attestors (08 §6), one file + dense tests each; registry scanning | every attestor suite green |
-| P5.2 | `consensus/solver.ts` full: candidates→constraints→exact search→Justification; verifier consumes solver | fuzz: forged confirmed unrepresentable; solver invariants green |
-| P5.3 ∥ | Quorum channel (08 §7) for critical unattested fields | quorum e2e on degraded corpus |
-| P5.4 | Anytime scheduler polish across ladder (13 §4) | budget behavior tests green |
+| P5.1 | ✅ | Attestor registry live: `consensus/attestors/` — checksums.ts (15 schemes, authentic vectors, measured blind-spot fuzz), checksum-attestors.ts (claim-gating law: overlapping gates never contradict unclaimed fields; unclaimed-valid supports + self-labels N5, never proves), dates.ts (valid=supports-only; cross-channel proves), closure.ts (FULL-equation law), mrz-attestor.ts (proven MRZ radiates via witness agreement; L-vs-LI cased), payload-attestors.ts (AAMVA/BCBP/GS1/EPC/Swiss-QR/UPI) | every attestor suite green ✅ (83 tests incl. 10k corruption fuzz per scheme) |
+| P5.2 | ✅ | `consensus/solver.ts`: THE LAW AS A TYPE — ConfirmedField sealed behind module-private symbol + sole constructor (non-empty typed proof tuple, contradiction veto); document-global date-order via exact hypothesis search (ties→null, no unforced commitment); Hungarian assignment; refused/review always carry reasons | fuzz: forged confirmed unrepresentable ✅ (10k-doc forge-fuzz + type-level @ts-expect-error) |
+| P5.3 ∥ | ✅ | `consensus/quorum.ts` (08 §7): review-status critical fields w/ geometry → ONE decorrelated re-read; same-channel agreement constitutionally refused; agree⇒proves(0.9), disagree⇒loud conflict w/ both reads | quorum unit laws green ✅ (e2e on degraded corpus rides the next burst cert) |
+| P5.4 | ✅ | `consensus/scheduler.ts` (13 §4): verify-then-spend foveation planning — unproven critical ROIs only, 2-round frozen cap, DPI doubling, budget breach names every starved field & dispatches nothing | budget behavior tests green ✅ |
 
 **GATE P5:** every confirmed field on `mixed` carries a printable justification chain · an unseen
 doc type (vehicle registration) yields self-labeled attested fields with **zero code added** (N5
@@ -98,7 +98,7 @@ proven) · zero silent errors.
 
 | Task | Work | Done when |
 |---|---|---|
-| P6.1 | `lwt/confusion-prior.ts` (write-gated to checksum-verified reads) + beam hook activation; `format-priors.ts` | prior improves synthetic confusable suite measurably |
+| P6.1 | ✅ | `lwt/confusion-priors.ts`: THE WRITE GATE IS A TYPE — learnFromProven accepts only sealed ConfirmedField (feedback loops dead by construction); conservative equal-length alignment (ambiguity teaches nothing); Laplace at read; identity never zeroed; anecdote gate (min 3 obs) on beam suggestions; putConfusionPrior/putFormatPrior persistence | prior improves synthetic confusable suite measurably ✅ (P(0|O) dominance test) |
 | P6.2 ∥ | 🔶 core ✅ | I12 question ranking staged (`question-ranking.ts`: tier critical≫required≫column, conflicts outrank low-confidence, cap 3/doc, NEVER questions confirmed fields, rolling questions-per-doc fold) + question cards UX (12 §6) pending src/ | questions-per-doc drops on replayed corpus
 | P6.3 | 🔶 core ✅ | `lwt/shadow-ci.ts` staged: engine-injected replay + field diff (value_changed/field_lost/status_downgraded = regressions; upgrades/new fields = improvements) + pluggable block predicate; block/report UX pending src/ | deliberately-regressed build is caught ✅ (staged acceptance test green) |
 
