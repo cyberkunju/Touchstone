@@ -25,5 +25,38 @@
   "v6_small_rec.yml": "ab078671bb49f06228eadccd34f1bb501e157f7a047095ffb943ba81512c77d1"
  },
  "totalMrzLines": 80,
- "verdict": "v6-small WINS on MRZ-exact \u2014 promote via change control (enum + browser A/B next)"
+ "verdict": "v6-small WINS on MRZ-exact \u2014 promote via change control (enum + browser A/B next)",
+ "pipelinePhase": {
+  "when": "2026-07-09",
+  "run": "ap-xWsQY1Hv88J6vZsWA7k8U0 (full universe, GATE_OCR_TIER=v6-small, dry)",
+  "total": "1426/1656 (v5 baseline: 1405/1656)",
+  "gains": {
+   "vehicles": "26->36",
+   "tax": "10->21",
+   "transcripts": "21->24",
+   "leases": "28->31",
+   "composites": "43->44",
+   "real": "295->296"
+  },
+  "losses": {
+   "letters": "8->0"
+  },
+  "SILENT": 2,
+  "silents": [
+   {
+    "family": "composites",
+    "field": "date_of_expiry",
+    "got": "1953-11-17",
+    "want": "2029-07-18"
+   },
+   {
+    "family": "real",
+    "field": "date_of_birth",
+    "got": "2024-01-01",
+    "want": "1992-08-15"
+   }
+  ],
+  "diagnosis": "checksum-guided-beam hallucination class: v6 lattices on degraded MRZ crops leave enough noise freedom for the beam to construct checksum-VALID but WRONG dates (2/1656 = 0.12%). The raw-crop A/B could not see this because it scores greedy text, not beam-over-lattice.",
+  "verdict": "v5-server STAYS LOCKED (N1: silents are constitutional, recall is not). v6 adoption path (future change control): beam path-probability floor OR dual-tier quorum (v6 read + v5 verify on MRZ bands) must drive the hallucination class to zero first."
+ }
 }
