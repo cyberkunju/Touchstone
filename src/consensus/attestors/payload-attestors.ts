@@ -83,7 +83,7 @@ export function extractGs1Facts(payload: string): PayloadFacts | null {
   let g: RegExpExecArray | null;
   while ((g = paren.exec(payload)) !== null) {
     matched = true;
-    applyGs1Ai(m, g[1], g[2].replace(/[\u001d]/g, '').trim());
+    applyGs1Ai(m, g[1], g[2].split('\u001d').join('').trim());
   }
   if (!matched) {
     // Raw FNC1 form: parse fixed-length AIs greedily.

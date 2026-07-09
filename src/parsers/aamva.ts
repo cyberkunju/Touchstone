@@ -68,19 +68,20 @@ export function parseAamva(payload: string): AamvaParseResult {
   if (typeof payload !== 'string' || payload.length < 20) return none;
 
   // Compliance header: '@' LF RS CR 'ANSI ' IIN(6) version(2)…
-  const header = /@\s*\x1e?\s*ANSI\s?(\d{6})(\d{2})/.exec(payload);
+  const normalizedHeader = payload.split('\u001e').join('');
+  const header = /@\s*ANSI\s?(\d{6})(\d{2})/.exec(normalizedHeader);
   if (!header) return none;
 
   // Subfile body: everything after the LAST designator block. Element lines
   // are separated by LF; the subfile terminates with CR.
-  const dlStart = payload.indexOf('DL', header.index + header[0].length);
-  const idStart = payload.indexOf('ID', header.index + header[0].length);
+  const dlStart = normalizedHeader.indexOf('DL', header.index + header[0].length);
+  const idStart = normalizedHeader.indexOf('ID', header.index + header[0].length);
   const start = dlStart === -1 ? idStart : idStart === -1 ? dlStart : Math.min(dlStart, idStart);
   if (start === -1) return none;
 
   // Skip subfile designators (repeats of 'DL'/'ID' + offsets) to the first
   // element id (3 uppercase chars starting with D).
-  const body = payload.slice(start);
+  const body = normalizedHeader.slice(start);
   const firstElem = body.search(/D[A-Z]{2}/);
   if (firstElem === -1) return none;
   let seg = body.slice(firstElem);

@@ -138,7 +138,7 @@ function munkres(costInput: number[][], n: number): number[] {
 
   while (coverStarredColumns() < n) {
     // Step 4: prime uncovered zeros until an augmenting path start is found.
-    let path: [number, number] | null = null;
+    let path: [number, number];
     for (;;) {
       const z = findUncoveredZero();
       if (z === null) {

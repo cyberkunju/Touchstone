@@ -12,7 +12,7 @@ import { amountClosureAttestor } from './closure';
 import { crossDateAttestor, dateValidAttestor } from './dates';
 import { mrzAttestor } from './mrz-attestor';
 import { payloadAttestor } from './payload-attestors';
-import type { Attestation, Attestor, DocContext, FieldCandidate } from '../types';
+import type { Attestation, Attestor, DocContext } from '../types';
 
 export const ALL_ATTESTORS: readonly Attestor[] = [
   mrzAttestor,

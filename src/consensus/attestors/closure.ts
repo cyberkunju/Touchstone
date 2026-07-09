@@ -18,10 +18,10 @@ import type { Attestation, Attestor, DocContext, FieldCandidate } from '../types
 
 /** Parse a printed money string to a number; null when not money-like. */
 export function parseAmount(value: string): number | null {
-  const cleaned = value.replace(/[^\d.,\-()]/g, '');
+  const cleaned = value.replace(/[^\d.,()-]/g, '');
   if (!/\d/.test(cleaned)) return null;
   const negative = /^\(.*\)$/.test(cleaned.trim()) || cleaned.includes('-');
-  let digits = cleaned.replace(/[()\-]/g, '');
+  let digits = cleaned.replace(/[()-]/g, '');
   // Decide decimal separator: the LAST of . or , followed by exactly 2 digits.
   const lastDot = digits.lastIndexOf('.');
   const lastComma = digits.lastIndexOf(',');

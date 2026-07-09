@@ -309,6 +309,9 @@ describe('payload grammars', () => {
     expect(p.get('gtin')).toBe('09501101530003');
     expect(p.get('date_of_expiry')).toBe('2025-07-31');
     expect(p.get('lot_number')).toBe('AB-123');
+    const separated = extractGs1Facts('(10)AB-123\u001d(21)SERIAL-9')!;
+    expect(separated.get('lot_number')).toBe('AB-123');
+    expect(separated.get('serial_number')).toBe('SERIAL-9');
     const raw = extractGs1Facts('01095011015300031725073110AB-123')!;
     expect(raw.get('gtin')).toBe('09501101530003');
     expect(raw.get('lot_number')).toBe('AB-123');

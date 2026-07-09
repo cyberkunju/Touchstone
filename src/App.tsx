@@ -4,7 +4,7 @@ import { DocGraphBuilder } from './docgraph/builder';
 import { VerifierService } from './verifier/verifier';
 import { TemplateEngine } from './template-engine/template';
 import { saveDocGraph, saveTemplate, getAllTemplates, deleteTemplate } from './storage/db';
-import { DocGraph, FieldHypothesis, FieldValueType, ValidationResult, TemplateGraph, GraphNode } from './core/types';
+import { DocGraph, FieldHypothesis, FieldValueType, TemplateGraph, GraphNode } from './core/types';
 import { Box } from './core/geometry';
 import { ensureFileCached, isFileCached, loadCharDictionary } from './ai-runtime/model-loader';
 import { CORE_OCR_MODELS, FACE_MODEL, LAYOUT_MODEL, OCR_DET_MODEL, OCR_REC_MODEL, PPOCR_DICT } from './ai-runtime/model-registry';
@@ -56,7 +56,7 @@ import { bundleToEvidence, type MappedEvidence, type ServiceBundle } from './per
 import WorkspaceView from './components/WorkspaceView';
 import type { ReviewItem } from './workspace/ui/review-lane';
 
-import { FileText, Save, RefreshCw, Layers, Sparkles, CheckSquare, Trash2, FolderOpen } from 'lucide-react';
+import { FileText, Save, Trash2, FolderOpen } from 'lucide-react';
 
 /** Identity tier 1: sha256 hex of the raw file bytes. */
 async function sha256Hex(file: File): Promise<string> {
@@ -582,7 +582,7 @@ export default function App() {
       const hypReviewCaps = new Map<string, string>();
       const labelReviewCaps = new Map<string, string>();
 
-      recognizedNodes.forEach((rn, idx) => {
+      recognizedNodes.forEach((rn) => {
         const nodeId = builder.addNode('text_line', pageId, rn.boxNorm, rn.text, rn.confidence);
         nodeMap.set(rn.boxNorm.join(','), nodeId);
         nodeIdToLattice.set(nodeId, rn.lattice);
@@ -1703,7 +1703,7 @@ export default function App() {
               pNodes = await inferenceWorker.detectAndRecognize(OCR_DET_MODEL.key, OCR_REC_MODEL.key, pBitmap);
             }
 
-            const pItems: OcrItem[] = pNodes.map((rn, idx) => {
+            const pItems: OcrItem[] = pNodes.map((rn) => {
               const nid = builder.addNode('text_line', pPageId, rn.boxNorm, rn.text, rn.confidence);
               return { text: rn.text, boxNorm: rn.boxNorm, nodeId: nid, confidence: rn.confidence, lattice: rn.lattice };
             });
@@ -1881,9 +1881,6 @@ export default function App() {
   const handleUpdateFieldValue = (hypothesisId: string, value: unknown) => {
     if (!activeGraph) return;
 
-    // Use builder to mutate active graph value cleanly
-    const builder = new DocGraphBuilder(activeGraph.documentId, docName, activeGraph.metadata.sourceFileType);
-    
     // Copy current state
     const currentGraph = { ...activeGraph };
     
@@ -2075,9 +2072,6 @@ export default function App() {
                   // fields still list in the form editor and the record).
                   hypotheses={(activeGraph?.hypotheses ?? []).filter(
                     (h) => !activeGraph || !h.pageId || h.pageId === activeGraph.pages[0]?.id,
-                  )}
-                  nodes={(activeGraph?.nodes ?? []).filter(
-                    (n) => !activeGraph || !n.pageId || n.pageId === activeGraph.pages[0]?.id,
                   )}
                   selectedId={selectedFieldId}
                   onSelectField={handleSelectField}

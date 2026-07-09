@@ -563,7 +563,7 @@ export function valueTypeScore(valueType: FieldValueType, text: string): number 
       // merges into the balance below it — "01/02/2026 - 02/03/2026 5,887.15"
       // parses as a big number and was CONFIRMED as opening_balance. Text
       // containing a calendar date is a mixed line, never a bare amount.
-      if (/\d{1,2}[\/.]\d{1,2}[\/.]\d{2,4}/.test(trimmed)) return 0;
+      if (/\d{1,2}[/.]\d{1,2}[/.]\d{2,4}/.test(trimmed)) return 0;
       // STRUCTURAL WELL-FORMEDNESS (live-caught, 10 silents): an amount must
       // be ONE well-formed currency token. Refused shapes:
       //  - "6 3,707.56"  — a neighboring digit merged in (internal space

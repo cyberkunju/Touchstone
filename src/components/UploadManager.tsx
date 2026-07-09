@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, FileText, CheckCircle2 } from 'lucide-react';
+import { Upload } from 'lucide-react';
 
 interface UploadManagerProps {
   onUpload: (file: File) => void;

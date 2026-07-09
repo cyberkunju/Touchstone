@@ -1,7 +1,7 @@
 name: ci
 
-# The certification chain as CI (Tier-3 ⑧). Browser unit suite + typecheck +
-# build + service pytest + audits run on every push; the full corpus gate
+# The certification chain as CI (Tier-3 ⑧). Browser lint + unit suite +
+# typecheck + build + service pytest + audits run on every push; the full corpus gate
 # runs on Modal (burst) and is NOT duplicated here — baselines in
 # bench/baselines/ are the committed evidence.
 
@@ -15,17 +15,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.14
       - run: bun install --frozen-lockfile
+      - run: bun run lint
       - run: bunx tsc --noEmit
       - run: bunx vitest run
       - run: bunx vite build
-      - name: npm audit (prod)
+      - name: npm lock + full audit
         run: |
-          npm install --package-lock-only --ignore-scripts
-          npm audit --omit=dev
+          npm ci --ignore-scripts
+          npm audit
 
   # OS smoke matrix (Tier-3): the pure-logic core must build + pass the unit
   # suite identically on Linux, macOS and Windows. The corpus gate stays on
@@ -41,6 +45,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.14

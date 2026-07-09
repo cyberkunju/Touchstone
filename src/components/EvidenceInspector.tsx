@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 import { FieldHypothesis, ValidationResult } from '../core/types';
-import { Box } from '../core/geometry';
 
 interface EvidenceInspectorProps {
   hypothesis: FieldHypothesis | null;

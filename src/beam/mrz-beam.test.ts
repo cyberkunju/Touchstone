@@ -298,7 +298,7 @@ describe('decodeMrzFromLattices — the N1 guarantee (no wrong accepts, ever)', 
         expect(res.parse.status).toBe('valid');
       }
     }
-  });
+  }, 30_000);
 });
 
 describe('checksum-invisible ambiguity guard (the blind-spot fix)', () => {

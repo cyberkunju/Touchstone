@@ -16,9 +16,12 @@ is enforced by a committed test or baseline.
 
 ## Quick start
 
+Requires Node.js 20.19+, 22.13+, or 24+ and Bun 1.3.14.
+
 ```bash
 bun install && bun run setup     # deps + pinned OCR models (sha256-verified)
 bun run dev                      # app at http://localhost:5173
+bun run lint                     # TypeScript + React correctness rules
 bun run test                     # 769-test unit suite (must stay green)
 bunx tsc --noEmit && bunx vite build
 ```

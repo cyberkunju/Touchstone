@@ -110,18 +110,27 @@ try {
   check('J4 cards render for an open doc', cardInfo.count > 0 && cardInfo.count <= 3, `count=${cardInfo.count}`);
 
   if (cardInfo.count > 0) {
-    const answered = await page.evaluate(() => {
+    const answeredId = await page.evaluate(() => {
       const wrap = document.querySelector('[aria-label="Questions"]');
-      const yes = [...wrap.querySelectorAll('button')].find((b) => /^(Yes|[A-Z0-9])/.test(b.textContent ?? ''));
-      if (!yes) return false;
-      yes.click();
-      return true;
+      const card = wrap?.querySelector('[data-question-id]');
+      const answer = card && [...card.querySelectorAll('button')].find((b) => /^(Yes|[A-Z0-9])/.test(b.textContent ?? ''));
+      if (!card || !answer) return null;
+      answer.click();
+      return card.getAttribute('data-question-id');
     });
     await new Promise((r) => setTimeout(r, 600));
-    const after = await page.evaluate(
-      () => document.querySelector('[aria-label="Questions"]')?.children.length ?? 0,
+    const result = await page.evaluate((fieldId) => {
+      const cards = [...document.querySelectorAll('[data-question-id]')];
+      return {
+        answeredCardPresent: cards.some((card) => card.getAttribute('data-question-id') === fieldId),
+        count: cards.length,
+      };
+    }, answeredId);
+    check(
+      'J4 answering removes the exact card',
+      answeredId !== null && !result.answeredCardPresent,
+      `tray ${cardInfo.count} → ${result.count}`,
     );
-    check('J4 answering removes the card', answered && after < cardInfo.count, `${cardInfo.count} → ${after}`);
   } else {
     check('J4 cards', false, 'no questions rendered — journey not exercised');
   }

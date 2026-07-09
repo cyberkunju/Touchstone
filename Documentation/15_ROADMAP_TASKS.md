@@ -10,7 +10,9 @@ gate not worsened. This file mirrors and elaborates plan.md §15 (which remains 
 	(`ap-nfYHTCuf8Cbk1NRWfoQnNS`, funded `stratosix-labs` workspace). Cards, insurance,
 	labs, and mixed are complete family passes;
 	all five performance budgets, 769 browser tests, 123 service tests, TypeScript, production build,
-	dependency audits, and the seven-job Linux/macOS/Windows CI matrix are green.
+	dependency audits, and the seven-job Linux/macOS/Windows CI matrix are green. Post-certification
+	release hardening was universe-recertified unchanged at **1649/1656, SILENT=0** by dry burst
+	`ap-FKSNuEuEXYMxcxf2SKBkp9` (all 29 families accounted for; no baseline writes).
 - **Lab residual closed:** the remaining +4 were not new OCR guesses: the engine already extracted
 	exact lab patient names, while the scorer resolved the shared
 	`PATIENT NAME` label to the prescription schema key. Context-aware scoring plus a narrowly
@@ -149,8 +151,8 @@ the planted regression. — **CLOSED**: beam prior loop live (makeBeamPrior boos
 | Task | Status | Work | Done when |
 |---|---|---|---|
 | P7.1 | ✅ | Perf CI: `bench/perf.mjs` — ALL FIVE budgets green under the v6-small lock: health 0.9ms/50 · digital 249ms/1000 · RSS 95MB/450 · **unknown-doc-full-form 6.0s/8s @2× throttle** · **known-template refill 0.8s/1.5s @2× throttle** (I8 SPARSE REFILL: anchor-probe match + ROI-only batched reads — 6.3s→0.8s; bit-parity `recognizeBoxes` worker API); bearer-token handshake wired | budgets green in CI ✅ |
-| P7.2 | ✅ | Packaging: package-dir wheel (data-file shipment proven), service-hosted UI, Dockerfile, and **OS smoke matrix** complete. Fresh-checkout defects found by production CI were fixed at the dependency and fixture boundaries; tracked-files-only simulation yields 46 pass / 77 loud artifact skips. GitHub Actions run `29046322526` is green across browser, Linux/macOS/Windows JS smoke, Linux service, and macOS/Windows service smoke. | fresh-machine install→first extraction ≤ 10 min; seven-job portability matrix green ✅ |
-| P7.3 | ✅ | Security pass per [17](17_SECURITY_PRIVACY_PLAN.md): bearer-token handshake (constant-time, 0600 handshake file, tokenless /v1/health, 401-envelope pytest), tight CSP + self-hosted fonts (live-verified via e2e), XSS sink bans as executable tests, AES-GCM-256 workspace crypto (PBKDF2 600k, tamper-loud, keyring DB v3), priors privacy audit test, audits clean (protobufjs override both lockfiles; pip-audit clean), W&B key + c7i.pem purged (ROTATION = user action), threat-model review [19](19_THREAT_MODEL_REVIEW.md) | 17's checklist complete ✅ |
+| P7.2 | ✅ | Packaging: package-dir wheel (data-file shipment proven), service-hosted UI, Dockerfile, and **OS smoke matrix** complete. Fresh-checkout defects found by production CI were fixed at the dependency and fixture boundaries; tracked-files-only simulation yields 46 pass / 77 loud artifact skips. Release tooling is pinned to Bun 1.3.14 + Node 22 CI, with Vite 8.1.4, Vitest 4.1.10, plugin-react 6.0.3, frozen Bun/npm installs, and an enforced ESLint 10 gate. GitHub Actions run `29046322526` is green across browser, Linux/macOS/Windows JS smoke, Linux service, and macOS/Windows service smoke. | fresh-machine install→first extraction ≤ 10 min; seven-job portability matrix green ✅ |
+| P7.3 | ✅ | Security pass per [17](17_SECURITY_PRIVACY_PLAN.md): bearer-token handshake (constant-time, 0600 handshake file, tokenless /v1/health, 401-envelope pytest), tight CSP + self-hosted fonts (live-verified via e2e), XSS sink bans as executable tests, AES-GCM-256 workspace crypto (PBKDF2 600k, tamper-loud, keyring DB v3), priors privacy audit test, audits clean (protobufjs + ExcelJS UUID 11 overrides in both lockfiles; full `npm audit` and `pip-audit` clean), W&B key + c7i.pem purged (ROTATION = user action), threat-model review [19](19_THREAT_MODEL_REVIEW.md) | 17's checklist complete ✅ |
 
 **GATE P7 (release):** all budgets green · install gate · security checklist · all corpora zero
 silent errors · amendment log reviewed.

@@ -49,7 +49,7 @@ export async function existsOPFSFile(dirName: string, fileName: string): Promise
     const dirHandle = await getDirectoryHandle(dirName, false);
     await dirHandle.getFileHandle(fileName);
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -66,7 +66,7 @@ export async function listOPFSFiles(dirName: string): Promise<string[]> {
       files.push(name);
     }
     return files;
-  } catch (error) {
+  } catch {
     return [];
   }
 }
@@ -78,7 +78,7 @@ export async function clearOPFSDirectory(dirName: string): Promise<void> {
   try {
     const root = await navigator.storage.getDirectory();
     await root.removeEntry(dirName, { recursive: true });
-  } catch (error) {
+  } catch {
     // Directory might not exist, ignore
   }
 }

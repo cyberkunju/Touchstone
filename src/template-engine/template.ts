@@ -1,4 +1,4 @@
-import { DocGraph, TemplateGraph, TemplateField, TemplateAnchor, FieldHypothesis, TemplatePage, TemplateFingerprint } from '../core/types';
+import { DocGraph, TemplateGraph, TemplateField, TemplateAnchor, TemplatePage, TemplateFingerprint } from '../core/types';
 import { Box, getBoxCenter } from '../core/geometry';
 import {
   estimateAlignment,
@@ -202,7 +202,7 @@ export class TemplateEngine {
       const graphHasTable = graph.hypotheses.some(h => h.valueType === 'table');
       
       let zoneMatches = 0;
-      let zoneCount = 2;
+      const zoneCount = 2;
       if (tplZones.hasMRZ === graphHasMRZ) zoneMatches++;
       if (tplZones.hasTable === graphHasTable) zoneMatches++;
       

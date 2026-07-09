@@ -1,11 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Box } from '../core/geometry';
-import { FieldHypothesis, GraphNode } from '../core/types';
+import { FieldHypothesis } from '../core/types';
 
 interface DocumentViewerProps {
   imageSrc: string | null;
   hypotheses: FieldHypothesis[];
-  nodes: GraphNode[];
   selectedId: string | null;
   onSelectField: (id: string) => void;
 }
@@ -13,7 +11,6 @@ interface DocumentViewerProps {
 export default function DocumentViewer({
   imageSrc,
   hypotheses,
-  nodes,
   selectedId,
   onSelectField
 }: DocumentViewerProps) {

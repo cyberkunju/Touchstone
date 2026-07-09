@@ -26,6 +26,7 @@ export default function QuestionCards({ questions, onAnswer, onFix }: QuestionCa
       {questions.map((q) => (
         <div
           key={q.fieldId}
+          data-question-id={q.fieldId}
           style={{
             border: '1px solid var(--border-color)',
             borderLeft: `3px solid ${q.kind === 'conflict' ? '#d97706' : '#6b7280'}`,
