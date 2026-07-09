@@ -49,6 +49,7 @@ from stages import (
     pdf_stage,
     quality_stage,
     tables_stage,
+    align_stage,
 )
 from stages.ocr_tap import create_session, load_vocab, tap_line
 from stages.reconcile import reconcile_text_layer
@@ -164,6 +165,24 @@ def _vision_page(models: Models, img: Image.Image, index: int,
                 "cells": [{"r": c.r, "c": c.c, "rs": c.rs, "cs": c.cs, "box": list(c.box)}
                           for c in t.cells],
             })
+        # Tier 2 (P4.3): borderless fallback — rulings found nothing but the
+        # OCR boxes may cluster into a lattice. Method field records the
+        # tier; the brain treats both identically (frozen output contract).
+        if not page["tables"] and page["ocr"]:
+            aligned = align_stage.detect_aligned_table([
+                {"text": o["top1"], "box": [
+                    o["poly"][0][0], o["poly"][0][1],
+                    o["poly"][2][0] - o["poly"][0][0],
+                    o["poly"][2][1] - o["poly"][0][1],
+                ]} for o in page["ocr"]
+            ])
+            if aligned is not None:
+                page["tables"].append({
+                    "box": list(aligned.box),
+                    "method": aligned.method,
+                    "cells": [{"r": c.r, "c": c.c, "rs": c.rs, "cs": c.cs, "box": list(c.box)}
+                              for c in aligned.cells],
+                })
     except Exception as e:  # noqa: BLE001
         stage_errors.append({"stage": "tables", "code": "INTERNAL", "detail": str(e)})
     timings["tables"] = timings.get("tables", 0) + (time.perf_counter() - t0) * 1000

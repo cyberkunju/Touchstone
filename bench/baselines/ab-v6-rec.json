@@ -1,0 +1,29 @@
+{
+ "when": "2026-07-09T16:30:14",
+ "corpus": "passports/synthetic[:40] (MRZ-exact law)",
+ "detector": "PP-OCRv5_server (pinned)",
+ "candidates": {
+  "v5": {
+   "model": "PP-OCRv5_server_rec (pinned)",
+   "exact": 20,
+   "charAcc": 0.6832,
+   "ms": 7179.904100001295,
+   "exactRate": 0.25,
+   "msPerDoc": 179.5
+  },
+  "v6": {
+   "model": "PP-OCRv6_small_rec",
+   "exact": 40,
+   "charAcc": 0.7213,
+   "ms": 2515.5694000022777,
+   "exactRate": 0.5,
+   "msPerDoc": 62.9
+  }
+ },
+ "artifacts": {
+  "v6_small_rec.onnx": "5435fd747c9e0efe15a96d0b378d5bd157e9492ed8fd80edf08f30d02fa24634",
+  "v6_small_rec.yml": "ab078671bb49f06228eadccd34f1bb501e157f7a047095ffb943ba81512c77d1"
+ },
+ "totalMrzLines": 80,
+ "verdict": "v6-small WINS on MRZ-exact \u2014 promote via change control (enum + browser A/B next)"
+}

@@ -216,6 +216,25 @@ describe('solveDocument end-to-end', () => {
     expect(iban && isConfirmed(iban)).toBe(true);
   });
 
+  it('GATE P5 (N5): an UNSEEN doc type — vehicle registration — yields self-labeled attested fields with zero code added', () => {
+    // No schema, no canonical labels, no doc-type knowledge: raw OCR reads
+    // from a vehicle registration nobody wrote code for.
+    const vin = cand({ value: '1M8GDM9AXKP042788', canonicalLabel: null, valueType: 'id_number' });
+    const noise = cand({ value: 'REGISTRATION CERTIFICATE', canonicalLabel: null, valueType: 'text' });
+    const r = solveDocument(ctx([vin, noise]), []); // zero slots requested
+
+    // The VIN transliteration check self-labels a 'vin' slot out of thin air.
+    const vinField = r.fields.find((x) => x.label === 'vin');
+    expect(vinField).toBeDefined();
+    expect(vinField!.status).toBe('review'); // unclaimed math supports, never proves (claim-gating law)
+    if (vinField!.status === 'review') {
+      expect(vinField!.value).toBe('1M8GDM9AXKP042788');
+      expect(vinField!.supports.some((a) => a.attestorId === 'checksum.vin')).toBe(true);
+    }
+    // Noise creates nothing — no fabricated slots.
+    expect(r.fields.some((x) => x.label === 'text' || x.value === 'REGISTRATION CERTIFICATE')).toBe(false);
+  });
+
   it('Hungarian: two labels, two candidates — optimal, not greedy', () => {
     const a = cand({ value: 'GB82WEST12345698765432', canonicalLabel: 'iban', valueType: 'id_number' });
     const b = cand({ value: 'DE89370400440532013000', canonicalLabel: 'iban', valueType: 'id_number', channel: 'payload' });
