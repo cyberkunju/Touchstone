@@ -1,6 +1,7 @@
 import { IDBPDatabase } from 'idb';
 import { DocGraph, TemplateGraph } from '../core/types';
 import { getWorkspaceDb } from './workspace-db';
+import { sealForStore, unsealFromStore } from './crypto-gate';
 
 export interface ProcessingJob {
   id: string;
@@ -28,12 +29,15 @@ export async function getDb(): Promise<IDBPDatabase> {
 
 export async function saveDocGraph(graph: DocGraph): Promise<void> {
   const db = await getDb();
-  await db.put('docGraphs', graph);
+  // P7.3 §2.1: sealed at rest when "Protect this workspace" is active;
+  // plaintext otherwise. Reads accept both shapes forever. The store's
+  // keyPath is 'id' — the sealed record keeps it cleartext (random ULID).
+  await db.put('docGraphs', await sealForStore(graph as unknown as Record<string, unknown>, 'id') as unknown as DocGraph);
 }
 
 export async function getDocGraph(id: string): Promise<DocGraph | undefined> {
   const db = await getDb();
-  return db.get('docGraphs', id);
+  return unsealFromStore<DocGraph>(await db.get('docGraphs', id));
 }
 
 export async function deleteDocGraph(id: string): Promise<void> {
@@ -43,7 +47,8 @@ export async function deleteDocGraph(id: string): Promise<void> {
 
 export async function getAllDocGraphs(): Promise<DocGraph[]> {
   const db = await getDb();
-  return db.getAll('docGraphs');
+  const all = await db.getAll('docGraphs');
+  return Promise.all(all.map((g) => unsealFromStore<DocGraph>(g) as Promise<DocGraph>));
 }
 
 /* --- TEMPLATEGRAPH DATABASE ACTIONS --- */

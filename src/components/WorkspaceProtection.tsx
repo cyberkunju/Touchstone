@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { Lock, Unlock } from 'lucide-react';
 import { createKeyring, unlockKeyring } from '../security/workspace-crypto';
 import { getKeyring, putKeyring } from '../storage/workspace-db';
+import { setWorkspaceKey } from '../storage/crypto-gate';
 
 interface WorkspaceProtectionProps {
   /** Fired with the unlocked master key (null = protection disabled). */
@@ -36,6 +37,7 @@ export default function WorkspaceProtection({ onKeyChange }: WorkspaceProtection
     const keyring = await createKeyring(passphrase);
     await putKeyring(keyring);
     const key = await unlockKeyring(passphrase, keyring);
+    setWorkspaceKey(key, keyring.keyId); // storage layer seals from now on
     onKeyChange(key);
     setState({ phase: 'unlocked' });
   };
@@ -51,6 +53,7 @@ export default function WorkspaceProtection({ onKeyChange }: WorkspaceProtection
       setState({ phase: 'unlocking', passphrase: '', busy: false, wrong: true });
       return;
     }
+    setWorkspaceKey(key, keyring.keyId); // storage layer unseals from now on
     onKeyChange(key);
     setState({ phase: 'unlocked' });
   };
