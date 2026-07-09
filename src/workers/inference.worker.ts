@@ -625,6 +625,99 @@ const inferenceApi = {
   },
 
   /**
+   * Batched recognition over CALLER-SUPPLIED boxes — the bottom half of
+   * detectAndRecognize without detection (I8 sparse refill: template anchor
+   * probes and projected field ROIs already know WHERE to read). Same
+   * padding law, same two-step draw, same exact-width batching — results
+   * cannot drift from the certified full-page path. Returns one entry per
+   * input box, INDEX-ALIGNED (empty text = the crop read as nothing).
+   */
+  async recognizeBoxes(
+    recModelName: string,
+    imageBitmap: ImageBitmap,
+    boxes: Box[],
+  ): Promise<{ text: string; confidence: number; boxNorm: Box; lattice: Lattice }[]> {
+    const recInfo = loadedSessions[recModelName];
+    if (!recInfo) throw new Error(`Model ${recModelName} is not loaded in worker`);
+    if (!recognitionVocab) throw new Error('Recognition vocabulary not set. Call setRecognitionVocab first.');
+
+    interface Prepared { idx: number; boxNorm: Box; float: Float32Array; targetW: number }
+    const prepared: Prepared[] = [];
+    const w = imageBitmap.width;
+    const h = imageBitmap.height;
+    boxes.forEach((box, idx) => {
+      const [bx1, by1, bx2, by2] = box;
+      const origX1 = Math.round(bx1 * w);
+      const origY1 = Math.round(by1 * h);
+      const origW = Math.round((bx2 - bx1) * w);
+      const origH = Math.round((by2 - by1) * h);
+      const px = Math.round(origH * 0.25);
+      const py = Math.round(origH * 0.08);
+      const x1 = Math.max(0, origX1 - px);
+      const y1 = Math.max(0, origY1 - py);
+      const x2 = Math.min(w, origX1 + origW + px);
+      const y2 = Math.min(h, origY1 + origH + py);
+      const cropW = x2 - x1;
+      const cropH = y2 - y1;
+      if (cropW <= 4 || cropH <= 4) return;
+
+      const imgH = REC_INPUT_HEIGHT;
+      const targetW = computeRecTargetWidth(cropW, cropH, imgH, REC_MAX_WIDTH);
+      const cropCanvas = new OffscreenCanvas(cropW, cropH);
+      cropCanvas.getContext('2d')!.drawImage(imageBitmap, x1, y1, cropW, cropH, 0, 0, cropW, cropH);
+      const canvas = new OffscreenCanvas(targetW, imgH);
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(cropCanvas, 0, 0, targetW, imgH);
+      const imageData = ctx.getImageData(0, 0, targetW, imgH);
+      const enhanced = enhanceForOcr(imageData.data, targetW, imgH, {
+        grayscale: false,
+        stretch: true,
+        sharpen: true,
+      });
+      prepared.push({
+        idx,
+        boxNorm: box,
+        float: normalizeRecognitionTensor(enhanced, targetW, imgH, targetW),
+        targetW,
+      });
+    });
+
+    const results: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[] =
+      boxes.map((box) => ({ text: '', confidence: 0, boxNorm: box, lattice: [] as Lattice }));
+
+    const groups = new Map<number, Prepared[]>();
+    for (const p of prepared) {
+      const g = groups.get(p.targetW);
+      if (g) g.push(p);
+      else groups.set(p.targetW, [p]);
+    }
+    const imgH = REC_INPUT_HEIGHT;
+    for (const [targetW, group] of groups) {
+      const per = 3 * imgH * targetW;
+      const batch = new Float32Array(group.length * per);
+      group.forEach((p, i) => batch.set(p.float, i * per));
+      const inputTensor = new ort.Tensor('float32', batch, [group.length, 3, imgH, targetW]);
+      const outs = await runSession(recInfo, { [recInfo.session.inputNames[0]]: inputTensor });
+      const outputTensor = outs[recInfo.session.outputNames[0]];
+      const data = outputTensor.data as Float32Array;
+      const [n, timeSteps, numClasses] = outputTensor.dims as number[];
+      if (n !== group.length) throw new Error(`recognizeBoxes: expected ${group.length} outputs, got ${n}`);
+      const stride = timeSteps * numClasses;
+      for (let i = 0; i < n; i++) {
+        const slice = data.subarray(i * stride, (i + 1) * stride);
+        const greedy = decodeCTCGreedy(slice, timeSteps, numClasses, recognitionVocab);
+        results[group[i].idx] = {
+          text: greedy.text,
+          confidence: greedy.confidence,
+          boxNorm: group[i].boxNorm,
+          lattice: extractLattice(slice, timeSteps, numClasses, recognitionVocab),
+        };
+      }
+    }
+    return results;
+  },
+
+  /**
    * High-resolution region OCR: detects text lines within an already-cropped,
    * upscaled region bitmap and recognizes each, returning lines ordered
    * top-to-bottom. Used to re-read small zones (e.g. the MRZ band) at full

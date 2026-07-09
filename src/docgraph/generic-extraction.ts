@@ -360,19 +360,54 @@ export function extractGenericFields(
     rowEvidence > colEvidence ? 'row' : colEvidence > rowEvidence ? 'col' : null;
 
   const isColumnHeader = new Set<string>();
-  const isTableMember = new Set<string>();
+  // nodeId → the header-columns it belongs to. Disjointness is what makes a
+  // TABLE ROW: two cells of the same physical row live in different columns.
+  const memberColumns = new Map<string, Set<string>>();
+  const headerCandidates: OcrItem[] = [];
   for (const l of labelCandidates) {
     const stacked = rest.filter((o) => o.nodeId !== l.nodeId && stacksBelow(l, o, 0.2));
     const nonLabel = stacked.filter((o) => !looksLikeLabel(o.text));
-    if (nonLabel.length >= 2 || stacked.length >= 3) {
-      isColumnHeader.add(l.nodeId);
-      // Column members: everything stacked under this header, deep window
-      // (tables run the page; the tight window is for form pairs).
-      for (const o of rest) {
-        if (o.nodeId !== l.nodeId && stacksBelow(l, o, 0.45)) isTableMember.add(o.nodeId);
-      }
+    if (nonLabel.length >= 2) headerCandidates.push(l);
+  }
+  // PEER LAW (live-caught: the page title 'RESIDENTIAL LEASE AGREEMENT'
+  // qualified as a "header" over the whole form and its below-band became a
+  // phantom table — LANDLORD=TENANT then rode the row exemption): a real
+  // table has MULTIPLE column headers on ONE row. A header without a
+  // y-aligned peer header is a banner or a form caption, never a column.
+  for (const h of headerCandidates) {
+    const hasPeer = headerCandidates.some(
+      (o) => o.nodeId !== h.nodeId && verticalOverlapRatio(h, o) >= 0.5,
+    );
+    if (!hasPeer) continue;
+    isColumnHeader.add(h.nodeId);
+    for (const o of rest) {
+      if (o.nodeId === h.nodeId || !stacksBelow(h, o, 0.45)) continue;
+      let cols = memberColumns.get(o.nodeId);
+      if (!cols) memberColumns.set(o.nodeId, (cols = new Set()));
+      cols.add(h.nodeId);
     }
   }
+  // ROW COMPLETION: an item y-aligned with members of ≥2 DISTINCT peer
+  // columns is a cell of the same table row (Hemoglobin beside 13.7 and
+  // g/dL) — attributed to its own pseudo-column so disjointness holds.
+  for (const o of rest) {
+    if (memberColumns.has(o.nodeId)) continue;
+    const seenCols = new Set<string>();
+    for (const [mid, cols] of memberColumns) {
+      if (mid === o.nodeId) continue;
+      const m = rest.find((r) => r.nodeId === mid);
+      if (m && verticalOverlapRatio(o, m) >= 0.5) for (const c of cols) seenCols.add(c);
+      if (seenCols.size >= 2) break;
+    }
+    if (seenCols.size >= 2) memberColumns.set(o.nodeId, new Set([`row:${o.nodeId}`]));
+  }
+  const disjointColumns = (a: string, b: string): boolean => {
+    const ca = memberColumns.get(a);
+    const cb = memberColumns.get(b);
+    if (!ca || !cb) return false;
+    for (const c of ca) if (cb.has(c)) return false;
+    return true;
+  };
 
   // 4. Score every (label, value) candidate by geometry.
   const pairs: ScoredPair[] = [];
@@ -388,10 +423,27 @@ export function extractGenericFields(
         continue;
       }
       const isBelowPair = v.boxNorm[1] >= l.boxNorm[3] - 0.01;
-      const isTableRow =
-        !isBelowPair && isTableMember.has(l.nodeId) && isTableMember.has(v.nodeId);
+      // TABLE ROW: same-row cells of two DISJOINT peer columns — the one
+      // legitimate wide-gap row read (Hemoglobin → 13.7). Same-column
+      // members (or one-column overlap) never qualify.
+      const isTableRow = !isBelowPair && disjointColumns(l.nodeId, v.nodeId);
       if (isColumnHeader.has(l.nodeId) && isBelowPair) {
         pos = Math.min(pos, 0.3); // headers own columns, not values
+      }
+      // INTERPOSITION law (live-caught on leases: ANNA ERIKSSON=1,334.77
+      // paired THROUGH the interposed MONTHLY RENT label): "below" means
+      // DIRECTLY below — any third line sitting vertically between label
+      // and value in the same x-band breaks the adjacency claim.
+      if (isBelowPair) {
+        const blocked = rest.some(
+          (o) =>
+            o.nodeId !== l.nodeId &&
+            o.nodeId !== v.nodeId &&
+            o.boxNorm[1] > l.boxNorm[3] - 0.005 &&
+            o.boxNorm[3] < v.boxNorm[1] + 0.005 &&
+            horizontalOverlapRatio(l, o) >= 0.5,
+        );
+        if (blocked) pos = Math.min(pos, 0.3);
       }
       if (isTableRow) {
         pos = 1.0; // the legitimate wide-gap row read — full strength
@@ -402,8 +454,13 @@ export function extractGenericFields(
     }
 
     // Prefer non-label values strongly; only fall back to label-like values
-    // when no non-label alternative exists for this label.
-    const hasNonLabelValue = valid.some((c) => !looksLikeLabel(c.value.text));
+    // when no non-label alternative exists for this label. ONLY structurally
+    // healthy candidates (pos ≥ 0.5 — not interposition-blocked, not
+    // header-capped, not axis-decayed to a remnant) may trigger the −0.5
+    // demotion of label-like readings (live-caught on leases: a date capped
+    // to 0.3 by the interposition law still demoted LANDLORD→ANNA, and the
+    // name pairing died with it — a blocked candidate is not an alternative).
+    const hasNonLabelValue = valid.some((c) => c.pos >= 0.5 && !looksLikeLabel(c.value.text));
 
     for (const { value: v, pos } of valid) {
       const vLooksLikeLabel = looksLikeLabel(v.text);

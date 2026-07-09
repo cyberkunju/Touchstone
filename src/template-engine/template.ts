@@ -41,22 +41,27 @@ export class TemplateEngine {
         hyp.valueType !== 'table' &&
         hyp.valueType !== 'visual_asset'
       ) {
-        const anchorVal = (() => {
-          if (hyp.labelNodeIds && hyp.labelNodeIds.length > 0) {
-            const labelNode = graph.nodes.find(n => n.id === hyp.labelNodeIds[0]);
-            if (labelNode && labelNode.value) {
-              return labelNode.value;
-            }
+        // The anchor's TEXT is the label; its BOX must be the LABEL node's
+        // box (live-caught: hyp.boxNorm is the VALUE box, so anchor probes
+        // read value pixels and compared them against label text — the
+        // sparse refill could never match, and alignment pairs carried a
+        // systematic label→value offset).
+        let anchorVal = hyp.label;
+        let anchorBox = hyp.boxNorm;
+        if (hyp.labelNodeIds && hyp.labelNodeIds.length > 0) {
+          const labelNode = graph.nodes.find(n => n.id === hyp.labelNodeIds[0]);
+          if (labelNode) {
+            if (labelNode.value) anchorVal = labelNode.value;
+            if (labelNode.boxNorm) anchorBox = labelNode.boxNorm;
           }
-          return hyp.label;
-        })();
+        }
 
         anchors.push({
           id: `anchor-${idx}-${Math.random().toString(36).substring(2, 6)}`,
           pageIndex: 0, // baseline single page
           type: 'text',
           label: hyp.label,
-          boxNorm: hyp.boxNorm,
+          boxNorm: anchorBox,
           value: anchorVal, // the text of the label acts as the anchor key
           importance: 0.8,
           stability: 0.9,

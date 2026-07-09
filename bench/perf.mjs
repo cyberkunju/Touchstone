@@ -158,6 +158,94 @@ async function browserHalf() {
     }
     runs.sort((a, b) => a - b);
     check('unknown doc full form (throttled 2x, median of 3)', runs[1], 8000, 'ms');
+
+    // Known template (I8) ≤ 1.5 s — learn a template from a solved COMMERCE
+    // doc (identity/MRZ templates are excluded from the sparse path by
+    // design: MRZ proofs need the full ladder), then re-uploads of the same
+    // layout ride the sparse anchor-probe refill. Same 2× throttle +
+    // median-of-3 discipline. A breach is REPORTED, never hidden (13 §4).
+    const invImg = join(root, 'test_cases/docs/synthetic/inv00_clean.png');
+    const timeInvoice = async () => {
+      const input = await page.waitForSelector('input[type=file]', { timeout: 15000 });
+      const done = new Promise((resolveWait) => {
+        const timer = setTimeout(resolveWait, 120000);
+        const onMsg = (msg) => {
+          if (msg.text().startsWith('[GATE]')) {
+            clearTimeout(timer);
+            page.off('console', onMsg);
+            resolveWait();
+          }
+        };
+        page.on('console', onMsg);
+      });
+      const t0 = performance.now();
+      await input.uploadFile(invImg);
+      await done;
+      return performance.now() - t0;
+    };
+    const clearDoc = () =>
+      page.evaluate(() => {
+        const btn = [...document.querySelectorAll('button')].find((b) =>
+          b.textContent?.includes('Clear Document'),
+        );
+        if (!btn) throw new Error('Clear Document button not found');
+        btn.click();
+      });
+    await clearDoc();
+    await timeInvoice(); // solve the invoice once (full ladder, untimed)
+    await page.evaluate(() => {
+      window.prompt = () => 'PerfBudgetTemplate';
+      window.alert = () => {};
+    });
+    let refillSeen = false;
+    const onRefill = (msg) => {
+      if (msg.text().includes('template refill')) refillSeen = true;
+    };
+    page.on('console', onRefill);
+    await page.evaluate(() => {
+      const btn = [...document.querySelectorAll('button')].find((b) =>
+        b.textContent?.includes('Save Template'),
+      );
+      if (!btn) throw new Error('Save Template button not found');
+      btn.click();
+    });
+    await new Promise((r) => setTimeout(r, 1500)); // template persistence
+    const tplRuns = [];
+    for (let i = 0; i < 3; i++) {
+      await clearDoc();
+      tplRuns.push(await timeInvoice());
+    }
+    page.off('console', onRefill);
+    tplRuns.sort((a, b) => a - b);
+    if (!refillSeen) {
+      console.log('FAIL  known-template path never engaged (no refill diag) — template match broken');
+      failures++;
+    } else {
+      check('known template refill (throttled 2x, median of 3)', tplRuns[1], 1500, 'ms');
+    }
+    // HARNESS HYGIENE: the profile is SHARED with the gate chain — a
+    // leftover perf template would hijack gate documents into the refill
+    // path and corrupt scores. Delete it surgically from the store.
+    await page.evaluate(async () => {
+      const db = await new Promise((res, rej) => {
+        const req = indexedDB.open('docgraph-engine-db');
+        req.onsuccess = () => res(req.result);
+        req.onerror = () => rej(req.error);
+      });
+      await new Promise((res, rej) => {
+        const tx = db.transaction('templates', 'readwrite');
+        const store = tx.objectStore('templates');
+        const all = store.getAll();
+        all.onsuccess = () => {
+          for (const t of all.result) {
+            if (t.name === 'PerfBudgetTemplate') store.delete(t.id);
+          }
+        };
+        tx.oncomplete = () => res();
+        tx.onerror = () => rej(tx.error);
+      });
+      db.close();
+    });
   } finally {
     await browser.close();
   }

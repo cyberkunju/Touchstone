@@ -92,6 +92,100 @@ async function perceiveViaServiceOrNull(file: File): Promise<MappedEvidence | nu
   }
 }
 
+/* ------------------------- I8 sparse template read ------------------------ */
+/** Normalized Levenshtein similarity (1 = identical). Tiny inputs only. */
+function textSimilarity(a: string, b: string): number {
+  const s = a.toLowerCase().trim();
+  const t = b.toLowerCase().trim();
+  if (s === t) return 1;
+  const m = s.length;
+  const n = t.length;
+  if (m === 0 || n === 0) return 0;
+  let prev = Array.from({ length: n + 1 }, (_, j) => j);
+  for (let i = 1; i <= m; i++) {
+    const cur = [i];
+    for (let j = 1; j <= n; j++) {
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (s[i - 1] === t[j - 1] ? 0 : 1));
+    }
+    prev = cur;
+  }
+  return 1 - prev[n] / Math.max(m, n);
+}
+
+/**
+ * I8 SPARSE REFILL (13 §3: known template ≤ 1.5 s): instead of full-page
+ * det+rec, PROBE each saved template's anchor label boxes with one batched
+ * recognition call — matched anchors prove the layout, then only the
+ * template's field ROIs are read (second batched call). The result is a
+ * recognizedNodes set that feeds the EXISTING match→align→refill path
+ * unchanged: this is an OCR swap, not a new extraction semantic.
+ *
+ * Hard guards (N1): identity/MRZ templates never take this path (the MRZ
+ * proof machinery needs the full ladder); aspect mismatch skips; a probe
+ * that matches < 85% of anchors (or misses any required anchor) is a MISS.
+ * The caller re-runs full OCR if the downstream matcher disagrees.
+ */
+async function trySparseTemplateRead(
+  worker: { recognizeBoxes(m: string, b: ImageBitmap, boxes: Box[]): Promise<{ text: string; confidence: number; boxNorm: Box; lattice: Lattice }[]> },
+  recModelKey: string,
+  bitmap: ImageBitmap,
+  templates: TemplateGraph[],
+): Promise<{ nodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[]; template: TemplateGraph; score: number } | null> {
+  const aspect = bitmap.height / bitmap.width;
+  const candidates = templates
+    .filter((t) => !t.fingerprint.specialZones.hasMRZ && t.anchors.length >= 3)
+    .filter((t) => {
+      const ta = t.fingerprint.pageGeometry.aspectRatio;
+      return ta > 0 && Math.abs(ta - aspect) / ta < 0.12;
+    })
+    .slice(0, 3); // each probe is one batched call — cap the spend
+  for (const tpl of candidates) {
+    try {
+      const probeBoxes = tpl.anchors.map((a) => a.boxNorm as Box);
+      const reads = await worker.recognizeBoxes(recModelKey, bitmap, probeBoxes);
+      let matched = 0;
+      let requiredMissed = false;
+      tpl.anchors.forEach((a, i) => {
+        const want = (a.value ?? '').trim();
+        const got = reads[i]?.text ?? '';
+        const ok =
+          want.length > 0 &&
+          (textSimilarity(got, want) >= 0.9 ||
+            (want.length >= 6 && got.toLowerCase().includes(want.toLowerCase())));
+        if (ok) matched++;
+        else if (a.requiredForMatch) requiredMissed = true;
+      });
+      const score = matched / tpl.anchors.length;
+      if (requiredMissed || score < 0.85) {
+        console.log(`[DIAG] sparse probe '${tpl.name}': ${(score * 100).toFixed(0)}% — miss`);
+        continue;
+      }
+      // Layout proven — read ONLY the field ROIs (second batched call).
+      const exp = tpl.extraction.defaultRoiExpansion ?? 0.05;
+      const fieldBoxes = tpl.fields
+        .filter((f) => f.extraction.preferredMode === 'roi_ocr')
+        .map((f) => {
+          const [x1, y1, x2, y2] = f.valueBoxNorm;
+          const dx = (x2 - x1) * exp;
+          const dy = (y2 - y1) * exp;
+          return [
+            Math.max(0, x1 - dx), Math.max(0, y1 - dy),
+            Math.min(1, x2 + dx), Math.min(1, y2 + dy),
+          ] as Box;
+        });
+      const fieldReads = await worker.recognizeBoxes(recModelKey, bitmap, fieldBoxes);
+      const nodes = [...reads, ...fieldReads].filter((r) => r.text.trim() !== '');
+      console.log(
+        `[DIAG] sparse probe '${tpl.name}': ${(score * 100).toFixed(0)}% anchors — ${nodes.length} sparse nodes (${probeBoxes.length} anchors + ${fieldBoxes.length} ROIs)`,
+      );
+      return { nodes, template: tpl, score };
+    } catch (probeErr) {
+      console.warn(`[DIAG] sparse probe '${tpl.name}' failed:`, probeErr);
+    }
+  }
+  return null;
+}
+
 /** The MRZ legal alphabet as a flat string — crosses the Comlink boundary to
  *  request posterior projection in the worker (see extractProjectedLattice).
  *  Derived from the beam module's own charset so the two can never drift. */
@@ -385,9 +479,32 @@ export default function App() {
       // digital text layer supplies native lines).
       let recognizedNodes: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[];
       let serviceCodes: { text: string; format: string; boxNorm: Box; isValid: boolean }[] | null = null;
+      // I8 FAST PATH (13 §3 ≤ 1.5 s): before ANY full-page inference, probe
+      // saved templates' anchor boxes with one batched recognition call. A
+      // proven layout reads only its field ROIs — the probe IS the match
+      // decision (targeted native-res reads beat the downscaled fingerprint).
+      let sparseMatch: { template: TemplateGraph; score: number } | null = null;
       if (nativeNodes) {
         recognizedNodes = nativeNodes;
       } else {
+        let sparseNodes: typeof recognizedNodes | null = null;
+        if (!pdfPage) {
+          try {
+            const tpls = await getAllTemplates();
+            if (tpls.length > 0) {
+              const sparse = await trySparseTemplateRead(inferenceWorker, OCR_REC_MODEL.key, bitmap, tpls);
+              if (sparse) {
+                sparseNodes = sparse.nodes;
+                sparseMatch = { template: sparse.template, score: sparse.score };
+              }
+            }
+          } catch (sparseErr) {
+            console.warn('[DIAG] sparse template probe errored — full ladder:', sparseErr);
+          }
+        }
+        if (sparseNodes) {
+          recognizedNodes = sparseNodes;
+        } else {
         // P3.5 SERVICE BRANCH: when the local perception service answered
         // the startup probe, it perceives the ORIGINAL file and the bundle
         // maps to the exact evidence shapes below (the brain cannot tell).
@@ -413,6 +530,7 @@ export default function App() {
             OCR_REC_MODEL.key,
             bitmap,
           );
+        }
         }
       } // end vision ladder (no verified text layer)
 
@@ -516,7 +634,9 @@ export default function App() {
       // entirely. Passports carry the MRZ in the bottom band by construction,
       // so when no zone was found probe that band at high resolution before
       // giving up. A failed probe changes nothing (evidence-only).
-      if (!mrzZone) {
+      // (Sparse-proven templates skip discovery: MRZ templates are excluded
+      // from the sparse path by construction, so no zone can exist here.)
+      if (!mrzZone && !sparseMatch) {
         try {
           const bandTop = 0.74;
           const sw = bitmap.width;
@@ -565,7 +685,7 @@ export default function App() {
       // and the fixed bottom band failed, ask docdet_v1 for an mrz_zone box
       // and probe THAT region at high resolution. Fallback-only by law — a
       // detected zone that reads nothing changes nothing (evidence-only).
-      if (!mrzZone && LAYOUT_MODEL && (await inferenceWorker.isModelLoaded(LAYOUT_MODEL.key))) {
+      if (!mrzZone && !sparseMatch && LAYOUT_MODEL && (await inferenceWorker.isModelLoaded(LAYOUT_MODEL.key))) {
         try {
           const zones = await inferenceWorker.runLayoutDetection(LAYOUT_MODEL.key, bitmap, 0.35, 0.45);
           const mrzDet = zones
@@ -766,10 +886,12 @@ export default function App() {
         ];
       }
 
-      // 4. Run Template Matching Pre-check
+      // 4. Run Template Matching Pre-check. A sparse probe acceptance IS the
+      // match (anchor reads at native resolution, ≥0.85 + required anchors —
+      // stronger evidence than the downscaled fingerprint score).
       setStatusText('Matching layouts against template fingerprint registry...');
       const allSavedTemplates = await getAllTemplates();
-      const templateMatch = TemplateEngine.matchTemplate(tempGraphForMatch, allSavedTemplates);
+      const templateMatch = sparseMatch ?? TemplateEngine.matchTemplate(tempGraphForMatch, allSavedTemplates);
 
       if (templateMatch) {
         setStatusText(`Template matched: '${templateMatch.template.name}'! Projecting ROIs...`);
