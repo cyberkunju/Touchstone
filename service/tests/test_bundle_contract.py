@@ -32,11 +32,15 @@ from stages.pdf_stage import extract_pages  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 NATIVE = ROOT / "test_cases" / "native_files"
+REC_MODEL = ROOT / "public" / "models" / "PP-OCRv5_server_rec_infer.onnx"
+REC_VOCAB = ROOT / "public" / "models" / "ppocrv5_dict.txt"
 SHA = "0" * 64
 
 
 # ------------------------------------------------------- real-route goldens
 
+@pytest.mark.skipif(not (NATIVE / "ledger_00.xlsx").exists(),
+                    reason="native XLSX fixture is gitignored; Modal runs the artifact gate")
 def test_xlsx_route_bundles_and_validates():
     data = (NATIVE / "ledger_00.xlsx").read_bytes()
     sheets = extract_xlsx(data)
@@ -48,6 +52,8 @@ def test_xlsx_route_bundles_and_validates():
     assert all(isinstance(c["r"], int) and isinstance(c["c"], int) for c in cells)
 
 
+@pytest.mark.skipif(not (NATIVE / "invoice_digital_00.pdf").exists(),
+                    reason="native PDF fixture is gitignored; Modal runs the artifact gate")
 def test_pdf_digital_route_bundles_and_validates():
     data = (NATIVE / "invoice_digital_00.pdf").read_bytes()
     pdf_pages = extract_pages(data)
@@ -61,6 +67,8 @@ def test_pdf_digital_route_bundles_and_validates():
         assert -0.05 <= x <= 1.05 and w > 0 and h > 0
 
 
+@pytest.mark.skipif(not (NATIVE / "payroll_00.csv").exists(),
+                    reason="native CSV fixture is gitignored; Modal runs the artifact gate")
 def test_csv_route_bundles_and_validates():
     data = (NATIVE / "payroll_00.csv").read_bytes()
     rows = extract_csv(data)
@@ -69,14 +77,16 @@ def test_csv_route_bundles_and_validates():
     assert bundle["pages"][0]["native"]["cells"][0]["r"] == 0
 
 
+@pytest.mark.skipif(not (REC_MODEL.exists() and REC_VOCAB.exists()),
+                    reason="OCR model artifacts are gitignored; Modal runs the lattice gate")
 def test_vision_route_with_real_lattice_validates():
     """The whole point: tap -> OcrLine -> bundle, lattice intact."""
     from PIL import Image, ImageDraw, ImageFont
 
     from stages.ocr_tap import create_session, load_vocab, tap_line
 
-    session = create_session(ROOT / "public" / "models" / "PP-OCRv5_server_rec_infer.onnx")
-    vocab = load_vocab(ROOT / "public" / "models" / "ppocrv5_dict.txt")
+    session = create_session(REC_MODEL)
+    vocab = load_vocab(REC_VOCAB)
 
     font = ImageFont.truetype("C:/Windows/Fonts/consola.ttf", 64)
     img = Image.new("RGB", (760, 96), "white")
