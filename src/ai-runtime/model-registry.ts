@@ -108,6 +108,20 @@ export const OCR_REC_V6: OnnxModelSpec = {
   executionProvider: 'wasm',
 };
 
+/**
+ * PP-OCRv6-medium (34.5M): the v5-server-class tier — official +5.1%
+ * recognition over v5-server at matching CPU speed (raw 3-way A/B here:
+ * MRZ-exact 0.54 vs v5's 0.25 at identical ms/doc). Same contract and
+ * dictionary as v6-small (verified byte-equal).
+ */
+export const OCR_REC_V6_MEDIUM: OnnxModelSpec = {
+  key: 'ppocrv6m_rec',
+  fileName: 'PP-OCRv6_medium_rec_infer.onnx',
+  url: `${MODEL_BASE}/PP-OCRv6_medium_rec_infer.onnx`,
+  kind: 'recognition',
+  executionProvider: 'wasm',
+};
+
 export const PPOCR_DICT_V5: CharDictSpec = {
   key: 'ppocrv5_dict',
   fileName: 'ppocrv5_dict.txt',
@@ -126,12 +140,13 @@ export const PPOCR_DICT_V6: CharDictSpec = {
  * v5-server stays the certified default until the v6 burst A/B passes
  * change control (raw-crop wins ≠ pipeline wins).
  */
-export const OCR_TIER: 'v5-server' | 'v6-small' =
-  (import.meta.env?.VITE_OCR_TIER as 'v5-server' | 'v6-small') ?? 'v5-server';
+export const OCR_TIER: 'v5-server' | 'v6-small' | 'v6-medium' =
+  (import.meta.env?.VITE_OCR_TIER as 'v5-server' | 'v6-small' | 'v6-medium') ?? 'v5-server';
 
 /** The ACTIVE recognition model + dictionary for the locked tier. */
-export const OCR_REC_MODEL: OnnxModelSpec = OCR_TIER === 'v6-small' ? OCR_REC_V6 : OCR_REC_V5;
-export const PPOCR_DICT: CharDictSpec = OCR_TIER === 'v6-small' ? PPOCR_DICT_V6 : PPOCR_DICT_V5;
+export const OCR_REC_MODEL: OnnxModelSpec =
+  OCR_TIER === 'v6-medium' ? OCR_REC_V6_MEDIUM : OCR_TIER === 'v6-small' ? OCR_REC_V6 : OCR_REC_V5;
+export const PPOCR_DICT: CharDictSpec = OCR_TIER === 'v5-server' ? PPOCR_DICT_V5 : PPOCR_DICT_V6;
 
 /**
  * Custom-trained YOLOv11n document-layout detector (docdet_v1, 60k-image

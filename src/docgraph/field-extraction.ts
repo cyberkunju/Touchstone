@@ -76,6 +76,11 @@ export interface ExtractedField {
   required: boolean;
   /** Association confidence in [0,1]. */
   score: number;
+  /** Step 6.5 (orphaned-competitor law): another same-type candidate scored
+   *  comparably for this label but went UNASSIGNED — geometry alone decided
+   *  between two plausible values. Downstream must review-cap, never
+   *  silently confirm (live-caught: forge_228 issue-date→DOB steal). */
+  bindingAmbiguous?: boolean;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -657,12 +662,29 @@ function clamp01(n: number): number {
  * observed `sex = "c/call"` class of garbage into correct values — or into
  * honest omissions when the lattice holds nothing valid.
  *
+ * FABRICATION FLOOR (live-caught by the v6 universe burst, forge_228): a
+ * grammar over a GARBAGE lattice can synthesize a fully-valid value from
+ * noise mass ("2024-01-01" minted from a 26%-confidence junk read and bound
+ * to date_of_birth — the exact silent-error class). A re-decode is only a
+ * READING when its path characters rest on real lattice mass: geometric-mean
+ * per-char posterior ≥ 0.45 (the same law as the MRZ weak-span guard) or the
+ * rescue is refused and the pairing dies honestly.
+ *
  * Scope (bounded by design): `sex` (enum grammar) and `date` fields — the two
  * empirically failing classes. Wider grammar coverage lands with the full
  * solver in P5.
  *
  * @returns Re-decoded text, or null when no valid path exists / not in scope.
  */
+const REDECODE_SPAN_FLOOR = 0.45;
+
+function spanPosterior(perChar: number[]): number {
+  if (perChar.length === 0) return 0;
+  let logSum = 0;
+  for (const p of perChar) logSum += Math.log(Math.max(p, 1e-9));
+  return Math.exp(logSum / perChar.length);
+}
+
 export function grammarRedecode(
   spec: FieldSpec,
   candidate: OcrItem,
@@ -671,11 +693,13 @@ export function grammarRedecode(
   if (!candidate.lattice) return null;
   if (spec.canonicalLabel === 'sex') {
     const res = beamDecode(candidate.lattice, sexGrammar());
-    return res ? res.text : null;
+    if (!res || spanPosterior(res.perChar) < REDECODE_SPAN_FLOOR) return null;
+    return res.text;
   }
   if (spec.valueType === 'date') {
     const res = beamDecode(candidate.lattice, dateGrammar(dateLocale));
-    return res ? res.text : null;
+    if (!res || spanPosterior(res.perChar) < REDECODE_SPAN_FLOOR) return null;
+    return res.text;
   }
   return null;
 }
@@ -865,6 +889,31 @@ export function extractFields(
       required: pair.spec.required,
       score: clamp01(pair.total),
     });
+  }
+
+  // Step 6.5: ORPHANED-COMPETITOR cap (live-caught: forge_228 under v6 —
+  // the "Date of Issue" caption OCR'd to garbage, its value "01/01/2024"
+  // paired with the DOB label at dist 0.113 while the TRUE dob "15/08/1992"
+  // sat unassigned, and a wrong birth date confirmed silently). LAW: when a
+  // strongly-typed emitted field leaves an UNASSIGNED candidate of the same
+  // type whose pairing score with that field's label is comparable (≥70% of
+  // the winner's), the binding is ambiguous — two dates competed for one
+  // label and geometry alone decided. Halve the score so downstream
+  // verification lands in review, never silent confirmation. Documents with
+  // one date per label (the overwhelming case) are untouched.
+  const assignedValueIds = new Set(emitted.map((f) => f.valueItem.nodeId));
+  for (const field of emitted) {
+    if (!strongTypes.has(field.valueType) || !field.labelItem) continue;
+    const winnerScore = field.score;
+    for (const pair of pairs) {
+      if (pair.spec.canonicalLabel !== field.canonicalLabel) continue;
+      if (assignedValueIds.has(pair.valueItem.nodeId)) continue;
+      if (pair.total >= winnerScore * 0.7) {
+        field.bindingAmbiguous = true;
+        field.score = Math.min(field.score, 0.45);
+        break;
+      }
+    }
   }
 
   // Step 7: order by label reading order (top-to-bottom, then left-to-right).

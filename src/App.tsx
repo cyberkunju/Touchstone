@@ -994,6 +994,23 @@ export default function App() {
           isIdentityDoc ? { dateLocale: 'dmy' } : undefined,
         );
         console.log(`[DIAG] known fields (${knownFields.length}): ${knownFields.map((f) => f.canonicalLabel + '=' + JSON.stringify(f.value)).join(', ')}`);
+        // Binding forensics for typed fields: label→value geometry so a
+        // cross-layout steal (live-caught: issue date bound to DOB when the
+        // issue label OCR'd to garbage) is diagnosable from any gate log.
+        for (const f of knownFields) {
+          if (f.valueType !== 'date' && f.valueType !== 'amount') continue;
+          const lb = f.labelItem?.boxNorm;
+          const vb = f.valueItem.boxNorm;
+          const dist = lb
+            ? Math.hypot(
+                (lb[0] + lb[2]) / 2 - (vb[0] + vb[2]) / 2,
+                (lb[1] + lb[3]) / 2 - (vb[1] + vb[3]) / 2,
+              )
+            : -1;
+          console.log(
+            `[DIAG] bind ${f.canonicalLabel}="${f.value}" score=${f.score.toFixed(2)} dist=${dist.toFixed(3)} label=[${lb?.map((n) => n.toFixed(2)).join(',') ?? 'none'}] value=[${vb.map((n) => n.toFixed(2)).join(',')}]`,
+          );
+        }
         for (const f of knownFields) {
           if (addedCanonical.has(f.canonicalLabel)) continue;
           addedCanonical.add(f.canonicalLabel);
@@ -1003,6 +1020,15 @@ export default function App() {
             valueNodeId: f.valueItem.nodeId,
             labelNodeId: f.labelItem ? f.labelItem.nodeId : undefined,
           });
+          // Orphaned-competitor law (live-caught forge_228): two same-type
+          // values competed for this label and geometry alone picked — the
+          // binding is a QUESTION, not an answer.
+          if (f.bindingAmbiguous) {
+            hypReviewCaps.set(
+              h,
+              'binding ambiguous — a comparable same-type candidate went unassigned (N1: geometry alone cannot confirm)',
+            );
+          }
           // N1: an IDENTIFIER read from pixels alone has no attestor — no
           // checksum, no cross-source agreement, nothing that can prove it.
           // CTC drops doubled digits on clean scans (live-caught: INV-2024-
@@ -1032,6 +1058,26 @@ export default function App() {
                     // I1 is a COMPARISON, not a vibe: the proven MRZ witness
                     // disagreed with (or could not vouch for) this read.
                     : 'Name disagrees with the proven MRZ witness — review required.',
+            );
+          }
+          // UNVERIFIABLE-MACHINE-ZONE law (live-caught forge_228 under the
+          // v6 burst): an identity document whose MRZ was DETECTED but
+          // REFUSED (non-standard length, failed check digits — the classic
+          // forgery signature) offers no way to verify its printed dates;
+          // the zone exists precisely to police them. A VIZ date on such a
+          // page is a claim on an untrustworthy document — never silent
+          // confirmation (the issue-date→DOB binding steal rode exactly
+          // this hole: geometry decided, nothing could contradict).
+          if (
+            f.valueType === 'date' &&
+            isIdentityDoc &&
+            !mrzProven &&
+            mrzZone !== null &&
+            !hypReviewCaps.has(h)
+          ) {
+            hypReviewCaps.set(
+              h,
+              'Date on an identity document whose machine zone was detected but could not be verified — review required.',
             );
           }
           usedNodeIds.add(f.valueItem.nodeId);

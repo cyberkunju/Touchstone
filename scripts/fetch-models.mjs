@@ -26,11 +26,13 @@ const FILES = [
   'ppocrv5_dict.txt',
 ];
 
-// PP-OCRv6-small recognition (P3.6 tier candidate; official PaddlePaddle HF).
+// PP-OCRv6 recognition tiers (P3.6 candidates; official PaddlePaddle HF).
 // The dict is embedded in inference.yml — extracted to one-char-per-line txt
-// below (the loader appends the space char, matching the model's C=18710 =
-// blank + 18708 + space, verified by ONNX output probe).
+// below (the loader appends the space char, matching the models' C=18710 =
+// blank + 18708 + space, verified by ONNX output probe; small and medium
+// share the SAME dictionary, verified byte-equal).
 const V6_BASE = 'https://huggingface.co/PaddlePaddle/PP-OCRv6_small_rec_onnx/resolve/main';
+const V6_MEDIUM_BASE = 'https://huggingface.co/PaddlePaddle/PP-OCRv6_medium_rec_onnx/resolve/main';
 
 async function exists(p) {
   try {
@@ -64,8 +66,9 @@ for (const f of FILES) {
 }
 await download('face_detection_yunet_2023mar.onnx', YUNET_URL);
 
-// v6-small rec + extracted dict.
+// v6 rec tiers + extracted dict.
 await download('PP-OCRv6_small_rec_infer.onnx', `${V6_BASE}/inference.onnx`);
+await download('PP-OCRv6_medium_rec_infer.onnx', `${V6_MEDIUM_BASE}/inference.onnx`);
 {
   const dictOut = join(OUT_DIR, 'ppocrv6_dict.txt');
   if (!(await exists(dictOut))) {
