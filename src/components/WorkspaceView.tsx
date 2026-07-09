@@ -106,6 +106,7 @@ export default function WorkspaceView() {
           {activeFamily.formSchema.map((f) => {
             const v = activeRecord.values[f.fieldId];
             if (!v) return null;
+            const isAsset = f.valueType === 'photo' || f.valueType === 'signature' || f.valueType === 'seal';
             return (
               <div key={f.fieldId} style={fieldRowStyle}>
                 <div style={{ flex: '0 0 220px' }}>
@@ -115,17 +116,23 @@ export default function WorkspaceView() {
                     {v.justification.confidence > 0 && ` · ${(v.justification.confidence * 100).toFixed(0)}%`}
                   </div>
                 </div>
-                <input
-                  defaultValue={v.value}
-                  onBlur={async (e) => {
-                    if (e.target.value !== v.value) {
-                      const updated = await applyUserEdit(activeRecord.recordId, f.fieldId, e.target.value);
-                      setActiveRecord(updated);
-                      void refresh();
-                    }
-                  }}
-                  style={inputStyle}
-                />
+                {isAsset ? (
+                  <span style={{ flex: 1, fontSize: '0.8rem', color: 'var(--text-tertiary)', fontStyle: 'italic' }}>
+                    Visual asset — inspect in the Process view{activeRecord.assetRefs[f.fieldId] ? ` (${activeRecord.assetRefs[f.fieldId]})` : ''}
+                  </span>
+                ) : (
+                  <input
+                    defaultValue={v.value}
+                    onBlur={async (e) => {
+                      if (e.target.value !== v.value) {
+                        const updated = await applyUserEdit(activeRecord.recordId, f.fieldId, e.target.value);
+                        setActiveRecord(updated);
+                        void refresh();
+                      }
+                    }}
+                    style={inputStyle}
+                  />
+                )}
               </div>
             );
           })}

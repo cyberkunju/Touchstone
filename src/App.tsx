@@ -47,9 +47,20 @@ import { makeBeamPrior } from './lwt/beam-prior';
 import { emptyConfusionPrior } from './lwt/confusion-priors';
 import { learnFromProvenMrz } from './lwt/mrz-learning';
 import { getConfusionPrior, putConfusionPrior } from './storage/workspace-db';
+import { createFamily, listFamilies, updateFamilySchema } from './storage/family-store';
+import { appendRecord, findBySha256 } from './storage/record-store';
+import { familyNameFor, mergeSchema, schemaFromGraph, valuesFromGraph } from './workspace/assemble';
+import { dHash64 } from './geometry/phash';
+import WorkspaceView from './components/WorkspaceView';
 import type { ReviewItem } from './workspace/ui/review-lane';
 
-import { FileText, Save, RefreshCw, Layers, Sparkles, CheckSquare, Trash2 } from 'lucide-react';
+import { FileText, Save, RefreshCw, Layers, Sparkles, CheckSquare, Trash2, FolderOpen } from 'lucide-react';
+
+/** Identity tier 1: sha256 hex of the raw file bytes. */
+async function sha256Hex(file: File): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', await file.arrayBuffer());
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
 
 /** The MRZ legal alphabet as a flat string — crosses the Comlink boundary to
  *  request posterior projection in the worker (see extractProjectedLattice).
@@ -99,6 +110,8 @@ export default function App() {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [statusText, setStatusText] = useState<string>('');
   const [templates, setTemplates] = useState<TemplateGraph[]>([]);
+  /** Top-level IA: single-document processing vs the families/records workspace. */
+  const [view, setView] = useState<'process' | 'workspace'>('process');
   
   // Model loading states
   const [downloadProgress, setDownloadProgress] = useState<Record<string, ModelProgress>>({});
@@ -1485,7 +1498,57 @@ export default function App() {
       // Save raw graph to IndexedDB
       await saveDocGraph(verifiedGraph);
       setActiveGraph(verifiedGraph);
-      
+
+      // 5.6 WORKSPACE FILING (P2.4 IA): every processed document appends a
+      // record to its docType family (found or created as DRAFT — J4 law:
+      // drafts stay invisible to exports until the user approves). Filing
+      // failure never fails the pipeline — the graph view stands alone.
+      try {
+        const sha256 = await sha256Hex(file);
+        const dupes = await findBySha256(sha256);
+        if (dupes.length > 0) {
+          console.log(`[App] workspace: sha256 already filed (${dupes.length} record(s)) — skipping re-file.`);
+        } else {
+          const famName = familyNameFor(docType);
+          const all = await listFamilies();
+          let family = all.find((f) => f.name.toLowerCase() === famName.toLowerCase());
+          const schema = schemaFromGraph(verifiedGraph);
+          if (!family) {
+            family = await createFamily(famName, schema);
+          } else {
+            const merged = mergeSchema(family.formSchema, schema);
+            if (merged !== family.formSchema) {
+              const res = await updateFamilySchema(family.familyId, merged);
+              family = res.family;
+            }
+          }
+          // Identity tier 2: dHash of a downsampled raster (deterministic).
+          const pw = 128;
+          const ph = Math.max(1, Math.round((bitmap.height / bitmap.width) * pw));
+          const pc = new OffscreenCanvas(pw, ph);
+          const pctx = pc.getContext('2d')!;
+          pctx.drawImage(bitmap, 0, 0, pw, ph);
+          const phash64 = dHash64(pctx.getImageData(0, 0, pw, ph).data, pw, ph);
+          const rec = await appendRecord({
+            familyId: family.familyId,
+            docGraphId: verifiedGraph.documentId,
+            values: valuesFromGraph(verifiedGraph),
+            sourceFile: {
+              name: file.name,
+              sha256,
+              opfsPath: `files/${sha256}`,
+              kind: pdfPage ? 'pdf' : 'image',
+            },
+            phash64,
+          });
+          console.log(
+            `[App] workspace: filed ${rec.recordId} into "${family.name}" (${family.status}); review=${rec.review.openFieldIds.length} open field(s).`,
+          );
+        }
+      } catch (fileErr) {
+        console.warn('[App] workspace filing failed (pipeline unaffected):', fileErr);
+      }
+
       console.log('[App] DocGraph successfully verified and cached:', verifiedGraph);
       // Machine-readable line for the bench gate runner (bench/gate.mjs):
       // compact field summary scored against the corpus ground-truth manifest.
@@ -1593,9 +1656,17 @@ export default function App() {
           <h1 style={{ fontSize: '1.25rem', fontWeight: '700', fontFamily: 'var(--font-display)' }}>
             Edge DocGraph Engine
           </h1>
+          <nav style={{ display: 'flex', gap: 4, marginLeft: 20 }}>
+            <button onClick={() => setView('process')} style={tabStyle(view === 'process')}>
+              <FileText size={13} /> Process
+            </button>
+            <button onClick={() => setView('workspace')} style={tabStyle(view === 'workspace')}>
+              <FolderOpen size={13} /> Workspace
+            </button>
+          </nav>
         </div>
 
-        {activeGraph && (
+        {view === 'process' && activeGraph && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             {activeGraph.templateContext ? (
               <span style={badgeStyle('var(--status-confirmed)', 'var(--status-confirmed-bg)')}>
@@ -1618,7 +1689,12 @@ export default function App() {
 
       {/* 2. Main Workspace Layout */}
       <main className="app-main">
-        
+        {view === 'workspace' ? (
+          <section className="app-panel" style={{ flex: 1, minWidth: 0 }}>
+            <WorkspaceView />
+          </section>
+        ) : (
+          <>
         {/* Left Side: Upload & Canvas Document Viewer */}
         <section className="app-panel app-panel--viewer">
           {!imageSrc ? (
@@ -1806,6 +1882,8 @@ export default function App() {
             </section>
           </aside>
         )}
+          </>
+        )}
 
       </main>
 
@@ -1890,4 +1968,18 @@ const badgeStyle = (color: string, bg: string): React.CSSProperties => ({
   color,
   fontSize: '0.75rem',
   fontWeight: '600'
+});
+
+const tabStyle = (active: boolean): React.CSSProperties => ({
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: 6,
+  padding: '6px 14px',
+  border: '1px solid ' + (active ? 'var(--accent-blue)' : 'var(--border-color)'),
+  borderRadius: 3,
+  background: active ? 'var(--bg-secondary)' : 'transparent',
+  color: active ? 'var(--accent-blue)' : 'var(--text-secondary)',
+  fontSize: '0.8rem',
+  fontWeight: 600,
+  cursor: 'pointer',
 });
