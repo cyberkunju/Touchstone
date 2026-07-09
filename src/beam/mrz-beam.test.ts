@@ -343,6 +343,46 @@ describe('checksum-invisible ambiguity guard (the blind-spot fix)', () => {
     expect(res!.ambiguities).toEqual([]);
   });
 
+  it('WEAK-SPAN GUARD (live-caught by the v6 universe burst): a checked field whose chars rest on near-absent lattice mass is demoted, not proven', () => {
+    // The multiple-phantom-char class: several span characters drawn from
+    // weak lattice mass (glyphs not really in the image) can still satisfy
+    // every check digit. Four DOB digits at p=0.25 — weak enough that the
+    // span geo-mean (≈0.39) falls below the 0.45 floor, strong enough that
+    // the beam still finds the checksum-forced path.
+    const lat = cleanLat(TD3_L2);
+    for (let pos = 13; pos < 17; pos++) {
+      const truth = TD3_L2[pos];
+      lat[2 * pos] = [
+        ['', 0.55],
+        [truth, 0.25],
+        [truth === '8' ? '1' : '8', 0.2],
+      ];
+    }
+    const res = decodeMrzFromLattices([cleanLat(TD3_L1), lat]);
+    expect(res).not.toBeNull();
+    expect(res!.parse.status).toBe('valid'); // checksums genuinely pass…
+    const weak = res!.ambiguities.filter((a) => a.kind === 'weak_span');
+    expect(weak.some((a) => a.field === 'dateOfBirth')).toBe(true); // …but DOB is NOT proven
+    // Crisp fields stay proven — the guard is surgical, not a blanket veto.
+    expect(weak.some((a) => a.field === 'documentNumber')).toBe(false);
+    expect(weak.some((a) => a.field === 'expiryDate')).toBe(false);
+  });
+
+  it('weak-span guard stays silent on ordinary blur (single soft char in a crisp span)', () => {
+    // One soft character (p=0.5) in an otherwise-crisp DOB must NOT demote:
+    // geometric mean stays far above the floor. The guard targets wholesale
+    // reconstruction, not routine checksum-corrected blur.
+    const lat = cleanLat(TD3_L2);
+    lat[2 * 14] = [
+      ['4', 0.5],
+      ['', 0.35],
+      ['1', 0.15],
+    ];
+    const res = decodeMrzFromLattices([cleanLat(TD3_L1), lat]);
+    expect(res).not.toBeNull();
+    expect(res!.ambiguities.filter((a) => a.kind === 'weak_span')).toEqual([]);
+  });
+
   it('does NOT flag corrections in digit-only spans — residue is unique there, so the checksum IS proof', () => {
     // DOB position 13 ('7' of '740812') corrupted to top-1 'T'. The date span
     // charset admits only digits, and no other digit shares 7's mod-10 value —

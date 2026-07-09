@@ -50,13 +50,21 @@ export function isRealCalendarDate(iso: string): boolean {
   return d <= lengths[mo - 1];
 }
 
-/** Plausibility window per canonical date role (08 §6 #17). */
+/** Plausibility window per canonical date role (08 §6 #17).
+ *
+ *  Role matching is PATTERN-based, not exact-string: real documents print
+ *  label variants and OCR misreads them (live-caught from the v6 universe
+ *  burst: "DATE OF EXPTRY" slugified to date_of_exptry, missed the exact
+ *  match, and a birth date CONFIRMED in the expiry slot — the silent that
+ *  triggered this fix). Patterns are tight enough that no other date role
+ *  can collide. */
 function windowFor(canonicalLabel: string | null, now: Date): [Date, Date] | null {
+  if (!canonicalLabel) return null;
   const y = now.getUTCFullYear();
-  if (canonicalLabel === 'date_of_birth') {
+  if (/birth|\bdob\b/i.test(canonicalLabel)) {
     return [new Date(Date.UTC(y - 120, 0, 1)), now];
   }
-  if (canonicalLabel === 'date_of_expiry' || canonicalLabel === 'due_date') {
+  if (/exp[a-z]*ry|expir|valid[_ ]?until|due[_ ]?date/i.test(canonicalLabel)) {
     return [new Date(Date.UTC(y - 20, 0, 1)), new Date(Date.UTC(y + 20, 11, 31))];
   }
   return null; // no window knowledge — validity only

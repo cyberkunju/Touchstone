@@ -36,9 +36,11 @@ export interface MrzInvisibleAmbiguity {
    *  alternative was not in the lattice at all (low-posterior flags). */
   probRatio: number;
   /** Why this position is unproven: a same-class runner-up in the lattice
-   *  ('near_tie'), or the chosen char's own posterior is too weak to carry a
-   *  checksum-invisible position on pixel evidence alone ('low_posterior'). */
-  kind: 'near_tie' | 'low_posterior';
+   *  ('near_tie'), the chosen char's own posterior is too weak to carry a
+   *  checksum-invisible position on pixel evidence alone ('low_posterior'),
+   *  or the WHOLE field's span rests on lattice mass that is not there
+   *  ('weak_span' — the glyph-drop alignment-shift class). */
+  kind: 'near_tie' | 'low_posterior' | 'weak_span';
 }
 
 /** Runner-up-to-winner probability ratio above which a same-class alternative
@@ -53,6 +55,20 @@ const INVISIBLE_AMBIGUITY_RATIO = 0.43;
  *  glyphs (live-caught: 'U' blurred into '0', all five checks still passing)
  *  must fall to review, not silent confirmation. */
 const MIN_INVISIBLE_POSTERIOR = 0.85;
+
+/** Field-span posterior floor (the glyph-drop alignment-shift guard,
+ *  live-caught by the v6-small universe burst): ICAO check-digit weights
+ *  cycle 7-3-1 every 3 positions, so a read whose glyphs shifted by a
+ *  multiple of 3 (one dropped char + filler re-expansion) can satisfy EVERY
+ *  check digit while placing the wrong digits in a field's span. Such a
+ *  decode is only reachable by drawing several characters from weak lattice
+ *  mass — so any checked field whose GEOMETRIC-MEAN per-char posterior falls
+ *  below this floor is demoted to review (ambiguity channel), never proven.
+ *  0.45 calibrated against the synthetic-lattice geometry: one soft char in
+ *  a crisp span geo-means ~0.86, three soft ~0.68; three-plus PHANTOM chars
+ *  (p≈0.25, glyphs not in the image) geo-mean ≤0.39 — the reconstruction
+ *  class this guard exists to demote. */
+const MIN_FIELD_SPAN_POSTERIOR = 0.45;
 
 export interface MrzBeamResult {
   format: MrzFormatSpec['name'];
@@ -243,6 +259,32 @@ function findInvisibleAmbiguities(
 
   for (const check of spec.checks) {
     if (check.field === 'composite') continue; // covered via component fields
+
+    // Field-span floor (glyph-drop alignment-shift guard): the geometric
+    // mean of the DATA positions' posteriors. A field whose characters were
+    // collectively drawn from near-absent lattice mass is an alignment
+    // artifact, not a reading — check digits cannot help because 3-shifted
+    // alignments are weight-invariant (7-3-1 cycle).
+    let logSum = 0;
+    let n = 0;
+    for (const [a, b] of check.cover) {
+      for (let pos = a; pos < b; pos++) {
+        if (checkPositions.has(pos)) continue;
+        logSum += Math.log(Math.max(perChar[pos], 1e-9));
+        n++;
+      }
+    }
+    if (n > 0 && Math.exp(logSum / n) < MIN_FIELD_SPAN_POSTERIOR) {
+      out.push({
+        field: check.field,
+        position: check.cover[0][0],
+        chosen: decoded.slice(check.cover[0][0], Math.min(check.cover[0][1], check.cover[0][0] + 12)),
+        alternative: '',
+        probRatio: Math.exp(logSum / n),
+        kind: 'weak_span',
+      });
+      continue; // whole field demoted — per-position flags are redundant
+    }
     for (const [a, b] of check.cover) {
       for (let pos = a; pos < b; pos++) {
         if (checkPositions.has(pos)) continue;
