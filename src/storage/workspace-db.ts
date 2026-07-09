@@ -102,8 +102,17 @@ export const priorKeyFamilyFormat = (familyId: string): string => `family:${fami
 export async function getConfusionPrior(): Promise<ConfusionPrior | undefined> {
   return idbGet<ConfusionPrior>('priors', PRIOR_KEY_CONFUSION);
 }
+/** P6.1 persistence. Callers MUST derive the value via learnFromProven —
+ *  the sealed ConfirmedField gate is the only legitimate producer. */
+export async function putConfusionPrior(prior: ConfusionPrior): Promise<void> {
+  return idbPut('priors', prior, PRIOR_KEY_CONFUSION);
+}
 export async function getFormatPrior(familyId: string): Promise<FormatPrior | undefined> {
   return idbGet<FormatPrior>('priors', priorKeyFamilyFormat(familyId));
+}
+/** P6.1: format priors are written from solved document globals only. */
+export async function putFormatPrior(familyId: string, prior: FormatPrior): Promise<void> {
+  return idbPut('priors', prior, priorKeyFamilyFormat(familyId));
 }
 export async function putBenchRun(run: BenchRun): Promise<void> {
   return idbPut('benchruns', run);
