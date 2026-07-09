@@ -43,6 +43,10 @@ import QuestionCards from './components/QuestionCards';
 import ReviewLane from './components/ReviewLane';
 import WorkspaceProtection from './components/WorkspaceProtection';
 import { rankQuestions, type QuestionCandidate } from './lwt/question-ranking';
+import { makeBeamPrior } from './lwt/beam-prior';
+import { emptyConfusionPrior } from './lwt/confusion-priors';
+import { learnFromProvenMrz } from './lwt/mrz-learning';
+import { getConfusionPrior, putConfusionPrior } from './storage/workspace-db';
 import type { ReviewItem } from './workspace/ui/review-lane';
 
 import { FileText, Save, RefreshCw, Layers, Sparkles, CheckSquare, Trash2 } from 'lucide-react';
@@ -797,12 +801,21 @@ export default function App() {
         //    checks pass. Legacy-sourced fields are therefore review-capped.
         if (mrzZone) {
           let parsedMRZ = null as ReturnType<typeof parseMrz> | null;
+          // I5/P6: this workspace's checksum-proven confusion statistics,
+          // adapted to a boost-only beam re-weighting (priors suggest,
+          // proofs decide — the hook can never veto a reading).
+          const storedPrior = await getConfusionPrior().catch(() => undefined);
+          const beamPrior = makeBeamPrior(storedPrior);
           let beamResult =
             mrzLineLattices && mrzLineLattices.length >= 2
               ? decodeMrzFromLattices(mrzLineLattices, {
+                  prior: beamPrior,
                   trace: (m) => console.log(`[DIAG] mrz-beam: ${m}`),
                 })
               : null;
+          // The lattices the WINNING decode actually read (foveated retry
+          // replaces these) — the learning site must compare like with like.
+          let provenLattices: Lattice[] | null = mrzLineLattices ?? null;
 
           // FOVEATED RETRY: a beam refusal on a detected zone usually means
           // CTC glyph merges — blur collapsed adjacent chars into shared
@@ -848,10 +861,12 @@ export default function App() {
                       .filter((l, i, a) => a.findIndex((x) => x.text === l.text) === i);
                     if (fov.length >= 2) {
                       beamResult = decodeMrzFromLattices(fov.map((l) => l.lattice), {
+                        prior: beamPrior,
                         trace: (m) => console.log(`[DIAG] mrz-beam(fov): ${m}`),
                       });
                       if (beamResult) {
                         mrzZone = { ...mrzZone, lines: fov.map((l) => l.text) };
+                        provenLattices = fov.map((l) => l.lattice);
                         console.log(`[DIAG] foveated retry SUCCEEDED at ${fc.width}px band width`);
                       }
                     }
@@ -889,6 +904,23 @@ export default function App() {
                 surname: parsedMRZ.fields.surname,
                 givenNames: parsedMRZ.fields.givenNames,
               };
+              // P6 LEARNING SITE: proven lines vs the unguided greedy reads of
+              // the same lattices — the only teacher with a checksum diploma.
+              // Fire-and-forget; a persistence failure can never fail a decode.
+              if (beamResult && provenLattices && provenLattices.length === beamResult.lines.length) {
+                try {
+                  const before = storedPrior ?? emptyConfusionPrior();
+                  const after = learnFromProvenMrz(before, beamResult.lines, provenLattices);
+                  if (after !== before) {
+                    void putConfusionPrior(after).catch(() => {});
+                    console.log(
+                      `[DIAG] confusion prior learned: total ${before.total} → ${after.total} observations`,
+                    );
+                  }
+                } catch (learnErr) {
+                  console.warn('[DIAG] confusion learning skipped:', learnErr);
+                }
+              }
             }
             const hMRZ = builder.addHypothesis('MRZ Payload', parsedMRZ, 'mrz', mrzZone.boxNorm, pageId);
             mrzZone.itemIds.forEach((id) => builder.linkHypothesisNodes(hMRZ, { valueNodeId: id }));

@@ -69,8 +69,14 @@ interface Hyp<S> {
   state: S;
   /** Raw (pre-collapse) char of the previous timestep: '' = blank/none. */
   lastRaw: string;
-  /** Linear-domain score, rescaled every step to avoid underflow. */
+  /** Linear-domain score, rescaled every step to avoid underflow. May be
+   *  prior-weighted — used ONLY to rank/prune hypotheses. */
   score: number;
+  /** Same accumulation WITHOUT prior weighting — the evidence the lattice
+   *  actually holds. Reported as pathProb so every downstream safety gate
+   *  (plausibility gap, span floors) judges raw evidence: a prior may steer
+   *  the search, it may never testify. */
+  rawScore: number;
   perChar: number[];
   perCharStep: number[];
 }
@@ -101,9 +107,12 @@ export function beamDecode<S>(
   const prior = opts.prior;
 
   let beams: Hyp<S>[] = [
-    { text: '', state: grammar.start, lastRaw: '', score: 1, perChar: [], perCharStep: [] },
+    { text: '', state: grammar.start, lastRaw: '', score: 1, rawScore: 1, perChar: [], perCharStep: [] },
   ];
-  let logScale = 0; // accumulated log of rescale factors
+  // Underflow guard for the RAW evidence track (reported as pathProb). The
+  // weighted score needs no scale bookkeeping — it only ranks, and rescaling
+  // preserves order.
+  let rawLogScale = 0;
 
   for (let stepIdx = 0; stepIdx < lattice.length; stepIdx++) {
     const step = lattice[stepIdx];
@@ -117,9 +126,11 @@ export function beamDecode<S>(
         // dominant path's per-char attribution.
         if (h.score > existing.score) {
           h.score += existing.score;
+          h.rawScore += existing.rawScore;
           next.set(key, h);
         } else {
           existing.score += h.score;
+          existing.rawScore += h.rawScore;
         }
       } else {
         next.set(key, h);
@@ -132,10 +143,10 @@ export function beamDecode<S>(
         if (p <= 0) continue;
 
         if (ch === '') {
-          add({ ...hyp, lastRaw: '', score: hyp.score * p });
+          add({ ...hyp, lastRaw: '', score: hyp.score * p, rawScore: hyp.rawScore * rawP });
         } else if (ch === hyp.lastRaw) {
           // Same raw char consecutively → same emission, no new grammar step.
-          add({ ...hyp, score: hyp.score * p });
+          add({ ...hyp, score: hyp.score * p, rawScore: hyp.rawScore * rawP });
         } else {
           const nextState = grammar.next(hyp.state, ch);
           if (nextState === null) continue; // grammar prunes this branch
@@ -144,6 +155,7 @@ export function beamDecode<S>(
             state: nextState,
             lastRaw: ch,
             score: hyp.score * p,
+            rawScore: hyp.rawScore * rawP,
             perChar: [...hyp.perChar, rawP],
             perCharStep: [...hyp.perCharStep, stepIdx],
           });
@@ -158,7 +170,13 @@ export function beamDecode<S>(
     const top = beams[0].score;
     if (top > 0 && top < 1e-30) {
       for (const b of beams) b.score /= top;
-      logScale += Math.log(top);
+    }
+    // The raw track underflows independently (prior weights ≥ 1 make the
+    // weighted score the larger of the two) — rescale it on its own trigger.
+    const rawTop = Math.max(...beams.map((b) => b.rawScore));
+    if (rawTop > 0 && rawTop < 1e-30) {
+      for (const b of beams) b.rawScore /= rawTop;
+      rawLogScale += Math.log(rawTop);
     }
   }
 
@@ -171,9 +189,11 @@ export function beamDecode<S>(
     if (existing) {
       if (b.score > existing.score) {
         b.score += existing.score;
+        b.rawScore += existing.rawScore;
         byText.set(b.text, b);
       } else {
         existing.score += b.score;
+        existing.rawScore += b.rawScore;
       }
     } else {
       byText.set(b.text, b);
@@ -191,7 +211,7 @@ export function beamDecode<S>(
 
   return {
     text: best.text,
-    pathProb: Math.log(best.score) + logScale,
+    pathProb: Math.log(best.rawScore) + rawLogScale,
     perChar: best.perChar,
     perCharStep: best.perCharStep,
   };
