@@ -42,8 +42,12 @@ function check(name, actual, budget, unit) {
 /* ------------------------------- service half ----------------------------- */
 async function serviceHalf() {
   console.log('=== service budgets (13 §2-3) ===');
+  // P7.3 bearer handshake: pin a harness token (the service reads
+  // DOCUTRACT_TOKEN; data endpoints 401 without it — by design).
+  const TOKEN = 'perf-harness-token';
+  const AUTH = { Authorization: `Bearer ${TOKEN}` };
   const proc = spawn('python', ['-m', 'uvicorn', 'main:app', '--host', '127.0.0.1', '--port', '8478', '--log-level', 'error'],
-    { cwd: join(root, 'service'), stdio: 'ignore' });
+    { cwd: join(root, 'service'), stdio: 'ignore', env: { ...process.env, DOCUTRACT_TOKEN: TOKEN } });
   try {
     // Wait for boot.
     let up = false;
@@ -70,7 +74,7 @@ async function serviceHalf() {
     const form = new FormData();
     form.append('file', new Blob([xlsx]), 'ledger.xlsx');
     const t0 = performance.now();
-    const res = await fetch('http://127.0.0.1:8478/v1/perceive', { method: 'POST', body: form });
+    const res = await fetch('http://127.0.0.1:8478/v1/perceive', { method: 'POST', body: form, headers: AUTH });
     const elapsed = performance.now() - t0;
     if (!res.ok) throw new Error(`perceive failed: ${res.status}`);
     check('digital xlsx perceive', elapsed, BUDGETS.digitalSingleFileMs, 'ms');
