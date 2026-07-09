@@ -8,7 +8,7 @@ gate not worsened. This file mirrors and elaborates plan.md §15 (which remains 
 
 - **Certified and baseline-sealed:** **1645/1656, SILENT=0**, 29/29 families
 	(`ap-APexxZXMtjbk6VeP1FLcT5`). Cards and insurance are both 32/32-or-better family passes;
-	all five performance budgets, 768 browser tests, 123 service tests, TypeScript, production build,
+	all five performance budgets, 769 browser tests, 123 service tests, TypeScript, production build,
 	dependency audits, and the seven-job Linux/macOS/Windows CI matrix are green.
 - **Validated candidate:** **1649/1656, SILENT=0**. The remaining +4 are not new OCR guesses:
 	the engine already extracted exact lab patient names, while the scorer resolved the shared
