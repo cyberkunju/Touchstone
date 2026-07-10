@@ -11,6 +11,15 @@ export interface OcrRecResult {
   text: string;
   /** Mean softmax probability of the emitted characters, in [0, 1]. */
   confidence: number;
+  /**
+   * P5 (proof-carrying character geometry): per emitted character, the
+   * fraction of the crop width where its CTC emission occurred — [start,
+   * end) over [0,1). CTC timesteps map near-linearly onto crop x for the
+   * PP-OCR CRNN family, so `charSpans[i]` locates character i inside the
+   * LINE box. Enables exact substring boxes (inline "Label: value" values,
+   * MRZ field spans) instead of whole-line rectangles.
+   */
+  charSpans?: { start: number; end: number }[];
 }
 
 /**
@@ -133,6 +142,7 @@ export function decodeCTCGreedy(
   let prevIdx = -1;
   let probSum = 0;
   let emitted = 0;
+  const emitSteps: number[] = [];
 
   for (let t = 0; t < timeSteps; t++) {
     const base = t * numClasses;
@@ -157,6 +167,7 @@ export function decodeCTCGreedy(
         text += vocab[charIdx];
         probSum += maxProb;
         emitted++;
+        emitSteps.push(t);
       }
       // Out-of-range index: skipped entirely, not counted.
     }
@@ -164,9 +175,18 @@ export function decodeCTCGreedy(
     prevIdx = idx;
   }
 
+  // Character x-extents: each emission owns the half-open interval to the
+  // midpoint of its neighbours' emission timesteps (monotone, non-overlap).
+  const charSpans = emitSteps.map((step, i) => {
+    const prevMid = i === 0 ? 0 : (emitSteps[i - 1] + step + 1) / 2;
+    const nextMid = i === emitSteps.length - 1 ? timeSteps : (step + 1 + emitSteps[i + 1]) / 2;
+    return { start: prevMid / timeSteps, end: nextMid / timeSteps };
+  });
+
   return {
     text,
     confidence: emitted > 0 ? probSum / emitted : 0,
+    ...(charSpans.length > 0 ? { charSpans } : {}),
   };
 }
 

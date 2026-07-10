@@ -166,7 +166,9 @@ export function parseDate(raw: string, locale?: DateLocale): DateParseResult {
   }
 
   // --- Numeric, year-last: aa[sep]bb[sep]YYYY (DMY vs MDY). ----------------
-  const dayMonth = /^(\d{1,2})[-./](\d{1,2})[-./](\d{4})$/.exec(trimmed);
+  // Separator includes a single SPACE: French data pages print "24 02 2021"
+  // (live-caught real-world page — the read was refused as "unrecognized").
+  const dayMonth = /^(\d{1,2})[-./ ](\d{1,2})[-./ ](\d{4})$/.exec(trimmed);
   if (dayMonth) {
     const first = Number(dayMonth[1]);
     const second = Number(dayMonth[2]);

@@ -214,6 +214,83 @@ async function detectQuadsCore(
   return postProcessDBNetQuads(outputData, mapW, mapH, options);
 }
 
+/* ---------------------- quad-native tilt rectification -------------------- */
+
+/** Intersection-over-union of two normalized axis-aligned boxes. */
+function boxIou(a: Box, b: Box): number {
+  const ix = Math.max(0, Math.min(a[2], b[2]) - Math.max(a[0], b[0]));
+  const iy = Math.max(0, Math.min(a[3], b[3]) - Math.max(a[1], b[1]));
+  const inter = ix * iy;
+  const areaA = Math.max(0, a[2] - a[0]) * Math.max(0, a[3] - a[1]);
+  const areaB = Math.max(0, b[2] - b[0]) * Math.max(0, b[3] - b[1]);
+  const union = areaA + areaB - inter;
+  return union > 0 ? inter / union : 0;
+}
+
+/**
+ * TILT TRIGGER (P1, quad-native perception): find the rotated quad matching
+ * an axis-aligned detection and return it ONLY when the line is genuinely
+ * tilted enough that an axis-aligned crop smears it (camera-shot documents
+ * on tables — live-caught real-world collapse). Level lines return null and
+ * keep the certified axis path BIT-IDENTICAL; a wrong warp is worse than no
+ * warp, so small/noisy quads never trigger.
+ */
+function tiltedQuadFor(
+  box: Box,
+  quads: DetectedQuad[],
+  pageW: number,
+  pageH: number,
+): DetectedQuad | null {
+  let best: DetectedQuad | null = null;
+  let bestIou = 0.5; // floor: must clearly be the same line
+  for (const q of quads) {
+    const iou = boxIou(box, q.boxNorm);
+    if (iou > bestIou) {
+      bestIou = iou;
+      best = q;
+    }
+  }
+  if (!best) return null;
+  const [tl, tr] = best.quadNorm.map(([qx, qy]) => [qx * pageW, qy * pageH] as [number, number]);
+  const widthPx = Math.hypot(tr[0] - tl[0], tr[1] - tl[1]);
+  if (widthPx < 60) return null; // tiny quads: min-area angle is noise
+  const angle = Math.abs(Math.atan2(tr[1] - tl[1], tr[0] - tl[0]));
+  const TILT_MIN = (2.5 * Math.PI) / 180;
+  const TILT_MAX = (45 * Math.PI) / 180;
+  return angle >= TILT_MIN && angle <= TILT_MAX ? best : null;
+}
+
+/**
+ * Expand a rotated quad along its OWN axes — the rotated-frame analog of the
+ * certified axis padding law (25% of line height horizontal, 8% vertical) —
+ * so rectified crops keep the same glyph margins the recognizer was
+ * certified with.
+ */
+function expandQuadNorm(
+  quadNorm: [number, number][],
+  pageW: number,
+  pageH: number,
+  padWFrac = 0.25,
+  padHFrac = 0.08,
+): [number, number][] {
+  const px = quadNorm.map(([qx, qy]) => [qx * pageW, qy * pageH] as [number, number]);
+  const [tl, tr, br, bl] = px;
+  const heightPx = Math.hypot(bl[0] - tl[0], bl[1] - tl[1]);
+  const widthPx = Math.hypot(tr[0] - tl[0], tr[1] - tl[1]);
+  if (heightPx < 1 || widthPx < 1) return quadNorm;
+  const u = [(tr[0] - tl[0]) / widthPx, (tr[1] - tl[1]) / widthPx];
+  const v = [(bl[0] - tl[0]) / heightPx, (bl[1] - tl[1]) / heightPx];
+  const pu = heightPx * padWFrac;
+  const pv = heightPx * padHFrac;
+  const out: [number, number][] = [
+    [tl[0] - u[0] * pu - v[0] * pv, tl[1] - u[1] * pu - v[1] * pv],
+    [tr[0] + u[0] * pu - v[0] * pv, tr[1] + u[1] * pu - v[1] * pv],
+    [br[0] + u[0] * pu + v[0] * pv, br[1] + u[1] * pu + v[1] * pv],
+    [bl[0] - u[0] * pu + v[0] * pv, bl[1] - u[1] * pu + v[1] * pv],
+  ];
+  return out.map(([qx, qy]) => [qx / pageW, qy / pageH] as [number, number]);
+}
+
 /** Core PP-OCRv5 recognition on a single line-crop bitmap.
  *
  * `projectAlphabet` (optional): additionally emit `projectedLattice` — the
@@ -534,17 +611,35 @@ const inferenceApi = {
     recModelName: string,
     imageBitmap: ImageBitmap,
     options?: DbnetPostOptions,
-  ): Promise<{ text: string; confidence: number; boxNorm: Box; lattice: Lattice }[]> {
+  ): Promise<{ text: string; confidence: number; boxNorm: Box; lattice: Lattice; quadNorm?: [number, number][] }[]> {
     const detInfo = loadedSessions[detModelName];
     const recInfo = loadedSessions[recModelName];
     if (!detInfo || !recInfo) throw new Error('Detection/recognition model not loaded in worker');
     if (!recognitionVocab) throw new Error('Recognition vocabulary not set. Call setRecognitionVocab first.');
 
-    const boxes = await detectLinesCore(detInfo, imageBitmap, options);
+    // QUAD-NATIVE PERCEPTION (P1): single-band pages run ONE det forward and
+    // post-process it BOTH ways — certified axis-aligned boxes stay the
+    // geometry of record; rotated quads exist purely to feed BETTER PIXELS
+    // to recognition when a line is genuinely tilted. Banded (tall) pages
+    // keep the exact legacy path.
+    const bands = planDetBands(imageBitmap.width, imageBitmap.height, DET_BAND_ASPECT, DET_BAND_OVERLAP);
+    let boxes: Box[];
+    let quads: DetectedQuad[] = [];
+    if (bands.length === 1) {
+      const { outputData, mapW, mapH } = await runDetForward(detInfo, imageBitmap);
+      boxes = postProcessDBNet(outputData, mapW, mapH, options);
+      try {
+        quads = postProcessDBNetQuads(outputData, mapW, mapH, options);
+      } catch {
+        quads = []; // quad extraction is an enhancement — never a failure path
+      }
+    } else {
+      boxes = await detectLinesCore(detInfo, imageBitmap, options);
+    }
 
     // Crop with the SAME padding law as the certified App loop (25% of line
     // height horizontal, 8% vertical).
-    interface Prepared { boxNorm: Box; float: Float32Array; targetW: number }
+    interface Prepared { boxNorm: Box; float: Float32Array; targetW: number; quadNorm?: [number, number][] }
     const prepared: Prepared[] = [];
     const w = imageBitmap.width;
     const h = imageBitmap.height;
@@ -564,12 +659,29 @@ const inferenceApi = {
       const cropH = y2 - y1;
       if (cropW <= 0 || cropH <= 0) continue;
 
+      // TILT TRIGGER: a matched, clearly-tilted quad supplies rectified
+      // pixels; the axis path below stays bit-identical when it fires not.
+      let rectified: ImageBitmap | null = null;
+      let quadUsed: [number, number][] | undefined;
+      const tilted = tiltedQuadFor(box, quads, w, h);
+      if (tilted) {
+        rectified = await rectifyQuadBitmap(imageBitmap, expandQuadNorm(tilted.quadNorm, w, h));
+        if (rectified) quadUsed = tilted.quadNorm;
+      }
+
       const imgH = REC_INPUT_HEIGHT;
-      const targetW = computeRecTargetWidth(cropW, cropH, imgH, REC_MAX_WIDTH);
+      const srcW = rectified ? rectified.width : cropW;
+      const srcH = rectified ? rectified.height : cropH;
+      const targetW = computeRecTargetWidth(srcW, srcH, imgH, REC_MAX_WIDTH);
       // TWO-step draw (crop at native size, then resize) — bit-identical to
       // the certified App-loop + recognizeCropCore resampling chain.
-      const cropCanvas = new OffscreenCanvas(cropW, cropH);
-      cropCanvas.getContext('2d')!.drawImage(imageBitmap, x1, y1, cropW, cropH, 0, 0, cropW, cropH);
+      const cropCanvas = new OffscreenCanvas(srcW, srcH);
+      if (rectified) {
+        cropCanvas.getContext('2d')!.drawImage(rectified, 0, 0);
+        rectified.close();
+      } else {
+        cropCanvas.getContext('2d')!.drawImage(imageBitmap, x1, y1, cropW, cropH, 0, 0, cropW, cropH);
+      }
       const canvas = new OffscreenCanvas(targetW, imgH);
       const ctx = canvas.getContext('2d')!;
       ctx.drawImage(cropCanvas, 0, 0, targetW, imgH);
@@ -583,6 +695,7 @@ const inferenceApi = {
         boxNorm: box,
         float: normalizeRecognitionTensor(enhanced, targetW, imgH, targetW),
         targetW,
+        quadNorm: quadUsed,
       });
     }
 
@@ -594,7 +707,7 @@ const inferenceApi = {
       else groups.set(p.targetW, [p]);
     }
 
-    const out: { text: string; confidence: number; boxNorm: Box; lattice: Lattice }[] = [];
+    const out: { text: string; confidence: number; boxNorm: Box; lattice: Lattice; quadNorm?: [number, number][] }[] = [];
     const imgH = REC_INPUT_HEIGHT;
     for (const [targetW, group] of groups) {
       const per = 3 * imgH * targetW;
@@ -615,6 +728,7 @@ const inferenceApi = {
           ...greedy,
           boxNorm: group[i].boxNorm,
           lattice: extractLattice(slice, timeSteps, numClasses, recognitionVocab),
+          ...(group[i].quadNorm ? { quadNorm: group[i].quadNorm } : {}),
         });
       }
     }

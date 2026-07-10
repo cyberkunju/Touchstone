@@ -4,6 +4,7 @@
 
 import { describe, expect, it } from 'vitest';
 import type { DocGraph, FieldHypothesis } from '../core/types';
+import { parseMrz } from '../parsers/mrz';
 import { augmentWithConsensus, hypothesesToCandidates } from './bridge';
 
 let seq = 0;
@@ -56,6 +57,42 @@ describe('hypothesesToCandidates', () => {
     expect(c[0].marks).toContain('mrz_text');
     expect(c[1].channel).toBe('payload');
     expect(c[2].canonicalLabel).toBe('total');
+  });
+
+  it('maps the parsed MRZ object shape produced by App into a canonical MRZ candidate', () => {
+    const parsed = parseMrz(MRZ_VALID);
+    const candidates = hypothesesToCandidates([
+      hyp({ label: 'MRZ Payload', value: parsed, valueType: 'mrz' }),
+    ]);
+
+    expect(candidates).toHaveLength(1);
+    expect(candidates[0].canonicalLabel).toBe('mrz');
+    expect(candidates[0].marks).toContain('mrz_text');
+    expect(candidates[0].value).toBe(MRZ_VALID);
+  });
+
+  it('does not grant the MRZ proof mark to a legacy/review-capped parse', () => {
+    const parsed = parseMrz(MRZ_VALID);
+    const legacy = hyp({
+      label: 'MRZ Payload',
+      value: parsed,
+      valueType: 'mrz',
+      reviewCap: 'Legacy MRZ parse without checksum-guided beam proof.',
+    });
+    const number = hyp({
+      label: 'Passport Number',
+      value: 'L898902C3',
+      valueType: 'id_number',
+      canonicalLabel: 'passport_number',
+      status: 'needs_review',
+    });
+    const candidates = hypothesesToCandidates([legacy, number]);
+    expect(candidates[0].marks).not.toContain('mrz_text');
+    expect(candidates[0].canonicalLabel).toBeNull();
+
+    const result = augmentWithConsensus(graph([legacy, number]));
+    expect(number.status).toBe('needs_review');
+    expect(result.promoted).toEqual([]);
   });
 });
 

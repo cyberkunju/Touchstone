@@ -128,3 +128,12 @@ bench/_probe_image.png
 
 # A/B candidate artifacts (sha-pinned in verdict, never shipped)
 .ab-cache/
+
+# Test-harness artifacts (never commit)
+.chrome-profile/
+passptest_20/
+passpout/
+test_screenshots/inspect/
+test_screenshots/judge/
+test_screenshots/responsive-*.png
+passptest/

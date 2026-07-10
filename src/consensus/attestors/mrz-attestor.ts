@@ -13,6 +13,7 @@
 
 import { parseMrz } from '../../parsers/mrz';
 import type { MrzFields } from '../../parsers/mrz';
+import { countryCodeForValue } from '../../docgraph/mrz-fields';
 import type { Attestation, Attestor, DocContext, FieldCandidate } from '../types';
 
 /** Canonical label → MRZ field extractor. */
@@ -23,9 +24,11 @@ const MRZ_FIELD_MAP: Record<string, (f: MrzFields) => string | undefined> = {
   date_of_expiry: (f) => f.expiryDate,
   nationality: (f) => f.nationality,
   issuing_country: (f) => f.issuingCountry,
+  country_code: (f) => f.issuingCountry,
   sex: (f) => f.sex,
   surname: (f) => f.surname,
   given_names: (f) => f.givenNames,
+  personal_number: (f) => f.optionalData,
   full_name: (f) =>
     f.surname || f.givenNames ? `${f.surname ?? ''} ${f.givenNames ?? ''}`.trim() : undefined,
 };
@@ -43,6 +46,11 @@ export function mrzAgrees(label: string, value: string, fields: MrzFields): bool
   if (!extract) return false;
   const witness = extract(fields);
   if (!witness) return false;
+  if (label === 'nationality' || label === 'issuing_country' || label === 'country_code') {
+    const visualCode = countryCodeForValue(value);
+    const mrzCode = countryCodeForValue(witness);
+    return visualCode !== null && mrzCode !== null && visualCode === mrzCode;
+  }
   const v = mrzNormalize(value);
   const w = mrzNormalize(witness);
   if (v === w) return true;
@@ -59,6 +67,16 @@ export function mrzAgrees(label: string, value: string, fields: MrzFields): bool
   }
   return false;
 }
+
+const CHECKSUM_COVERED_FIELDS = new Set([
+  'passport_number',
+  'document_number',
+  'date_of_birth',
+  'date_of_expiry',
+  // TD3 optional data (the printed personal number) carries a DEDICATED
+  // check digit at position 42 — same proof grade as the document number.
+  'personal_number',
+]);
 
 function plausibleReadings(value: string): string[] {
   const out: string[] = [];
@@ -130,15 +148,31 @@ export const mrzAttestor: Attestor = {
     const mrz = findProvenMrz(ctx);
     if (!mrz) return null;
     const extract = MRZ_FIELD_MAP[field.canonicalLabel];
-    if (!extract || !extract(mrz.fields)) return null; // MRZ lacks this field
+    const witness = extract?.(mrz.fields);
+    if (!extract || !witness) return null; // MRZ lacks this field
+    if (
+      (field.canonicalLabel === 'nationality' ||
+        field.canonicalLabel === 'issuing_country' ||
+        field.canonicalLabel === 'country_code') &&
+      (countryCodeForValue(field.value) === null || countryCodeForValue(witness) === null)
+    ) {
+      return null;
+    }
     if (mrzAgrees(field.canonicalLabel, field.value, mrz.fields)) {
+      const checksumCovered = CHECKSUM_COVERED_FIELDS.has(field.canonicalLabel);
       return {
         attestorId: this.id,
-        verdict: 'proves',
-        strength: 0.99,
+        verdict: checksumCovered ? 'proves' : 'supports',
+        strength: checksumCovered ? 0.99 : 0.8,
         evidence: [
           { kind: 'candidate', ref: mrz.sourceId, note: 'proven MRZ (all check digits pass)' },
-          { kind: 'computation', ref: `VIZ "${field.value}" agrees with MRZ ${field.canonicalLabel}` },
+          {
+            kind: 'computation',
+            ref: `VIZ "${field.value}" agrees with MRZ ${field.canonicalLabel} "${witness}"`,
+            note: checksumCovered
+              ? 'field is covered by a dedicated MRZ check digit'
+              : 'field position has no dedicated check digit; agreement corroborates but does not prove',
+          },
         ],
       };
     }
@@ -150,7 +184,7 @@ export const mrzAttestor: Attestor = {
         { kind: 'candidate', ref: mrz.sourceId, note: 'proven MRZ (all check digits pass)' },
         {
           kind: 'computation',
-          ref: `VIZ "${field.value}" ≠ MRZ ${field.canonicalLabel} "${extract(mrz.fields)}"`,
+          ref: `VIZ "${field.value}" ≠ MRZ ${field.canonicalLabel} "${witness}"`,
           note: 'proven machine zone disagrees with the visual zone read',
         },
       ],

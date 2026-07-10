@@ -27,17 +27,10 @@ export default function FormEditor({
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '12px',
-      height: '100%',
-      overflowY: 'auto',
-      paddingRight: '6px'
-    }}>
+    <div className="field-list">
       {hypotheses.length === 0 ? (
         <div style={{
-          padding: '24px',
+          padding: 'var(--sp-5)',
           textAlign: 'center',
           color: 'var(--text-tertiary)',
           fontSize: '0.9rem'
@@ -47,44 +40,34 @@ export default function FormEditor({
       ) : (
         hypotheses.map(hyp => {
           const isSelected = hyp.id === selectedId;
+          const statusClass =
+            hyp.status === 'confirmed'
+              ? 'field-card--confirmed'
+              : hyp.status === 'conflict' || hyp.status === 'invalid'
+                ? 'field-card--conflict'
+                : hyp.status === 'missing'
+                  ? 'field-card--missing'
+                  : 'field-card--review';
           return (
             <div
               key={hyp.id}
+              data-hypothesis-id={hyp.id}
+              data-canonical-label={hyp.canonicalLabel ?? ''}
+              aria-label={`Field ${hyp.label}`}
               onClick={() => onSelectField(hyp.id)}
-              style={{
-                padding: '16px',
-                border: isSelected ? '1px solid var(--border-focus)' : '1px solid var(--border-color)',
-                borderRadius: '4px',
-                backgroundColor: isSelected ? 'var(--bg-secondary)' : 'var(--bg-primary)',
-                transition: 'var(--transition-smooth)',
-                cursor: 'pointer',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '8px'
-              }}
+              className={`field-card ${statusClass}${isSelected ? ' field-card--selected' : ''}`}
             >
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}>
-                <span style={{
-                  fontFamily: 'var(--font-display)',
-                  fontWeight: '500',
-                  fontSize: '0.85rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  color: 'var(--text-secondary)'
-                }}>
+              <div className="field-card__head">
+                <span className="field-card__label">
                   {hyp.label}
                 </span>
-                
+
                 {/* Status Badge */}
                 <StatusBadge status={hyp.status} />
               </div>
 
               {/* Dynamic Value Input Control */}
-              <div style={{ marginTop: '4px' }}>
+              <div>
                 {hyp.valueType === 'checkbox' ? (
                   <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                     <input
@@ -111,29 +94,32 @@ export default function FormEditor({
                     type="text"
                     value={String(hyp.value ?? '')}
                     onChange={(e) => handleInputChange(hyp.id, e.target.value)}
-                    style={{
-                      width: '100%',
-                      padding: '8px 12px',
-                      border: '1px solid var(--border-color)',
-                      borderRadius: '2px',
-                      backgroundColor: 'var(--bg-primary)',
-                      color: 'var(--text-primary)',
-                      fontSize: '0.9rem',
-                      outline: 'none',
-                    }}
+                    className="field-input"
                     onFocus={() => onSelectField(hyp.id)}
                   />
                 )}
               </div>
 
+              {/* Transparency: the document's own printed spelling beside a
+                  normalized value (external-judge-caught: ISO dates looked
+                  like extraction errors without the printed source). */}
+              {typeof hyp.displayValue === 'string' &&
+                hyp.displayValue !== String(hyp.value ?? '') &&
+                hyp.valueType !== 'mrz' &&
+                hyp.valueType !== 'visual_asset' && (
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-tertiary)' }}>
+                    printed: <span style={{ fontFamily: 'monospace' }}>{hyp.displayValue}</span>
+                  </div>
+                )}
+
               {/* Error messages / Reasons if review needed */}
               {hyp.status !== 'confirmed' && hyp.reasons && hyp.reasons.length > 0 && (
-                <div style={{
-                  fontSize: '0.75rem',
-                  color: hyp.status === 'invalid' || hyp.status === 'conflict' ? 'var(--status-conflict)' : 'var(--status-review)',
-                  marginTop: '4px',
-                  fontWeight: '500'
-                }}>
+                <div
+                  className="field-card__reason"
+                  style={{
+                    color: hyp.status === 'invalid' || hyp.status === 'conflict' ? 'var(--status-conflict)' : 'var(--status-review)',
+                  }}
+                >
                   {hyp.reasons[0]}
                 </div>
               )}
@@ -242,17 +228,7 @@ function StatusBadge({ status }: { status: FieldStatus }) {
   }
 
   return (
-    <div style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '6px',
-      padding: '2px 8px',
-      borderRadius: '12px',
-      backgroundColor: bgColor,
-      fontSize: '0.75rem',
-      fontWeight: '600',
-      color: dotColor
-    }}>
+    <div className="status-pill" style={{ backgroundColor: bgColor, color: dotColor }}>
       <span style={{
         width: '6px',
         height: '6px',

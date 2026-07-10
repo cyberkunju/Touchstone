@@ -14,8 +14,10 @@
  * less, and fields whose check digit failed are flagged for review.
  */
 
-import { MrzParseResult, MrzCheckDigitResult } from '../parsers/mrz';
+import { MrzParseResult, MrzCheckDigitResult, type MrzFormat } from '../parsers/mrz';
+import { normalizeId, parseDate } from '../parsers/scalars';
 import { FieldValueType } from '../core/types';
+import type { Box } from '../core/geometry';
 
 /**
  * A single authoritative field derived from an MRZ. The `value` is
@@ -328,6 +330,157 @@ export function countryName(code: string): string {
 }
 
 /**
+ * Whether a string is a known ICAO 9303 issuing-state code — alpha-3 or a
+ * legacy/special short code (Germany prints `D`; `UNO`, `XXA`… exist). The
+ * printed "Code" field must validate against THIS table, not a length rule
+ * (live-caught: the alpha-3-only pattern refused a legitimate German `D`).
+ */
+export function isKnownCountryCode(code: string): boolean {
+  return code.trim().toUpperCase() in COUNTRY_NAMES;
+}
+
+function normalizeCountryValue(value: string): string {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toUpperCase()
+    .replace(/[^A-Z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const COUNTRY_CODES_BY_NAME = new Map<string, string>();
+for (const [code, name] of Object.entries(COUNTRY_NAMES)) {
+  const normalized = normalizeCountryValue(name);
+  // Prefer ISO alpha-3 over a legacy one-letter alias for duplicate names.
+  if (!COUNTRY_CODES_BY_NAME.has(normalized) || code.length === 3) {
+    COUNTRY_CODES_BY_NAME.set(normalized, code);
+  }
+}
+
+const COUNTRY_VALUE_ALIASES: Readonly<Record<string, string>> = {
+  'SOUTH AFRICAN': 'ZAF',
+  'SUD AFRICAIN': 'ZAF',
+};
+
+/**
+ * Resolve a printed country name, MRZ code, or known passport demonym to an
+ * alpha-3/special MRZ code. Bilingual values may contain `/`; every segment
+ * that can be resolved must agree, otherwise the value is ambiguous.
+ */
+export function countryCodeForValue(value: string): string | null {
+  const segments = value.split('/').map(normalizeCountryValue).filter(Boolean);
+  if (segments.length === 0) return null;
+
+  const codes = new Set<string>();
+  for (const segment of segments) {
+    if (segment in COUNTRY_NAMES) {
+      codes.add(segment);
+      continue;
+    }
+    const code = COUNTRY_CODES_BY_NAME.get(segment) ?? COUNTRY_VALUE_ALIASES[segment];
+    if (code) codes.add(code);
+  }
+  return codes.size === 1 ? [...codes][0] : null;
+}
+
+/** Whether a printed visual read agrees semantically with an MRZ-derived field. */
+export function mrzFieldAgreesWithVisual(field: MrzDerivedField, visualValue: string): boolean {
+  switch (field.valueType) {
+    case 'id_number':
+      return normalizeId(visualValue).normalized === normalizeId(field.value).normalized;
+    case 'date': {
+      const parsed = parseDate(visualValue);
+      return parsed.iso === field.value || parsed.candidates.includes(field.value);
+    }
+    case 'country': {
+      const visualCode = countryCodeForValue(visualValue);
+      const mrzCode = countryCodeForValue(field.value);
+      return visualCode !== null && mrzCode !== null && visualCode === mrzCode;
+    }
+    default: {
+      const normalize = (value: string) => value
+        .toUpperCase()
+        .replace(/['’\-,]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      return normalize(visualValue) === normalize(field.value);
+    }
+  }
+}
+
+export interface MrzFieldSpan {
+  lineIndex: number;
+  start: number;
+  end: number;
+}
+
+/** Character spans are half-open and mirror the certified parser slices. */
+export function mrzFieldCharacterSpan(
+  format: MrzFormat,
+  canonicalLabel: string,
+): MrzFieldSpan | null {
+  const twoLineLength = format === 'TD2' || format === 'MRV_B' ? 36 : 44;
+  if (format === 'TD3' || format === 'TD2' || format === 'MRV_A' || format === 'MRV_B') {
+    const spans: Record<string, MrzFieldSpan> = {
+      document_type: { lineIndex: 0, start: 0, end: 2 },
+      country_code: { lineIndex: 0, start: 2, end: 5 },
+      issuing_country: { lineIndex: 0, start: 2, end: 5 },
+      full_name: { lineIndex: 0, start: 5, end: twoLineLength },
+      surname: { lineIndex: 0, start: 5, end: twoLineLength },
+      given_names: { lineIndex: 0, start: 5, end: twoLineLength },
+      passport_number: { lineIndex: 1, start: 0, end: 9 },
+      document_number: { lineIndex: 1, start: 0, end: 9 },
+      nationality: { lineIndex: 1, start: 10, end: 13 },
+      date_of_birth: { lineIndex: 1, start: 13, end: 19 },
+      sex: { lineIndex: 1, start: 20, end: 21 },
+      date_of_expiry: { lineIndex: 1, start: 21, end: 27 },
+      ...(format === 'TD3' ? { personal_number: { lineIndex: 1, start: 28, end: 42 } } : {}),
+    };
+    return spans[canonicalLabel] ?? null;
+  }
+  if (format === 'TD1') {
+    const spans: Record<string, MrzFieldSpan> = {
+      document_type: { lineIndex: 0, start: 0, end: 2 },
+      country_code: { lineIndex: 0, start: 2, end: 5 },
+      issuing_country: { lineIndex: 0, start: 2, end: 5 },
+      passport_number: { lineIndex: 0, start: 5, end: 14 },
+      document_number: { lineIndex: 0, start: 5, end: 14 },
+      date_of_birth: { lineIndex: 1, start: 0, end: 6 },
+      sex: { lineIndex: 1, start: 7, end: 8 },
+      date_of_expiry: { lineIndex: 1, start: 8, end: 14 },
+      nationality: { lineIndex: 1, start: 15, end: 18 },
+      full_name: { lineIndex: 2, start: 0, end: 30 },
+      surname: { lineIndex: 2, start: 0, end: 30 },
+      given_names: { lineIndex: 2, start: 0, end: 30 },
+    };
+    return spans[canonicalLabel] ?? null;
+  }
+  return null;
+}
+
+/** Project an MRZ field's character span into the OCR line's page box. */
+export function projectMrzFieldBox(
+  format: MrzFormat,
+  canonicalLabel: string,
+  lineBoxes: readonly Box[],
+  lineLengths: readonly number[],
+): Box | null {
+  const span = mrzFieldCharacterSpan(format, canonicalLabel);
+  if (!span) return null;
+  const box = lineBoxes[span.lineIndex];
+  const length = lineLengths[span.lineIndex];
+  if (!box || !Number.isFinite(length) || length <= 0 || span.end > length) return null;
+  const width = box[2] - box[0];
+  return [
+    box[0] + width * (span.start / length),
+    box[1],
+    box[0] + width * (span.end / length),
+    box[3],
+  ];
+}
+
+/**
  * Find the check-digit result whose `field` matches the given key, and
  * return its `passed` flag. Matching is by exact equality first, then by
  * substring containment to tolerate field naming variants.
@@ -520,6 +673,22 @@ export function mrzToFields(mrz: MrzParseResult): MrzDerivedField[] {
       valueType: 'text',
       value: f.issuingCountry,
       specificKey: null,
+    });
+  }
+
+  // TD3 optional data IS the personal number when present, and it carries a
+  // DEDICATED check digit — a checksum-covered witness for the printed
+  // "Personal No." line (live-caught recall gap: the visual value existed
+  // but had no MRZ counterpart to corroborate it). Other formats assign
+  // optional data loosely — emit for TD3 only; a mismatched pairing can
+  // only mint a visible conflict, never a silent confirm.
+  if (mrz.format === 'TD3' && nonEmpty(f.optionalData)) {
+    specs.push({
+      canonicalLabel: 'personal_number',
+      label: 'Personal Number',
+      valueType: 'id_number',
+      value: f.optionalData,
+      specificKey: 'optionalData',
     });
   }
 

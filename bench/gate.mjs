@@ -480,20 +480,27 @@ for (const entry of entries) {
 await browser.close();
 
 /* ------------------------------ summary ----------------------------------- */
+const mrzEligibleResults = results.filter(
+  (r) => !['adversarial', 'negative', 'invoice', 'invoice_degraded', 'receipt', 'form'].includes(r.class),
+);
+const fieldTotal = results.reduce((n, r) => n + r.fieldTotal, 0);
+const adversarialResults = results.filter((r) => r.class === 'adversarial');
 const summary = {
   when: new Date().toISOString(),
   entries: results.length,
   passed: results.filter((r) => r.pass).length,
   silentErrors: results.reduce((n, r) => n + r.silentErrors.length, 0),
   mrzValidRate:
-    results.filter((r) => !['adversarial', 'negative', 'invoice', 'invoice_degraded', 'receipt', 'form'].includes(r.class) && r.mrzValid).length /
-    Math.max(1, results.filter((r) => !['adversarial', 'negative', 'invoice', 'invoice_degraded', 'receipt', 'form'].includes(r.class)).length),
+    mrzEligibleResults.filter((r) => r.mrzValid).length / Math.max(1, mrzEligibleResults.length),
   fieldHitRate:
-    results.reduce((n, r) => n + r.fieldHits, 0) /
-    Math.max(1, results.reduce((n, r) => n + r.fieldTotal, 0)),
+    results.reduce((n, r) => n + r.fieldHits, 0) / Math.max(1, fieldTotal),
   adversarialRefusalRate:
-    results.filter((r) => r.class === 'adversarial' && r.pass).length /
-    Math.max(1, results.filter((r) => r.class === 'adversarial').length),
+    adversarialResults.filter((r) => r.pass).length / Math.max(1, adversarialResults.length),
+  metricCoverage: {
+    mrz: mrzEligibleResults.length,
+    fields: fieldTotal,
+    adversarial: adversarialResults.length,
+  },
   totalMs: Date.now() - t0,
   results,
 };
@@ -516,9 +523,12 @@ writeFileSync(join(dirname(BASELINE), 'last-run.json'), JSON.stringify(summary, 
 if (existsSync(BASELINE) && !commit) {
   const base = JSON.parse(readFileSync(BASELINE, 'utf8'));
   const worse = [];
-  if (summary.mrzValidRate < base.mrzValidRate - 1e-9) worse.push('mrzValidRate');
-  if (summary.fieldHitRate < base.fieldHitRate - 1e-9) worse.push('fieldHitRate');
-  if (summary.adversarialRefusalRate < base.adversarialRefusalRate - 1e-9) worse.push('adversarialRefusal');
+  if (summary.metricCoverage.mrz > 0 && summary.mrzValidRate < base.mrzValidRate - 1e-9) worse.push('mrzValidRate');
+  if (summary.metricCoverage.fields > 0 && summary.fieldHitRate < base.fieldHitRate - 1e-9) worse.push('fieldHitRate');
+  if (
+    summary.metricCoverage.adversarial > 0 &&
+    summary.adversarialRefusalRate < base.adversarialRefusalRate - 1e-9
+  ) worse.push('adversarialRefusal');
   if (worse.length) {
     console.log(`BASELINE REGRESSION: ${worse.join(', ')} (baseline ${base.when})`);
     exitCode = exitCode || 3;

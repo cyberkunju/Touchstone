@@ -17,13 +17,14 @@
 
 import { OcrItem } from './ocr-item';
 import { FieldValueType } from '../core/types';
+import { Box } from '../core/geometry';
 import { parseDate, parseAmount, normalizeId } from '../parsers/scalars';
-import { getBoxCenter } from '../core/geometry';
 import { bestWindowSimilarity } from './fuzzy';
 import { assignOptimal } from '../consensus/hungarian';
 import { beamDecode } from '../beam/beam-search';
 import { dateGrammar } from '../beam/grammars/date';
 import { sexGrammar } from '../beam/grammars/enum';
+import { isKnownCountryCode } from './mrz-fields';
 
 /* -------------------------------------------------------------------------- */
 /*  Public types                                                              */
@@ -52,6 +53,13 @@ export interface FieldSpec {
    * `country_code`, `document_type`) immune to nearby OCR noise.
    */
   valuePattern?: RegExp;
+  /**
+   * Optional semantic validator applied AFTER `valuePattern`. Used where a
+   * regex cannot express the constraint (e.g. country_code must be a KNOWN
+   * ICAO issuing-state code — Germany's legitimate short code `D` and the
+   * garbage read `XQZ` both match a length pattern; only the table knows).
+   */
+  valueValidator?: (value: string) => boolean;
 }
 
 /** Options controlling {@link extractFields} behavior. */
@@ -81,6 +89,10 @@ export interface ExtractedField {
    *  between two plausible values. Downstream must review-cap, never
    *  silently confirm (live-caught: forge_228 issue-date→DOB steal). */
   bindingAmbiguous?: boolean;
+  /** Multi-line free-text continuation lines merged into `value` (in reading
+   *  order, excluding `valueItem` itself). Callers must claim these nodes and
+   *  union their boxes into the evidence geometry. */
+  continuationItems?: OcrItem[];
 }
 
 /* -------------------------------------------------------------------------- */
@@ -91,7 +103,11 @@ export const PASSPORT_FIELDS: FieldSpec[] = [
   {
     canonicalLabel: 'passport_number',
     displayLabel: 'Passport Number',
-    synonyms: ['passport number', 'passport no', 'document number', 'document no', 'passeport'],
+    synonyms: [
+      'passport number', 'passport no', 'document number', 'document no', 'passeport',
+      // DE / FR / ES data pages (accent-folded at match time).
+      'pass nr', 'passeport no', 'passeport n', 'no du passeport', 'no de pasaporte', 'pasaporte no',
+    ],
     valueType: 'id_number',
     required: true,
   },
@@ -107,15 +123,17 @@ export const PASSPORT_FIELDS: FieldSpec[] = [
   {
     canonicalLabel: 'country_code',
     displayLabel: 'Country Code',
-    // 'country code' ONLY — never bare 'code'.
-    synonyms: ['country code'],
+    // 'country code', the bare 'code' caption used verbatim by US-style
+    // data pages ("Code" above "USA"), and DE 'kode' / FR 'code du pays'.
+    synonyms: ['country code', 'code', 'kode', 'code du pays', 'codigo'],
     valueType: 'text',
     required: false,
-    // ICAO 9303 country codes are EXACTLY alpha-3: accepting 2 letters made
-    // a clipped read ("UTO" → "TO" under rotation) unfalsifiable — the
-    // truncation IS a valid-looking value (live-caught: 2 silents, deepened
-    // TD1 corpus). Exact length or no pairing.
-    valuePattern: /^[A-Z]{3}$/i,
+    // 1–3 letters by SHAPE, but the value must be a KNOWN ICAO issuing-state
+    // code (validator below). Alpha-3-only refused Germany's legitimate `D`
+    // (live-caught on a real-world German page); a bare length rule would
+    // accept clipped garbage. The table decides — exact knowledge or nothing.
+    valuePattern: /^[A-Z]{1,3}$/i,
+    valueValidator: (value) => isKnownCountryCode(value),
   },
   {
     canonicalLabel: 'full_name',
@@ -127,35 +145,35 @@ export const PASSPORT_FIELDS: FieldSpec[] = [
   {
     canonicalLabel: 'surname',
     displayLabel: 'Surname',
-    synonyms: ['surname', 'nom', 'last name'],
+    synonyms: ['surname', 'nom', 'last name', 'apellidos'],
     valueType: 'name',
     required: false,
   },
   {
     canonicalLabel: 'given_names',
     displayLabel: 'Given Names',
-    synonyms: ['given names', 'given name', 'first name', 'prenom', 'prénom'],
+    synonyms: ['given names', 'given name', 'first name', 'prenom', 'prénom', 'prenoms', 'vornamen', 'nombres'],
     valueType: 'name',
     required: false,
   },
   {
     canonicalLabel: 'nationality',
     displayLabel: 'Nationality',
-    synonyms: ['nationality', 'nationalite', 'nationalité'],
+    synonyms: ['nationality', 'nationalite', 'nationalité', 'staatsangehorigkeit', 'nacionalidad'],
     valueType: 'country',
     required: false,
   },
   {
     canonicalLabel: 'date_of_birth',
     displayLabel: 'Date of Birth',
-    synonyms: ['date of birth', 'birth date', 'dob', 'date of bith'],
+    synonyms: ['date of birth', 'birth date', 'dob', 'date of bith', 'date de naissance', 'geburtsdatum', 'fecha de nacimiento'],
     valueType: 'date',
     required: true,
   },
   {
     canonicalLabel: 'sex',
     displayLabel: 'Sex',
-    synonyms: ['sex', 'gender', 'sexe'],
+    synonyms: ['sex', 'gender', 'sexe', 'sexo', 'geschlecht'],
     valueType: 'text',
     required: false,
     valuePattern: /^[MFX]$/i,
@@ -163,28 +181,49 @@ export const PASSPORT_FIELDS: FieldSpec[] = [
   {
     canonicalLabel: 'place_of_birth',
     displayLabel: 'Place of Birth',
-    synonyms: ['place of birth', 'birth place', 'lieu de naissance', 'place of bith'],
+    synonyms: ['place of birth', 'birth place', 'lieu de naissance', 'place of bith', 'geburtsort', 'lugar de nacimiento'],
     valueType: 'text',
     required: false,
   },
   {
     canonicalLabel: 'date_of_expiry',
     displayLabel: 'Date of Expiry',
-    synonyms: ['date of expiry', 'date of expiration', 'expiry', 'expiration', 'valid until'],
+    synonyms: ['date of expiry', 'date of expiration', 'expiry', 'expiration', 'valid until', 'gultig bis', 'date d expiration', 'fecha de caducidad'],
     valueType: 'date',
     required: false,
   },
   {
     canonicalLabel: 'date_of_issue',
     displayLabel: 'Date of Issue',
-    synonyms: ['date of issue', 'date of issuance', 'issue date'],
+    synonyms: ['date of issue', 'date of issuance', 'issue date', 'date de delivrance', 'delivrance', 'ausstellungsdatum', 'fecha de expedicion'],
     valueType: 'date',
     required: false,
   },
   {
     canonicalLabel: 'issuing_authority',
     displayLabel: 'Issuing Authority',
-    synonyms: ['issuing authority', 'authority'],
+    synonyms: ['issuing authority', 'authority', 'autorite', 'autorité', 'autoridad', 'ausstellungsbehorde', 'ausstellende behorde'],
+    valueType: 'text',
+    required: false,
+  },
+  {
+    // ICAO 9303 optional personal identifier — printed on many data pages
+    // ("Personal No.", South Africa's "Identity No.", etc.). Live-caught on
+    // a real-world page: the caption was recognized ONLY to be excluded
+    // (isDefiniteFieldLabel), so a legible value was silently dropped.
+    canonicalLabel: 'personal_number',
+    displayLabel: 'Personal Number',
+    synonyms: ['personal no', 'personal number', 'identity no', 'identity number', 'national id', 'personal nr', 'no personnel'],
+    valueType: 'id_number',
+    required: false,
+  },
+  {
+    // US-style data pages print "Endorsements / Mentions Spéciales /
+    // Anotaciones" with values like "SEE PAGE 27" (external-judge-caught
+    // recall gap: the printed value had no box and no field).
+    canonicalLabel: 'endorsements',
+    displayLabel: 'Endorsements',
+    synonyms: ['endorsements', 'mentions speciales', 'anotaciones'],
     valueType: 'text',
     required: false,
   },
@@ -386,6 +425,14 @@ export const UTILITY_BILL_FIELDS: FieldSpec[] = [
   },
 ];
 
+const ALL_REGISTERED_FIELDS: FieldSpec[] = [
+  ...PASSPORT_FIELDS,
+  ...INVOICE_FIELDS,
+  ...BANK_STATEMENT_FIELDS,
+  ...PAYSLIP_FIELDS,
+  ...UTILITY_BILL_FIELDS,
+];
+
 export function getFieldSpecs(docType: ExtractionDocType): FieldSpec[] {
   switch (docType) {
     case 'passport':
@@ -411,7 +458,10 @@ export function getFieldSpecs(docType: ExtractionDocType): FieldSpec[] {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Normalizes label-ish text: lowercases, replaces runs of non-alphanumeric
+ * Normalizes label-ish text: folds Latin diacritics to ASCII (é→e, ü→u,
+ * ß→ss — "Prénoms"/"Gültig bis"/"Staatsangehörigkeit" must match their
+ * unaccented synonyms; the old strip turned é into a SPACE and broke every
+ * accented caption), lowercases, replaces runs of non-alphanumeric
  * characters (other than spaces and '/') with a single space, pads slashes
  * with spaces, collapses whitespace and trims.
  *
@@ -419,6 +469,10 @@ export function getFieldSpecs(docType: ExtractionDocType): FieldSpec[] {
  */
 export function normalizeLabelText(s: string): string {
   return s
+    .normalize('NFKD')
+    // Strip combining diacritical marks left by NFKD (é → e + ́ → e).
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ß/g, 'ss')
     .toLowerCase()
     // Replace any run of characters that are not alphanumeric, space, or '/'
     // with a single space.
@@ -438,10 +492,14 @@ function escapeRegExp(s: string): string {
 /**
  * Returns true when `synonym` appears in `normText` as a whole-word phrase,
  * i.e. bounded by string start/end or non-alphanumeric characters (which
- * includes spaces, '/' and ':').
+ * includes spaces, '/' and ':'). The synonym passes through the same
+ * normalization as the text so accented lexemes ('délivrance') and their
+ * printed forms fold to the same ASCII before comparison.
  */
 function synonymMatches(normText: string, synonym: string): boolean {
-  const re = new RegExp('(^|[^a-z0-9])' + escapeRegExp(synonym) + '([^a-z0-9]|$)');
+  const foldedSynonym = normalizeLabelText(synonym);
+  if (foldedSynonym === '') return false;
+  const re = new RegExp('(^|[^a-z0-9])' + escapeRegExp(foldedSynonym) + '([^a-z0-9]|$)');
   return re.test(normText);
 }
 
@@ -458,6 +516,26 @@ function synonymMatches(normText: string, synonym: string): boolean {
  */
 export function isLabelItem(item: OcrItem, specs: FieldSpec[]): FieldSpec | null {
   return isLabelItemScored(item, specs)?.spec ?? null;
+}
+
+/**
+ * Captions are not values. The active document registry is intentionally
+ * narrow, but documents often carry extra labels (for example a passport's
+ * national identity number). Those labels must still be excluded from every
+ * value-candidate pool or geometry can bind one caption as another field's
+ * value when the true line is wide or unreadable.
+ */
+export function isDefiniteFieldLabel(item: OcrItem): boolean {
+  if (isLabelItemScored(item, ALL_REGISTERED_FIELDS)) return true;
+  const text = normalizeLabelText(item.text);
+  return (
+    /\b(?:identity|identite|identité|national id|personal)\b.*\b(?:no|number|id)\b/i.test(text) ||
+    /\b(?:no|number)\b.*\b(?:identity|identite|identité)\b/i.test(text) ||
+    // Signature captions (external-judge-caught: "SIGNATURE DU TITULAIRE"
+    // was bound as the FULL NAME value — a caption can never be a value).
+    /\b(?:signature|unterschrift|firma)\b/i.test(text) ||
+    /\btitulaire\b/i.test(text)
+  );
 }
 
 /**
@@ -501,6 +579,35 @@ export function isLabelItemScored(
   }
 
   return best !== null && bestScore > 0 ? { spec: best, score: bestScore } : null;
+}
+
+/**
+ * P5 (proof-carrying character geometry): the sub-box of `item` covering
+ * characters [startChar, endChar) of its text. Uses CTC emission spans when
+ * available; falls back to uniform width fractions (monospace-adequate).
+ * Inline "Label: value" values previously carried the WHOLE line box — the
+ * evidence rectangle included the caption (external-judge-caught).
+ */
+export function subBoxForCharRange(
+  item: OcrItem,
+  startChar: number,
+  endChar: number,
+): Box {
+  const [x1, y1, x2, y2] = item.boxNorm;
+  const n = item.text.length;
+  if (n === 0 || startChar >= endChar || startChar < 0 || endChar > n) return item.boxNorm;
+  const width = x2 - x1;
+  const spans = item.charSpans;
+  let fracStart: number;
+  let fracEnd: number;
+  if (spans && spans.length === n) {
+    fracStart = spans[startChar].start;
+    fracEnd = spans[endChar - 1].end;
+  } else {
+    fracStart = startChar / n;
+    fracEnd = endChar / n;
+  }
+  return [x1 + width * fracStart, y1, x1 + width * fracEnd, y2];
 }
 
 /**
@@ -621,16 +728,17 @@ interface RelationResult {
   distance: number;
 }
 
-function euclidean(a: readonly [number, number], b: readonly [number, number]): number {
-  return Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2);
-}
-
 function rangeOverlap(a1: number, a2: number, b1: number, b2: number): number {
   return Math.max(0, Math.min(a2, b2) - Math.max(a1, b1));
 }
 
 /** Computes the geometric relation of value box `c` to label box `l`. */
 function relate(l: OcrItem, c: OcrItem): RelationResult {
+  // P8 gutter law: surfaces are independent documents — a caption on one
+  // page of a spread can never own a value on the other.
+  if (l.regionId !== undefined && c.regionId !== undefined && l.regionId !== c.regionId) {
+    return { relation: 'none', positionScore: 0, distance: Number.POSITIVE_INFINITY };
+  }
   const [lx1, ly1, lx2, ly2] = l.boxNorm;
   const [cx1, cy1, cx2, cy2] = c.boxNorm;
 
@@ -642,10 +750,9 @@ function relate(l: OcrItem, c: OcrItem): RelationResult {
   const overlapY = rangeOverlap(ly1, ly2, cy1, cy2);
   const verticalOverlapRatio = Math.min(heightL, heightC) > 0 ? overlapY / Math.min(heightL, heightC) : 0;
 
-  const distance = euclidean(getBoxCenter(l.boxNorm) as [number, number], getBoxCenter(c.boxNorm) as [number, number]);
-
   // SAME-ROW-RIGHT: value starts at/after the label's right edge and shares a row.
   if (cx1 >= lx2 - 0.01 && verticalOverlapRatio >= 0.3) {
+    const distance = Math.max(0, cx1 - lx2);
     return { relation: 'same_row_right', positionScore: 1.0, distance };
   }
 
@@ -657,10 +764,11 @@ function relate(l: OcrItem, c: OcrItem): RelationResult {
   const horizontalOverlapRatio = Math.min(widthL, widthC) > 0 ? overlapX / Math.min(widthL, widthC) : 0;
   const maxBelowGap = Math.max(0.03, 2.5 * heightL);
   if (cy1 >= ly2 - 0.01 && horizontalOverlapRatio >= 0.2 && cy1 - ly2 < maxBelowGap) {
+    const distance = Math.max(0, cy1 - ly2);
     return { relation: 'below', positionScore: 0.6, distance };
   }
 
-  return { relation: 'none', positionScore: 0, distance };
+  return { relation: 'none', positionScore: 0, distance: Number.POSITIVE_INFINITY };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -791,7 +899,11 @@ export function extractFields(
   // Step 3: value candidates are non-label items with non-empty text. Items
   // containing '<' are MRZ fragments (values never contain '<') and excluded.
   const valueCandidates = items.filter(
-    (it) => !labelItemNodeIds.has(it.nodeId) && it.text.trim().length > 0 && !it.text.includes('<')
+    (it) =>
+      !labelItemNodeIds.has(it.nodeId) &&
+      !isDefiniteFieldLabel(it) &&
+      it.text.trim().length > 0 &&
+      !it.text.includes('<')
   );
 
   // Step 4: score every (spec, candidate) pair that has a usable relation.
@@ -808,11 +920,24 @@ export function extractFields(
     if (!inline) continue;
     // Value constraint: a constrained field rejects non-matching values.
     if (spec.valuePattern && !spec.valuePattern.test(inline.trim())) continue;
+    if (spec.valueValidator && !spec.valueValidator(inline.trim())) continue;
     const typeScore = valueTypeScore(spec.valueType, inline);
     if (strongTypes.has(spec.valueType) && typeScore < 0.5) continue;
     const total = 0.4 + typeScore * 0.6 + 0.2 * item.confidence + 0.1;
     if (total > 0.25) {
-      pairs.push({ spec, labelItem: item, valueItem: { ...item, text: inline }, total });
+      // P5: the evidence box covers ONLY the value's characters, not the
+      // caption sharing the line (charSpans when available, uniform else).
+      const valueStart = item.text.indexOf(inline);
+      const valueBox =
+        valueStart >= 0
+          ? subBoxForCharRange(item, valueStart, valueStart + inline.length)
+          : item.boxNorm;
+      pairs.push({
+        spec,
+        labelItem: item,
+        valueItem: { ...item, text: inline, boxNorm: valueBox },
+        total,
+      });
     }
   }
 
@@ -829,11 +954,20 @@ export function extractFields(
       // use it. When even the lattice holds nothing valid, the pairing dies
       // honestly (no fabrication; omission over garbage).
       let effective = candidate;
+      // TEXT-PHYSICS law (live-caught: a quarter-page ghost-art read of "D"
+      // passed the ICAO validator and stole country_code from the true
+      // value): a 1–3 character token is one text line tall — a candidate
+      // whose box towers over line height is OCR garbage, never a value.
+      const candH = candidate.boxNorm[3] - candidate.boxNorm[1];
+      if (candidate.text.trim().length <= 3 && candH > 0.12) continue;
       if (spec.valuePattern && !spec.valuePattern.test(candidate.text.trim())) {
         const redecoded = grammarRedecode(spec, candidate, options?.dateLocale);
         if (redecoded === null || !spec.valuePattern.test(redecoded.trim())) continue;
         effective = { ...candidate, text: redecoded };
       }
+      // Semantic validation beyond the pattern (e.g. known ICAO codes): a
+      // shape-valid but unknown value can never pair — no rescue path.
+      if (spec.valueValidator && !spec.valueValidator(effective.text.trim())) continue;
 
       let typeScore = valueTypeScore(spec.valueType, effective.text);
 
@@ -933,6 +1067,53 @@ export function extractFields(
         field.score = Math.min(field.score, 0.45);
         break;
       }
+    }
+  }
+
+  // Step 6.6: FREE-TEXT CONTINUATION MERGE (live-caught: "UNITED STATES
+  // DEPARTMENT OF STATE" printed over 2–3 lines — only line one captured).
+  // Scope is deliberately narrow: free-text canonicals known to wrap
+  // (issuing_authority), never typed values — a date column can visually
+  // stack two dates and a blind join would fabricate "01 JAN 2023 31 DEC
+  // 2032" (live counterexample p20). Constraints: strictly below, tight gap
+  // (≤1.6× line height), left- or center-aligned, similar x-height,
+  // unassigned, not a caption, and free-text-shaped (no date/number reading).
+  const MULTILINE_FREETEXT = new Set(['issuing_authority', 'place_of_birth']);
+  const claimedIds = new Set(emitted.map((f) => f.valueItem.nodeId));
+  for (const field of emitted) {
+    if (!MULTILINE_FREETEXT.has(field.canonicalLabel)) continue;
+    let tail = field.valueItem;
+    const parts = [field.value];
+    const extras: OcrItem[] = [];
+    for (let step = 0; step < 2; step += 1) {
+      const [tx1, ty1, tx2, ty2] = tail.boxNorm;
+      const tailHeight = Math.max(ty2 - ty1, 0.004);
+      const next = valueCandidates.find((c) => {
+        if (claimedIds.has(c.nodeId) || extras.some((e) => e.nodeId === c.nodeId)) return false;
+        if (c.regionId !== undefined && tail.regionId !== undefined && c.regionId !== tail.regionId) return false;
+        const [cx1, cy1, cx2, cy2] = c.boxNorm;
+        const below = cy1 >= ty2 - 0.005;
+        const gapOk = cy1 - ty2 <= 1.6 * tailHeight;
+        const leftAligned = Math.abs(cx1 - tx1) <= 0.02;
+        const centerAligned = Math.abs((cx1 + cx2) / 2 - (tx1 + tx2) / 2) <= 0.02;
+        const heightRatio = (cy2 - cy1) / tailHeight;
+        const text = c.text.trim();
+        const freeTextShaped =
+          !parseDate(text).valid && !/^\d[\d\s/.-]*$/.test(text) && /[A-Za-z]/.test(text);
+        return (
+          below && gapOk && (leftAligned || centerAligned) &&
+          heightRatio >= 0.6 && heightRatio <= 1.6 && freeTextShaped
+        );
+      });
+      if (!next) break;
+      parts.push(cleanWhitespace(next.text));
+      extras.push(next);
+      claimedIds.add(next.nodeId);
+      tail = next;
+    }
+    if (extras.length > 0) {
+      field.value = parts.join(' ');
+      field.continuationItems = extras;
     }
   }
 

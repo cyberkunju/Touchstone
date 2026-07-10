@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { FieldHypothesis } from '../core/types';
+import { FieldHypothesis, GraphNode } from '../core/types';
 
 interface DocumentViewerProps {
   imageSrc: string | null;
   hypotheses: FieldHypothesis[];
+  nodes: GraphNode[];
   selectedId: string | null;
   onSelectField: (id: string) => void;
 }
@@ -11,6 +12,7 @@ interface DocumentViewerProps {
 export default function DocumentViewer({
   imageSrc,
   hypotheses,
+  nodes,
   selectedId,
   onSelectField
 }: DocumentViewerProps) {
@@ -71,10 +73,20 @@ export default function DocumentViewer({
     const container = containerRef.current;
     const width = container ? container.clientWidth : 800;
     const height = container ? container.clientHeight : 600;
-    canvas.width = width;
-    canvas.height = height;
+    const pixelRatio = window.devicePixelRatio || 1;
+    canvas.width = Math.round(width * pixelRatio);
+    canvas.height = Math.round(height * pixelRatio);
 
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     ctx.clearRect(0, 0, width, height);
+
+    const styles = getComputedStyle(document.documentElement);
+    const statusColor = (name: string, fallback: string) =>
+      styles.getPropertyValue(name).trim() || fallback;
+    const reviewColor = statusColor('--status-review', '#f59e0b');
+    const confirmedColor = statusColor('--status-confirmed', '#10b981');
+    const conflictColor = statusColor('--status-conflict', '#ef4444');
+    const missingColor = statusColor('--status-missing', '#94a3b8');
 
     ctx.save();
     // Apply pan and zoom transforms
@@ -91,6 +103,10 @@ export default function DocumentViewer({
 
       // Scale normalized coordinates [0.0, 1.0] to image dimensions
       const [x1, y1, x2, y2] = hyp.boxNorm;
+      if (
+        ![x1, y1, x2, y2].every(Number.isFinite) ||
+        x1 < 0 || y1 < 0 || x2 > 1 || y2 > 1 || x2 <= x1 || y2 <= y1
+      ) return;
       const bx = x1 * imgElement.width;
       const by = y1 * imgElement.height;
       const bw = (x2 - x1) * imgElement.width;
@@ -99,10 +115,10 @@ export default function DocumentViewer({
       const isSelected = hyp.id === selectedId;
       
       // Determine stroke color from verifier status
-      let strokeColor = 'var(--status-review)';
-      if (hyp.status === 'confirmed') strokeColor = 'var(--status-confirmed)';
-      if (hyp.status === 'invalid' || hyp.status === 'conflict') strokeColor = 'var(--status-conflict)';
-      if (hyp.status === 'missing') strokeColor = 'var(--status-missing)';
+      let strokeColor = reviewColor;
+      if (hyp.status === 'confirmed') strokeColor = confirmedColor;
+      if (hyp.status === 'invalid' || hyp.status === 'conflict') strokeColor = conflictColor;
+      if (hyp.status === 'missing') strokeColor = missingColor;
 
       // Draw bounding box
       ctx.lineWidth = isSelected ? 4 / zoom : 2 / zoom;
@@ -116,8 +132,36 @@ export default function DocumentViewer({
       }
     });
 
+    // A selected binding has two geometries: the caption that named the
+    // field and the OCR line used as its value. Keep the value solid/status-
+    // colored; draw caption sources as dashed focus outlines so a bad
+    // label→value association is immediately visible rather than hidden in
+    // one ambiguous rectangle.
+    const selected = hypotheses.find((hypothesis) => hypothesis.id === selectedId);
+    if (selected) {
+      ctx.strokeStyle = statusColor('--border-focus', '#3b82f6');
+      ctx.lineWidth = 2 / zoom;
+      ctx.setLineDash([6 / zoom, 4 / zoom]);
+      for (const nodeId of selected.labelNodeIds) {
+        const node = nodes.find((candidate) => candidate.id === nodeId);
+        if (!node?.boxNorm) continue;
+        const [x1, y1, x2, y2] = node.boxNorm;
+        if (
+          ![x1, y1, x2, y2].every(Number.isFinite) ||
+          x1 < 0 || y1 < 0 || x2 > 1 || y2 > 1 || x2 <= x1 || y2 <= y1
+        ) continue;
+        ctx.strokeRect(
+          x1 * imgElement.width,
+          y1 * imgElement.height,
+          (x2 - x1) * imgElement.width,
+          (y2 - y1) * imgElement.height,
+        );
+      }
+      ctx.setLineDash([]);
+    }
+
     ctx.restore();
-  }, [imgElement, zoom, pan, hypotheses, selectedId, containerSize]);
+  }, [imgElement, zoom, pan, hypotheses, nodes, selectedId, containerSize]);
 
   // Handle Drag & Pan events
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -154,8 +198,8 @@ export default function DocumentViewer({
     const clickY = e.clientY - rect.top;
 
     // Convert click coordinates to canvas image space
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
+    const canvasWidth = rect.width;
+    const canvasHeight = rect.height;
 
     const imgX = (clickX - (canvasWidth / 2 + pan.x)) / zoom + imgElement.width / 2;
     const imgY = (clickY - (canvasHeight / 2 + pan.y)) / zoom + imgElement.height / 2;

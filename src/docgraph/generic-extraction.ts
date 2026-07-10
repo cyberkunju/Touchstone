@@ -33,7 +33,7 @@
 import { OcrItem } from './ocr-item';
 import { FieldValueType } from '../core/types';
 import { isPlausiblePhone, isValidEmail, parseDate, parseAmount } from '../parsers/scalars';
-import { getBoxCenter, getDistance } from '../core/geometry';
+import { isDefiniteFieldLabel } from './field-extraction';
 
 /* -------------------------------------------------------------------------- */
 /*  Public types                                                              */
@@ -219,6 +219,8 @@ function horizontalOverlapRatio(a: OcrItem, b: OcrItem): number {
  *  - `null` when neither relationship holds.
  */
 function positionScore(l: OcrItem, v: OcrItem): number | null {
+  // P8 gutter law: surfaces are independent documents.
+  if (!sameRegion(l, v)) return null;
   const lx2 = l.boxNorm[2];
   const ly2 = l.boxNorm[3];
   const vx1 = v.boxNorm[0];
@@ -261,6 +263,89 @@ function readingOrder(a: OcrItem, b: OcrItem): number {
   return a.boxNorm[0] - b.boxNorm[0];
 }
 
+/** P8 gutter law: pairs never span page surfaces. */
+function sameRegion(a: OcrItem, b: OcrItem): boolean {
+  return a.regionId === undefined || b.regionId === undefined || a.regionId === b.regionId;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Admission gate                                                            */
+/* -------------------------------------------------------------------------- */
+
+/** Chaos test for one OCR read: mixed/garbled text that no caption→value
+ *  grammar should ever pair (stamp fragments, CJK/Cyrillic islands read
+ *  through a Latin recognizer, punctuation debris). */
+function looksChaotic(item: OcrItem): boolean {
+  const text = item.text.trim();
+  if (text.length === 0) return true;
+  // Non-Latin scripts read on this page (recognizer emits them for stamps).
+  if (/[\u3400-\u9FFF\u0400-\u04FF\u0E00-\u0E7F\uAC00-\uD7AF]/.test(text)) return true;
+  // Character salad: less than 60% of chars are word-like.
+  const wordy = (text.match(/[A-Za-z0-9\s.,:/#&@+'()-]/g) ?? []).length;
+  if (wordy / text.length < 0.6) return true;
+  // Stamp debris: tiny fragments ("75", "19S", "Jt") carry no form semantics.
+  if (text.replace(/[^A-Za-z0-9]/g, '').length <= 3) return true;
+  // Low-confidence fragments.
+  return item.confidence < 0.55;
+}
+
+/**
+ * STAMPS-PAGE ADMISSION GATE (live-caught: a visa/stamps spread produced 40
+ * garbage caption→value pairs — "MICRATION" = "+ 8 JUN 2019"). A page is
+ * admitted to generic caption→value pairing only when it looks like a FORM:
+ * either it carries at least one explicit caption anchor (colon-terminated
+ * label or a registered lexicon caption) or its reads are predominantly
+ * coherent, LEVEL text. Two independent chaos signals refuse admission:
+ *
+ *  1. TEXT chaos — non-Latin islands, character salad, tiny fragments.
+ *  2. TILT SCATTER — stamps rotate in RANDOM directions; printed forms are
+ *     level or share one camera tilt. When many lines carry rotated quads
+ *     with headings spread across many directions, no caption→value grammar
+ *     applies (quad-native perception makes this measurable).
+ *
+ * Refusing generic extraction can only silence noise, never a confirmable
+ * value — honesty over fabricated pairs.
+ */
+export function pageAdmitsGenericExtraction(
+  items: OcrItem[],
+  excludeNodeIds?: Set<string>,
+): boolean {
+  const excluded = excludeNodeIds ?? new Set<string>();
+  const pool = items.filter(
+    (it) => !excluded.has(it.nodeId) && it.text.trim() !== '' && !it.text.includes('<'),
+  );
+  if (pool.length === 0) return false;
+  const captionAnchors = pool.filter(
+    (it) => /:\s*\S*$/.test(it.text.trim()) || isDefiniteFieldLabel(it),
+  ).length;
+
+  // Signal 2: tilt scatter. Quantize each rotated line's heading into 15°
+  // bins; forms concentrate in one bin (level or uniform camera tilt),
+  // stamp spreads scatter. ≥3 distinct headings among ≥4 tilted lines on an
+  // anchor-less page = stamps, refuse.
+  const headings = new Set<number>();
+  let tilted = 0;
+  for (const it of pool) {
+    if (!it.quadNorm) continue;
+    const [tl, tr] = it.quadNorm;
+    const angle = (Math.atan2(tr[1] - tl[1], tr[0] - tl[0]) * 180) / Math.PI;
+    if (Math.abs(angle) < 2.5) continue;
+    tilted += 1;
+    headings.add(Math.round(angle / 15));
+  }
+  const chaotic = pool.filter(looksChaotic).length;
+  // A real form announces itself with SEVERAL caption anchors; ONE stray
+  // colon among 89 stamp fragments is noise and must not veto two chaos
+  // signals (live-caught: anchors=1, tilted=32, chaotic=0.46 → admitted).
+  const anchorsDecisive = captionAnchors >= 3 || captionAnchors / pool.length >= 0.08;
+  const tiltScattered = tilted >= 4 && headings.size >= 3;
+  const admitted = anchorsDecisive || (!tiltScattered && chaotic / pool.length <= 0.4);
+  console.log(
+    `[DIAG] generic admission: pool=${pool.length} anchors=${captionAnchors} tilted=${tilted} headings=${headings.size} chaotic=${(chaotic / pool.length).toFixed(2)} → ${admitted ? 'ADMIT' : 'REFUSE'}`,
+  );
+  return admitted;
+}
+
 /* -------------------------------------------------------------------------- */
 /*  Engine                                                                    */
 /* -------------------------------------------------------------------------- */
@@ -286,6 +371,9 @@ export function extractGenericFields(
   excludeNodeIds?: Set<string>
 ): GenericField[] {
   const excluded = excludeNodeIds ?? new Set<string>();
+
+  // Admission gate: stamp/chaos pages never enter caption→value pairing.
+  if (!pageAdmitsGenericExtraction(items, excludeNodeIds)) return [];
 
   // 1. Filter out excluded and empty items. Items containing '<' are MRZ
   //    fragments (real values never contain '<') and are dropped.
@@ -492,7 +580,7 @@ export function extractGenericFields(
     // First gather geometrically valid value candidates for this label.
     const valid: Array<{ value: OcrItem; pos: number }> = [];
     for (const v of rest) {
-      if (v.nodeId === l.nodeId) {
+      if (v.nodeId === l.nodeId || isDefiniteFieldLabel(v)) {
         continue;
       }
       let pos = positionScore(l, v);
@@ -569,7 +657,9 @@ export function extractGenericFields(
           : 0.15
         : 0.15;
 
-      const distance = getDistance(getBoxCenter(l.boxNorm), getBoxCenter(v.boxNorm));
+      const distance = v.boxNorm[1] >= l.boxNorm[3] - 0.01
+        ? Math.max(0, v.boxNorm[1] - l.boxNorm[3])
+        : Math.max(0, v.boxNorm[0] - l.boxNorm[2]);
       const total =
         pos * 0.5 - Math.min(distance, 0.5) * 0.7 + 0.05 * v.confidence + labelBias;
 

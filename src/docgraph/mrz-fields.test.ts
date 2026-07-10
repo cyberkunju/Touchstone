@@ -1,6 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { MrzParseResult, MrzCheckDigitResult } from '../parsers/mrz';
-import { countryName, mrzToFields, MrzDerivedField } from './mrz-fields';
+import {
+  countryCodeForValue,
+  countryName,
+  mrzFieldAgreesWithVisual,
+  mrzToFields,
+  projectMrzFieldBox,
+  MrzDerivedField,
+} from './mrz-fields';
 
 /** Build a passed/failed check-digit result for a field. */
 function check(field: string, passed: boolean): MrzCheckDigitResult {
@@ -178,6 +185,35 @@ describe('countryName', () => {
   it('trims and uppercases input', () => {
     expect(countryName('ind')).toBe('India');
     expect(countryName('  usa  ')).toBe('United States');
+  });
+
+  it('canonicalizes names, codes, and bilingual South African demonyms', () => {
+    expect(countryCodeForValue('ZAF')).toBe('ZAF');
+    expect(countryCodeForValue('South Africa')).toBe('ZAF');
+    expect(countryCodeForValue('SOUTH AFRICAN / SUD-AFRICAIN')).toBe('ZAF');
+    expect(countryCodeForValue("Identity No. / No. d'identité")).toBeNull();
+  });
+});
+
+describe('MRZ field presentation geometry', () => {
+  it('compares visual values by semantic type', () => {
+    const fields = mrzToFields(validTd3());
+    expect(mrzFieldAgreesWithVisual(byLabel(fields, 'passport_number')!, 'Z5698297')).toBe(true);
+    expect(mrzFieldAgreesWithVisual(byLabel(fields, 'date_of_birth')!, '21/03/1992')).toBe(true);
+    expect(mrzFieldAgreesWithVisual(byLabel(fields, 'nationality')!, 'INDIA')).toBe(true);
+    expect(mrzFieldAgreesWithVisual(byLabel(fields, 'passport_number')!, 'Z5698298')).toBe(false);
+  });
+
+  it('projects a TD3 field to its character-level source box', () => {
+    const lineBoxes: [[number, number, number, number], [number, number, number, number]] = [
+      [0.1, 0.8, 0.9, 0.84],
+      [0.1, 0.86, 0.9, 0.9],
+    ];
+    const box = projectMrzFieldBox('TD3', 'date_of_birth', lineBoxes, [44, 44]);
+    expect(box?.[0]).toBeCloseTo(0.1 + 0.8 * (13 / 44), 8);
+    expect(box?.[2]).toBeCloseTo(0.1 + 0.8 * (19 / 44), 8);
+    expect(box?.[1]).toBe(0.86);
+    expect(box?.[3]).toBe(0.9);
   });
 });
 

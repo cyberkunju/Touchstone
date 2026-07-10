@@ -247,7 +247,8 @@ export class DocGraphBuilder {
     value: unknown,
     valueType: FieldValueType,
     boxNorm?: Box,
-    pageId?: string
+    pageId?: string,
+    canonicalLabel?: string,
   ): string {
     const id = `hyp-${Math.random().toString(36).substring(2, 11)}`;
     const initialConfidence: ExplainableConfidence = {
@@ -262,6 +263,7 @@ export class DocGraphBuilder {
       documentId: this.graph.documentId,
       pageId,
       label,
+      canonicalLabel,
       value,
       valueType,
       labelNodeIds: [],
@@ -280,6 +282,21 @@ export class DocGraphBuilder {
     this.graph.hypotheses.push(hypothesis);
     this.graph.updatedAt = Date.now();
     return id;
+  }
+
+  /**
+   * Attach a human-facing rendition of the value (e.g. the PRINTED source
+   * text when the stored value is ISO-normalized). Transparency law: users
+   * verify against the document, so the document's own spelling must stay
+   * visible next to any normalized form.
+   */
+  public setHypothesisDisplayValue(hypothesisId: string, displayValue: string): this {
+    const hyp = this.graph.hypotheses.find((h) => h.id === hypothesisId);
+    if (hyp) {
+      hyp.displayValue = displayValue;
+      this.graph.updatedAt = Date.now();
+    }
+    return this;
   }
 
   /**

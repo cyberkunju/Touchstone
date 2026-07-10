@@ -9,6 +9,7 @@ import {
   isWellFormedAmountToken,
   valueTypeScore,
   extractFields,
+  subBoxForCharRange,
   ExtractedField,
 } from './field-extraction';
 import type { Lattice } from '../beam/lattice';
@@ -238,6 +239,33 @@ describe('extractFields — UAE passport (the bug)', () => {
       expect(seen.has(f.valueItem.nodeId)).toBe(false);
       seen.add(f.valueItem.nodeId);
     }
+  });
+});
+
+describe('extractFields — stacked South African passport labels', () => {
+  const fields = extractFields([
+    it_('Nationality / Nationalité', 0.36, 0.30, 0.53, 0.32),
+    // The printed value is wider and offset, while the following bilingual
+    // caption is geometrically tempting. A label must never become a value.
+    it_('SOUTH AFRICAN / SUD-AFRICAIN', 0.49, 0.325, 0.82, 0.35),
+    it_("Identity No. / No. d'identité", 0.36, 0.355, 0.62, 0.38),
+    it_('900101 5234 081', 0.36, 0.385, 0.55, 0.41),
+  ], 'passport');
+
+  it('binds nationality to the country value, never the following label', () => {
+    const nationality = byCanonical(fields).nationality;
+    expect(nationality?.value).toBe('SOUTH AFRICAN / SUD-AFRICAIN');
+    expect(nationality?.valueItem.text).not.toMatch(/identity|identit/i);
+  });
+
+  it('omits nationality when its value is unreadable instead of consuming the next caption', () => {
+    const missingValue = extractFields([
+      it_('Nationality / Nationalité', 0.36, 0.30, 0.53, 0.32),
+      it_("Identity No. / No. d'identité", 0.36, 0.355, 0.62, 0.38),
+      it_('900101 5234 081', 0.36, 0.385, 0.55, 0.41),
+    ], 'passport');
+
+    expect(byCanonical(missingValue).nationality).toBeUndefined();
   });
 });
 
@@ -621,5 +649,141 @@ describe('globally optimal assignment (I1-lite)', () => {
     const fields = extractFields([lblA, lblB, val], 'passport', { dateLocale: 'dmy' });
     const winners = fields.filter((f) => f.valueItem.nodeId === 'v');
     expect(winners).toHaveLength(1);
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+/*  Real-world laws (live-caught on the passptest evaluation)                 */
+/* -------------------------------------------------------------------------- */
+
+describe('real-world data pages (passptest live-caught)', () => {
+  it('folds Latin diacritics: German and French captions match their specs', () => {
+    expect(normalizeLabelText('Staatsangehörigkeit/Nationality/Nationalité')).toContain(
+      'staatsangehorigkeit',
+    );
+    expect(normalizeLabelText('Gültig bis/Date of expiry')).toContain('gultig bis');
+    expect(normalizeLabelText('Prénoms/Given names')).toContain('prenoms');
+    const items: OcrItem[] = [
+      it_('3. Staatsangehörigkeit/Nationality/Nationalité', 0.35, 0.36, 0.6, 0.385),
+      it_('DEUTSCH', 0.35, 0.39, 0.45, 0.42),
+    ];
+    const map = byCanonical(extractFields(items, 'passport'));
+    expect(map.nationality?.value).toBe('DEUTSCH');
+  });
+
+  it("accepts Germany's legitimate short country code 'D' (ICAO table)", () => {
+    const items: OcrItem[] = [
+      it_('Kode/Code/Code', 0.47, 0.17, 0.55, 0.2),
+      it_('D', 0.49, 0.21, 0.51, 0.24),
+    ];
+    const map = byCanonical(extractFields(items, 'passport'));
+    expect(map.country_code?.value).toBe('D');
+  });
+
+  it('refuses a shape-valid but UNKNOWN country code (table, not length)', () => {
+    const items: OcrItem[] = [
+      it_('Country Code', 0.47, 0.17, 0.6, 0.2),
+      it_('XQZ', 0.49, 0.21, 0.54, 0.24),
+    ];
+    const map = byCanonical(extractFields(items, 'passport'));
+    expect(map.country_code).toBeUndefined();
+  });
+
+  it('merges a wrapped 3-line issuing authority into one value (US layout)', () => {
+    const items: OcrItem[] = [
+      it_('Authority / Autorité / Autoridad', 0.7, 0.66, 0.9, 0.68),
+      it_('UNITED STATES', 0.7, 0.685, 0.83, 0.705),
+      it_('DEPARTMENT OF', 0.7, 0.71, 0.83, 0.73),
+      it_('STATE', 0.7, 0.735, 0.76, 0.755),
+    ];
+    const map = byCanonical(extractFields(items, 'passport'));
+    expect(map.issuing_authority?.value).toBe('UNITED STATES DEPARTMENT OF STATE');
+    expect(map.issuing_authority?.continuationItems).toHaveLength(2);
+  });
+
+  it('NEVER merges stacked dates below a date value (p20 counterexample)', () => {
+    const items: OcrItem[] = [
+      it_('Date of Issue', 0.6, 0.66, 0.7, 0.68),
+      it_('01 JAN 2023', 0.6, 0.685, 0.7, 0.705),
+      it_('31 DEC 2032', 0.6, 0.71, 0.7, 0.73),
+    ];
+    const map = byCanonical(extractFields(items, 'passport'));
+    expect(map.date_of_issue?.value).not.toContain('2032');
+  });
+
+  it('extracts the personal number from its dedicated caption', () => {
+    const items: OcrItem[] = [
+      it_('Personal No. / No. personnel', 0.72, 0.66, 0.9, 0.68),
+      it_('9876543210', 0.72, 0.69, 0.84, 0.71),
+    ];
+    const map = byCanonical(extractFields(items, 'passport'));
+    expect(map.personal_number?.value).toBe('9876543210');
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+/*  P5/P8 — character geometry & gutter partition                             */
+/* -------------------------------------------------------------------------- */
+
+describe('subBoxForCharRange (P5)', () => {
+  it('uses CTC char spans when available', () => {
+    const item: OcrItem = {
+      ...it_('AB: XY', 0.1, 0.5, 0.7, 0.55),
+      charSpans: [
+        { start: 0.0, end: 0.1 },
+        { start: 0.1, end: 0.25 },
+        { start: 0.25, end: 0.4 },
+        { start: 0.4, end: 0.55 },
+        { start: 0.55, end: 0.8 },
+        { start: 0.8, end: 1.0 },
+      ],
+    };
+    const box = subBoxForCharRange(item, 4, 6); // "XY"
+    expect(box[0]).toBeCloseTo(0.1 + 0.6 * 0.55, 5);
+    expect(box[2]).toBeCloseTo(0.1 + 0.6 * 1.0, 5);
+  });
+
+  it('falls back to uniform fractions without spans', () => {
+    const item = it_('ABCD', 0.0, 0.0, 1.0, 0.1);
+    const box = subBoxForCharRange(item, 2, 4);
+    expect(box[0]).toBeCloseTo(0.5, 5);
+    expect(box[2]).toBeCloseTo(1.0, 5);
+  });
+
+  it('inline "Label: value" evidence box covers only the value characters', () => {
+    const items: OcrItem[] = [
+      it_('Invoice Number: INV-99201', 0.1, 0.2, 0.6, 0.24),
+    ];
+    const map = byCanonical(extractFields(items, 'invoice'));
+    expect(map.invoice_number?.value).toBe('INV-99201');
+    // The value box must start well past the caption's left edge.
+    expect(map.invoice_number!.valueItem.boxNorm[0]).toBeGreaterThan(0.35);
+  });
+});
+
+describe('gutter partition (P8)', () => {
+  it('never binds a caption to a value across page surfaces', () => {
+    const caption: OcrItem = { ...it_('Surname', 0.30, 0.4, 0.44, 0.44), regionId: 'L' };
+    const value: OcrItem = { ...it_('DLAMINI', 0.56, 0.4, 0.70, 0.44), regionId: 'R' };
+    const map = byCanonical(extractFields([caption, value], 'passport'));
+    expect(map.surname).toBeUndefined();
+
+    // Same layout WITHOUT regions binds normally (same-row-right).
+    const map2 = byCanonical(
+      extractFields([it_('Surname', 0.30, 0.4, 0.44, 0.44), it_('DLAMINI', 0.56, 0.4, 0.70, 0.44)], 'passport'),
+    );
+    expect(map2.surname?.value).toBe('DLAMINI');
+  });
+});
+
+describe('multiline place of birth (P2-2)', () => {
+  it('merges a wrapped two-line place of birth', () => {
+    const items: OcrItem[] = [
+      it_('Place of Birth / Lieu de naissance', 0.34, 0.6, 0.55, 0.62),
+      it_('LONG BEACH', 0.34, 0.625, 0.45, 0.645),
+      it_('CALIFORNIA', 0.34, 0.65, 0.45, 0.67),
+    ];
+    const map = byCanonical(extractFields(items, 'passport'));
+    expect(map.place_of_birth?.value).toBe('LONG BEACH CALIFORNIA');
   });
 });

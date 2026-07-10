@@ -42,6 +42,41 @@ export async function gptText(input, { system, maxTokens = 4096 } = {}) {
   return text;
 }
 
+/**
+ * GPT vision call: mixed text + PNG-buffer parts against the same deployment.
+ * `parts`: array of { text } or { imagePng: Buffer }.
+ */
+export async function gptVision(parts, { system, maxTokens = 6000 } = {}) {
+  const content = parts.map((p) =>
+    p.imagePng
+      ? { type: 'input_image', image_url: `data:image/png;base64,${p.imagePng.toString('base64')}` }
+      : { type: 'input_text', text: p.text },
+  );
+  const input = [
+    ...(system ? [{ role: 'system', content: system }] : []),
+    { role: 'user', content },
+  ];
+  const res = await fetch(`${process.env.OPENAI_BASE_URL}/responses`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      'api-key': process.env.OPENAI_API_KEY,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: process.env.GPT_TEXT_DEPLOYMENT,
+      input,
+      max_output_tokens: maxTokens,
+    }),
+  });
+  if (!res.ok) throw new Error(`gptVision ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  const json = await res.json();
+  const msg = (json.output ?? []).find((o) => o.type === 'message');
+  const text = msg?.content?.find((c) => c.type === 'output_text')?.text;
+  if (!text) throw new Error(`gptVision: no output_text in response (status=${json.status})`);
+  return text;
+}
+
 /** GPT Image 2 generation → PNG Buffer. */
 export async function gptImage(prompt, { size = '1024x1024' } = {}) {
   const res = await fetch(`${process.env.OPENAI_BASE_URL}/images/generations`, {

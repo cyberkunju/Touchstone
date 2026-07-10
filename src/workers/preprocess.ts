@@ -115,7 +115,10 @@ export async function preprocessPage(
  * that angle. Level text concentrates ink into few rows → maximum variance at
  * the true skew. Deterministic, dependency-free, ~ms at 400px width.
  *
- * Search space ±12° (typical photo skew); step 0.5° then 0.1° refinement.
+ * Search space ±40° (real-world camera shots — live-caught TWICE: a ~20°
+ * page sat outside the first ±12° window, then a ~30° page outside ±25°;
+ * each time every caption→value binding downstream ran on diagonal
+ * geometry); step 0.5° then 0.1° refinement.
  * Returns 0 for content without usable line structure (blank/noise pages) —
  * the variance peak must beat the 0° baseline by 8% to be believed, so the
  * method NEVER rotates a page it does not understand (N1 applies to
@@ -200,7 +203,7 @@ export function estimateSkewDeg(imageData: ImageData): number {
   const base = profileVariance(0);
   let bestAngle = 0;
   let bestVar = base;
-  for (let a = -12; a <= 12; a += 0.5) {
+  for (let a = -40; a <= 40; a += 0.5) {
     if (a === 0) continue;
     const v = profileVariance(a);
     if (v > bestVar) {

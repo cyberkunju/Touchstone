@@ -154,6 +154,27 @@ describe('extractGenericFields', () => {
     expect(map['surname'].value).toBe('MEHTA');
   });
 
+  it('binds a wide nationality value instead of the narrower caption below it', () => {
+    const map = byCanonical(extractGenericFields([
+      mk('Nationality / Nationalité', 0.36, 0.30, 0.53, 0.32),
+      mk('SOUTH AFRICAN / SUD-AFRICAIN', 0.49, 0.325, 0.82, 0.35),
+      mk("Identity No. / No. d'identité", 0.36, 0.355, 0.62, 0.38),
+      mk('900101 5234 081', 0.36, 0.385, 0.55, 0.41),
+    ]));
+
+    expect(map.nationality?.value).toBe('SOUTH AFRICAN / SUD-AFRICAIN');
+  });
+
+  it('omits nationality when only the following identity caption remains', () => {
+    const map = byCanonical(extractGenericFields([
+      mk('Nationality / Nationalité', 0.36, 0.30, 0.53, 0.32),
+      mk("Identity No. / No. d'identité", 0.36, 0.355, 0.62, 0.38),
+      mk('900101 5234 081', 0.36, 0.385, 0.55, 0.41),
+    ]));
+
+    expect(map.nationality).toBeUndefined();
+  });
+
   it('extracts inline "Label: value" pairs', () => {
     const items: OcrItem[] = [mk("Father's Name: RAHUL", 0.05, 0.2, 0.5, 0.23)];
 
@@ -223,5 +244,73 @@ describe('extractGenericFields', () => {
     const fields = extractGenericFields(items);
     const valueNodeIds = fields.map((f) => f.valueItem.nodeId);
     expect(new Set(valueNodeIds).size).toBe(valueNodeIds.length);
+  });
+});
+
+describe('stamps-page admission gate (live-caught: 40 garbage pairs)', () => {
+  it('refuses caption→value pairing on a rotated-stamps chaos page', () => {
+    const items: OcrItem[] = [
+      mk('MICRATION', 0.72, 0.3, 0.8, 0.32, 0.5),
+      mk('+ 8 JUN 2019', 0.73, 0.33, 0.8, 0.35, 0.6),
+      mk('广', 0.23, 0.21, 0.37, 0.28, 0.4),
+      mk('41-)', 0.6, 0.26, 0.62, 0.27, 0.4),
+      mk('19S', 0.73, 0.36, 0.78, 0.37, 0.5),
+      mk('DEPARTEO', 0.75, 0.36, 0.79, 0.37, 0.52),
+      mk('Jt', 0.59, 0.31, 0.62, 0.33, 0.4),
+      mk('本', 0.55, 0.31, 0.57, 0.33, 0.4),
+      mk('HONG KONG', 0.57, 0.25, 0.64, 0.26, 0.7),
+      mk('3023', 0.6, 0.31, 0.62, 0.33, 0.6),
+    ];
+    expect(extractGenericFields(items)).toHaveLength(0);
+  });
+
+  it('refuses an anchor-less page whose lines tilt in scattered directions', () => {
+    const tiltQuad = (x: number, y: number, deg: number): [number, number][] => {
+      const w = 0.12;
+      const h = 0.02;
+      const rad = (deg * Math.PI) / 180;
+      const dx = Math.cos(rad) * w;
+      const dy = Math.sin(rad) * w;
+      return [
+        [x, y],
+        [x + dx, y + dy],
+        [x + dx, y + dy + h],
+        [x, y + h],
+      ];
+    };
+    const rotated = (text: string, x: number, y: number, deg: number): OcrItem => ({
+      ...mk(text, x, y, x + 0.12, y + 0.04, 0.8),
+      quadNorm: tiltQuad(x, y, deg),
+    });
+    const items: OcrItem[] = [
+      rotated('MALAYSIA IMMIGRATION', 0.1, 0.2, 12),
+      rotated('SYDNEY AIRPORT', 0.4, 0.25, -20),
+      rotated('24 MAR 2019', 0.15, 0.4, 33),
+      rotated('REPUBLIC OF KOREA', 0.6, 0.5, -8),
+      mk('HONG KONG', 0.57, 0.7, 0.69, 0.72, 0.8),
+      mk('ARRIVAL DATE STAMP HERE', 0.1, 0.8, 0.4, 0.82, 0.8),
+    ];
+    expect(extractGenericFields(items)).toHaveLength(0);
+  });
+
+  it('still admits a clean colon-labeled form page', () => {
+    const items: OcrItem[] = [
+      mk("Father's Name: RAHUL", 0.05, 0.2, 0.5, 0.23),
+      mk('Place of Birth', 0.05, 0.4, 0.18, 0.43),
+      mk('SURAT, GUJARAT', 0.2, 0.4, 0.4, 0.43),
+    ];
+    expect(extractGenericFields(items).length).toBeGreaterThan(0);
+  });
+
+  it('still admits a colonless business card (coherent Latin text)', () => {
+    const items: OcrItem[] = [
+      mk('ANNA ERIKSSON', 0.05, 0.15, 0.3, 0.2),
+      mk('Senior Engineer', 0.05, 0.22, 0.25, 0.26),
+      mk('Cobalt Ridge Consulting', 0.05, 0.3, 0.36, 0.34),
+      mk('Email  anna@cobaltridgeconsulting.example', 0.05, 0.68, 0.55, 0.72),
+      mk('Phone  +1-555-0100', 0.05, 0.75, 0.3, 0.79),
+    ];
+    const map = byCanonical(extractGenericFields(items));
+    expect(map.email?.value).toBe('anna@cobaltridgeconsulting.example');
   });
 });

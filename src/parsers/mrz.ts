@@ -917,13 +917,22 @@ interface CorrectionBudget {
  * Attempt to repair a single check-digit-guarded field on the mutable
  * character grid `grid`. Tries single then double OCR-confusion
  * substitutions (over the field's data cells and the read check digit)
- * and accepts the first combination that makes the field's computed check
- * digit equal the read check digit. Accepted substitutions are applied to
- * `grid` and recorded in `changes`.
+ * and accepts a combination ONLY when it is the UNIQUE repair that makes
+ * the field's computed check digit equal the read check digit:
  *
- * The search is bounded by `budget` and never accepts a change that does
- * not make the check digit pass, so a clean (already-passing) field is
- * left untouched.
+ *  - Candidates are constrained by the position's character class
+ *    (live-caught on a real-world fake: the unconstrained search wrote
+ *    letters INTO A DATE — `900101` → `GO0101` — because letters carry
+ *    values 10–35 and some substitution always satisfies mod-10).
+ *  - If two or more DISTINCT repairs pass, the "correction" is a guess,
+ *    not a proof — refuse (live-caught: an all-zero fake document number
+ *    had five distinct passing mutations; the first was silently applied
+ *    and the fake MRZ minted `valid`).
+ *
+ * The search is bounded by `budget`; exhausting the budget before the
+ * enumeration completes refuses the repair (uniqueness unknowable), so a
+ * clean (already-passing) field is left untouched and a deeply broken one
+ * is never resurrected.
  *
  * @returns `true` when a correction was applied, otherwise `false`.
  */
@@ -932,6 +941,7 @@ function tryCorrectField(
   field: CorrectableField,
   changes: MrzNormalizationChange[],
   budget: CorrectionBudget,
+  positionTypes: PositionType[][],
 ): boolean {
   const checkCell: Cell = { line: field.checkLine, pos: field.checkPos };
   const readData = (): string => field.cells.map((c) => grid[c.line][c.pos]).join('');
@@ -942,10 +952,21 @@ function tryCorrectField(
     return false;
   }
 
+  // A candidate must remain LEGAL for its position's character class —
+  // a repair that violates ICAO 9303 structure is not a repair.
+  const legalAt = (cell: Cell, ch: string): boolean => {
+    const type = positionTypes[cell.line]?.[cell.pos] ?? 'm';
+    if (type === 'n') return isDigitChar(ch);
+    if (type === 'a') return ch >= 'A' && ch <= 'Z';
+    return isDigitChar(ch) || (ch >= 'A' && ch <= 'Z');
+  };
+
   // Build candidate slots (data cells, then the check-digit cell).
   const slots: CorrectionSlot[] = [];
   for (const cell of field.cells) {
-    const candidates = CONFUSION_MAP[grid[cell.line][cell.pos]] ?? [];
+    const candidates = (CONFUSION_MAP[grid[cell.line][cell.pos]] ?? []).filter((ch) =>
+      legalAt(cell, ch),
+    );
     if (candidates.length > 0) {
       slots.push({ cell, candidates });
     }
@@ -984,23 +1005,50 @@ function tryCorrectField(
     }
   };
 
-  // Single substitution.
+  // The resulting data+check string after a set of overrides — distinct
+  // passing repairs are counted by RESULT, not by substitution site.
+  const resultKey = (overrides: Array<{ cell: Cell; ch: string }>): string => {
+    const saved = overrides.map((o) => grid[o.cell.line][o.cell.pos]);
+    overrides.forEach((o) => {
+      grid[o.cell.line][o.cell.pos] = o.ch;
+    });
+    const key = `${readData()}|${readCheck()}`;
+    overrides.forEach((o, idx) => {
+      grid[o.cell.line][o.cell.pos] = saved[idx];
+    });
+    return key;
+  };
+
+  // Single substitution: enumerate EVERY passing repair; accept only a
+  // unique survivor.
+  const passingSingles = new Map<string, Array<{ cell: Cell; ch: string }>>();
   for (const slot of slots) {
     for (const ch of slot.candidates) {
       if (budget.count >= budget.max) {
-        return false;
+        return false; // uniqueness unknowable — refuse
       }
       if (grid[slot.cell.line][slot.cell.pos] === ch) {
         continue;
       }
-      if (test([{ cell: slot.cell, ch }])) {
-        apply([{ cell: slot.cell, ch }]);
-        return true;
+      const overrides = [{ cell: slot.cell, ch }];
+      if (test(overrides)) {
+        passingSingles.set(resultKey(overrides), overrides);
+        if (passingSingles.size > 1) {
+          return false; // ambiguous — a guess is not a correction
+        }
       }
     }
   }
+  if (passingSingles.size === 1) {
+    apply([...passingSingles.values()][0]);
+    return true;
+  }
+  if (passingSingles.size > 1) {
+    return false; // ambiguous — a guess is not a correction
+  }
 
-  // Double substitution (bounded by budget).
+  // Double substitution (bounded by budget) — same uniqueness law.
+  const passingDoubles = new Map<string, Array<{ cell: Cell; ch: string }>>();
   for (let i = 0; i < slots.length; i += 1) {
     for (let j = i + 1; j < slots.length; j += 1) {
       const s1 = slots[i];
@@ -1008,18 +1056,25 @@ function tryCorrectField(
       for (const c1 of s1.candidates) {
         for (const c2 of s2.candidates) {
           if (budget.count >= budget.max) {
-            return false;
+            return false; // uniqueness unknowable — refuse
           }
           if (grid[s1.cell.line][s1.cell.pos] === c1 && grid[s2.cell.line][s2.cell.pos] === c2) {
             continue;
           }
-          if (test([{ cell: s1.cell, ch: c1 }, { cell: s2.cell, ch: c2 }])) {
-            apply([{ cell: s1.cell, ch: c1 }, { cell: s2.cell, ch: c2 }]);
-            return true;
+          const overrides = [{ cell: s1.cell, ch: c1 }, { cell: s2.cell, ch: c2 }];
+          if (test(overrides)) {
+            passingDoubles.set(resultKey(overrides), overrides);
+            if (passingDoubles.size > 1) {
+              return false; // ambiguous — a guess is not a correction
+            }
           }
         }
       }
     }
+  }
+  if (passingDoubles.size === 1) {
+    apply([...passingDoubles.values()][0]);
+    return true;
   }
 
   return false;
@@ -1032,6 +1087,12 @@ function tryCorrectField(
  * component check digit already passes, so the search never mangles a
  * still-broken component to satisfy the composite.
  *
+ * BLAST-RADIUS LAW: when two or more independently-checked components
+ * fail simultaneously, that is not OCR noise — it is a fake or garbage
+ * read, and no correction is attempted at all (live-caught: an AI-fake
+ * passport with doc/DOB/expiry checks ALL failing was "repaired" field
+ * by field into a fully `valid` MRZ).
+ *
  * Returns the corrected lines and pushes every accepted substitution into
  * `changes`. The input array is not mutated.
  */
@@ -1039,6 +1100,7 @@ function autoCorrectLines(
   format: Exclude<MrzFormat, 'unknown'>,
   normalizedLines: string[],
   changes: MrzNormalizationChange[],
+  positionTypes: PositionType[][],
 ): string[] {
   const grid = normalizedLines.map((line) => line.split(''));
   const budget: CorrectionBudget = { count: 0, max: 512 };
@@ -1046,8 +1108,17 @@ function autoCorrectLines(
   const components = fields.filter((f) => f.name !== 'composite');
   const composite = fields.find((f) => f.name === 'composite');
 
+  const failingComponents = components.filter((field) => {
+    const data = field.cells.map((c) => grid[c.line][c.pos]).join('');
+    const check = grid[field.checkLine][field.checkPos];
+    return String(computeCheckDigit(data)) !== check;
+  });
+  if (failingComponents.length >= 2) {
+    return normalizedLines; // structurally broken beyond OCR noise — refuse
+  }
+
   for (const field of components) {
-    tryCorrectField(grid, field, changes, budget);
+    tryCorrectField(grid, field, changes, budget, positionTypes);
   }
 
   if (composite !== undefined) {
@@ -1057,7 +1128,7 @@ function autoCorrectLines(
       return String(computeCheckDigit(data)) === check;
     });
     if (allComponentsPass) {
-      tryCorrectField(grid, composite, changes, budget);
+      tryCorrectField(grid, composite, changes, budget, positionTypes);
     }
   }
 
@@ -1136,7 +1207,7 @@ export function parseMrz(rawText: string, options?: MrzParseOptions): MrzParseRe
   );
 
   const finalLines = autoCorrect
-    ? autoCorrectLines(format, normalizedLines, normalizationChanges)
+    ? autoCorrectLines(format, normalizedLines, normalizationChanges, positionTypes)
     : normalizedLines;
 
   const parsed =

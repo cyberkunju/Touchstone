@@ -1,14 +1,16 @@
 import React, { useRef, useEffect } from 'react';
-import { FieldHypothesis, ValidationResult } from '../core/types';
+import { FieldHypothesis, GraphNode, ValidationResult } from '../core/types';
 
 interface EvidenceInspectorProps {
   hypothesis: FieldHypothesis | null;
+  nodes: GraphNode[];
   validations: ValidationResult[];
   imageSrc: string | null;
 }
 
 export default function EvidenceInspector({
   hypothesis,
+  nodes,
   validations,
   imageSrc
 }: EvidenceInspectorProps) {
@@ -17,7 +19,12 @@ export default function EvidenceInspector({
   // Redraw Crop when hypothesis changes
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !imageSrc || !hypothesis || !hypothesis.boxNorm) return;
+    if (!canvas) return;
+    if (!imageSrc || !hypothesis?.boxNorm) {
+      canvas.width = 1;
+      canvas.height = 1;
+      return;
+    }
 
     const img = new Image();
     img.onload = () => {
@@ -30,12 +37,20 @@ export default function EvidenceInspector({
       const sw = (x2 - x1) * img.width;
       const sh = (y2 - y1) * img.height;
 
-      // Force canvas crop display size
-      canvas.width = 300;
-      canvas.height = 100;
-
-      ctx.clearRect(0, 0, 300, 100);
-      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, 300, 100);
+      if (sw <= 0 || sh <= 0) return;
+      const scale = Math.min(360 / sw, 160 / sh);
+      const width = Math.max(1, Math.round(sw * scale));
+      const height = Math.max(1, Math.round(sh * scale));
+      const pixelRatio = window.devicePixelRatio || 1;
+      canvas.width = Math.round(width * pixelRatio);
+      canvas.height = Math.round(height * pixelRatio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      ctx.clearRect(0, 0, width, height);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, width, height);
     };
     img.src = imageSrc;
   }, [imageSrc, hypothesis]);
@@ -61,29 +76,39 @@ export default function EvidenceInspector({
 
   // Filter validations belonging to this hypothesis
   const fieldValidations = validations.filter(v => v.targetId === hypothesis.id);
+  const labelNodes = hypothesis.labelNodeIds
+    .map((id) => nodes.find((node) => node.id === id))
+    .filter((node): node is GraphNode => node !== undefined);
+  const valueNodes = hypothesis.valueNodeIds
+    .map((id) => nodes.find((node) => node.id === id))
+    .filter((node): node is GraphNode => node !== undefined);
+  const formatBox = (box: GraphNode['boxNorm']) =>
+    box ? box.map((value) => value.toFixed(4)).join(', ') : 'none';
 
   return (
     <div style={{
       border: '1px solid var(--border-color)',
-      borderRadius: '4px',
-      padding: '20px',
+      borderRadius: 'var(--radius-sm)',
+      padding: 'var(--sp-3)',
       backgroundColor: 'var(--bg-primary)',
       display: 'flex',
       flexDirection: 'column',
-      gap: '20px',
+      gap: 'var(--sp-3)',
       height: '100%',
       overflowY: 'auto'
     }}>
       <h3 style={{
-        fontSize: '1rem',
+        fontSize: '0.92rem',
         borderBottom: '1px solid var(--border-color)',
-        paddingBottom: '8px',
+        paddingBottom: '6px',
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        gap: '8px',
+        minWidth: 0
       }}>
         <span>Evidence Inspector</span>
-        <span style={{ fontSize: '0.8rem', color: 'var(--text-tertiary)' }}>ID: {hypothesis.id}</span>
+        <span style={{ fontSize: '0.7rem', color: 'var(--text-tertiary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>ID: {hypothesis.id}</span>
       </h3>
 
       {/* 1. Large Image Crop */}
@@ -98,6 +123,24 @@ export default function EvidenceInspector({
           display: 'inline-block'
         }}>
           <canvas ref={canvasRef} style={{ display: 'block', maxWidth: '100%' }} />
+        </div>
+      </div>
+
+      <div>
+        <span style={sectionHeaderStyle}>Binding Trace</span>
+        <div style={{ marginTop: 8, display: 'grid', gap: 8, fontSize: '0.78rem' }}>
+          <div><strong>Canonical:</strong> {hypothesis.canonicalLabel ?? 'unmapped'}</div>
+          <div><strong>Value box:</strong> {hypothesis.boxNorm?.map((value) => value.toFixed(4)).join(', ') ?? 'none'}</div>
+          {labelNodes.map((node) => (
+            <div key={`label-${node.id}`}>
+              <strong>Caption OCR:</strong> {node.value ?? '(no text)'} [{formatBox(node.boxNorm)}]
+            </div>
+          ))}
+          {valueNodes.map((node) => (
+            <div key={`value-${node.id}`}>
+              <strong>Value OCR:</strong> {node.value ?? '(no text)'} [{formatBox(node.boxNorm)}]
+            </div>
+          ))}
         </div>
       </div>
 

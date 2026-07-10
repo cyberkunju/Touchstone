@@ -150,8 +150,12 @@ export class VerifierService {
         );
       }
     } else {
-      status = 'confirmed';
-      reasons.push('Evidence is sufficient and all critical validators passed.');
+      // N1: OCR confidence and format validity describe a reading; they do
+      // not prove that the reading matches the document. Confirmation is
+      // reserved for user approval or the attestation bridge, which requires
+      // an independent checksum, payload, arithmetic, or cross-channel proof.
+      status = 'needs_review';
+      reasons.push('No independent proof supports this reading; confidence alone cannot confirm it.');
     }
 
     // Review cap (N1): a hypothesis whose source cannot PROVE its value never

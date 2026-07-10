@@ -250,15 +250,27 @@ describe('checksum.mrz', () => {
     expect(mrzAttestor.attest(partial, ctx([partial]))).toBeNull();
   });
 
-  it('VIZ field agreeing with proven MRZ is proven (any print format for dates)', () => {
+  it('proves checksum-covered VIZ fields but only supports uncovered name fields', () => {
     const mrz = cand({ value: MRZ_VALID, marks: ['mrz_text'] });
     const viz = cand({ value: '12/08/1974', canonicalLabel: 'date_of_birth', valueType: 'date' });
     const name = cand({ value: 'ANNA MARIA ERIKSSON', canonicalLabel: 'full_name', valueType: 'name' });
     const num = cand({ value: 'L898902C3', canonicalLabel: 'passport_number', valueType: 'id_number' });
     const c = ctx([mrz, viz, name, num]);
     expect(mrzAttestor.attest(viz, c)?.verdict).toBe('proves');
-    expect(mrzAttestor.attest(name, c)?.verdict).toBe('proves');
+    expect(mrzAttestor.attest(name, c)?.verdict).toBe('supports');
     expect(mrzAttestor.attest(num, c)?.verdict).toBe('proves');
+  });
+
+  it('canonicalizes South African demonyms to ZAF but does not auto-prove nationality', () => {
+    const mrz = cand({ value: MRZ_VALID.replaceAll('UTO', 'ZAF'), marks: ['mrz_text'] });
+    const nationality = cand({
+      value: 'SOUTH AFRICAN / SUD-AFRICAIN',
+      canonicalLabel: 'nationality',
+      valueType: 'country',
+    });
+    const attestation = mrzAttestor.attest(nationality, ctx([mrz, nationality]));
+    expect(attestation?.verdict).toBe('supports');
+    expect(attestation?.evidence.some((item) => item.ref.includes('ZAF'))).toBe(true);
   });
 
   it('REGRESSION "L" vs "LI": disagreeing VIZ contradicts — I1 is a comparison, not an assumption', () => {

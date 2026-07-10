@@ -130,9 +130,10 @@ function verifyOne(input: HypInput, options?: VerifierOptions): FieldHypothesis 
 }
 
 describe('VerifierService — single-field statuses', () => {
-  it('confirms a high-confidence valid field', () => {
+  it('keeps a high-confidence OCR-only field in review because confidence is not proof', () => {
     const h = verifyOne({ label: 'Name', value: 'JOHN DOE', valueType: 'text', ocrConfidence: 0.98 });
-    expect(h.status).toBe('confirmed');
+    expect(h.status).toBe('needs_review');
+    expect(h.reasons.some((reason) => /independent proof/i.test(reason))).toBe(true);
   });
 
   it('flags needs_review when OCR confidence is low', () => {

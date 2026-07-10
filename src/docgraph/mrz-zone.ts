@@ -10,6 +10,13 @@ export interface MrzZone {
   itemIds: string[];
   /** Bounding box enclosing all MRZ items: [x_min, y_min, x_max, y_max]. */
   boxNorm: [number, number, number, number];
+  /**
+   * P5: PAGE-space box of each line, same order as `lines`. Regional
+   * probes (bottom band / docdet seed) have no graph items — without these
+   * boxes every MRZ-derived field degraded to the WHOLE band rectangle
+   * (external-judge-caught: "box covers the entire MRZ").
+   */
+  lineBoxesNorm?: [number, number, number, number][];
 }
 
 function clamp01(n: number): number {

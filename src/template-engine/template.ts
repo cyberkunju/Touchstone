@@ -11,9 +11,36 @@ import { similarity } from '../docgraph/fuzzy';
 export class TemplateEngine {
   /**
    * Learns a new TemplateGraph from a corrected DocGraph.
+   *
+   * TRUST BOUNDARY (live-caught: a stamps page's 40 review-status garbage
+   * pairs fossilized into a template, then re-projected onto every future
+   * page that matched it): only RESOLVED bindings — status 'confirmed' or
+   * explicitly user-edited — compile into template fields or anchors.
+   * Unresolved scalars are SKIPPED (their geometry is a question, not a
+   * reusable claim); a graph with NO resolved scalar at all aborts —
+   * saving a template of unresolved field bindings would fossilize noise.
+   * MRZ/table/visual-asset hypotheses are structural (fingerprint
+   * signals), never compiled as scalar field ROIs.
    */
   public static learnTemplate(graph: DocGraph, name: string, description?: string): TemplateGraph {
     console.log(`[Template Engine] Learning template from DocGraph ${graph.id}...`);
+    const STRUCTURAL = new Set(['mrz', 'table', 'visual_asset']);
+    const isResolved = (hyp: DocGraph['hypotheses'][number]): boolean =>
+      hyp.status === 'confirmed' || hyp.userEdited === true;
+    const scalarHyps = graph.hypotheses.filter((h) => !STRUCTURAL.has(h.valueType));
+    const resolvedScalars = scalarHyps.filter(isResolved);
+    const unresolved = scalarHyps.length - resolvedScalars.length;
+    if (resolvedScalars.length === 0) {
+      throw new Error(
+        `Template learning refused: every field binding is unresolved (${unresolved} in review/conflict) — ` +
+          'confirm or correct at least one field before saving a template.',
+      );
+    }
+    if (unresolved > 0) {
+      console.warn(
+        `[Template Engine] ${unresolved} unresolved binding(s) skipped — only ${resolvedScalars.length} confirmed field(s) compile.`,
+      );
+    }
     const timestamp = Date.now();
     const familyId = `fam-${Math.random().toString(36).substring(2, 11)}`;
     const templateId = `tpl-${Math.random().toString(36).substring(2, 11)}`;
@@ -72,8 +99,9 @@ export class TemplateEngine {
       }
     });
 
-    // 3. Create template field ROIs
-    const fields: TemplateField[] = graph.hypotheses.map(hyp => ({
+    // 3. Create template field ROIs — RESOLVED SCALAR bindings only (the
+    // trust boundary above guarantees every one is confirmed/user-edited).
+    const fields: TemplateField[] = resolvedScalars.map(hyp => ({
       id: `tpl-field-${Math.random().toString(36).substring(2, 11)}`,
       pageIndex: 0,
       label: hyp.label,

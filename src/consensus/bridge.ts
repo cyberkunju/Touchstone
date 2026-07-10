@@ -28,19 +28,37 @@ export const PROMOTION_MIN_STRENGTH = 0.9;
 export function hypothesesToCandidates(hypotheses: readonly FieldHypothesis[]): FieldCandidate[] {
   const out: FieldCandidate[] = [];
   for (const h of hypotheses) {
-    if (typeof h.value !== 'string' || h.value.length === 0) continue;
+    let value: string;
+    if (typeof h.value === 'string') {
+      value = h.value;
+    } else if (h.valueType === 'mrz' && h.value && typeof h.value === 'object') {
+      const parsed = h.value as { rawLines?: unknown; normalizedLines?: unknown };
+      const lines = Array.isArray(parsed.rawLines) && parsed.rawLines.length >= 2
+        ? parsed.rawLines
+        : parsed.normalizedLines;
+      if (!Array.isArray(lines) || lines.length < 2 || !lines.every((line) => typeof line === 'string')) {
+        continue;
+      }
+      value = lines.join('\n');
+    } else {
+      continue;
+    }
+    if (value.length === 0) continue;
     const marks: string[] = [];
     let channel: FieldCandidate['channel'] = 'ocr';
-    if (h.valueType === 'mrz') marks.push('mrz_text');
+    const mrzCanProve = h.valueType === 'mrz' && !h.reviewCap;
+    if (mrzCanProve) marks.push('mrz_text');
     if (h.valueType === 'barcode') {
       channel = 'payload';
       marks.push('barcode_payload');
     }
     out.push({
       id: h.id,
-      canonicalLabel: h.canonicalLabel ?? null,
+      canonicalLabel: h.valueType === 'mrz'
+        ? mrzCanProve ? h.canonicalLabel ?? 'mrz' : null
+        : h.canonicalLabel ?? null,
       valueType: h.valueType,
-      value: h.value,
+      value,
       channel,
       boxNorm: h.boxNorm,
       marks,
