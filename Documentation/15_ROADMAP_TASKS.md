@@ -126,8 +126,24 @@ extract cell-exact with zero OCR · hybrid reconciliation catches the trap.
 > printed-value transparency; template trust boundary; network-free processing; fluid
 > responsive UI. **Recertified: passports 183/183 SILENT=0 recall 99.9% adversarial 100%,
 > 810 unit tests, perf 5/5, J3/J4, visual-binding 13/13. External judge on 10 random
-> real-world images: 5.9 → 8.2 mean, status honesty 9.5, zero silents. PENDING: push +
-> full 29-family Modal burst (perception changes touch every family's recognition path).**
+> real-world images: 5.9 → 8.2 mean, status honesty 9.5, zero silents.
+>
+> **POST-PERCEPTION UNIVERSE CERTIFICATION — 1644/1656 SILENT=0, 29/29 coverage
+> complete** (Modal run `ap-56e3BbnOzcs6WXlt8pbKa2`, 2026-07-10). The first burst
+> (`ap-hwW9xZYvBnRrt1x8riiZyO`) exposed a stale Modal corpus volume — insurance covered
+> 0/32 despite 32 local entries. The corpus was rebuilt from current `test_cases` (922 MB,
+> 19 retried chunks, SHA-256 `f35b05516ff8…`), seeded in-cloud with SHA verification
+> (`ap-XhtzsnoBqJByZD0CmQhDBc`), then rerun. Coverage-complete scoreboard:
+> passports 183/183 · docs 37/37 · ids 126/126 · licenses 126/126 · bank 50/50 ·
+> payslips 50/50 · utility 40/40 · vehicles 50/50 · boarding 50/50 · shipping 50/50 ·
+> cards 35/36 · visas 40/40 · permits 40/40 · tax 32/32 · po 32/32 · insurance 32/32 ·
+> certificates 31/32 · transcripts 28/32 · labs 32/32 · icards 32/32 · blanks 24/24 ·
+> foreign 36/36 · letters 24/24 · leases 32/32 · rx 48/48 · quest 32/32 ·
+> composites 42/48 · mixed 9/9 · real 301/301 — every family SILENT=0.
+> The prior 1649 record remains the recall high-water mark; the post-perception build is
+> five passes below it (conservative refusals only), so this dry run intentionally did NOT
+> overwrite baseline ratchets. N1 is fully recertified; recall gaps belong to the ongoing
+> real-image loop, not release-blocking silent-error work.**
 
 ## Phase 4 — Universal Vision
 

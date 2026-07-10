@@ -35,8 +35,9 @@ Everything below exists in service of that law. When in doubt: **omit or review-
 
 | Metric | Value | Source |
 |---|---|---|
-| **Committed head** | `191b183` (main; touchstone/main is one behind — **push pending, user call**) | `git log` |
-| **Universe record** | **29/29 families · 1,649/1,656 · SILENT=0** (burst `ap-nfYHTCuf8Cbk1NRWfoQnNS`, sealed `d21ede0`) | committed baselines |
+| **Committed head** | `02c2649` pushed to `origin/main` + `touchstone/main`; certification-evidence commit follows this handoff update | `git log`, remote refs |
+| **Universe recall record** | **29/29 families · 1,649/1,656 · SILENT=0** (burst `ap-nfYHTCuf8Cbk1NRWfoQnNS`, sealed `d21ede0`) | committed baselines |
+| **Post-perception universe certification** | **29/29 · 1,644/1,656 · SILENT=0, coverage complete** (dry run `ap-56e3BbnOzcs6WXlt8pbKa2`; five conservative-refusal passes below the recall record, baselines intentionally unchanged) | Modal scoreboard, 2026-07-10 |
 | Passport family (post-perception) | **183/183 · SILENT=0 · recall 99.9% · adversarial refusal 100% · no baseline regression** | `bench/baselines/last-run.json` |
 | Unit tests | **810 green / 60 files** (Bun + Vitest 4) | `bun run test` |
 | Service tests (Python) | 123 green | `python -m pytest service/tests` |
@@ -47,16 +48,13 @@ Everything below exists in service of that law. When in doubt: **omit or review-
 | **External vision judge** | 10 random real-world images: **mean 8.2/10, status honesty 9.5, zero silents** | `test_screenshots/judge/v2rnd*.verdict.json` |
 
 ### The immediate task queue (strict order)
-1. **Push `191b183`** (user authorization required — never push without asking).
-2. **Full 29-family universe burst on Modal** — the perception changes touch every family's
-   recognition path; passports are re-certified but the other 28 families ride only unit +
-   passport evidence. `$env:PYTHONUTF8='1'; modal run bench/modal_gate.py 2>&1 | Select-Object -Last 55`
-   (funded profile `stratosix-labs`; NEVER run unpiped — the progress UI catches interrupt-class
-   signals when backgrounded and aborts the app).
-3. **Continue the real-world test loop** — the user uploads photos into the running app and
+1. **Continue the real-world test loop** — the user uploads photos into the running app and
    screenshots failures; fix at root cause, one image at a time. The harness trio in §3 makes
    any single image fully forensic in <60 s.
-4. Standing: rotate the exposed keys (W&B, Azure, Modal — see §6), delete `bin/` (59 GB), keep
+2. Investigate the 12 honest recall misses only when a real-image failure intersects them:
+  cards 1, certificates 1, transcripts 4, composites 6. Do not trade N1 for their recovery;
+  the 1,649 record remains the recall high-water mark.
+3. Standing: rotate the exposed keys (W&B, Azure, Modal — see §6), delete `bin/` (59 GB), keep
    `.env.local` gitignored.
 
 ## 2. The real-world perception saga (2026-07-10) — what was built and WHY
