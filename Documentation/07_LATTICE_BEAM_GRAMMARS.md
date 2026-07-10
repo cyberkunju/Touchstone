@@ -91,3 +91,22 @@ Where a field's type is known (label match, template binding, attestor hit, nati
 (e.g., text pasted digitally, or fallback mode without lattices) and as a cross-check in tests.
 `src/parsers/scalars.ts` date/amount validators remain as *verifiers* consumed by attestors; the
 grammars above are *decoders*. Verifier and decoder agreeing is the intended redundancy.
+
+## 7. Amendment — fallback hardening + partial recovery (2026-07-10, commit `191b183`)
+
+- **The fallback auto-correct is now anti-forgery** (live-caught: an AI-fake MRZ with three
+  failing components was "repaired" into `valid`). Three laws in `tryCorrectField` /
+  `autoCorrectLines`: candidates must satisfy the ICAO **position class** (digit-only
+  windows never receive letters); a repair is accepted only when it is the **unique**
+  passing mutation (≥2 distinct passing repairs = a guess = refuse; budget exhaustion =
+  uniqueness unknowable = refuse); **blast-radius** — ≥2 independently-checked components
+  failing simultaneously refuses all correction. Fallback output remains review-capped
+  regardless: only the beam constitutes proof.
+- **Partial-MRZ offset tomography** (`src/parsers/mrz-partial.ts`): a frame-cropped TD3
+  line-2 fragment at unknown offset recovers a field only when its complete data window +
+  dedicated check digit lie inside the fragment at a viable alignment and the value is
+  invariant across ALL viable alignments. Edge inference from the line box touching the
+  image frame. Recovered values gap-fill review-capped.
+- **Character-span geometry**: `decodeCTCGreedy` emits `charSpans` (per-character crop-x
+  fractions from CTC emission timesteps) — the substrate for inline value sub-boxes and
+  precise MRZ field boxes (`MrzZone.lineBoxesNorm` retained through every regional probe).

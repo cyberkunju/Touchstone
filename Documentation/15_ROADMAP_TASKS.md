@@ -110,6 +110,25 @@ extract cell-exact with zero OCR · hybrid reconciliation catches the trap.
 > direct-stack ownership closes labs 28→32 at 73.7% field recall. Archetypes are locked as unit fixtures
 > (`structural-geometry.test.ts`, incl. live-box real-lease and worst-lab geometry).
 
+> **REAL-WORLD PERCEPTION BUILD-OUT — P1–P9 COMPLETE, commit `191b183` (2026-07-10).**
+> A ~90-image realistic photographed-passport set (`passptest/`), an external **GPT-5.4
+> vision judge** (`bench/vision-judge.mjs`), and live human testing exposed that corpus
+> SILENT=0 did not imply real-world quality. Every failure was root-caused into a named,
+> unit-locked law (see [PERCEPTION_MASTER_PLAN.md](../PERCEPTION_MASTER_PLAN.md) §6 and
+> [HANDOFF.md](../HANDOFF.md) §2/§4): quad-native recognition + projective page
+> rectification (adopt-only-if-verified) + deskew ±40° + keystone suppression; autoCorrect
+> anti-forgery (position-class / unique-repair / blast-radius — a fake MRZ can no longer be
+> repaired into validity); partial-MRZ offset tomography; CTC character-span geometry
+> (inline sub-boxes, per-line MRZ boxes through all four probe paths); multilingual caption
+> folding + ICAO code-table validation; free-text continuation merge; text-physics law;
+> signature caption/ink laws; stamps admission gate (46 garbage pairs → 1 honest asset);
+> gutter partition; counterfactual native-res re-reads; quality-refusal banner;
+> printed-value transparency; template trust boundary; network-free processing; fluid
+> responsive UI. **Recertified: passports 183/183 SILENT=0 recall 99.9% adversarial 100%,
+> 810 unit tests, perf 5/5, J3/J4, visual-binding 13/13. External judge on 10 random
+> real-world images: 5.9 → 8.2 mean, status honesty 9.5, zero silents. PENDING: push +
+> full 29-family Modal burst (perception changes touch every family's recognition path).**
+
 ## Phase 4 — Universal Vision
 
 | Task | Status | Work | Done when |

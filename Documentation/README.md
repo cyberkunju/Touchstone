@@ -26,7 +26,10 @@ further planning.
 3. [02_ARCHITECTURE.md](02_ARCHITECTURE.md) — how it fits together
 4. [03_INNOVATIONS.md](03_INNOVATIONS.md) — why it wins
 5. [15_ROADMAP_TASKS.md](15_ROADMAP_TASKS.md) — what to do next
-6. Everything else as the task at hand demands.
+6. [../HANDOFF.md](../HANDOFF.md) — live development state, every paid-for lesson
+7. [../PERCEPTION_MASTER_PLAN.md](../PERCEPTION_MASTER_PLAN.md) — the real-world
+   perception build-out (P1–P9): decisions, laws, build table
+8. Everything else as the task at hand demands.
 
 ## Full map
 

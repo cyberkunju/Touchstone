@@ -105,3 +105,29 @@ flowchart TB
 See plan.md §12 for the frozen layout. Ownership rule: `service/**` never imports brain concepts
 (fields, templates, statuses); `src/**` never parses file formats other than for fallback
 perception. The bundle is the only vocabulary both sides speak.
+
+## 9. Amendment — real-world perception stack (2026-07-10, commit `191b183`)
+
+The browser perception pipeline gained a geometric front-end, in order of operation:
+
+1. **Projective page rectification** (`src/geometry/page-rectify.ts`) — Otsu luminance
+   page-quad + DLT inverse-bilinear warp for photographed documents. Trigger-gated (page
+   quad must be convex, 20–95% of frame, brighter than the border ring by ≥30, keystone
+   ≥3°) and **adopt-only-if-verified** (post-warp residual skew ≤3° or the original is
+   kept). Identity fallback everywhere; scans never warp.
+2. **Deskew ±40°** (projection-profile; returns 0 unless the peak beats level by 8%).
+3. **Quad-native recognition** — one DBNet forward post-processed to axis boxes AND rotated
+   quads; genuinely tilted lines (≥2.5°, ≥60px, IoU≥0.5) are recognized from rectified
+   crops. `OcrItem` carries `quadNorm`, `charSpans` (CTC emission x-fractions) and
+   `regionId`.
+4. **Gutter partition** — wide two-page spreads split into L/R surfaces; caption→value
+   binding never crosses a surface.
+5. **Keystone law** — measured uncorrected perspective (quad-heading spread ≥5° or median
+   |angle| ≥8°) suppresses every geometry-only binding; only checksum-witnessed fields
+   surface, with an honest banner.
+6. **Honest quality refusal** — <4 legible lines + no MRZ + no barcode stops the pipeline
+   with an explicit "too poor to extract" state instead of fabricating fields.
+
+Processing is **network-free after page load** (static imports; PDF.js behind a memoized
+self-healing lazy loader; inline `%PDF-` sniff so images never touch it). Full decision
+record: [../PERCEPTION_MASTER_PLAN.md](../PERCEPTION_MASTER_PLAN.md) §6.

@@ -97,3 +97,20 @@ Phase 7 checklist item; the baseline above ships from P2.)
 Fields appear as they verify (streaming); skeleton rows for in-flight; the known-template path
 renders the filled form in one paint (≤ 1.5 s budget). No spinner ever exceeds 2 s without a
 progress narrative ("re-reading 3 regions at high resolution…").
+
+## 12. Amendment — fluid design system + honesty surfaces (2026-07-10, commit `191b183`)
+
+- **Fluid scale**: root font `clamp(13px, 12px + 0.28vw, 16.5px)`; rem-based spacing tokens
+  (`--sp-1…--sp-6`); component classes in [src/index.css](../src/index.css)
+  (`.app-header`, `.tab-btn`, `.btn[--primary|--ghost]`, `.badge`, `.field-card` with
+  status-colored left borders, `.status-pill`, `.field-input`, `.panel-title/-sub`).
+- **Layout**: CSS-grid main `minmax(0,1fr) clamp(330px,31vw,500px)`; sidebar rows
+  `minmax(0,3fr)/minmax(0,2fr)`; single scrolling column <1100px (nothing clipped);
+  compact phone tier <560px. Verified at 1920/1366/820 by `bench/responsive-smoke.mjs`.
+- **Honesty surfaces**: quality-refusal banner (role=alert) when the page is too poor to
+  extract; keystone banner when perspective suppressed geometric bindings; "printed: …"
+  hint under any normalized value (`displayValue`); binding-trace evidence inspector with
+  aspect-true crops; high-DPI status-colored canvas overlays.
+- Acceptance: `bench/visual-binding.mjs` (13 checks — real pixel colors, DPR backing,
+  visible-side geometry, inspector binding trace) is the UI truth gate and runs on its own
+  browser profile (can run alongside the corpus gate).

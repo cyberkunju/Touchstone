@@ -14,6 +14,16 @@ closure, and dual-channel quorum carry printable justification chains).
 Baselines: [bench/baselines/](bench/baselines/). Every claim in this README
 is enforced by a committed test or baseline.
 
+**Real-world perception build-out complete (P1–P9, commit `191b183`):** the
+engine survived a ~90-image realistic photographed-passport evaluation with an
+external GPT-5.4 vision judge — projective page rectification, ±40° deskew,
+keystone suppression, anti-forgery MRZ repair laws, partial-MRZ recovery,
+character-span evidence geometry, multilingual captions, honest quality
+refusal, and printed-value transparency. Passports re-certified 183/183
+SILENT=0 (recall 99.9%, adversarial refusal 100%); judge mean 5.9 → 8.2 with
+zero silent errors. Record: [PERCEPTION_MASTER_PLAN.md](PERCEPTION_MASTER_PLAN.md) ·6,
+[HANDOFF.md](HANDOFF.md).
+
 ## Quick start
 
 Requires Node.js 20.19+, 22.13+, or 24+ and Bun 1.3.14.
@@ -22,7 +32,7 @@ Requires Node.js 20.19+, 22.13+, or 24+ and Bun 1.3.14.
 bun install && bun run setup     # deps + pinned OCR models (sha256-verified)
 bun run dev                      # app at http://localhost:5173
 bun run lint                     # TypeScript + React correctness rules
-bun run test                     # 769-test unit suite (must stay green)
+bun run test                     # 810-test unit suite (must stay green)
 bunx tsc --noEmit && bunx vite build
 ```
 
@@ -57,6 +67,9 @@ docker run -p 127.0.0.1:8477:8477 -v docutract-models:/models docutract-service
 node bench/gate.mjs --corpus passports        # local family gate (dev server up)
 node bench/perf.mjs                           # perf budgets (all green: 13 §2-3)
 node bench/e2e-ui.mjs                         # J3/J4 UI journeys
+node bench/visual-binding.mjs                 # 13-check UI truth acceptance
+node bench/inspect-one.mjs <image> --out tag  # single-image forensics (any photo)
+node bench/vision-judge.mjs <image> --out tag # external GPT-5.4 boxing/UI judge
 modal run bench/modal_gate.py --commit        # full 29-family burst (~10 min)
 ```
 

@@ -110,3 +110,29 @@ node bench/gate.mjs --corpus mixed          # P4+
 This Documentation set is frozen with the plan. The only permitted edits: amendment-log-driven
 corrections (Constitution §6.2) and Phase 7's final release pass. Drift between docs and code is
 resolved in favor of docs (or via an amendment) — never silently.
+
+## 10. Amendment — perception-era laws (2026-07-10, commit `191b183`)
+
+Binding rules added by the real-world evaluation (each unit-locked; full catalog in
+[../HANDOFF.md](../HANDOFF.md) §2/§4):
+
+- **A wrong transform is worse than none** — every geometric correction (warp, deskew,
+  quad rectification) needs an observable trigger, plausibility guards, and an identity
+  fallback; projective warps must additionally VERIFY their own output (residual skew).
+- **Review status does not excuse a wrong value** — when geometry is measurably
+  untrustworthy (keystone), geometry-only bindings are DROPPED, not shown-at-review.
+- **Repair must be provably unique** — checksum-guided correction refuses when multiple
+  distinct repairs pass (a guess), when candidates violate ICAO position classes (letters
+  in dates), or when ≥2 independent components fail at once (forgery, not noise).
+- **Absent pixels are never fillers** — cropped MRZ fragments recover only fields whose
+  complete data window + check digit are observed at a unique viable alignment.
+- **Correlated readings are not witnesses** — a native-resolution re-read may only REFUSE
+  (divergence); agreement between two reads of the same pixels proves nothing.
+- **Captions can never be values** in any language (signature/titulaire/unterschrift/firma
+  join the definite-label family); **text physics** applies (a ≤3-char token cannot own a
+  box taller than a line).
+- **Normalization must stay transparent** — an ISO-normalized value renders alongside the
+  document's printed spelling (`displayValue`).
+- **Templates compile only resolved truth** — confirmed/user-edited bindings; unresolved
+  geometry is skipped, never fossilized.
+- **Extraction is network-free after page load** — no mid-pipeline dynamic imports.

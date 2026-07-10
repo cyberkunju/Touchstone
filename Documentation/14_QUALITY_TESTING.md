@@ -81,3 +81,22 @@ Every real-world bug that reaches a user-visible wrong result gets: a minimal re
 relevant corpus/manifest → fix → test proves fix → baseline re-committed. Silent-error bugs
 additionally get a written 5-line post-mortem note in the amendment log (what channel lied, why
 the solver believed it, which constraint now prevents it).
+
+## 9. Amendment — the real-world judge loop (2026-07-10, commit `191b183`)
+
+Corpus SILENT=0 does **not** imply real-world visual quality (proven live). Three permanent
+harnesses close that gap:
+
+1. **`bench/inspect-one.mjs <image>`** — single-image forensics: every hypothesis (label,
+   canonical, value, status, box), the DIAG trail, and a full-page UI screenshot.
+2. **`bench/vision-judge.mjs <image>`** — external GPT-5.4 vision judge (`.env.local`):
+   composites the engine's boxes onto the engine's WORKING bitmap (compositing on the
+   original photo misaligns the moment deskew/rectification fires) plus the full app page;
+   grades per-box tightness/targeting, form truth, and status honesty in strict JSON.
+   Refusal on stamps/blank/degraded pages is graded as SUCCESS by prompt law.
+3. **`bench/responsive-smoke.mjs`** — 3-viewport UI screenshots.
+
+Methodology (the only one that survived contact with reality): one real image → inspect →
+judge → root-cause → named law + unit test → family gate → next image. Ten-image judged
+batches (seeded `Get-Random -SetSeed`) quantify progress — the 2026-07-10 round moved the
+mean from 5.9 to 8.2 with zero silent errors throughout.

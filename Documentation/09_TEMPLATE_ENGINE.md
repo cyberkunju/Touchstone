@@ -88,3 +88,14 @@ end-to-end on the lite profile (this number is a perf-CI test, [13](13_PERFORMAN
 - Old records are never rewritten on schema/template changes (append-only truth, [11](11_WORKSPACE_DATA_MODEL.md)).
 - Inherited rule (legacy docs, still law): no old extracted *values* are ever reused as new
   extractions — templates carry structure only, never document data.
+
+## 7. Amendment — learning trust boundary (2026-07-10, commit `191b183`)
+
+`TemplateEngine.learnTemplate` compiles **only resolved bindings** (status `confirmed` or
+user-edited) into template fields and anchors. Unresolved scalars are skipped with a logged
+warning; a graph with zero resolved scalars throws. Live-caught origin: a stamps page's 40
+review-status garbage pairs fossilized into a template and re-projected onto every future
+page that matched it. The boundary was then refined (perf harness live-caught) from
+all-or-nothing to skip-the-noise: the law is "never fossilize unresolved geometry", not
+"never save". Structural hypotheses (mrz/table/visual_asset) remain fingerprint signals,
+never scalar field ROIs. Locked by `src/template-engine/template.test.ts`.
