@@ -35,7 +35,7 @@ Everything below exists in service of that law. When in doubt: **omit or review-
 
 | Metric | Value | Source |
 |---|---|---|
-| **Committed head** | `02c2649` pushed to `origin/main` + `touchstone/main`; certification-evidence commit follows this handoff update | `git log`, remote refs |
+| **Committed head** | `d0a495c` on `main`; sole canonical remote is `origin` → `https://github.com/cyberkunju/Touchstone.git` (`cyberkunju/docutract` was permanently deleted 2026-07-10) | `git log`, `git remote -v` |
 | **Universe recall record** | **29/29 families · 1,649/1,656 · SILENT=0** (burst `ap-nfYHTCuf8Cbk1NRWfoQnNS`, sealed `d21ede0`) | committed baselines |
 | **Post-perception universe certification** | **29/29 · 1,644/1,656 · SILENT=0, coverage complete** (dry run `ap-56e3BbnOzcs6WXlt8pbKa2`; five conservative-refusal passes below the recall record, baselines intentionally unchanged) | Modal scoreboard, 2026-07-10 |
 | Passport family (post-perception) | **183/183 · SILENT=0 · recall 99.9% · adversarial refusal 100% · no baseline regression** | `bench/baselines/last-run.json` |
